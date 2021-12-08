@@ -1,0 +1,88 @@
+{
+	"books": [{
+		"id": "1",
+		"code": "hope",
+		"title": "Stories of Hope",
+		"style": "/content/ZZ/styles/mc2GLOBAL.css",
+		"styles_set": "mc2",
+		"image": {
+			"title": "Stories of HopeB.png",
+			"image": "/content/M2/images/standard/Stories of HopeB.png"
+		},
+		"format": "series",
+		"pages": "one",
+		"template": "hope/hope.html",
+		"publish": true
+	}, {
+		"id": "2",
+		"code": "multiply1",
+		"title": "Called by Jesus",
+		"image": {
+			"title": "Multiply1.png",
+			"image": "/content/M2/images/standard/Multiply1.png"
+		},
+		"format": "series",
+		"style": "/content/ZZ/styles/mc2GLOBAL.css",
+		"pages": "one",
+		"styles_set": "mc2",
+		"template": "multiply1/multiply1.html",
+		"publish": true
+	}, {
+		"id": "4",
+		"code": "multiply2",
+		"title": "Being like Jesus",
+		"style": "/content/ZZ/styles/mc2GLOBAL.css",
+		"styles_set": "mc2",
+		"image": {
+			"title": "Multiply2.png",
+			"image": "/content/M2/images/standard/Multiply2.png"
+		},
+		"format": "series",
+		"pages": "one",
+		"template": "multiply2/phase1.html",
+		"publish": true
+	}, {
+		"id": "5",
+		"code": "multiply3",
+		"title": "Sent by Jesus",
+		"style": "/content/ZZ/styles/mc2GLOBAL.css",
+		"styles_set": "mc2",
+		"image": {
+			"title": "Multiply3.png",
+			"image": "/content/M2/images/standard/Multiply3.png"
+		},
+		"format": "series",
+		"pages": "one",
+		"template": "multiply3/ActsPassage.html",
+		"publish": true
+	}, {
+		"id": "9",
+		"code": "tc",
+		"title": "Transferable Concepts",
+		"image": {
+			"title": "TransferableConcepts.png",
+			"image": "/content/M2/images/standard/TransferableConcepts.png"
+		},
+		"format": "series",
+		"page": "community",
+		"style": "/content/ZZ/styles/mc2GLOBAL.css",
+		"pages": "many",
+		"styles_set": "mc2",
+		"template": "tc/TransferableConcept.html",
+		"publish": true
+	}],
+	"format": {
+		"image": {
+			"title": "MC2-Header.png",
+			"image": "/content/M2/images/standard/MC2-Header.png"
+		},
+		"replace_header": true,
+		"style": "/content/ZZ/styles/mc2GLOBAL.css",
+		"back_button": {
+			"title": "back-ribbon-mc2.png",
+			"image": "/content/ZZ/images/ribbons/back-ribbon-mc2.png"
+		},
+		"no_ribbon": true
+	},
+	"text": "<p>Working together we can see one church planted for every 1,000 people in every community around the world.</p>\n"
+}

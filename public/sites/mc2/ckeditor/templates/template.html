@@ -1,0 +1,42 @@
+CKEDITOR.addTemplates("myfriends", {
+	imagesPath: CKEDITOR.getUrl("/templates/images/mc2"),
+	templates: [{
+		title: "Look Back",
+		image: "mc2back.png",
+		description: "Image and Title",
+		html: '<div class="lesson"><img class="lesson-icon" src="/templates/images/mc2/mc2back.png" />
+<div class="lesson-subtitle"><span class="back">LOOK BACK</span></div>
+</div>'
+	},  {
+		title: "Look Up",
+		image: "mc2up.png",
+		description: "Image and Title",
+		html: '<div class="lesson"><img class="lesson-icon" src="/templates/images/mc2/mc2up.png" />
+<div class="lesson-subtitle"><span class="up">LOOK UP</span></div>
+</div>'
+	}, {
+		title: "Look Forward",
+		image: "mc2forward.png",
+		description: "Image and Title",
+		html: '<div class="lesson"><img class="lesson-icon" src="/templates/images/mc2/mc2forward.png" />
+<div class="lesson-subtitle"><span class="forward">LOOK FORWARD</span></div>
+</div>'
+	},
+	{
+		title: 'BiblePassage',
+		image: '',
+		description: 'Bible Passage and Link',
+		html:'<p>[BiblePassage]</p>'
+	},
+	{
+		title: 'Note',
+		image: '',
+		description: 'A place to put notes. Adjust note number please',
+		html:'<div class="note-area" >
+			<form id="note#">Notes: (click outside box to save)<br>
+			<textarea rows="5"></textarea>
+			</form>
+		</div>'
+	}
+]
+});
