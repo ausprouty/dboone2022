@@ -1,0 +1,13 @@
+<div id="addToHomeScreen" class="hidden"><span id="close" onclick="closeScreen()"><img class="close" src="/images/close.png"></span>
+      <div class="lesson"><img class="lesson-icon" src="/favicon-32x32.png" />
+        <div class="lesson-subtitle">MyFriends</div>
+      </div>
+
+      <hr />
+      <p>Installing this app on your homescreen will let you access content without an internet connection.</p>
+      <p>Any notes you take on this app are stored only on your own phone. </p>
+
+      <button class="addToHomeScreen" id="addToHomeScreenButton">Add To Home Screen</button>
+
+      <hr />
+    </div>
