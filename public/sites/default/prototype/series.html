@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="/styles/default/cardGLOBAL.css" />
+<link rel="stylesheet" href="{{ book.style }}" />
+[[nav]]
+<div class="content" dir="{{ language.rldir }}">
+
+  <div  class="app-series-header">
+    <img src="{{ book.image }}" class="app-series-header" />
+  </div>
+  <!-- ready for offline --->
+  <p class="{{ language.rldir }}" id="offline-ready">{{ download_ready }}</p>
+  <!-- title --->
+  <h2>{{ book.title }}</h2>
+  <div>{{ book.description }}</div>
+  <br />
+  <br />
+  <!-- chapters --->
+  [[chapters]]
+  <div>
+    <p class="button center">
+      <button
+        id="offline-request"
+        class="cache-series"
+        data-json="{{ json }}"
+        style="visibility: hidden;"
+      >
+        {{ download_now }}
+      </button>
+    </p>
+    <!-- copyright --->
+    <p class="ltr copyright"></p>
+    <!-- version --->
+    <div class="version">
+      <p class="version">Version {{ version }}</p>
+    </div>
+  </div>
+  {{ footer }}
+</div>
