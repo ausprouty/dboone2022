@@ -1,0 +1,63 @@
+.navigation {
+color: #de1e25;
+font-size: 30px;
+float: right;
+}
+
+.bar {
+position: fixed;
+right: 0;
+left: 0;
+z-index: 10;
+padding-top: 10px;
+padding-right: 10px;
+padding-left: 10px;
+background-color: white;
+border-bottom: 1px solid #ddd;
+-webkit-backface-visibility: hidden;
+backface-visibility: hidden;
+}
+
+.bar-nav {
+height: 84px;
+top: 0;
+}
+
+.table-view {
+padding-left: 0;
+margin-top: 0;
+margin-bottom: 15px;
+list-style: none;
+background-color: #fff;
+border-top: 1px solid #ddd;
+border-bottom: 1px solid #ddd;
+}
+
+.table-view-cell {
+position: relative;
+padding: 11px 65px 11px 15px;
+overflow: hidden;
+border-bottom: 1px solid #ddd;
+}
+
+.table-view-cell:last-child {
+border-bottom: 0;
+}
+
+.table-view-cell p {
+margin-bottom: 0;
+}
+
+.table-view-cell > .toggle,
+.table-view-cell > a > .toggle {
+position: absolute;
+top: 50%;
+right: 15px;
+-webkit-transform: translateY(-50%);
+-ms-transform: translateY(-50%);
+transform: translateY(-50%);
+}
+
+.content > .table-view:first-child {
+margin-top: 15px;
+}

@@ -1,0 +1,247 @@
+/*colours{
+yellow: #ffc80f
+red: #f0555a
+orange: #f38832
+green #1ca0a6
+}
+*/
+:root {
+    --color-back: #f0555a;
+    --color-up:#f38832;
+    --color-forward: #1ca0a6;
+    }
+    p{
+        text-align: left;
+    }
+    
+    .bible{
+    color:#000;
+    }
+    .bible-container{
+    padding-top: 15px;
+    padding-bottom: 30px;
+    background-color: #efefef;
+    padding-left: 10px;
+    padding-right: 10px;
+    }
+    .conclusion,
+    .key,
+    .notes,
+    .pray,
+    .read,
+    .bold,
+    .statement
+    {
+    font-weight: bold;
+    text-align: left;
+    }
+    .conclusion{
+    padding-top:15px;
+    font-size: 2em;
+    
+    }
+    .back {
+        color: var(--color-back);
+    }
+    .up {
+        color: var(--color-up);
+    }
+    .color-forward {
+        color: var(--color-forward);
+    }
+    .color-back{
+    color: var(--color-back);
+    }
+    .color-forward{
+    color:var(--color-forward);
+    }
+    .color-up{
+    color:var(--color-up);;
+    }
+    .color-yellow{
+    color: #f38832;
+    }
+    .text-conclusion{
+    font-style: italic;
+    text-align: left
+    }
+    .top{
+    padding-top: 20px;
+    
+    }
+    .versenum{
+    vertical-align: super;
+    font-size:55%;
+    color: var(--color-foward);
+    padding-left:0px;
+    padding-right:3px;
+    font-variant-position:super;
+    }
+    a.readmore{
+    color: var(--color-up);
+    }
+    div.fsteps{
+    font-size :18px;
+    color:#1ca0a6;
+    font-weight:bold;
+    line-height: 30px;
+    margin-left:55px;
+    bottom:10px;
+    
+    }
+    div.lesson {
+        margin-bottom: 30px;
+        margin-top: 30px;
+        position: relative;
+        text-align:left;
+    }
+    div.lesson-lookback{
+    font-size: 24px;
+    line-height: 24px;
+    margin-left:30px;
+    position:absolute;
+    color: var(--color-back);
+    display:inline;
+    text-align:left;
+    
+    }
+    div.lesson-lookup{
+    font-size: 24px;
+    line-height: 24px;
+    margin-left:30px;
+    position:absolute;
+    color: var(--color-up);
+    display:inline;
+    text-align:left;
+    
+    }
+    div.lesson-lookforward{
+    font-size: 24px;
+    line-height: 24px;
+    margin-left:30px;
+    position:absolute;
+    color: var(--color-forward);
+    display:inline;
+    text-align:left;
+    
+    }
+    
+    
+    
+    div.note-forward{
+    padding-top:15px;
+    padding-bottom:75px;
+    padding-left:15px;
+    padding-right:15px;
+    }
+    div.readmore{
+    margin-top:40px;
+    }
+    
+    
+    div.rtl{
+    margin-right:55px;
+    }
+    
+    h1{
+    color:black;
+    display:none;
+    }
+    
+    h2{
+    color: #376e8a;
+    font-size: 2em;
+    margin-left:0px;
+    }
+    h2.lookback{
+    color: #f0555a;
+    }
+    h2.lookup{
+    color: #f38832;
+    }
+    h2.lookforward{
+    color: #1ca0a6;
+    }
+    img.lesson-icon{
+    height:30px;
+    width:30px;
+    }
+    img.lesson-point{
+    padding-right: 10px;
+    height:15px;
+    width:15px;
+    }
+    img.lesson-point-large{
+    padding-right: 10px;
+    height:30px;
+    width:30px;
+    }
+    img.read{
+    height:30px;
+    width:30px;
+    padding-right: 10px;
+    }
+    img.rtl{
+    padding-right: 0px;
+    padding-left: 10px;
+    }
+    img.next{
+    width:"100%";
+    max-width:300px;
+    }
+    li{
+    padding-left:16px;
+    }
+    li.back:before,
+    li.up:before,
+    li.forward:before{
+    content:'•';
+    padding-right: 8px;
+    color:black;
+    font-size:24px;
+    }
+    li.rtl.back:before,
+    li.rtl.up:before,
+    li.rtl.forward:before{
+    content:'•';
+    padding-left: 8px;
+    font-size:24px;
+    }
+    li.back:before{
+    color:#f0555a;
+    }
+    li.up:before{
+    color:#f38832;
+    }
+    li.forward:before{
+    color:#1ca0a6;
+    }
+    ol.ol-back{
+    color:#f0555a;
+    padding-left:30px;
+    }
+    ol.ol-up{
+    color:#f38832;
+    padding-left:30px;
+    }
+    ol.ol-forward{
+    color:#1ca0a6;
+    padding-left:30px;
+    }
+    p.read{
+    text-align:left;
+    margin-bottom: 24px;
+    font-size:1.2em;
+    line-height:1.4;
+    }
+    p.rtl{
+    text-align:right;
+    }
+    
+    sup,
+    sup.versenum{
+        color:#1ca0a6;
+        font-size:55%;
+        padding-right:2px;
+         padding-left: 3px;
+        }

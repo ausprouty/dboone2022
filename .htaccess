@@ -1,0 +1,8 @@
+AddType text/css .css
+
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "GET,PUT,POST"
+Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+
+
+FallbackResource /index.html

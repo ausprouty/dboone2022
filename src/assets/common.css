@@ -1,0 +1,342 @@
+/* are these common?*/
+.bold,
+.conclusion,
+.key,
+.prayer,
+.statement {
+  font-weight: bold;
+  padding-top: 20px;
+}
+/* introduced by js to cache -- so rename .js-cache-series*/
+.cache-series {
+  background: #de1e25;
+  background-image: -webkit-linear-gradient(top, #de1e25, #de1e25);
+  background-image: -moz-linear-gradient(top, #de1e25, #de1e25);
+  background-image: -ms-linear-gradient(top, #de1e25, #de1e25);
+  background-image: -o-linear-gradient(top, #de1e25, #de1e25);
+  background-image: linear-gradient(to bottom, #de1e25, #de1e25);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Open Sans, Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  visibility: hidden;
+}
+.cache-series:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+.lesson_title {
+  color: white;
+  font-size: 30px;
+  line-height: 35px;
+  padding-bottom: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+}
+
+.red {
+  color: #de1e25;
+}
+.rtl .lesson_title {
+  padding-right: 20px;
+}
+.show {
+  display: block;
+}
+
+/* should this be a js property? */
+button {
+  -webkit-appearance: button;
+  margin: 0;
+  overflow: visible;
+  background: #86bb71;
+  background: #f2f5f8;
+  border: none;
+  color: #f2f5f8;
+  cursor: pointer;
+  cursor: pointer;
+  float: left;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+button:hover {
+  color: darken(#86bb71, 7%);
+}
+button[disabled] {
+  cursor: default;
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+div.bible {
+  color: 000;
+  font-weight: bold;
+}
+div.lesson_div {
+  background-color: #de1e25;
+  color: white;
+  font-size: 1.5em;
+  line-height: 25px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-top: 20px;
+}
+
+div.opening-image {
+  margin-bottom: 30px;
+  max-width: 600px;
+  position: relative;
+  width: 97%;
+}
+div.opening-image .rtl {
+  margin-right: 30px;
+}
+
+div.rtl {
+  direction: rlt;
+}
+div.rtl .background-text {
+  margin-right: 30px;
+}
+div.share {
+  margin-right: 20px;
+  padding-top: 20px;
+  text-align: right;
+  text-decoration: underline;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+img {
+  border: 0;
+}
+
+img.lesson {
+  vertical-align: middle;
+}
+
+img.next img.opening {
+  height: auto;
+  max-width: 600px;
+  width: 97%;
+}
+img.opening-bar {
+  margin-top: -20px;
+  max-width: 600px;
+  width: 97%;
+}
+img.opening-image {
+  width: 97%;
+}
+/* used in first-steps with small icons*/
+img.point {
+  height: 15px;
+  padding-right: 10px;
+}
+img.rtl {
+  padding-left: 10px;
+  padding-right: 0px;
+}
+img.satisfied {
+  max-width: 280px;
+  width: 90%;
+}
+img.site-title {
+  max-height: 40px;
+}
+
+h2 {
+  color: black;
+  font-size: 24px;
+  line-height: 24px;
+  margin-left: 15px;
+}
+h2.biblestudy {
+  color: #000;
+  font-size: 20px;
+  padding-top: 20px;
+}
+h2.red {
+  color: red;
+  padding-bottom: 20px;
+}
+
+h3 {
+  color: #f65058;
+  background-color: #efefef;
+  font-size: 20px;
+  padding-left: 10px;
+}
+h3.gospel {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+li {
+  margin-top: 10px;
+  margin-right: 40px;
+}
+li.firststeps {
+  padding-left: 16px;
+}
+li.basics,
+li.lessons {
+  background-color: #efefef;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 10px;
+}
+li.red:before {
+  color: #de1e25;
+  content: '•';
+  font-size: 24px;
+  padding-right: 8px;
+}
+li.rtl,
+ol.rtl {
+  padding-left: 5px;
+}
+li.rtl.red:before {
+  content: '•';
+  padding-left: 8px;
+  font-size: 24px;
+  color: #de1e25;
+}
+ol.lower-alpha {
+  list-style-type: lower-alpha;
+}
+ol.rtl {
+  list-style: arabic-indic;
+  margin-right: 1px;
+}
+p {
+  color: #444;
+  font-size: 17px;
+  margin-bottom: 10px;
+  margin-top: 0;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+p#offline-ready {
+  color: #de1e25;
+  text-align: center;
+  font-size: 80%;
+  visibility: hidden;
+}
+
+p.bible {
+  color: 000;
+  font-weight: bold;
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+p.button {
+  margin-bottom: 70px;
+}
+p.copyright {
+  font-size: small;
+  padding-bottom: 60px;
+}
+p.form_end {
+  padding-bottom: 200px;
+}
+p.gospel {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+p.journey-notice-title {
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+p.journey-button {
+  color: green;
+}
+p.journey-notice {
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px 0px 10px 0px;
+}
+p.lesson_start {
+  padding-top: 30px;
+}
+p.lesson_end {
+  padding-bottom: 260px;
+}
+p.myfriends-subheader {
+  font-weight: bold;
+  padding-top: 20px;
+}
+p.opening-label {
+  color: #fff;
+  font-size: 1em;
+  margin-left: 50%;
+  margin-right: 50%;
+}
+p.read {
+  margin-bottom: 24px;
+  font-size: 1.2em;
+  line-height: 1.4;
+}
+
+p.rtl {
+  padding-left: 0px;
+  padding-right: 20px;
+}
+p.satisfied {
+  margin-left: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+p.satisfied-list {
+  line-height: 1.5;
+  padding-left: px;
+  padding-right: 5px;
+  text-align: center;
+}
+
+sup,
+.versenum {
+  color: #356987;
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup,
+.versenum {
+  top: -0.5em;
+}
+
+ul {
+  clear: both;
+  color: black;
+  color: #356987;
+}
+ul.basics,
+ul.lessons {
+  -webkit-padding-start: 5px;
+  list-style-type: none;
+}
+ul.nodot {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
