@@ -11,7 +11,7 @@
         />
       </a>
       <div>
-        <a href="/content/HD/images/standard/standard.zip"
+        <a href="/sites/default/HD/images/standard/standard.zip"
           >Download Standard Images to Edit</a
         >
       </div>

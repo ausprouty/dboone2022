@@ -159,7 +159,7 @@ foreach ($lines as $line){
             break;
             
             case "<look-back>":
-                $pre = '<div class="lesson"><img class="lesson-icon" src="/content/M2/cmn/images/standard/mc2back.png" />
+                $pre = '<div class="lesson"><img class="lesson-icon" src="/sites/mc2/content/M2/cmn/images/standard/mc2back.png" />
                 <div class="lesson-subtitle"><span class="back">向后看</span></div>
                 </div>';
                 $text ='';
@@ -168,7 +168,7 @@ foreach ($lines as $line){
             break;
             
             case "<look-forward>":
-                $pre = '<div class="lesson"><img class="lesson-icon" src="/content/M2/cmn/images/standard/mc2forward.png" />
+                $pre = '<div class="lesson"><img class="lesson-icon" src="/sites/mc2/content/M2/cmn/images/standard/mc2forward.png" />
                 <div class="lesson-subtitle"><span class="forward">向前看</span></div>
                 </div>';
                 $end = "\n";
@@ -176,7 +176,7 @@ foreach ($lines as $line){
             break;
             
             case "<look-up>":
-                $pre = '<div class="lesson"><img class="lesson-icon" src="/content/M2/cmn/images/standard/mc2up.png" />
+                $pre = '<div class="lesson"><img class="lesson-icon" src="/sites/mc2/content/M2/cmn/images/standard/mc2up.png" />
                 <div class="lesson-subtitle"><span class="up">向上看</span></div>
                 </div>';
                 $text ='';

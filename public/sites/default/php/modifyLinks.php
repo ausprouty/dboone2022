@@ -87,7 +87,7 @@ function modifyPrototypeAndFinalLinks($text, $replace){
     $out['content']= $text;
     return $out;
 }
-/*  <a href="/content/M2/eng/tc/tc01.html">
+/*  <a href="/sites/mc2/content/M2/eng/tc/tc01.html">
       to
     <a  href="#" onclick="goToPageAndSetReturn('/content/M2/eng/tc/tc01.html');">
 

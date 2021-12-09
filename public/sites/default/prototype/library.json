@@ -7,7 +7,7 @@
 		"styles_set": "mc2",
 		"image": {
 			"title": "Stories of HopeB.png",
-			"image": "/content/M2/images/standard/Stories of HopeB.png"
+			"image": "/sites/mc2/content/M2/images/standard/Stories of HopeB.png"
 		},
 		"format": "series",
 		"pages": "one",
@@ -19,7 +19,7 @@
 		"title": "Called by Jesus",
 		"image": {
 			"title": "Multiply1.png",
-			"image": "/content/M2/images/standard/Multiply1.png"
+			"image": "/sites/mc2/content/M2/images/standard/Multiply1.png"
 		},
 		"format": "series",
 		"style": "/sites/default/styles/defaultGLOBAL.css",
@@ -35,7 +35,7 @@
 		"styles_set": "mc2",
 		"image": {
 			"title": "Multiply2.png",
-			"image": "/content/M2/images/standard/Multiply2.png"
+			"image": "/sites/mc2/content/M2/images/standard/Multiply2.png"
 		},
 		"format": "series",
 		"pages": "one",
@@ -49,7 +49,7 @@
 		"styles_set": "mc2",
 		"image": {
 			"title": "Multiply3.png",
-			"image": "/content/M2/images/standard/Multiply3.png"
+			"image": "/sites/mc2/content/M2/images/standard/Multiply3.png"
 		},
 		"format": "series",
 		"pages": "one",
@@ -61,7 +61,7 @@
 		"title": "Transferable Concepts",
 		"image": {
 			"title": "TransferableConcepts.png",
-			"image": "/content/M2/images/standard/TransferableConcepts.png"
+			"image": "/sites/mc2/content/M2/images/standard/TransferableConcepts.png"
 		},
 		"format": "series",
 		"page": "community",
@@ -74,7 +74,7 @@
 	"format": {
 		"image": {
 			"title": "MC2-Header.png",
-			"image": "/content/M2/images/standard/MC2-Header.png"
+			"image": "/sites/mc2/content/M2/images/standard/MC2-Header.png"
 		},
 		"replace_header": true,
 		"style": "/sites/default/styles/defaultGLOBAL.css",
