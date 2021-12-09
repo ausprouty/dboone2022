@@ -3,7 +3,7 @@
 		"id": "1",
 		"code": "hope",
 		"title": "Stories of Hope",
-		"style": "/content/ZZ/styles/mc2GLOBAL.css",
+		"style": "/sites/default/styles/defaultGLOBAL.css",
 		"styles_set": "mc2",
 		"image": {
 			"title": "Stories of HopeB.png",
@@ -22,7 +22,7 @@
 			"image": "/content/M2/images/standard/Multiply1.png"
 		},
 		"format": "series",
-		"style": "/content/ZZ/styles/mc2GLOBAL.css",
+		"style": "/sites/default/styles/defaultGLOBAL.css",
 		"pages": "one",
 		"styles_set": "mc2",
 		"template": "multiply1/multiply1.html",
@@ -31,7 +31,7 @@
 		"id": "4",
 		"code": "multiply2",
 		"title": "Being like Jesus",
-		"style": "/content/ZZ/styles/mc2GLOBAL.css",
+		"style": "/sites/default/styles/defaultGLOBAL.css",
 		"styles_set": "mc2",
 		"image": {
 			"title": "Multiply2.png",
@@ -45,7 +45,7 @@
 		"id": "5",
 		"code": "multiply3",
 		"title": "Sent by Jesus",
-		"style": "/content/ZZ/styles/mc2GLOBAL.css",
+		"style": "/sites/default/styles/defaultGLOBAL.css",
 		"styles_set": "mc2",
 		"image": {
 			"title": "Multiply3.png",
@@ -65,7 +65,7 @@
 		},
 		"format": "series",
 		"page": "community",
-		"style": "/content/ZZ/styles/mc2GLOBAL.css",
+		"style": "/sites/default/styles/defaultGLOBAL.css",
 		"pages": "many",
 		"styles_set": "mc2",
 		"template": "tc/TransferableConcept.html",
@@ -77,10 +77,10 @@
 			"image": "/content/M2/images/standard/MC2-Header.png"
 		},
 		"replace_header": true,
-		"style": "/content/ZZ/styles/mc2GLOBAL.css",
+		"style": "/sites/default/styles/defaultGLOBAL.css",
 		"back_button": {
 			"title": "back-ribbon-mc2.png",
-			"image": "/content/ZZ/images/ribbons/back-ribbon-mc2.png"
+			"image": "/sites/mc2/images/ribbons/back-ribbon-mc2.png"
 		},
 		"no_ribbon": true
 	},

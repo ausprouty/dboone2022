@@ -12,7 +12,7 @@ function publishLanguages($p){
         $p['debug'] = '';
     }
     $p['debug'] .= 'In publishLanguages '. "\n";
-    $selected_css = 'ZZ/styles/cardGLOBAL.css';
+    $selected_css = 'sites/default/styles/cardGLOBAL.css';
     $p['country_dir'] = ROOT_PUBLISH_CONTENT . $p['country_code'] . '/';
     // get language footer in prototypeOEpublish.php
     $footer = prototypeLanguageFooter($p);

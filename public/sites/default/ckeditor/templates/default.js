@@ -58,21 +58,21 @@ CKEDITOR.addTemplates('default', {
       image: 'mc2back.png',
       description: 'Image and Title',
       html:
-        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/content/ZZ/images/mc2/mc2back.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="back"\x3eLOOKING BACK\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
+        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/default/images/back.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="back"\x3eLOOKING BACK\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
     },
     {
       title: 'Looking Up',
       image: 'mc2up.png',
       description: 'Image and Title',
       html:
-        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/content/ZZ/images/mc2/mc2up.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="up"\x3eLOOKING UP\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
+        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/default/images/up.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="up"\x3eLOOKING UP\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
     },
     {
       title: 'Looking Forward',
       image: 'mc2forward.png',
       description: 'Image and Title',
       html:
-        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/content/ZZ/images/mc2/mc2forward.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="forward"\x3eLOOKING FORWARD\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
+        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/default/images/forward.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="forward"\x3eLOOKING FORWARD\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
     },
   ],
 })

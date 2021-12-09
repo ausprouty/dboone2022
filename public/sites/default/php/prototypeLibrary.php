@@ -30,7 +30,7 @@ function prototypeLibrary($p){
     }
     else{
         $p['debug'] .= 'style is NOT set '. "\n";
-        $selected_css = '/content/ZZ/styles/cardGLOBAL.css';
+        $selected_css = '/sites/default/styles/cardGLOBAL.css';
     }
 
     $out = createLibrary($p, $text); // see createLibrary.php

@@ -1068,10 +1068,10 @@
           VUE_APP_SITE_BACKEND: '"myfriends.local"',
           VUE_APP_STANDARD_FACEBOOK_LINK: '"https://facebook.com/339218283324109"',
           VUE_APP_SITE_IMAGE: '"journey.png"',
-          VUE_APP_SITE_IMAGE_DIR: '"/content/ZZ/images/europe"',
+          VUE_APP_SITE_IMAGE_DIR: '"sites/default/images/"',
           VUE_APP_SITE_RLDIR: '"ltr"',
           VUE_APP_SITE_SERIES: '"life,basics,firststeps,multiply"',
-          VUE_APP_SITE_STYLE: '"/content/ZZ/styles/myfriendsGlOBAL.css"',
+          VUE_APP_SITE_STYLE: '"sites/default/styles/defaultGLOBAL.css"',
           VUE_APP_SITE_STYLES_SET: '"myfriends"',
           VUE_APP_URL: '"http://10.1.1.9:9000/edit/public/"',
           BASE_URL: '"/"'

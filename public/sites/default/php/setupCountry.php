@@ -78,7 +78,7 @@ function XsetupTemplatesCountry($p){
 		$out['debug'] = 'country_code not set'."\n";
 		return $out;
 	}
-	$setup_directory = ROOT_EDIT. 'content/ZZ/' ;
+	$setup_directory = ROOT_EDIT. 'sites/default/templates' ;
 	$country_directory = ROOT_EDIT_CONTENT. $p['country_code'] . '/' ;
 	$out['debug'] = 'setupTemplatesCountrY' . "\n";
 

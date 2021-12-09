@@ -8,7 +8,7 @@ function prototypeLanguagesAvailable($p){
         $p['debug'] = null;
     }
     $p['debug'] .= "\n\n\n\n\n". 'prototypeLanguages '. "\n";
-    $selected_css = 'ZZ/styles/cardGLOBAL.css';
+    $selected_css = 'sites/default/styles/cardGLOBAL.css';
     $p['country_dir'] = ROOT_PROTOTYPE_CONTENT . $p['country_code'] . '/';
     $footer  = '';
     // flags

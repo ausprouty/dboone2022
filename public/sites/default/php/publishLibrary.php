@@ -24,7 +24,7 @@ function publishLibrary($p){
         $selected_css = $text->format->style;
     }
     else{
-        $selected_css = '/content/ZZ/styles/cardGLOBAL.css';
+        $selected_css = '/sites/default/styles/cardGLOBAL.css';
     }
     $out = createLibrary($p, $text);
     $p = $out['p'];

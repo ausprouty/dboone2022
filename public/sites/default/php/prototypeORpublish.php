@@ -232,7 +232,7 @@ function _copyImagesAndStyles($text, $scope){
 
 /* There may be multiple links to the same style sheet
    You want to remove duplicates
-    <link rel="stylesheet" href="/content/ZZ/styles/cardGLOBAL.css" />
+    <link rel="stylesheet" href="/sites/default/styles/cardGLOBAL.css" />
 */
 function _removeDuplicateCSS($text){
     $out= [];

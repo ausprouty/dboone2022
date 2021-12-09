@@ -11,7 +11,7 @@ function prototypeLanguages($p){
     }
     $out['debug'] .= 'In prototypeLanguages with ROOT_PROTOTYPE_CONTENT '. ROOT_PROTOTYPE_CONTENT . "\n";
     $creator =   "\n" .'&nbsp; <!--- Created by prototypeLanguages -->&nbsp; '.  "\n";
-    $selected_css = 'ZZ/styles/cardGLOBAL.css';
+    $selected_css = 'sites/default/styles/cardGLOBAL.css';
     $p['country_dir'] = ROOT_PROTOTYPE_CONTENT . $p['country_code'] . '/';
      // get language footer in prototypeOEpublish.php
     $footer = prototypeLanguageFooter($p);

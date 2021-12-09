@@ -14,7 +14,7 @@
           {{ this.prototype_text }}
         </button>
       </div>
-      <link rel="stylesheet" href="/sites/default/styles/appGlobal.css" />
+      <link rel="stylesheet" href="/sites/default/styles/appGLOBAL.css" />
       <link rel="stylesheet" v-bind:href="style" />
       <a
         target="_blank"
