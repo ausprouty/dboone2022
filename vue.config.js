@@ -24,7 +24,7 @@ module.exports = {
     config.plugin("copy").tap(([options]) => {
       let site=''
       for (let i=0; i<projects.length; i++) {
-        if (projects[i] !== 'default'){
+        if (projects[i] !== 'default' && projects[i] !== 'logs'){
           if (projects[i]  !== process.env.VUE_APP_SITE){
             site= 'sites/' + projects[i] + '/**'
               options[0].ignore.push(site);

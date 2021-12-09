@@ -92,7 +92,7 @@
               fallback: {
                 loader: 'file-loader',
                 options: {
-                  name: 'img/[name].[hash:8].[ext]'
+                  name: 'sites/default/images/[name].[hash:8].[ext]'
                 }
               }
             }
@@ -106,7 +106,7 @@
           {
             loader: 'file-loader',
             options: {
-              name: 'img/[name].[hash:8].[ext]'
+              name: 'sites/default/images/[name].[hash:8].[ext]'
             }
           }
         ]

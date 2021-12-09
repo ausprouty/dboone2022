@@ -314,8 +314,12 @@ export default {
     var params = {}
     params.page = 'getFoldersImages'
     params.action = 'getFoldersImages'
-    var folders = await this.aReturnContentParsed(params)
-    folders.sort()
+    let folders = []
+    folders = await this.aReturnContentParsed(params)
+    if (folders.length > 0){
+       folders.sort()
+    }
+
     return folders
   },
   async getImagesForSite(params) {
