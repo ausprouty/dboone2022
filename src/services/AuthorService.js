@@ -440,7 +440,7 @@ export default {
         if (this.isFilename(code)) {
           var params = {}
           params.country_code = code
-          params.page = 'setup'
+          params.page = 'setupCountry'
           params.action = 'setupCountry'
           res = await this.aReturnResponse(params)
         }

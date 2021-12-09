@@ -31,6 +31,8 @@ module.exports = {
           }
         }
       }
+      site= 'sites/' + process.env.VUE_APP_SITE+ '/.env.api.local/php'
+      options[0].ignore.push(site);
       if (process.env.VUE_APP_UPGRADE == 'minor'){
         options[0].ignore.push('node_modules/**');
       }
