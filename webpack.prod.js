@@ -28,6 +28,20 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   module: {
+    plugins: [
+        new CopyPlugin({
+        patterns: [
+            {
+            from: "public/**/*",
+            globOptions: {
+                dot: true,
+                gitignore: true,
+                ignore: [ "**/myfriends/**", "**/sent67/**"],
+            },
+            },
+        ],
+        }),
+    ],
     rules: [
       // https://forum.vuejs.org/t/how-to-exclude-some-files-from-the-build/70795/2
       {

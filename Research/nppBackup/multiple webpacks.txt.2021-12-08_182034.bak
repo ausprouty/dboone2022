@@ -1,0 +1,12 @@
+https://stackoverflow.com/questions/46725841/how-to-create-multiple-vue-apps-in-same-folder
+
+
+// https://stackoverflow.com/questions/61122635/vue-js-exclude-folders-from-webpack-bundle
+   chainWebpack: (config) => {
+    config.plugin("copy").tap(([options]) => {
+
+     // /public\/sites\/(?!(default|mc2)\/).*/)
+      options[0].ignore.push("sites/**");
+      return [options];
+    });
+  },

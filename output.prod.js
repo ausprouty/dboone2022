@@ -47,6 +47,18 @@
     noParse: /^(vue|vue-router|vuex|vuex-router-sync)$/,
     rules: [
       /* config.module.rule('vue') */
+   // https://github.com/webpack/webpack/issues/2031
+    {exclude: [path.resolve(__dirname, /public\/sites\/(?!(default|mc2)\/).*/},
+    { exclude: [path.resolve(__dirname, 'public')]},
+    { exclude: [path.resolve(__dirname, 'sites')]},
+    { exclude: [ 'sites/*']},
+    { exclude: [ '/sites/*']},
+    { exclude: [ '*/sites/']},
+     { exclude: [ 'sites/']},
+    { exclude: [ '/sites/']},
+    { exclude: [ '*/sites/*']},
+    { exclude: [ 'public/sites/*']},
+    { exclude: [ '/public/sites/*']},
       {
         test: /\.vue$/,
         use: [
