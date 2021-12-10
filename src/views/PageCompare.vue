@@ -253,16 +253,19 @@ export default {
         stylesSet: this.$route.params.styles_set,
         templates_replaceContent: false,
         templates_files: [
-          '/templates/' + this.$route.params.styles_set + 'CKEDITOR.js',
+          '/sites/' + process.env.VUE_APP_SITE + '/ckeditor/templates/' +
+            this.$route.params.styles_set +
+            '.js',
         ],
         // Configure your file manager integration. This example uses CKFinder 3 for PHP.
         // https://ckeditor.com/docs/ckfinder/ckfinder3-php/howto.html#howto_private_folders
         filebrowserBrowseUrl:
-          process.env.VUE_APP_DEFAULT_SITES_URL + 'ckfinder/ckfinder.html',
+          process.env.VUE_APP_SITE_CKFINDER_URL + 'ckfinder.html',
         filebrowserUploadUrl:
-          process.env.VUE_APP_DEFAULT_SITES_URL +
-          'ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&currentFolder=/' +
+          process.env.VUE_APP_SITE_CKFINDER_URL +
+          'core/connector/php/connector.php?command=QuickUpload&type=Images&currentFolder=' +
           this.languageDirectory,
+
 
         // end Configuration
         toolbarGroups: [

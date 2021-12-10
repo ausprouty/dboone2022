@@ -180,7 +180,7 @@ export const pageMixin = {
         // image
         this.image_navigation = process.env.VUE_APP_SITE_IMAGE
         if (typeof this.bookmark.library.format.image !== 'undefined') {
-          this.image_navigation = '/sites/generations/' + this.bookmark.library.format.image.image
+          this.image_navigation = '/sites/' + process.env.VUE_APP_SITE + this.bookmark.library.format.image.image
         }
         //directory
 

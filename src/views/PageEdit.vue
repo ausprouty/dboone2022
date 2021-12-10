@@ -177,8 +177,9 @@ export default {
         stylesSet: this.$route.params.styles_set,
         //stylesSet: '/sites/generations/ckeditor/styles/styles.js',
         templates_replaceContent: false,
+        // VUE_APP_SITE= mc2
         templates_files: [
-          '/sites/' + process.env.VUE_APP_SITE + 'generations/ckeditor/templates/' +
+          '/sites/' + process.env.VUE_APP_SITE + '/ckeditor/templates/' +
             this.$route.params.styles_set +
             '.js',
         ],
