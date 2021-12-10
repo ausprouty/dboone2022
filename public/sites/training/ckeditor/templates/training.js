@@ -1,5 +1,5 @@
 CKEDITOR.addTemplates('default', {
-  imagesPath: CKEDITOR.getUrl('images/'),
+  imagesPath: CKEDITOR.getUrl('/sites/training/ckeditor/templates/images/'),
   templates: [
     {
       title: 'Anchor Verse',

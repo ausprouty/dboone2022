@@ -1,5 +1,5 @@
 CKEDITOR.addTemplates('default', {
-  imagesPath: CKEDITOR.getUrl('images/'),
+  imagesPath: CKEDITOR.getUrl('/sites/sent67/ckeditor/templates/images/'),
   templates: [
     {
       title: 'Note Area',

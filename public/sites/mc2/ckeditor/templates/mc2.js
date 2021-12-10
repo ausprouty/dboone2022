@@ -1,5 +1,5 @@
 CKEDITOR.addTemplates('default', {
-  imagesPath: CKEDITOR.getUrl('images/'),
+  imagesPath: CKEDITOR.getUrl('/sites/mc2/ckeditor/templates/images/'),
   templates: [
     {
       title: 'Note Area',
@@ -54,24 +54,24 @@ CKEDITOR.addTemplates('default', {
 
     {
       title: 'Looking Back',
-      image: 'mc2back.png',
+      image: 'look-back.png',
       description: 'Image and Title',
       html:
-        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/default/images/back.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="back"\x3eLOOKING BACK\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
+        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/mc2/images/standard/look-back.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="back"\x3eLOOKING BACK\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
     },
     {
       title: 'Looking Up',
-      image: 'mc2up.png',
+      image: 'look-up.png',
       description: 'Image and Title',
       html:
-        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/default/images/up.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="up"\x3eLOOKING UP\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
+        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/mc2/images/standard/look-up.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="up"\x3eLOOKING UP\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
     },
     {
       title: 'Looking Forward',
-      image: 'mc2forward.png',
+      image: 'look-forward.png',
       description: 'Image and Title',
       html:
-        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/default/images/forward.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="forward"\x3eLOOKING FORWARD\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
+        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/mc2/images/standard/look-forward.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="forward"\x3eLOOKING FORWARD\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
     },
   ],
 })

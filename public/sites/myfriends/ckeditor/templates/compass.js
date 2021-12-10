@@ -1,5 +1,5 @@
 CKEDITOR.addTemplates('default', {
-  imagesPath: CKEDITOR.getUrl('images/compass/'),
+  imagesPath: CKEDITOR.getUrl('/sites/myfriends/ckeditor/templates/images/'),
   templates: [
     {
       title: 'FLASHBACK',
