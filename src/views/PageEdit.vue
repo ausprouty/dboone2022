@@ -178,7 +178,7 @@ export default {
         //stylesSet: '/sites/generations/ckeditor/styles/styles.js',
         templates_replaceContent: false,
         templates_files: [
-          '/sites/generations/ckeditor/templates/' +
+          '/sites/' + process.env.VUE_APP_SITE + 'generations/ckeditor/templates/' +
             this.$route.params.styles_set +
             '.js',
         ],
@@ -186,10 +186,10 @@ export default {
         // https://ckeditor.com/docs/ckfinder/ckfinder3-php/howto.html#howto_private_folders
         // Bob just removed  /content from currentFolder
         filebrowserBrowseUrl:
-          process.env.VUE_APP_SITE_CKFINDER_URL + 'ckfinder/ckfinder.html',
+          process.env.VUE_APP_SITE_CKFINDER_URL + 'ckfinder.html',
         filebrowserUploadUrl:
           process.env.VUE_APP_SITE_CKFINDER_URL +
-          'ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&currentFolder=' +
+          'core/connector/php/connector.php?command=QuickUpload&type=Images&currentFolder=' +
           this.languageDirectory,
 
         // end Configuration

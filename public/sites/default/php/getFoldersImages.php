@@ -6,7 +6,8 @@ myRequireOnce('writeLog.php');
 // get folders from global, country, and language
 function getFoldersImages($p){
 	$out['debug'] = 'getFoldersImages'. "\n";
-    $content_directory = ROOT_EDIT . 'sites/' . $p['site'] .'/content/';
+    $content_directory = ROOT_EDIT . '/sites/' . $p['site'] .'/content/';
+	$out['debug'] .= " checking $content_directory \n";
 	$countries = array();
 	$results = '[';
     //find all countries
@@ -36,7 +37,7 @@ function getFoldersImages($p){
 				}
 			}
 			// check for Langauges --  we assume only language names are 3 char long
-			$check = $content_directory . $country . $country;
+			$check = $content_directory . $country ;
 			$out['debug'] .= $check . "\n";
 			if (file_exists($check)){
 				$dir = new DirectoryIterator($check);
@@ -69,14 +70,15 @@ function getFoldersImages($p){
 		}
 		else{
 			$results = null;
-			$out['message'] = "NO Language Folders";
+			$out['message'] = "NO Language FOLDERS";
 		}
 		$out['content'] = $results;
 		$out['error'] = false;
 	}
 	else{
 		$results = null;
-			$out['message'] = "NO Language Folders";
+		$out['debug'] .= $content_directory. " does not exist\n";
+		$out['message'] =  "NO Language Folders";
 	}
     writeLog('getFoldersImages', $out['debug']);
 	return $out;
