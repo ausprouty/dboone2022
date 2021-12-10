@@ -170,6 +170,7 @@ export default {
   },
   beforeCreate() {
     this.$route.params.version = 'latest'
+    this.$route.params.library_code = 'index'
   },
   async created() {
     this.loadView()

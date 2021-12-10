@@ -10,11 +10,7 @@
     </div>
     <div v-if="authorized">
       <div v-on:click="toggleMenu()">
-        <img
-          class="nav-icon"
-          alt="Home"
-          src="/sites/default/images/menu/header-hamburger.png"
-        />
+        <img class="nav-icon" alt="Home" v-bind:src="this.headerImage" />
       </div>
       <div v-if="showMenu">
         <div

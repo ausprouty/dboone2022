@@ -134,7 +134,9 @@ export default {
         stylesSet: this.$route.params.styles_set,
         templates_replaceContent: false,
         templates_files: [
-          '/sites/' + process.env.VUE_APP_SITE + '/ckeditor/templates/' +
+          '/sites/' +
+            process.env.VUE_APP_SITE +
+            '/ckeditor/templates/' +
             this.$route.params.styles_set +
             '.js',
         ],
@@ -146,7 +148,6 @@ export default {
           process.env.VUE_APP_SITE_CKFINDER_URL +
           'core/connector/php/connector.php?command=QuickUpload&type=Images&currentFolder=' +
           this.languageDirectory,
-
 
         // end Configuration
         toolbarGroups: [
@@ -277,6 +278,7 @@ export default {
     this.$route.params.styles_set = process.env.VUE_APP_SITE_STYLES_SET
     this.$route.params.version = 'lastest'
     this.$route.params.filename = 'index'
+    this.$route.params.library_code = 'index'
     this.$route.params.css = '/sites/default/styles/freeformGLOBAL.css'
     LogService.consoleLogMessage('final params')
     LogService.consoleLogMessage(this.$route.params)

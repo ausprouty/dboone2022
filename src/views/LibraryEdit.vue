@@ -385,7 +385,9 @@ export default {
         stylesSet: this.$route.params.styles_set,
         templates_replaceContent: false,
         templates_files: [
-          '/sites/' + process.env.VUE_APP_SITE + '/ckeditor/templates/' +
+          '/sites/' +
+            process.env.VUE_APP_SITE +
+            '/ckeditor/templates/' +
             this.$route.params.styles_set +
             '.js',
         ],
@@ -397,7 +399,6 @@ export default {
           process.env.VUE_APP_SITE_CKFINDER_URL +
           'core/connector/php/connector.php?command=QuickUpload&type=Images&currentFolder=' +
           this.languageDirectory,
-
 
         // end Configuration
         toolbarGroups: [

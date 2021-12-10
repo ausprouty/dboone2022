@@ -4,11 +4,7 @@
     <div v-if="!authorized">
       <div id="nav">
         <router-link to="/">
-          <img
-            class="nav-icon"
-            alt="Home"
-            src="/sites/default/images/menu/header-hamburger.png"
-          />
+          <img class="nav-icon" alt="Home" v-bind:src="this.headerImage" />
         </router-link>
       </div>
     </div>

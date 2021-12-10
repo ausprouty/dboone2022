@@ -1065,7 +1065,7 @@
           VUE_APP_PROTOTYPE_CONTENT_URL: '"https://prototype.myfriends.network/content/"',
           VUE_APP_PUBLISH_CONTENT_URL: '"https://myfriends.online/content/"',
           VUE_APP_SHOW_CONSOLE_LOG: '"true"',
-          VUE_APP_SITE_BACKEND: '"myfriends.local"',
+
           VUE_APP_STANDARD_FACEBOOK_LINK: '"https://facebook.com/339218283324109"',
           VUE_APP_SITE_IMAGE: '"journey.png"',
           VUE_APP_SITE_IMAGE_DIR: '"sites/default/images/"',
