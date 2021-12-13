@@ -166,6 +166,11 @@ export default {
             name: 'farm',
           })
           break
+        case 'admin':
+          this.$router.push({
+            name: 'testMyfriends',
+          })
+          break
         default:
           LogService.consoleLogMessage('Can not find route in NavBarAdmin')
         // code block

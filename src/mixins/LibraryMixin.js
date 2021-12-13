@@ -54,18 +54,27 @@ export const libraryMixin = {
       try {
         this.error = this.loaded = ''
         this.loading = true
+        console.log('in getLibrary')
+        console.log(this.$route.params)
         if (!this.$route.params.library_code) {
           this.$route.params.library_code = 'library'
         } else {
           if (this.$route.params.library_code.includes('.html')) {
             this.$route.params.library_code =
               this.$route.params.library_code.slice(0, -5)
+            console.log('assigned: ' + this.$route.params.library_code)
           }
         }
-        await this.CheckBookmarks(this.$route.params)
-        var response = await ContentService.getLibrary(this.$route.params)
+        console.log('about to get Library with:')
+        console.log(this.$route.params)
+        var params = this.$route.params
+        var response = await ContentService.getLibrary(params)
         console.log('response from Get Library')
         console.log(response)
+        if (typeof response.text == 'undefined') {
+          response.text = ''
+          response.text.text = ''
+        }
         this.text = response.text.text ? response.text.text : ''
         if (response.recnum) {
           this.recnum = response.recnum
@@ -74,7 +83,9 @@ export const libraryMixin = {
         } else {
           this.recnum = this.publish_date = this.prototype_date = ''
         }
-
+        console.log('about to check bookmarks with:')
+        console.log(this.$route.params)
+        await this.CheckBookmarks(params)
         this.image_dir = process.env.VUE_APP_SITE_IMAGE_DIR
 
         if (typeof this.bookmark.language.image_dir != 'undefined') {

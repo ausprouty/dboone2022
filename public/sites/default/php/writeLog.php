@@ -1,5 +1,6 @@
 <?php
 function writeLog($filename, $content){
+	$filename =   time() . '-' . $filename;
 	if (!is_array($content)){
 		$text = $content;
 	}

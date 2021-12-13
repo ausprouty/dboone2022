@@ -1,5 +1,7 @@
 <?php
 
+// see  https://stackoverflow.com/questions/7381900/php-decoding-and-encoding-json-with-unicode-characters
+
 myRequireOnce ('prototypeORpublish.php');
 myRequireOnce ('getLatestContent.php');
 myRequireOnce ('writeLog.php');
@@ -16,6 +18,8 @@ function bookmark ($p){
     $out['debug'] = 'I entered Bookmark' . "\n";
     $b['bookmark'] = null;
     $b['library_code'] =   isset($p['library_code']) ? $p['library_code'] : 'library';
+
+    writeLog ('bookmark-20-', $p);
 
     // be sure to add this in for library since you can not yet derive it.
     if (isset($p['recnum'])){
@@ -43,21 +47,24 @@ function bookmark ($p){
         $b['filename'] = isset($p['filename'])?$p['filename']:null;
         if ($b['folder_name'] =='undefined') {$b['folder_name']  = null;}
     }
-
+  writeLog ('bookmark-48-', $b);
     if ($b['country_code']){
         $response = checkBookmarkCountry($b);
         $b['bookmark']['country'] = $response['content'];
         $out['debug'] .= $response['debug'] . "\n";
+          writeLog ('bookmark-53-country-', $out['debug']);
 
         if ($b['language_iso']){
             $response = checkBookmarkLanguage($b);
             $b ['bookmark'] ['language'] = $response['content'];
             $out['debug'] .=  $response['debug']. "\n";
+             writeLog ('bookmark-59-language', $out['debug']);
 
             if (isset($b['library_code'])){
                 $response = checkBookmarkLibrary($b);
                 $b['bookmark']['library']  = $response['content'];
                 $out['debug'] .=  $response['debug']. "\n";
+                 writeLog ('bookmark-65-library', $out['debug']);
 
                 if ($b['folder_name']){
                     $response = checkBookmarkSeries($b);
@@ -66,18 +73,20 @@ function bookmark ($p){
                     $response = checkBookmarkBook($b);
                     $b['bookmark']['book'] = $response['content'];
                     $out['debug'] .=  $response['debug']. "\n";
+                    writeLog ('bookmark-74-folder', $out['debug']);
 
                     if ($b['filename']){
                         $response = checkBookmarkPage($b);
                         $b['bookmark']['page'] = $response['content'];
                         $out['debug'] .=  $response['debug'];
+                         writeLog ('bookmark-74-filename', $out['debug']);
                     }
                 }
             }
         }
     }
     $out['content'] = $b['bookmark'];
-    //writeLog( 'bookmark', $b['bookmark']);
+    writeLog( 'bookmark', $b['bookmark']);
     return $out;
 }
 function checkBookmarkCountry($b){
@@ -105,10 +114,15 @@ function checkBookmarkLanguage($b){
     $out['debug'] = 'in checkBookmarkLanguage'. "\n";
     $out['content'] = null;
     $b['scope'] = 'languages';
+    writeLog ('checkBookmarkLanguage-115-', $b);
     $res = getLatestContent($b);
+     writeLog ('checkBookmarkLanguage-117-', $res);
+    writeLog ('checkBookmarkLanguage-118-', $res['content']);
+     writeLog ('checkBookmarkLanguage-119-', $res['content']['text']);
     $response = json_decode($res['content']['text']);
+    writeLog ('checkBookmarkLanguage-121-', $response);
     if (!$response){
-        writeLog('checkBookmarkLanguage', $out['debug']);
+        writeLog('ERROR - checkBookmarkLanguage', $out['debug']);
         trigger_error("No response in checkBookmarkLanguage", E_USER_ERROR);
     }
     if (isset($response->languages)){
@@ -120,7 +134,8 @@ function checkBookmarkLanguage($b){
     }else{
         $out['debug'] .= 'NO response for languages'.  "\n";
     }
-
+     writeLog ('checkBookmarkLanguage-135-',  $out['debug']);
+     writeLog ('checkBookmarkLanguage-136-',  $out['content']);
     return $out;
 }
 // no longer used

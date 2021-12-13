@@ -175,7 +175,8 @@ export default {
     params.page = 'bookmark'
     params.action = 'bookmark'
     var content = await this.aReturnContent(params)
-    console.log('bookmark')
+    console.log(params)
+    console.log('bookmark Meturned after above paramters:')
     console.log(content)
     if (content) {
       store.dispatch('updateAllBookmarks', content)
@@ -316,8 +317,8 @@ export default {
     params.action = 'getFoldersImages'
     let folders = []
     folders = await this.aReturnContentParsed(params)
-    if (folders.length > 0){
-       folders.sort()
+    if (folders.length > 0) {
+      folders.sort()
     }
 
     return folders

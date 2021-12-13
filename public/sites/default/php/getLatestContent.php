@@ -3,6 +3,7 @@
 myRequireOnce ('prototypeORpublish.php');
 myRequireOnce ('sql.php');
 myRequireOnce('version2Text.php');
+myRequireOnce('writeLog.php');
 
 /* return latest content
 */
@@ -13,6 +14,7 @@ function getLatestContent($p){
         $out['debug'] .=  'No scope was set';
         return $out;
     }
+    $out['debug'] .= $p['scope'] . "\n";
     $text_file = false;
 
     switch($p['scope']){
@@ -85,6 +87,7 @@ function getLatestContent($p){
 
     }
     $out['debug'] .= $sql . "\n";
+    writeLog ('getLatestContent', $out['debug'] );
     // execute query
     if ($sql){
         $result = sqlArray($sql);

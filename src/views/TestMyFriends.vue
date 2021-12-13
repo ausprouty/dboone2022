@@ -8,7 +8,7 @@
       v-on:change="runTest(test)"
       class="field"
     />
-    {{this.result}}
+    {{ this.result }}
   </div>
 </template>
 <script>
@@ -34,13 +34,14 @@ export default {
         'testBookmarkCountry',
         'testBookmarkLanguage',
         'testBookmarkLibrary',
+        'testBookmarkLibraryFriends',
         'testBookmarkSeries',
         'testBookmarkPage',
         'testSetupCountries',
       ],
     }
   },
-   computed: mapState([ 'user']),
+  computed: mapState(['user']),
   methods: {
     async runTest(test) {
       var response = await this[test]()
@@ -52,10 +53,10 @@ export default {
       var response = await ContentService.getCountries(params)
       return response
     },
-    setupParams(){
-        var params = {}
-        params.my_uid = this.user.uid
-        return params
+    setupParams() {
+      var params = {}
+      params.my_uid = this.user.uid
+      return params
     },
     async testGetPage() {
       var params = this.setupParams()
@@ -88,8 +89,9 @@ export default {
     },
     async testLibrary() {
       var params = this.setupParams()
-      params.country_code = 'US'
+      params.country_code = 'AU'
       params.language_iso = 'eng'
+      params.library_code = 'friends'
       var response = await ContentService.getLibrary(params)
       return response
     },
@@ -131,6 +133,13 @@ export default {
       return response
     },
     async testBookmarkLibrary() {
+      var params = this.setupParams()
+      params.country_code = 'AU'
+      params.language_iso = 'eng'
+      var response = await AuthorService.bookmark(params)
+      return response
+    },
+    async testBookmarkLibraryFriends() {
       var params = this.setupParams()
       params.country_code = 'AU'
       params.language_iso = 'eng'
