@@ -16,7 +16,7 @@ function createPage($p, $data){
     $p['selected_css'] = isset($bookmark['book']->style)? $bookmark['book']->style: STANDARD_CSS;
     if (!isset($bookmark['book']->format)){
        $debug = 'Bookmark[book]->format not set for  recnum ' . $b['recnum'] .' in prototype page with library code ' . $b['library_code'] ."\n";
-       $debug .= json_encode($out);
+       $debug .= json_encode($out, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
         $fh = fopen('logs/bookmarkError' . time() . rand(1, 1000000) .'.txt', 'w');
         fwrite($fh, $debug);
         fclose($fh);

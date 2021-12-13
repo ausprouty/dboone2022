@@ -212,7 +212,7 @@ function checkBookmarkBook($b){
             }
             if ($code == $this_book){
                 $out['debug'] .= 'Found this code in book array' . "\n";
-                $out['debug'] .= json_encode($book) . "\n";
+                $out['debug'] .= json_encode($book, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n";
                 $out['content'] = $book;
             }
         }}

@@ -93,7 +93,7 @@ function getPageOrTemplate ($p){
                 // ok to here
                 $dbt_study = createBibleDbtArrayFromPassage($p);
                 $out['debug'] .= $dbt_study['debug']. "\n";
-                $out['debug'] .= json_encode($dbt_study['content']). "\n";
+                $out['debug'] .= json_encode($dbt_study['content'], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) ."\n";
                 $out['debug'] .= "\n" .'I am about to enter _bible_block driver with '. "\n";
                 $out['debug'] .= "nt of $nt, and ot of $ot and read_more of $read_more\n";
                 // get Bible Block

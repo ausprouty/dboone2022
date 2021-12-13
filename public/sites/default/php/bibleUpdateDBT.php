@@ -13,7 +13,7 @@ function bibleUpdateDBT($p){
 	fwrite($fh, $text);
     fclose($fh);
     return $out;
-}    
+}
 
 function bibleCheckDBTIndex($p){
     $out = [];
@@ -23,7 +23,7 @@ function bibleCheckDBTIndex($p){
     $text = file_get_contents(ROOT_LOG .  'dbt.txt');
     $volumes = json_decode($text);
     foreach ($volumes as $volume){
-        $sql = "SELECT bid, volume_name FROM dbm_bible WHERE 
+        $sql = "SELECT bid, volume_name FROM dbm_bible WHERE
             dam_id = '" .  $volume->dam_id ."'";
         $data = sqlBibleArray($sql);
         $total++;
@@ -72,16 +72,16 @@ function bibleCheckDBTIndex($p){
             else{
                 $mobile = 'N';
             }
-            $sql = "INSERT into dbm_bible (source,dam_id, volume_name, 
+            $sql = "INSERT into dbm_bible (source,dam_id, volume_name,
                 language_code, language_name, language_english, language_iso,
-                version_code, collection_code, right_to_left, text, audio, mobile, web) values 
+                version_code, collection_code, right_to_left, text, audio, mobile, web) values
                 ('$source','$dam_id','$volume_name',
                 '$language_code','$language_name','$language_english','$language_iso',
                 '$version_code','$collection_code','$right_to_left', '$text','$audio','$mobile','$web')";
             $result = sqlBibleInsert($sql);
 
             $out['debug'] .= $sql .  "\n";
-        }   
+        }
     }
     $out['debug'] .= "\n\n\n\n" . $found .'/'. $total ;
     return $out;
@@ -96,17 +96,17 @@ function bibleCheckDBTDetail($p){
     $text = file_get_contents(ROOT_LOG .  'dbt.txt');
     $volumes = json_decode($text);
     foreach ($volumes as $volume){
-        if (isset($p['dam_id'])){ 
+        if (isset($p['dam_id'])){
             if ($volume->dam_id == $p['dam_id']){
-                $out['content'] .= json_encode($volume);
+                $out['content'] .= json_encode($volume, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
             }
         }
-        if (isset($p['language_iso'])){ 
+        if (isset($p['language_iso'])){
             if ($volume->language_iso == $p['language_iso']){
-                $out['content'] .= json_encode($volume);
+                $out['content'] .= json_encode($volume, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
             }
         }
-       
+
     }
     return $out;
 

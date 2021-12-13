@@ -11,15 +11,15 @@ function publishLibraryAndBooks($p){
         $p['debug'] = null;
     }
     $p['debug'] .= "\n\n publishLibraryAndBooks\n";
-    $p['debug'] .= json_encode($p) . "\n";
+    $p['debug'] .= json_encode($p, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n";
     $p = publishLibrary($p);
     $p['debug'] .= "\n\n Books Parameter AFTER publishtypeLibrary\n";
-    $p['debug'] .= json_encode($p['books']) . "\n";
+    $p['debug'] .= json_encode($p['books'], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n";
     $count = 0;
     foreach ($p['books'] as $book){
         $count++;
         $p['debug'] .= "count is $count" . "\n";
-       
+
         if ($book->format == 'series'){
             //deal with legacy dagta
             if (isset($book->code)){
@@ -28,14 +28,14 @@ function publishLibraryAndBooks($p){
             else if (isset($book->name)){
                 $code = $book->name;
             }
-            $sql = "SELECT recnum FROM content 
-                WHERE  country_code = '" . $p['country_code']. "'  
-                AND language_iso = '". $p['language_iso'] ."' 
+            $sql = "SELECT recnum FROM content
+                WHERE  country_code = '" . $p['country_code']. "'
+                AND language_iso = '". $p['language_iso'] ."'
                 AND folder_name = '". $code ."' AND filename = 'index'
-                AND prototype_date IS NOT NULL 
+                AND prototype_date IS NOT NULL
                 ORDER BY recnum DESC LIMIT 1";
             //$p['debug'] .= $sql . "\n";
-             $data = sqlArray($sql); 
+             $data = sqlArray($sql);
              $p['recnum'] = isset($data['recnum']) ? $data['recnum'] : null;
              if ($p['recnum']){
                 $p['folder_name'] = $code;
@@ -43,20 +43,20 @@ function publishLibraryAndBooks($p){
              }
         }
         if ($book->format == 'page'){
-            $sql = "SELECT recnum FROM content 
-            WHERE  country_code = '" . $p['country_code']. "'  
-            AND language_iso = '". $p['language_iso'] ."' 
+            $sql = "SELECT recnum FROM content
+            WHERE  country_code = '" . $p['country_code']. "'
+            AND language_iso = '". $p['language_iso'] ."'
             AND folder_name = 'pages' AND filename = '". $book->code . "'
-            AND prototype_date IS NOT NULL 
+            AND prototype_date IS NOT NULL
             ORDER BY recnum DESC LIMIT 1";
-         $data = sqlArray($sql); 
+         $data = sqlArray($sql);
          $p['recnum'] = isset($data['recnum']) ? $data['recnum'] : null;
          if ($p['recnum']){
              $p['library_code'] = $book->library_code;
              $p = publishPage($p);
          }
         }
-        
+
     }
     return $p;
 }

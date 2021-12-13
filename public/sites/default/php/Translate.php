@@ -23,7 +23,7 @@ foreach ($response->getTranslations() as $key => $translation) {
 // write log
 //
 $debug = "\n\nHERE IS JSON_ENCODE OF DATA THAT IS NOT ESCAPED\n";
-$debug .= json_encode($output) . "\n";
+$debug .= json_encode($output, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n";
 $fh = fopen('logs/Translate.txt', 'w');
 fwrite($fh, $debug);
 fclose($fh);
@@ -31,5 +31,5 @@ fclose($fh);
 // return response
 header("Access-Control-Allow-Origin: *");
 header("Content-type: application/json");
-echo json_encode($output, JSON_UNESCAPED_UNICODE);
+echo json_encode($output, , JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 die();

@@ -6,7 +6,7 @@ function createSeries($p, $data){
     $text = json_decode($data['text']);
     // $p['debug'] .= "\n\n In prototypeSeries\n";
      // get language footer in prototypeOEpublish.php
-    $footer = prototypeLanguageFooter($p); // returns $footer  
+    $footer = prototypeLanguageFooter($p); // returns $footer
     $b['recnum'] = $p['recnum'];
     $b['library_code'] = $p['library_code'];
     $bm = bookmark($b);
@@ -24,19 +24,19 @@ function createSeries($p, $data){
         $nav = myGetPrototypeFile('navRibbon.html');
         $this_template = str_replace('[[nav]]', $nav, $this_template);
     }
-    
+
     //set placeholders
     $placeholders = array(
         '{{ language.rldir }}',
         '{{ book.style }}',
-        '{{ link }}', 
+        '{{ link }}',
         '{{ ribbon }}',
-        '{{ book.image }}', 
+        '{{ book.image }}',
         '{{ download_ready }}',
-        '{{ book.title }}', 
-        '{{ book.description }}', 
+        '{{ book.title }}',
+        '{{ book.description }}',
         '{{ json }}',
-        '{{ download_now }}', 
+        '{{ download_now }}',
         '{{ version }}',
         '{{ footer }}'
     );
@@ -52,7 +52,7 @@ function createSeries($p, $data){
     $download_now = isset($bookmark['language']->download)? $bookmark['language']->download : 'Download for Offline Use';
     $description = isset($text->description) ? $text->description : NULL;
     $ribbon = isset($bookmark['library']->format->back_button) ? $bookmark['library']->format->back_button->image : DEFAULT_BACK_RIBBON;
-        
+
     $language_dir = '/content/'. $data['country_code'] .'/'. $data['language_iso'] .'/'. $data['folder_name'] .'/';
     $json = $language_dir . 'files.json';
     $p['files_json'] = '[{"url":"'.  $json .'"},' ."\n"; // rest to be filled in with chapters
@@ -64,7 +64,7 @@ function createSeries($p, $data){
         $book_image =  '/content/'. $bookmark['language']->image_dir .'/' . $bookmark['book']->image ;
     }
      // get language footer in prototypeOEpublish.php
-    $footer = prototypeLanguageFooter($p); // returns  $footer 
+    $footer = prototypeLanguageFooter($p); // returns  $footer
     //
     $replace = array(
         $bookmark['language']->rldir,
@@ -74,11 +74,11 @@ function createSeries($p, $data){
         $book_image,
         $download_ready,
         $bookmark['book']->title,
-        $description, 
+        $description,
         $json,
-        $download_now , 
+        $download_now ,
         $p['version'],
-        $footer 
+        $footer
     );
     $this_template = str_replace($placeholders, $replace, $this_template);
     //
@@ -97,7 +97,7 @@ function createSeries($p, $data){
     //
     // replace for each chapter
     //
-    
+
     $chapters_text = '';
     if (isset($text->chapters)){
         foreach ($text->chapters as $chapter){
@@ -108,7 +108,7 @@ function createSeries($p, $data){
             else{
                 if (isset($chapter->prototype)){
                     $status = $chapter->prototype;
-                } 
+                }
             }
             //_write_series_log($p, $chapter);
             if ($status  == true ){ // we only want to process those with this as true
@@ -116,7 +116,7 @@ function createSeries($p, $data){
                 $image = null;
                 if (isset($chapter->image)){
                     if ($chapter->image != ''){
-                        $image = '/content/' . $bookmark['language']->folder 
+                        $image = '/content/' . $bookmark['language']->folder
                             .'/' . $bookmark['book']->code .'/'. $chapter->image;
                     }
                 }
@@ -135,7 +135,7 @@ function createSeries($p, $data){
                     $title,
                     $description ,
                     $image,
-                    $bookmark['language']->rldir, 
+                    $bookmark['language']->rldir,
                 );
                 if ($image){
                     $chapters_text .= str_replace($placeholders, $replace, $chapterImage_template );
@@ -157,6 +157,6 @@ function _write_series_log($p, $chapter){
         $content .= "$key => $value \n";
     }
     $content .= "\n\nchapter\n";
-    $content .= json_encode($chapter, JSON_UNESCAPED_UNICODE);
+    $content .= json_encode($chapter, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
     writeLog($filename, $content);
 }

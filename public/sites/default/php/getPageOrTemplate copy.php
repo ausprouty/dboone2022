@@ -12,9 +12,9 @@ function getPageOrTemplate ($p){
          $p['template'] = $bookmark->book->template;
     }
     $out['debug'] .= 'template is '.  $p['template'] . "\n";
-   
+
     //
-    $sql = "SELECT * from content 
+    $sql = "SELECT * from content
             WHERE country_code = '". $p['country_code'] . "'
             AND language_iso = '" . $p['language_iso'] . "'
             AND folder_name = '" . $p['folder_name'] . "'
@@ -23,7 +23,7 @@ function getPageOrTemplate ($p){
     $out['debug'] .= $sql . "\n";
     $result = sqlArray($sql);
     $out['content']= $result;
-    if (is_array($result)){ 
+    if (is_array($result)){
         foreach($result as $key=> $value){
         $out['debug'] .= $key . ' -- ' . $value . "\n";
         }
@@ -36,7 +36,7 @@ function getPageOrTemplate ($p){
     if ($p['template']){
         $template_file = ROOT_EDIT_CONTENT .  $p['country_code'] . '/'. $p['language_iso']  .'/templates/'. $p['template'];
         $out['debug'] .=  $template_file  ."\n";
-       
+
         if (!file_exists ($template_file)){
             $out['debug'] .='NO PAGE or template found' ."\n";
             $out['content'] ['text'] = 'Referenced template not found: ' .  $template_file;
@@ -58,14 +58,14 @@ function getPageOrTemplate ($p){
                     $out['content'] ['text'] = '<h1>Text from Template but missing something</h1>'. $out['debug'] .$template;
                     return $out;
                 }
-                
+
                 // create dbt array
                 $p['entry'] = $bookmark->page->reference;
                 $out['debug'] .= $p['entry']. "\n";
                 // ok to here
                 $dbt = createBibleDbtArrayFromPassage($p);
                 $out['debug'] .= $dbt['debug']. "\n";
-                $out['debug'] .= json_encode($dbt['content']). "\n";
+                $out['debug'] .= json_encode($dbt['content'], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) "\n";
                 $out['content'] ['text'] = 'please write routine to add ' . $ref . '</br>';
                 if ($dbt['content']){ // but this may be an array
                     $out['debug'] .= '$dbt[content] found'. "\n";
@@ -99,7 +99,7 @@ function getPageOrTemplate ($p){
                 }
                 return $out;
             }
-            
+
         }
     }
     else{
@@ -110,13 +110,13 @@ function getPageOrTemplate ($p){
     return $out;
 }
 function _getBiblePassage(){
-    
+
 }
 
 function _create_bible_block($bible_content){
     $out = [];
-    $out['content'] =  
-    '<div class="bible_container bible">' . 
+    $out['content'] =
+    '<div class="bible_container bible">' .
         '<p class ="reference">' .
         $bible_content['reference'] .
         '</p>' .

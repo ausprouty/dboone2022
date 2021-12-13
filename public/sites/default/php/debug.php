@@ -35,7 +35,7 @@ function debugSeriesCrawlX ($p){
         'urd'=>'آف لائن استعمال کیلئے ڈاؤن لوڈ کریں',
         'zhs'=>'保存以供离线使用',
     );
-    
+
     $conn = new mysqli(HOST, USER, PASS, DATABASE);
     if ($conn->connect_error) {
         die("Connection has failed: " . $conn->connect_error);
@@ -61,7 +61,7 @@ function debugSeriesCrawlX ($p){
                     $new = $q->fetch_object();
                     if (!isset($new->recnum)){
                         $new = [];
-                        $o = json_decode(($index)); 
+                        $o = json_decode(($index));
                         //get rid of old data
                         if (isset($o->series)){
                             unset ($o->series);
@@ -74,10 +74,10 @@ function debugSeriesCrawlX ($p){
                         }
                         $o->download_now = $download[$language];
                         $o->download_ready = $ready[$language];
-                        $text = json_encode($o);
+                        $text = json_encode($o, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
                         $text = $conn->real_escape_string($text);
                         $sql = "INSERT into content (version,edit_date,edit_uid,language_iso,
-                            country_code,folder_name,filetype,title,filename,text) values 
+                            country_code,folder_name,filetype,title,filename,text) values
                             ('$version','$edit_date','$edit_uid','$language',
                             '$country','$folder','json',
                             '','index','$text')";
@@ -85,7 +85,7 @@ function debugSeriesCrawlX ($p){
                         $conn->query($sql);
                     }
                 }
-            
+
             }
         }
     }
@@ -119,7 +119,7 @@ function debugLibraryCrawl ($p){
                     $output->text = '';
                     $output->image = 'journey.jpg';
                     $new = [];
-                    $old = json_decode(($library)); 
+                    $old = json_decode(($library));
                     foreach ($old as  $o){
                         if (isset($o->folder)){
                             unset ($o->folder);
@@ -137,10 +137,10 @@ function debugLibraryCrawl ($p){
                         $new[] = $o;
                     }
                     $output->books = $new;
-                    $text = json_encode($output);
+                    $text = json_encode($output, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
                     $text = $conn->real_escape_string($text);
                     $sql = "INSERT into content (version,edit_date,edit_uid,language_iso,
-                        country_code,folder_name,filetype,title,filename,text) values 
+                        country_code,folder_name,filetype,title,filename,text) values
                         ('$version','$edit_date','$edit_uid','$language',
                         '$country','','json',
                         '','library','$text')";
@@ -171,7 +171,7 @@ function debugClean($p){
         if (!isset($new->recnum)){
             $text = $conn->real_escape_string($data->text);
             $sql = "INSERT into new_content (version,edit_date,edit_uid,language_iso,
-                country_code,folder_name,filetype,title,filename,text) values 
+                country_code,folder_name,filetype,title,filename,text) values
                 ('$data->version','$data->edit_date','$data->edit_uid','$data->language_iso',
                 '$data->country_code','$data->folder_name','$data->filetype',
                 '$data->title','$data->filename','$text')";
@@ -212,11 +212,11 @@ function debugLibraryX($p){
             $new[] = $o;
         }
         $output->books = $new;
-        $text = json_encode($output);
+        $text = json_encode($output, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
         $text = $conn->real_escape_string($text);
-       
+
        $sql = "INSERT into content (version,edit_date,edit_uid,language_iso,
-            country_code,folder_name,filetype,title,filename,text) values 
+            country_code,folder_name,filetype,title,filename,text) values
             ('$data->version','$data->edit_date','$data->edit_uid','$data->language_iso',
             '$data->country_code','$data->folder_name','$data->filetype',
             '$data->title','$data->filename','$text')";
@@ -239,9 +239,9 @@ function debugLife($p){
         $text = $conn->real_escape_string($text);
         $edit_date = time();
         $my_uid = $p['my_uid'];
-       
+
        $sql = "INSERT into content (version,edit_date,edit_uid,language_iso,
-            country_code,folder_name,filetype,title,filename,text) values 
+            country_code,folder_name,filetype,title,filename,text) values
             ('$data->version','$data->edit_date','$data->edit_uid','$data->language_iso',
             '$data->country_code','$data->folder_name','$data->filetype',
             '$data->title','$data->filename','$text')";
@@ -282,7 +282,7 @@ function debugSeries($p){
         'urd'=>'آف لائن استعمال کیلئے ڈاؤن لوڈ کریں',
         'zhs'=>'保存以供离线使用',
     );
-    
+
     $conn = new mysqli(HOST, USER, PASS, DATABASE);
     if ($conn->connect_error) {
         die("Connection has failed: " . $conn->connect_error);
@@ -296,11 +296,11 @@ function debugSeries($p){
         $output->download_now = $download[$lang];
         $output->download_ready = $ready[$lang];
         $output->chapters = json_decode($data->text);
-        $text = json_encode($output);
+        $text = json_encode($output, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
         $text = $conn->real_escape_string($text);
-       
+
        $sql = "INSERT into content (version,edit_date,edit_uid,language_iso,
-            country_code,folder_name,filetype,title,filename,text) values 
+            country_code,folder_name,filetype,title,filename,text) values
             ('$data->version','$data->edit_date','$data->edit_uid','$data->language_iso',
             '$data->country_code','$data->folder_name','$data->filetype',
             '$data->title','$data->filename','$text')";

@@ -3,8 +3,8 @@
    $p['language_iso'];
    $p['testament'];
 
- returns: 
-    array of objects 
+ returns:
+    array of objects
        bid (Bible ID from database)
        volume_name (Name of Bible)
  */
@@ -25,18 +25,18 @@ function getBibleVersions($p){
     $query = $conn->query($sql);
     $count = 0;
      while ($data = $query->fetch_object()){
-        $bible = new stdClass(); 
+        $bible = new stdClass();
         $bible->bid =  $data->bid;
         $bible->volume_name=  utf8_encode($data->volume_name);
         $out['content'][] = $bible;
         $out['debug'] .= $data->volume_name . "\n";
-        $out['debug'] .= json_encode($bible) . "\n\n";
+        $out['debug'] .= json_encode($bible, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES); . "\n\n";
         $count++;
     }
     if ($count > 0){
         $out['error'] = false;
         $out['debug'] .= 'encode of all';
-        $out['debug'] .= json_encode( $out['content']) . "\n";
+        $out['debug'] .= json_encode( $out['content'], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES). "\n";
     }
     else{
         $out['error'] = true;
