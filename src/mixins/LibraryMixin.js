@@ -48,13 +48,14 @@ export const libraryMixin = {
       },
     }
   },
+  computed: mapState(['user', 'bookmark']),
   methods: {
     async getLibrary() {
       LogService.consoleLogMessage('started getLibrary in LibraryMixin')
       try {
         this.error = this.loaded = ''
         this.loading = true
-        console.log('in getLibrary')
+        console.log('in getLibrary in Library Mixin')
         console.log(this.$route.params)
         if (!this.$route.params.library_code) {
           this.$route.params.library_code = 'library'
@@ -67,6 +68,8 @@ export const libraryMixin = {
         }
         console.log('about to get Library with:')
         console.log(this.$route.params)
+        console.log('as')
+        console.log(this.user)
         var params = this.$route.params
         var response = await ContentService.getLibrary(params)
         console.log('response from Get Library')
@@ -84,7 +87,10 @@ export const libraryMixin = {
           this.recnum = this.publish_date = this.prototype_date = ''
         }
         console.log('about to check bookmarks with:')
-        console.log(this.$route.params)
+        console.log(params)
+        console.log('as')
+        console.log(this.user)
+        alert('check')
         await this.CheckBookmarks(params)
         this.image_dir = process.env.VUE_APP_SITE_IMAGE_DIR
 

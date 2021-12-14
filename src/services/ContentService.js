@@ -32,7 +32,7 @@ export default {
   },
   async getLibrary(params) {
     params.scope = 'library'
-    console.log('in Get Library')
+    console.log('in getLibrary in Content Service with params')
     console.log(params)
     var res = await this.returnContent(params)
     console.log(res)

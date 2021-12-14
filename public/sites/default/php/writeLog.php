@@ -32,8 +32,10 @@ function writeLog($filename, $content){
 				$value_array= objectToArray($value);
 				foreach ($value_array as $k => $v){
                     if (is_array($v)){
+						$text .= $k . '=>'. "\n";
 						foreach ($v as $k2 => $v2){
 							if (is_object($v2)){
+								$text .= $k2 . '=>'. "\n";
 								$value_array2= objectToArray($v2);
 								foreach ($value_array2 as $k2 => $v2){
 									$text .= $k2 . ' -> '. $v2 . "\n";
@@ -46,9 +48,20 @@ function writeLog($filename, $content){
 						}
 					}
 					if (is_object($v)){
+						$text .= $k . '=>'. "\n";
 						$value_array2= objectToArray($v);
 						foreach ($value_array2 as $k2 => $v2){
-							$text .= $k2 . ' -> '. $v2 . "\n";
+							if (is_object($v2)){
+								$text .= $k2 . '=>'. "\n";
+								$value_array3= objectToArray($v3);
+								foreach ($value_array3 as $k3 => $v3){
+									$text .= $k3 . ' -> '. $v3 . "\n";
+								}
+							}
+							else{
+								$text .= $k2 . ' -> '. $v2 . "\n";
+							}
+
 						}
 					 }
 					 else{

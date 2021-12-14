@@ -54,8 +54,9 @@ import NavBar from '@/components/NavBarCountry.vue'
 import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
 import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { publishMixin } from '@/mixins/PublishMixin.js'
 export default {
-  mixins: [bookMarkMixin, libraryMixin, authorMixin],
+  mixins: [bookMarkMixin, libraryMixin, authorMixin, publishMixin],
   props: ['country_code', 'language_iso'],
   components: {
     NavBar,

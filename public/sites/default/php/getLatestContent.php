@@ -54,7 +54,7 @@ function getLatestContent($p){
             break;
         case "libraryIndex":
             $out['debug'] .='Case is libraryIndex' . "\n";
-            //$text_file = true;
+            $text_file = true;
             $sql = "SELECT * FROM content
                 WHERE country_code = '". $p['country_code'] . "'
                 AND language_iso = '" . $p['language_iso'] . "'
