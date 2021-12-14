@@ -136,7 +136,7 @@ export default {
       var params = this.setupParams()
       params.country_code = 'AU'
       params.language_iso = 'eng'
-      params.library_code= 'library'
+      params.library_code= 'index'
       var response = await AuthorService.bookmark(params)
       return response
     },

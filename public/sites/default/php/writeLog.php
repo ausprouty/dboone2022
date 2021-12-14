@@ -1,16 +1,16 @@
 <?php
 function writeLog($filename, $content){
 	$filename =   time() . '-' . $filename;
+	if (is_object($content)){
+      $content=objectToArray($content);
+	}
 	if (!is_array($content)){
 		$text = $content;
 	}
 	else{
 		$text = '';
 		foreach ($content as $key=> $value){
-			if(!is_array($value)){
-  				$text .= $key . ' => '. $value . "\n";
-			}
-			elseif (is_array($value)){
+			if (is_array($value)){
 				$text .= $key . ' => '. "\n";
 				foreach ($value as $k => $v){
 					if (!is_object($v)){
@@ -30,6 +30,9 @@ function writeLog($filename, $content){
 				foreach ($value_array as $k => $v){
 					$text .= $k . ' -> '. $v . "\n";
 				}
+			}
+			else{
+  				$text .= $key . ' => '. $value . "\n";
 			}
 		}
 	}

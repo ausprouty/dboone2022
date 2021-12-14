@@ -17,7 +17,6 @@ function bookmark ($p){
     $bm = [];
     $out['debug'] = 'I entered Bookmark' . "\n";
     $b['bookmark'] = null;
-    $b['library_code'] =   isset($p['library_code']) ? $p['library_code'] : 'library';
 
     writeLog ('bookmark-20-', $p);
 
@@ -42,6 +41,7 @@ function bookmark ($p){
         if ($b['country_code'] =='undefined') {$b['country_code']  = null;}
         $b['language_iso'] = isset($p['language_iso'])?$p['language_iso']:null;
         if ($b['language_iso'] =='undefined') {$b['language_iso']  = null;}
+        $b['library_code'] = isset($p['library_code'])?$p['library_code']:null;
         $b['folder_name'] = isset($p['folder_name'])?$p['folder_name']:null;
         if ($b['folder_name'] =='undefined') {$b['folder_name']  = null;}
         $b['filename'] = isset($p['filename'])?$p['filename']:null;
@@ -170,7 +170,12 @@ function checkBookmarkLibrary($b){
     $out = [];
     $out['debug'] = 'in checkBookmarkLibrary'. "\n";
     $out['content'] = null;
-    $b['scope'] = 'library';
+    if ($b['library_code']!= 'index'){
+         $b['scope'] = 'library';
+    }
+    else{
+        $b['scope'] = 'libraryIndex';
+    }
     $res = getLatestContent($b);
     $out['debug'] .= $res['debug'];
     $out['debug'] .= 'response is'.  $res['content']['text'] ."\n";
