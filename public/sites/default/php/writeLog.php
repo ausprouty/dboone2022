@@ -1,5 +1,8 @@
 <?php
 function writeLog($filename, $content){
+	if (LOG_MODE !== 'write_log'){
+       return;
+	}
 	$filename =   time() . '-' . $filename;
 	if (is_object($content)){
       $content=objectToArray($content);
@@ -18,8 +21,8 @@ function writeLog($filename, $content){
 					}
 					else{
 						$value_array= objectToArray($v);
-						foreach ($value_array as $k => $v){
-							$text .= $k . ' -> '. $v . "\n";
+						foreach ($value_array as $k2 => $v2){
+							$text .= $k2 . ' -> '. $v2 . "\n";
 						}
 					 }
 				}
@@ -28,7 +31,29 @@ function writeLog($filename, $content){
 				$text .= $key . ' => '. "\n";
 				$value_array= objectToArray($value);
 				foreach ($value_array as $k => $v){
-					$text .= $k . ' -> '. $v . "\n";
+                    if (is_array($v)){
+						foreach ($v as $k2 => $v2){
+							if (is_object($v2)){
+								$value_array2= objectToArray($v2);
+								foreach ($value_array2 as $k2 => $v2){
+									$text .= $k2 . ' -> '. $v2 . "\n";
+								}
+					 		}
+							else{
+								$text .= $k2 . ' -> '. $v2 . "\n";
+							}
+
+						}
+					}
+					if (is_object($v)){
+						$value_array2= objectToArray($v);
+						foreach ($value_array2 as $k2 => $v2){
+							$text .= $k2 . ' -> '. $v2 . "\n";
+						}
+					 }
+					 else{
+						$text .= $k . ' => '. $v . "\n";
+					}
 				}
 			}
 			else{

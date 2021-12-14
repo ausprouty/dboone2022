@@ -31,5 +31,5 @@ fclose($fh);
 // return response
 header("Access-Control-Allow-Origin: *");
 header("Content-type: application/json");
-echo json_encode($output, , JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+echo json_encode($output,  JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 die();

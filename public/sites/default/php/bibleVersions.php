@@ -30,7 +30,7 @@ function getBibleVersions($p){
         $bible->volume_name=  utf8_encode($data->volume_name);
         $out['content'][] = $bible;
         $out['debug'] .= $data->volume_name . "\n";
-        $out['debug'] .= json_encode($bible, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES); . "\n\n";
+        $out['debug'] .= json_encode($bible, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n\n";
         $count++;
     }
     if ($count > 0){

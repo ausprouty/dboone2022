@@ -33,7 +33,7 @@ export default {
         'testPage',
         'testBookmarkCountry',
         'testBookmarkLanguage',
-        'testBookmarkLibrary',
+        'testBookmarkLibraryIndex',
         'testBookmarkLibraryFriends',
         'testBookmarkSeries',
         'testBookmarkPage',
@@ -132,7 +132,7 @@ export default {
       var response = await AuthorService.bookmark(params)
       return response
     },
-    async testBookmarkLibrary() {
+    async testBookmarkLibraryIndex() {
       var params = this.setupParams()
       params.country_code = 'AU'
       params.language_iso = 'eng'

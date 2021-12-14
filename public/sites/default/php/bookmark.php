@@ -20,9 +20,10 @@ function bookmark ($p){
 
     writeLog ('bookmark-20-', $p);
 
-    // be sure to add this in for library since you can not yet derive it.
+
     if (isset($p['recnum'])){
-        $b['library_code'] =   $p['library_code'];
+         // be sure to add this in for library since you can not yet derive it.
+        $b['library_code'] = isset($p['library_code'])?$p['library_code']:null;
         $out['debug'] .= 'library_code ' . $b['library_code'] . "\n\n";
         // find other parameters for bookmark from recnum
         $out['debug'] .= 'recnum is ' . $p['recnum'] . "\n";
@@ -52,19 +53,18 @@ function bookmark ($p){
         $response = checkBookmarkCountry($b);
         $b['bookmark']['country'] = $response['content'];
         $out['debug'] .= $response['debug'] . "\n";
-          writeLog ('bookmark-53-country-', $out['debug']);
+         // writeLog ('bookmark-53-country-', $out['debug']);
 
         if ($b['language_iso']){
             $response = checkBookmarkLanguage($b);
             $b ['bookmark'] ['language'] = $response['content'];
             $out['debug'] .=  $response['debug']. "\n";
-             writeLog ('bookmark-59-language', $out['debug']);
+            // writeLog ('bookmark-59-language', $out['debug']);
 
             if (isset($b['library_code'])){
                 $response = checkBookmarkLibrary($b);
                 $b['bookmark']['library']  = $response['content'];
                 $out['debug'] .=  $response['debug']. "\n";
-                 writeLog ('bookmark-65-library', $out['debug']);
 
                 if ($b['folder_name']){
                     $response = checkBookmarkSeries($b);
@@ -73,13 +73,10 @@ function bookmark ($p){
                     $response = checkBookmarkBook($b);
                     $b['bookmark']['book'] = $response['content'];
                     $out['debug'] .=  $response['debug']. "\n";
-                    writeLog ('bookmark-74-folder', $out['debug']);
-
                     if ($b['filename']){
                         $response = checkBookmarkPage($b);
                         $b['bookmark']['page'] = $response['content'];
                         $out['debug'] .=  $response['debug'];
-                         writeLog ('bookmark-74-filename', $out['debug']);
                     }
                 }
             }
@@ -114,13 +111,8 @@ function checkBookmarkLanguage($b){
     $out['debug'] = 'in checkBookmarkLanguage'. "\n";
     $out['content'] = null;
     $b['scope'] = 'languages';
-    writeLog ('checkBookmarkLanguage-115-', $b);
     $res = getLatestContent($b);
-     writeLog ('checkBookmarkLanguage-117-', $res);
-    writeLog ('checkBookmarkLanguage-118-', $res['content']);
-     writeLog ('checkBookmarkLanguage-119-', $res['content']['text']);
     $response = json_decode($res['content']['text']);
-    writeLog ('checkBookmarkLanguage-121-', $response);
     if (!$response){
         writeLog('ERROR - checkBookmarkLanguage', $out['debug']);
         trigger_error("No response in checkBookmarkLanguage", E_USER_ERROR);
@@ -134,8 +126,7 @@ function checkBookmarkLanguage($b){
     }else{
         $out['debug'] .= 'NO response for languages'.  "\n";
     }
-     writeLog ('checkBookmarkLanguage-135-',  $out['debug']);
-     writeLog ('checkBookmarkLanguage-136-',  $out['content']);
+
     return $out;
 }
 // no longer used
@@ -170,7 +161,7 @@ function checkBookmarkLibrary($b){
     $out = [];
     $out['debug'] = 'in checkBookmarkLibrary'. "\n";
     $out['content'] = null;
-    if ($b['library_code']!= 'index'){
+    if ($b['library_code'] !== 'index'){
          $b['scope'] = 'library';
     }
     else{
@@ -181,8 +172,9 @@ function checkBookmarkLibrary($b){
     $out['debug'] .= 'response is'.  $res['content']['text'] ."\n";
     $r = json_decode($res['content']['text']);
     if (!$r){
-        writeLog('checkBookmarkLibrary-parameters', $b);
-        writeLog('checkBookmarkLibrary-debug', $out['debug']);
+        writeLog('ERROR - checkBookmarkLibrary-parameters', $b);
+        writeLog('ERROR - checkBookmarkLibrary-debug', $out['debug']);
+         writeLog('ERROR - checkBookmarkLibrary-res',  $res['content']);
         trigger_error("No r in checkBookmarkLibrary", E_USER_ERROR);
     }
     // legacy data does not have ['books'] so move data there
