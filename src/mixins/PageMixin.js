@@ -37,7 +37,9 @@ export const pageMixin = {
       await this.pageCheckBookmarks()
       await this.setImagesAndLinks()
       try {
-        this.rldir = this.bookmark.language.rldir
+        if (typeof this.bookmark.langauge !== undefined) {
+          this.rldir = this.bookmark.language.rldir
+        }
         // get page content
         var params = this.$route.params
         var response = ''
@@ -180,7 +182,10 @@ export const pageMixin = {
         // image
         this.image_navigation = process.env.VUE_APP_SITE_IMAGE
         if (typeof this.bookmark.library.format.image !== 'undefined') {
-          this.image_navigation = '/sites/' + process.env.VUE_APP_SITE + this.bookmark.library.format.image.image
+          this.image_navigation =
+            '/sites/' +
+            process.env.VUE_APP_SITE +
+            this.bookmark.library.format.image.image
         }
         //directory
 

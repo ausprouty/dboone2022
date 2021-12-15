@@ -179,7 +179,9 @@ export default {
         templates_replaceContent: false,
         // VUE_APP_SITE= mc2
         templates_files: [
-          '/sites/' + process.env.VUE_APP_SITE + '/ckeditor/templates/' +
+          '/sites/' +
+            process.env.VUE_APP_SITE +
+            '/ckeditor/templates/' +
             this.$route.params.styles_set +
             '.js',
         ],
@@ -241,6 +243,7 @@ export default {
       console.log(params.text)
       params.text = ContentService.validate(this.pageText)
       params.route = JSON.stringify(this.$route.params)
+      console.log('going to biblePopupMaker')
       await BibleService.biblePopupMaker(params)
       await this.showPage()
     },
@@ -309,7 +312,10 @@ export default {
           this.error_message = response.data.message
         }
       } catch (error) {
-        LogService.consoleLogError('LIBRARY EDIT There was an error ', error)
+        LogService.consoleLogError(
+          'There was an error in saveForm of PageEdit ',
+          error
+        )
         this.error = true
         this.loaded = false
         this.error_message = error
@@ -321,7 +327,10 @@ export default {
         console.log('I am about to get page or template')
         await this.getPageorTemplate('either')
       } catch (error) {
-        LogService.consoleLogError('There was an error in Page.vue :', error)
+        LogService.consoleLogError(
+          'There was an error in Page.vue  during showPage:',
+          error
+        )
       }
     },
   },

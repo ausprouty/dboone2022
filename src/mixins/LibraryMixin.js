@@ -90,7 +90,6 @@ export const libraryMixin = {
         console.log(params)
         console.log('as')
         console.log(this.user)
-        alert('check')
         await this.CheckBookmarks(params)
         this.image_dir = process.env.VUE_APP_SITE_IMAGE_DIR
 

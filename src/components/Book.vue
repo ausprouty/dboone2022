@@ -71,7 +71,6 @@ export default {
           },
         })
       } else if (book.format == 'library') {
-        alert('this is a library')
         LogService.consoleLogMessage('BOOK - this is a LIBRARY')
         this.$router.push({
           name: 'previewLibrary',

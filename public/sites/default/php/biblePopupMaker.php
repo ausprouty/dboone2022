@@ -35,14 +35,8 @@ function biblePopupMaker($p){
     writeLog('biblePopupMaker-33', $out['debug']);
     $template = '<a href="javascript:popUp(\'pop[id]\')">[reference]</a>
     <div class="popup" id="pop[id]">[text]</div>';
-
-    // get record
-    //$sql = 'SELECT * FROM content WHERE  recnum =' . $p['recnum'];
-    //$out['debug'] .= $sql . "\n";
-    //$p = sqlArray($sql);
     $text = $p['text'];
     $highest_existing = biblePopupFindExisting ($text);
-    //$out['debug'] .= $text;
     $count = substr_count($text, '"bible-link"');
     $pos_end = 0;
     for ($i = 1; $i <= $count; $i++){
