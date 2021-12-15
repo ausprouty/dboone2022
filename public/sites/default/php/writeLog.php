@@ -1,9 +1,11 @@
 <?php
 function writeLog($filename, $content){
-	if (LOG_MODE !== 'write_log'){
+	if (LOG_MODE !== 'write_log' &&  LOG_MODE !== 'write_time_log'){
        return;
 	}
-	$filename =   time() . '-' . $filename;
+	if ( LOG_MODE == 'write_time_log'){
+       $filename =   time() . '-' . $filename;
+	}
 	if (is_object($content)){
       $content=objectToArray($content);
 	}

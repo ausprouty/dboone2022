@@ -33,7 +33,7 @@ module.exports = {
       site = 'sites/' + process.env.VUE_APP_SITE + '/.env.api.local.php'
       options[0].ignore.push(site)
       if (process.env.VUE_APP_UPGRADE == 'minor') {
-        site = 'node_modules/**'
+        site = 'node_modules/*'
         options[0].ignore.push(site)
         site = 'sites/' + process.env.VUE_APP_SITE + '/content/**'
         options[0].ignore.push(site)

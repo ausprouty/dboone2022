@@ -69,7 +69,10 @@ export default {
       LogService.consoleLogMessage(this.$route.params)
       this.getPage(this.$route.params)
     } catch (error) {
-      LogService.consoleLogError('There was AN error in Page.vue:', error) // Logs out the error
+      LogService.consoleLogError(
+        'There was AN error in Page.vue during created:',
+        error
+      ) // Logs out the error
     }
   },
 }

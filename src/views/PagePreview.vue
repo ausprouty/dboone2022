@@ -47,7 +47,7 @@
       </div>
       <div v-if="this.show_page_image">
         <img
-          v-bind:src=" this.image_page"
+          v-bind:src="this.image_page"
           v-bind:class="this.image_page_class"
         />
       </div>
@@ -231,10 +231,12 @@ export default {
             }
           }
         }
-
         // end authorization for prototype and publish
       } catch (error) {
-        LogService.consoleLogError('There was an error in Page.vue:', error) // Logs out the error
+        LogService.consoleLogError(
+          'There was an error in Page.vue during load view',
+          error
+        ) // Logs out the error
       }
     },
   },
