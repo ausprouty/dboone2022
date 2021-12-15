@@ -18,15 +18,12 @@
 import { mapState } from 'vuex'
 export default {
   props: {
-    chapter: Object
+    chapter: Object,
   },
   computed: mapState(['bookmark']),
   methods: {
-    showPage: function(chapter) {
-      var p = localStorage.setItem(
-        'lastPage',
-        'language/' + this.chapter.filename
-      )
+    showPage: function (chapter) {
+      localStorage.setItem('lastPage', 'language/' + this.chapter.filename)
       this.$router.push({
         name: 'page',
         params: {
@@ -34,10 +31,10 @@ export default {
           language_iso: this.$route.params.language_iso,
           library_code: this.$route.params.library_code,
           folder_name: this.bookmark.book.code,
-          filename: chapter.filename
-        }
+          filename: chapter.filename,
+        },
       })
-    }
-  }
+    },
+  },
 }
 </script>

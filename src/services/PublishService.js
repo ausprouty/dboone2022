@@ -100,7 +100,7 @@ export default {
       }
       return content
     } catch (error) {
-      this.error = error.toString() +  '' + action
+      this.error = error.toString() + '' + action
       console.log(this.error)
       console.log(action)
       return 'error'

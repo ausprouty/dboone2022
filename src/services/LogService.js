@@ -45,5 +45,5 @@ export default {
 
     var output = source + ':  ' + message + '  ' + text
     alert(output)
-  }
+  },
 }

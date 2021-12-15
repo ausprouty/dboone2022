@@ -1,7 +1,6 @@
 import LogService from '@/services/LogService.js'
 import ContentService from '@/services/ContentService.js'
 import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
-import { publishMixin } from '@/mixins/PublishMixin.js'
 export const countriesMixin = {
   data() {
     return {

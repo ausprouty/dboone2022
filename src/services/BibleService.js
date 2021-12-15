@@ -29,9 +29,9 @@ export default {
     returns:
       params.dbt = array(
       'entry' => 'Zephaniah 1:2-3'
-      'bookId' => 'Zeph',  
-      'chapterId' => 1, 
-      'verseStart' => 2, 
+      'bookId' => 'Zeph',
+      'chapterId' => 1,
+      'verseStart' => 2,
       'verseEnd' => 3,
       'collection_code' => 'OT' ,
      );
@@ -45,19 +45,19 @@ export default {
 
   async getBiblePassage(params) {
     /*
-  expects 
+  expects
     params.dbt = array(
       'entry' => 'Zephaniah 1:2-3'
-      'bookId' => 'Zeph',  
-      'chapterId' => 1, 
-      'verseStart' => 2, 
+      'bookId' => 'Zeph',
+      'chapterId' => 1,
+      'verseStart' => 2,
       'verseEnd' => 3,
       'collection_code' => 'OT' ,
      );
-     params.bid 
+     params.bid
 
   Returns:
-     "debug": 
+     "debug":
     "link": "https:\/\/biblegateway.com\/passage\/?search=Nehemiah%201:1-11&version=NIV",
 		"passage_name": "Nehemiah 1",
 		"bible_name": "New International Version",

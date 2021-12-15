@@ -75,7 +75,7 @@ export default new Vuex.Store({
         'Authorization'
       ] = `Bearer ${userData.token}`
     },
-    NEW_BOOKMARK(state, value) {
+    NEW_BOOKMARK(state) {
       console.log('STORE - NEW BOOKMARK    ')
       state.bookmark = {}
     },

@@ -25,6 +25,6 @@ export const bibleMixin = {
         this.error = error.toString() + 'BIBLE MIXIN -- getBibleVersions'
         return null
       }
-    }
-  }
+    },
+  },
 }

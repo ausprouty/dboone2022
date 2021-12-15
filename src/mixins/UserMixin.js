@@ -12,12 +12,12 @@ export const userMixin = {
         languages: null,
         start_page: null,
         username: null,
-        password: null
+        password: null,
       },
       country_options: [],
       language_options: [],
       languages_present: [],
-      countries_present: []
+      countries_present: [],
     }
   },
   validations: {
@@ -28,8 +28,8 @@ export const userMixin = {
       languages: { required },
       start_page: { required },
       username: { required },
-      password: {}
-    }
+      password: {},
+    },
   },
   methods: {
     async languageOptionsOld() {
@@ -37,7 +37,7 @@ export const userMixin = {
         { display: 'Global', code: '|*|' },
         { display: 'English', code: '|eng|' },
         { display: 'French', code: '|fra|' },
-        { display: 'Simplifed Chinese', computed: '|cmn|' }
+        { display: 'Simplifed Chinese', computed: '|cmn|' },
       ]
       this.language_options = options
       return
@@ -48,7 +48,7 @@ export const userMixin = {
       var option = {}
       var present = {}
       // get countries of Current User
-      if (typeof this.member.languages == 'undefined'){
+      if (typeof this.member.languages == 'undefined') {
         this.member.languages = {}
       }
       present = this.member.languages.split('|')
@@ -134,6 +134,6 @@ export const userMixin = {
       this.country_options = options
       this.$v.member.countries.$model = this.countries_present
       return
-    }
-  }
+    },
+  },
 }

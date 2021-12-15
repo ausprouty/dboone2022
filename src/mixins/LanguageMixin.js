@@ -16,7 +16,7 @@ export const languageMixin = {
       prototype_date: null,
       publish: false,
       publish_date: null,
-      recnum: null
+      recnum: null,
     }
   },
   methods: {
@@ -37,8 +37,8 @@ export const languageMixin = {
     async getLanguages() {
       await this.checkBookmark()
       try {
-        console.log ('route params')
-        console.log (this.$route.params)
+        console.log('route params')
+        console.log(this.$route.params)
         var response = await ContentService.getLanguages(this.$route.params)
         console.log('language response')
         console.log(response)
@@ -79,6 +79,6 @@ export const languageMixin = {
           error
         )
       }
-    }
-  }
+    },
+  },
 }

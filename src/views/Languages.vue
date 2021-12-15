@@ -4,7 +4,10 @@
     <div class="loading" v-if="loading">Loading...</div>
     <div class="error" v-if="error">There was an error... {{ this.error }}</div>
     <div class="content" v-if="loaded">
-      <img v-bind:src="process.env.VUE_APP_SITE_IMAGE_DIR + 'languages.jpg'" class="app-img-header" />
+      <img
+        v-bind:src="process.env.VUE_APP_SITE_IMAGE_DIR + 'languages.jpg'"
+        class="app-img-header"
+      />
 
       <h1>Languages Available</h1>
       <Language
@@ -29,9 +32,9 @@ export default {
   props: ['country_code'],
   components: {
     Language,
-    NavBar
+    NavBar,
   },
-  computed: mapState(['bookmark' ]),
+  computed: mapState(['bookmark']),
   data() {
     return {
       languages: [],
@@ -40,12 +43,12 @@ export default {
         flag: null,
         folder: null,
         language_iso: null,
-        language_name: null
+        language_name: null,
       },
       loading: false,
       loaded: null,
       error: null,
-      ZZ: false
+      ZZ: false,
     }
   },
   beforeCreate() {
@@ -59,12 +62,12 @@ export default {
       this.loaded = true
       this.loading = false
     } catch (error) {
-       LogService.consoleLogError(
+      LogService.consoleLogError(
         'There was an error in LanguagesEdit.vue:',
         error
       ) // Logs out the error
     }
-  }
+  },
 }
 </script>
 

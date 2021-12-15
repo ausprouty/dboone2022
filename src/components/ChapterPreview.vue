@@ -24,7 +24,10 @@
       <div v-if="this.chapter.image">
         <img
           v-bind:src="
-            process.env.VUE_APP_SITE_CONTENT + this.series_image_dir + '/' + chapter.image
+            process.env.VUE_APP_SITE_CONTENT +
+            this.series_image_dir +
+            '/' +
+            chapter.image
           "
           class="book-large"
         />

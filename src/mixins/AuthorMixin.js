@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { mapState } from 'vuex'
-import LogService from '@/services/LogService.js'
 //import { timeout } from 'q'
 Vue.use(Vuex)
 

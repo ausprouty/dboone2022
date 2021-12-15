@@ -18,7 +18,7 @@ const requireComponent = require.context(
   /Base[A-Z]\w+\.(vue|js)$/
 )
 
-requireComponent.keys().forEach(fileName => {
+requireComponent.keys().forEach((fileName) => {
   const componentConfig = requireComponent(fileName)
 
   const componentName = upperFirst(
@@ -46,14 +46,14 @@ Vue.mixin({
         console.log(pair[0] + ', ' + pair[1])
       }
       return form_data
-    }
-  }
+    },
+  },
 })
 
 var vm = new Vue({
   router,
   store,
-  render: function(h) {
+  render: function (h) {
     return h(App)
-  }
+  },
 }).$mount('#app')

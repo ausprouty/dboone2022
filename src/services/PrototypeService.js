@@ -2,7 +2,6 @@ const apiURL = process.env.VUE_APP_DEFAULT_SITES_URL
 const apiSite = process.env.VUE_APP_SITE
 const apiLocation = process.env.VUE_APP_SITE_LOCATION
 
-
 const apiSECURE = axios.create({
   baseURL: apiURL,
   withCredentials: false, // This is the default
@@ -101,7 +100,7 @@ export default {
       }
       return content
     } catch (error) {
-      this.error = error.toString() + " " + action
+      this.error = error.toString() + ' ' + action
       console.log(this.error)
       console.log(action)
       return 'error'

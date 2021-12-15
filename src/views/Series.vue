@@ -5,16 +5,19 @@
     <div class="error" v-if="error">There was an error... {{ this.error }}</div>
     <div class="content" v-if="loaded">
       <div v-bind:class="this.rldir">
-        <link rel="stylesheet" v-bind:href="'/content/' + this.bookmark.book.style" />
+        <link
+          rel="stylesheet"
+          v-bind:href="'/content/' + this.bookmark.book.style"
+        />
         <div class="app-link">
           <div class="app-card -shadow">
             <img
               v-on:click="returnToIndex()"
               v-bind:src="
                 process.env.VUE_APP_SITE_CONTENT +
-                  this.bookmark.language.image_dir +
-                  '/' +
-                  this.bookmark.book.image
+                this.bookmark.language.image_dir +
+                '/' +
+                this.bookmark.book.image
               "
               class="app-img-header"
             />
@@ -25,7 +28,11 @@
         <br />
         <br />
 
-        <Chapter v-for="chapter in chapters" :key="chapter.id" :chapter="chapter" />
+        <Chapter
+          v-for="chapter in chapters"
+          :key="chapter.id"
+          :chapter="chapter"
+        />
         <div class="version">
           <p class="version">Version 1.11</p>
         </div>
