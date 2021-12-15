@@ -44,7 +44,7 @@ import { seriesMixin } from '@/mixins/SeriesMixin.js'
 export default {
   mixins: [bookMarkMixin, seriesMixin],
   props: ['country_code', 'language_iso', 'library_code', 'folder_name'],
-  computed: mapState(['bookmark', ]),
+  computed: mapState(['bookmark']),
   components: {
     Chapter,
     NavBar,

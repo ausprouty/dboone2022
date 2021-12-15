@@ -31,6 +31,6 @@ export default {
       bMark: this.$store.state.bookmark,
     }
   },
-  computed: mapState(['bookmark', ]),
+  computed: mapState(['bookmark']),
 }
 </script>

@@ -20,7 +20,7 @@ export default {
   props: {
     chapter: Object
   },
-  computed: mapState(['bookmark', ]),
+  computed: mapState(['bookmark']),
   methods: {
     showPage: function(chapter) {
       var p = localStorage.setItem(

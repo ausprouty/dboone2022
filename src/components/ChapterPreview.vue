@@ -46,7 +46,7 @@ export default {
       rldir: 'ltr',
     }
   },
-  computed: mapState(['bookmark', ]),
+  computed: mapState(['bookmark']),
   methods: {
     showPage: function (chapter) {
       LogService.consoleLogMessage('chapter')

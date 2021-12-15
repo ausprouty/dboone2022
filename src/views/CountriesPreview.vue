@@ -69,7 +69,7 @@ export default {
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
     }
   },
-  computed: mapState([, 'user']),
+  computed: mapState(['user']),
 
   methods: {
     showPreview() {

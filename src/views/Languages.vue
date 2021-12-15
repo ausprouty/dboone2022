@@ -31,7 +31,7 @@ export default {
     Language,
     NavBar
   },
-  computed: mapState(['bookmark', ]),
+  computed: mapState(['bookmark' ]),
   data() {
     return {
       languages: [],
