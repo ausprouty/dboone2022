@@ -1,14 +1,17 @@
 <?php
 
 myRequireOnce('bookmark.php');
+myRequireOnce('copyGlobal.php');
+myRequireOnce('createDirectory.php');
 myRequireOnce('getTitle.php');
 myRequireOnce('languageSpecificJavascripts.php');
 myRequireOnce('modifyHeaders.php');
 myRequireOnce('modifyImages.php');
-myRequireOnce('copyGlobal.php');
-myRequireOnce('createDirectory.php');
-myRequireOnce('prototypeLanguageFooter.php');
 myRequireOnce('prototypeCopyImagesAndStyles.php');
+myRequireOnce('prototypeLanguageFooter.php');
+myRequireOnce('prototypeRemoveDuplicateCSS.php');
+myRequireOnce('version2Text.php');
+myRequireOnce('writeLog.php');
 
 
 // $scope must be 'publish' or 'prototype'
@@ -65,21 +68,25 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
     $output = str_replace($placeholders, $replace,  $output);
     // insert text
     $output .= $text;
+    writeLog('publishFiles-69', $output);
     // remove dupliate CSS
     $response = prototypeRemoveDuplicateCSS($output);
     $out['debug'] .= $response['debug'];
     $output = $response['content'];
+    writeLog('publishFiles-74', $output);
     // append footer
     $output .= myGetPrototypeFile('footer.html');
-    writeLog('prototype or publish -79', $output);
+    $output=  version2Text($output);
+    writeLog('publishFiles-77', $output);
     // copy all images and styles to the prototype directory
     $response = prototypeCopyImagesAndStyles($output, $scope);
+    writeLog('publishFiles-80', $output);
     $response = modifyImages($output, $scope);
     if (isset($response['debug'])){
         $out['debug'] .= $response['debug'];
     }
     $output = $response['content'];
-    writeLog('prototype or publish -86', $output);
+    writeLog('publishFiles-85', $output);
     // make sure we have all the necessary directories
     dirMake($fname);
     // write the file

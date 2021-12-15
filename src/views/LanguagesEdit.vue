@@ -198,7 +198,7 @@ export default {
 
     async saveForm() {
       try {
-        this.$store.dispatch('newBookmark', 'clear')
+        //this.$store.dispatch('newBookmark', 'clear')
         var output = {}
         output.languages = this.languages
         output.more_languages = this.more_languages

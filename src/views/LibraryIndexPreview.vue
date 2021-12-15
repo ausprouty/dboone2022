@@ -134,7 +134,7 @@ export default {
     },
     async loadView() {
       try {
-        this.$route.params.css = '/content/AU/styles/AU-freeform.css'
+        this.$route.params.css = '/sites/default/styles/freeformGLOBAL.css'
 
         await this.getLibraryIndex()
         if (this.recnum) {

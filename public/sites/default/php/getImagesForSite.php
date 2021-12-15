@@ -28,7 +28,7 @@ function getImagesForSite($p){
 	}
 	$out['content'] = $results;
 	$out['error'] = false;
-    writeLog('getImages',$out['debug'] );
+    writeLog('getImagesForSite',$out['debug'] );
 	return $out;
 
 }

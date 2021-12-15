@@ -379,7 +379,7 @@ export default {
       this.content.filetype = 'json'
       LogService.consoleLogMessage('this.content')
       LogService.consoleLogMessage(this.content)
-      this.$store.dispatch('newBookmark', 'clear')
+      //this.$store.dispatch('newBookmark', 'clear')
       var response = await AuthorService.createContentData(this.content)
       return response
     },

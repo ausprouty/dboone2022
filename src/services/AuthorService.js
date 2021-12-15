@@ -326,7 +326,7 @@ export default {
   async getImagesForSite(params) {
     var images = {}
     params.page = 'getImagesForSite'
-    params.action = 'getImagesForSitet'
+    params.action = 'getImagesForSite'
     var content = await this.aReturnContent(params)
     console.log('content from getImagesForSite')
     console.log(content)

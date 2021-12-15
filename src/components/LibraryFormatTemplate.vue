@@ -162,7 +162,9 @@ export default {
           var filename = checkfile[0].name
           LogService.consoleLogMessage('setting this image to ' + filename)
           this.back_button = filename
-          this.back_buttons = await this.getImagesforSite('/images/ribbons')
+          this.back_buttons = await AuthorService.getImagesForSite(
+            '/images/ribbons'
+          )
         }
       } else {
         alert('Your BackButton was not uploaded')
@@ -184,7 +186,10 @@ export default {
       )
       LogService.consoleLogMessage('this.images')
       LogService.consoleLogMessage(this.images)
-      this.back_buttons = await this.getImagesforSite('/images/ribbons')
+      this.back_buttons = await AuthorService.getImagesForSite(
+        '/images/ribbons'
+      )
+      console.log(this.back_buttons)
     },
   },
 

@@ -610,7 +610,7 @@ export default {
         delete this.$route.params.folder_name
         this.content.route = JSON.stringify(this.$route.params)
         this.content.filetype = 'json'
-        this.$store.dispatch('newBookmark', 'clear')
+        //this.$store.dispatch('newBookmark', 'clear')
 
         var response = await AuthorService.createContentData(this.content)
         if (response.data.error != true && action != 'stay') {
@@ -723,7 +723,7 @@ export default {
     this.$route.params.styles_set = 'default'
     this.$route.params.version = 'lastest'
     this.$route.params.filename = 'index'
-    this.$route.params.css = '/sites/default/styles/freeform.css'
+    this.$route.params.css = '/sites/default/styles/freeformGLOBAL.css'
   },
   async created() {
     this.library = []

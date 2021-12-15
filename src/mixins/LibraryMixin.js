@@ -90,15 +90,14 @@ export const libraryMixin = {
         console.log(params)
         console.log('as')
         console.log(this.user)
-        await this.CheckBookmarks(params)
+        var bmark = await this.CheckBookmarks(params)
         this.image_dir = process.env.VUE_APP_SITE_IMAGE_DIR
-
-        if (typeof this.bookmark.language.image_dir != 'undefined') {
+        if (typeof bmark.language.image_dir != 'undefined') {
           // LogService.consoleLogMessage('get Library is using Bookmark')
-          console.log(this.bookmark.language.image_dir)
-          this.image_dir = this.bookmark.language.image_dir
+          console.log(bmark.language.image_dir)
+          this.image_dir = bmark.language.image_dir
         }
-        this.rldir = this.bookmark.language.rldir
+        this.rldir = bmark.language.rldir
       } catch (error) {
         LogService.consoleLogError('There was an error in LibraryMixin:', error)
         this.newLibrary()

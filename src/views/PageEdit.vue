@@ -293,7 +293,7 @@ export default {
         this.content.filetype = 'html'
         var response = await AuthorService.createContentData(this.content)
         console.log(response)
-        this.$store.dispatch('newBookmark', 'clear')
+        //this.$store.dispatch('newBookmark', 'clear')
         if (response.data.message == 'Content Added Successfully') {
           this.$router.push({
             name: 'previewPage',

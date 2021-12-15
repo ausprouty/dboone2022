@@ -34,11 +34,11 @@ export const pageMixin = {
       this.error = this.loaded = null
       this.loading = true
       this.countries = []
-      await this.pageCheckBookmarks()
+      var bmark = await this.pageCheckBookmarks()
       await this.setImagesAndLinks()
       try {
-        if (typeof this.bookmark.langauge !== undefined) {
-          this.rldir = this.bookmark.language.rldir
+        if (typeof bmark.langauge !== undefined) {
+          this.rldir = bmark.language.rldir
         }
         // get page content
         var params = this.$route.params
@@ -115,7 +115,8 @@ export const pageMixin = {
     async pageCheckBookmarks() {
       try {
         await this.UnsetBookmarks()
-        await this.CheckBookmarks(this.$route.params)
+        var bmark = await this.CheckBookmarks(this.$route.params)
+        return bmark
       } catch (error) {
         LogService.consoleLogError(
           'There was an error with CheckBookmarks in PageMixin:',

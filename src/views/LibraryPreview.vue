@@ -190,7 +190,7 @@ export default {
     async loadView() {
       try {
         this.recnum = null
-        this.$store.dispatch('newBookmark', 'clear')
+        //this.$store.dispatch('newBookmark', 'clear')
         await this.getLibrary()
         this.back = '/preview/languages/' + this.$route.params.country_code
         //todo: allow this to backtrack

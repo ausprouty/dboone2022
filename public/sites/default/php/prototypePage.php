@@ -16,7 +16,7 @@ function prototypePage ($p){
     }
      // can you find record in database?
      if (isset($p['recnum'])) {
-        $sql = 'SELECT * FROM content 
+        $sql = 'SELECT * FROM content
             WHERE  recnum  = '. $p['recnum'];
         $p['debug'] .= $sql. "\n";
         $data = sqlArray($sql);
@@ -34,7 +34,7 @@ function prototypePage ($p){
     // create page
     //
     $result = createPage($p, $data);
-    $p = $result['p']; 
+    $p = $result['p'];
     $text = $result['text'];
     $p['debug'] .= isset($result['debug'])? $result['debug'] . "\n" : null;
     //
@@ -51,11 +51,11 @@ function prototypePage ($p){
     if (isset($result['message'])){
         $p['debug'] .= $result['message'];
     }
-    writeLog('prototypePage-54', $p['debug']);
+
     // get bookmark for stylesheet
     $b['recnum'] =  $p['recnum'];
     $b['library_code'] = $p['library_code'];
-    $bm = bookmark($b);   
+    $bm = bookmark($b);
     $bookmark = $bm['content'];
     $selected_css = isset($bookmark['book']->style)? $bookmark['book']->style: STANDARD_CSS;
 
@@ -72,16 +72,18 @@ function prototypePage ($p){
     //
     // modify the page for notes and links
     //
+     writeLog('prototypePage-75', $text);
     $response = modifyPage($text, $p, $data, $bookmark);
     $p['debug'] = $response['debug'];
     $text = $response['content'];
     // write file
-    $series_dir = ROOT_PROTOTYPE_CONTENT.  $data['country_code'] .'/'. 
+    $series_dir = ROOT_PROTOTYPE_CONTENT.  $data['country_code'] .'/'.
         $data['language_iso'] .'/'. $data['folder_name'] .'/';
     $fname = $series_dir . $data['filename'] .'.html';
     $text .= '<!--- Created by Stanard prototypePage-->' . "\n";
     // go to prototypeORpublish
     //writeLog('prototypePage-84', $p['debug']);
+    writeLog('prototypePage-86', $text);
     $response = publishFiles( 'prototype', $p, $fname, $text,  STANDARD_CSS, $selected_css);
     $p['debug'] .= $response['debug'];
     //
@@ -89,12 +91,12 @@ function prototypePage ($p){
     //
     //writeLog('prototypePage-90', $p['debug']);
     $time = time();
-    $sql = "UPDATE content 
-        SET prototype_date = '$time', prototype_uid = '". $p['my_uid']. "' 
-        WHERE  country_code = '". $data['country_code'] ."' AND  
-        language_iso = '" . $data['language_iso'] ."' 
-        AND folder_name = '" . $data['folder_name'] ."' 
-        AND filename = '". $data['filename'] . "' 
+    $sql = "UPDATE content
+        SET prototype_date = '$time', prototype_uid = '". $p['my_uid']. "'
+        WHERE  country_code = '". $data['country_code'] ."' AND
+        language_iso = '" . $data['language_iso'] ."'
+        AND folder_name = '" . $data['folder_name'] ."'
+        AND filename = '". $data['filename'] . "'
         AND prototype_date IS NULL";
     //$p['debug'] .= $sql. "\n";
     sqlArray($sql, 'update');

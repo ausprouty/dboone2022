@@ -32,7 +32,7 @@ function createPage($p, $data){
         $ribbon = isset($bookmark['library']->format->back_button) ? $bookmark['library']->format->back_button->image : DEFAULT_BACK_RIBBON;
         // this is always going back to the index; and we don't want that with Transferable Concepts
         // TODO: allow going back to previous study
-        $link_value =  '/content/'. $bookmark['language']->folder . '/'. $data['folder_name'].'/index.html';
+        $link_value =   $bookmark['language']->folder . '/'. $data['folder_name'].'/index.html';
         $p['debug'] .= 'The link value is ' . $link_value . "\n";
         // compute $page_title_and_image for series
         if (isset($bookmark['page']->image)){

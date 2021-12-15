@@ -1,8 +1,13 @@
 <?php
 /*
 Looking for all images and styles that are in the current file
+   want to copy   "/sites
 */
 myRequireOnce('writeLog.php');
+myRequireOnce('createDirectory.php');
+//define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
+//define("ROOT_PROTOTYPE", '/home/globa544/staging.mc2.online/');
+//define("ROOT_PUBLISH", '/home/globa544/app.mc2.online/');
 
 function prototypeCopyImagesAndStyles ($text, $scope){
     $source_dir = ROOT_EDIT;
@@ -20,9 +25,10 @@ function prototypeCopyImagesAndStyles ($text, $scope){
     $out['message'] = null;
     $out['debug'] = 'In prototypeCopyImagesAndStyles' . "\n";
     $out['debug'] .= $scope . "\n";
-    $out['debug'] .= $text . "\n\n";
+    $out['debug'] .= $text . "\n============================================\n";
 
-    $find_begin = '"/content/';
+
+    $find_begin = '"/sites/';
     $find_end = '"';
     if (strpos($text, $find_begin)!== false){
         //$p['debug'] .= "Images found\n";
@@ -40,7 +46,7 @@ function prototypeCopyImagesAndStyles ($text, $scope){
                 // do not copy html files or you will overwrite current index page
                 if (!is_dir($from) && strpos ($to, '.html') === false){
                     copy ($from, $to );
-                    $out['debug'] .= ' _copyImagesAndStyles copied ' . $filename . ' from' . $from . ' to '. $to . "\n";
+                    $out['debug'] .= ' copied ' . $filename . ' from' . $from . ' to '. $to . "\n";
                 }
             }
             else{

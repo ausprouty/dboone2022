@@ -109,7 +109,7 @@ export default {
         this.$route.params.filename = 'index'
         this.content.route = JSON.stringify(this.$route.params)
         this.content.filetype = 'json'
-        this.$store.dispatch('newBookmark', 'clear')
+        //this.$store.dispatch('newBookmark', 'clear')
         var response = await AuthorService.createContentData(this.content)
         if (response.data.error != true) {
           this.$router.push({

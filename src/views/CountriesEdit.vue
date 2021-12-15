@@ -304,7 +304,7 @@ export default {
     },
     async setupCountries() {
       try {
-        this.$store.dispatch('newBookmark', 'clear')
+        //this.$store.dispatch('newBookmark', 'clear')
         var res = await AuthorService.setupCountries(this.countries)
         console.log(res)
       } catch (error) {

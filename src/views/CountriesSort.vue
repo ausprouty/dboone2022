@@ -82,7 +82,7 @@ export default {
     },
     async saveForm() {
       try {
-        this.$store.dispatch('newBookmark', 'clear')
+        //this.$store.dispatch('newBookmark', 'clear')
         var valid = ContentService.validate(this.countries)
         this.content.text = JSON.stringify(valid)
         this.content.filename = 'countries'

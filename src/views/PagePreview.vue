@@ -1,5 +1,5 @@
 <template>
-  <div class="preview" v-bind:class="this.bookmark.language.rldir">
+  <div class="preview" v-bind:class="this.rldir">
     <NavBar />
     <div class="loading" v-if="loading">Loading...</div>
     <div class="error" v-if="error">There was an error... {{ this.error }}</div>
@@ -22,7 +22,7 @@
         class="help-icon"
         src="/sites/default/images/icons/preview.png"
       />
-      <link rel="stylesheet" v-bind:href="this.bookmark.book.style" />
+      <link rel="stylesheet" v-bind:href="this.book_style" />
       <div class="app-link">
         <div class="app-card -shadow">
           <div v-on:click="goBack()">
@@ -83,6 +83,8 @@ export default {
       prototype_text: 'Prototype',
       publish_text: 'Publish',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
+      rldir: 'ltr',
+      book_style:  process.env.VUE_APP_SITE_STYLE,
     }
   },
   methods: {
@@ -199,12 +201,15 @@ export default {
       var bm = await PrototypeService.publish('bookmark', param)
       LogService.consoleLogMessage('localBookmark')
       LogService.consoleLogMessage(bm)
+      return bm
     },
     async loadView() {
       try {
         await this.getPageorTemplate('page only')
         if (this.recnum) {
-          this.localBookmark(this.recnum)
+          var bm = await this.localBookmark(this.recnum)
+          this.rldir = bm.language.rldir
+          this.book_style = bm.book.style
         }
         this.read = this.authorize('read', this.$route.params)
         this.write = this.authorize('write', this.$route.params)

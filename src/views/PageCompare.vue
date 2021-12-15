@@ -490,7 +490,7 @@ export default {
         this.content.route = JSON.stringify(this.$route.params)
         this.content.filetype = 'html'
         var response = await AuthorService.createContentData(this.content)
-        this.$store.dispatch('newBookmark', 'clear')
+        //this.$store.dispatch('newBookmark', 'clear')
         if (response.data.error != true) {
           this.$router.push({
             name: 'previewPage',
