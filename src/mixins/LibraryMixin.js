@@ -78,7 +78,7 @@ export const libraryMixin = {
           this.recnum = this.publish_date = this.prototype_date = ''
         }
 
-        var bmark = await AuthorService.CheckBookmarks(params)
+        var bmark = await AuthorService.bookmark(params)
         this.bookmark = bmark
         this.image_dir = process.env.VUE_APP_SITE_IMAGE_DIR
         if (typeof bmark.language !== 'undefined') {
@@ -127,7 +127,7 @@ export const libraryMixin = {
       this.recnum = null
       this.publish_date = null
       await this.UnsetBookmarks()
-      await AuthorService.checkBookmarks(this.$route.params)
+      await AuthorService.bookmark(this.$route.params)
       var response = await ContentService.getLibraryIndex(this.$route.params)
       if (response) {
         if (response.recnum) {

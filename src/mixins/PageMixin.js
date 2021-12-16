@@ -115,7 +115,7 @@ export const pageMixin = {
     async pageCheckBookmarks() {
       try {
         await this.UnsetBookmarks()
-        var bmark = await AuthorService.checkBookmarks(this.$route.params)
+        var bmark = await AuthorService.bookmark(this.$route.params)
         return bmark
       } catch (error) {
         LogService.consoleLogError(

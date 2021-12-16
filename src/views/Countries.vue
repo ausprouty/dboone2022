@@ -37,7 +37,7 @@ export default {
   },
   async created() {
     try {
-      await AuthorService.checkBookmarks(this.$route.params)
+      await AuthorService.bookmark(this.$route.params)
       var response = await ContentService.getCountries(this.$route.params)
       this.countries = response.text
     } catch (error) {

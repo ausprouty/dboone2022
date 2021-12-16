@@ -37,7 +37,7 @@ export const pageMixin = {
         this.error = this.loaded = null
         this.loading = true
         this.countries = []
-        await AuthorService.checkBookmarks(this.$route.params)
+        await AuthorService.bookmark(this.$route.params)
         //determine image and like to put in the navigation area
         this.setImagesAndLinks()
         this.rldir = this.bookmark.language.rldir

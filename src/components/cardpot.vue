@@ -168,7 +168,7 @@ export default {
     },
   },
   async created() {
-    await AuthorService.checkBookmarks(this.$route.params)
+    await AuthorService.bookmark(this.$route.params)
     var param = {}
     param.route = JSON.stringify(this.$route.params)
     param.image_dir = this.bookmark.language.image_dir

@@ -181,6 +181,7 @@ export default {
     if (content) {
       store.dispatch('updateAllBookmarks', content)
     } else {
+      alert('No bookmark found')
       store.dispatch('newBookmark', null)
     }
     return content

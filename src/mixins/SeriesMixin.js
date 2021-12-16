@@ -60,7 +60,7 @@ export const seriesMixin = {
         LogService.consoleLogMessage(params)
         this.error = this.loaded = null
         this.loading = true
-        await AuthorService.checkBookmarks(params)
+        await AuthorService.bookmark(params)
       } catch (error) {
         LogService.consoleLogError(
           'There was an error withcheckBookmarks in CountriesMixin:',

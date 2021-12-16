@@ -49,7 +49,7 @@ export const countriesMixin = {
         this.error = this.loaded = null
         this.loading = true
         this.countries = []
-        await AuthorService.checkBookmarks(this.$route.params)
+        await AuthorService.bookmark(this.$route.params)
       } catch (error) {
         LogService.consoleLogError(
           'There was an error withcheckBookmarks in CountriesMixin:',
