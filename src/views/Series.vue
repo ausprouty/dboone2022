@@ -46,10 +46,10 @@ import { mapState } from 'vuex'
 import Chapter from '@/components/Chapter.vue'
 import LogService from '@/services/LogService.js'
 import NavBar from '@/components/NavBarBack.vue'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
+
 import { seriesMixin } from '@/mixins/SeriesMixin.js'
 export default {
-  mixins: [bookMarkMixin, seriesMixin],
+  mixins: [ seriesMixin],
   props: ['country_code', 'language_iso', 'library_code', 'folder_name'],
   computed: mapState(['bookmark']),
   components: {

@@ -102,12 +102,12 @@ import vSelect from 'vue-select'
 import '@/assets/css/vueSelect.css'
 import AuthorService from '@/services/AuthorService.js'
 import LogService from '@/services/LogService.js'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
+
 import { authorMixin } from '@/mixins/AuthorMixin.js'
 
 export default {
   props: {},
-  mixins: [bookMarkMixin, authorMixin],
+  mixins: [ authorMixin],
   components: {
     'v-select': vSelect,
   },
@@ -168,7 +168,7 @@ export default {
     },
   },
   async created() {
-    await this.CheckBookmarks(this.$route.params)
+    await AuthorService.checkBookmarks(this.$route.params)
     var param = {}
     param.route = JSON.stringify(this.$route.params)
     param.image_dir = this.bookmark.language.image_dir

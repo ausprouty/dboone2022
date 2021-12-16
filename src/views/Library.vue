@@ -29,11 +29,11 @@ import { mapState } from 'vuex'
 import NavBar from '@/components/NavBarHamburger.vue'
 import ContentService from '@/services/ContentService.js'
 import LogService from '@/services/LogService.js'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
+
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
 
 export default {
-  mixins: [bookMarkMixin, libraryMixin],
+  mixins: [ libraryMixin],
   props: ['country_code', 'language_iso', 'library_code'],
   computed: mapState(['bookmark', 'cssURL', 'standard']),
   components: {

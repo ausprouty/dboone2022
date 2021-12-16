@@ -1,6 +1,7 @@
 import LogService from '@/services/LogService.js'
 import ContentService from '@/services/ContentService.js'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
+import AuthorService from '@/services/AuthorService.js'
+
 export const countriesMixin = {
   data() {
     return {
@@ -41,17 +42,17 @@ export const countriesMixin = {
       },
     }
   },
-  mixins: [bookMarkMixin],
+
   methods: {
     async getCountries() {
       try {
         this.error = this.loaded = null
         this.loading = true
         this.countries = []
-        await this.CheckBookmarks(this.$route.params)
+        await AuthorService.checkBookmarks(this.$route.params)
       } catch (error) {
         LogService.consoleLogError(
-          'There was an error with CheckBookmarks in CountriesMixin:',
+          'There was an error withcheckBookmarks in CountriesMixin:',
           error
         )
       }

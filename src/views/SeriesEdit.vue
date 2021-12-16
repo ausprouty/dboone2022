@@ -210,12 +210,12 @@ import ContentService from '@/services/ContentService.js'
 import AuthorService from '@/services/AuthorService.js'
 import LogService from '@/services/LogService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
+
 import { seriesMixin } from '@/mixins/SeriesMixin.js'
 import { required } from 'vuelidate/lib/validators'
 import { authorMixin } from '@/mixins/AuthorMixin.js'
 export default {
-  mixins: [bookMarkMixin, seriesMixin, authorMixin],
+  mixins: [ seriesMixin, authorMixin],
   props: ['country_code', 'language_iso', 'library_code', 'folder_name'],
   computed: mapState(['bookmark']),
   components: {

@@ -321,13 +321,13 @@ import '@/assets/css/vueSelect.css'
 import './ckeditor/index.js'
 import VueCkeditor from 'vue-ckeditor2'
 import { mapState } from 'vuex'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
+
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
 import { libraryUploadMixin } from '@/mixins/library/LibraryUploadMixin.js'
 import { authorMixin } from '@/mixins/AuthorMixin.js'
 import { required } from 'vuelidate/lib/validators'
 export default {
-  mixins: [authorMixin, bookMarkMixin, libraryMixin, libraryUploadMixin],
+  mixins: [authorMixin,  libraryMixin, libraryUploadMixin],
   components: {
     NavBar,
     LibraryFormatTemplate,

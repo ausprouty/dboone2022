@@ -25,10 +25,10 @@ import NavBar from '@/components/NavBarHamburger.vue'
 import AuthorService from '@/services/AuthorService.js'
 import LogService from '@/services/LogService.js'
 import { mapState } from 'vuex'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
+
 import { languageMixin } from '@/mixins/LanguageMixin.js'
 export default {
-  mixins: [bookMarkMixin, languageMixin],
+  mixins: [ languageMixin],
   props: ['country_code'],
   components: {
     Language,

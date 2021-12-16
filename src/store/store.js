@@ -195,14 +195,5 @@ export default new Vuex.Store({
     loginUser({ commit }, [mark]) {
       commit('LOGIN_USER', [mark])
     },
-    /*todo: what is this used for?
-    async register({ commit }, credentials) {
-      return axios
-        .post('//localhost:3000/register', credentials)
-        .then(({ data }) => {
-          commit('SET_USER_DATA', data)
-        })
-    },
-    */
   },
 })

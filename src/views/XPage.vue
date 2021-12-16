@@ -38,10 +38,10 @@ import { mapState } from 'vuex'
 import ContentService from '@/services/ContentService.js'
 import LogService from '@/services/LogService.js'
 import NavBar from '@/components/NavBarBack.vue'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
+
 import { pageMixin } from '@/mixins/PageMixin.js'
 export default {
-  mixins: [bookMarkMixin, pageMixin],
+  mixins: [ pageMixin],
   props: ['country_code', 'language_iso', 'folder_name', 'filename'],
   components: {
     NavBar,

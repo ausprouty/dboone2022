@@ -543,6 +543,9 @@ export default {
   },
 
   toAuthorizedFormData(params) {
+    if (typeof store.state.user.token == 'undefined') {
+      alert('user token is now undefined')
+    }
     params.my_uid = store.state.user.uid
     params.token = store.state.user.token
     params.site = apiSite

@@ -12,12 +12,12 @@
 <script>
 import LogService from '@/services/LogService.js'
 import { countriesMixin } from '@/mixins/CountriesMixin.js'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
+
 export default {
   props: {
     user: Object,
   },
-  mixins: [bookMarkMixin, countriesMixin],
+  mixins: [ countriesMixin],
   data: function () {
     return {
       scope: null,

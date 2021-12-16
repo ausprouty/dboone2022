@@ -51,12 +51,12 @@ import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
 import NavBar from '@/components/NavBarCountry.vue'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
+
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
 import { authorMixin } from '@/mixins/AuthorMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
 export default {
-  mixins: [bookMarkMixin, libraryMixin, authorMixin, publishMixin],
+  mixins: [ libraryMixin, authorMixin, publishMixin],
   props: ['country_code', 'language_iso'],
   components: {
     NavBar,

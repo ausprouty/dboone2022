@@ -76,11 +76,11 @@ import LogService from '@/services/LogService.js'
 import NavBar from '@/components/NavBarCountry.vue'
 import './ckeditor/index.js'
 import VueCkeditor from 'vue-ckeditor2'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
+
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
 import { authorMixin } from '@/mixins/AuthorMixin.js'
 export default {
-  mixins: [bookMarkMixin, libraryMixin, authorMixin],
+  mixins: [ libraryMixin, authorMixin],
   props: ['country_code', 'language_iso'],
   components: {
     NavBar,

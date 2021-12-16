@@ -64,7 +64,6 @@ export const libraryMixin = {
           }
         }
         console.log(params)
-        alert('see params for this library')
         var response = await ContentService.getLibrary(params)
         if (typeof response.text == 'undefined') {
           response.text = ''
@@ -79,7 +78,7 @@ export const libraryMixin = {
           this.recnum = this.publish_date = this.prototype_date = ''
         }
 
-        var bmark = await this.CheckBookmarks(params)
+        var bmark = await AuthorService.CheckBookmarks(params)
         this.bookmark = bmark
         this.image_dir = process.env.VUE_APP_SITE_IMAGE_DIR
         if (typeof bmark.language !== 'undefined') {
@@ -128,7 +127,7 @@ export const libraryMixin = {
       this.recnum = null
       this.publish_date = null
       await this.UnsetBookmarks()
-      await this.CheckBookmarks(this.$route.params)
+      await AuthorService.checkBookmarks(this.$route.params)
       var response = await ContentService.getLibraryIndex(this.$route.params)
       if (response) {
         if (response.recnum) {

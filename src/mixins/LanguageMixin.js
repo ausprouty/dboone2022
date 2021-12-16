@@ -26,10 +26,10 @@ export const languageMixin = {
         this.loading = true
         this.languages = []
         // LogService.consoleLogMessage('about the check bookmarks')
-        await this.CheckBookmarks(this.$route.params)
+        await AuthorService.checkBookmarks(this.$route.params)
       } catch (error) {
         LogService.consoleLogError(
-          'There was an error with CheckBookmarks in getLanguages:',
+          'There was an error withcheckBookmarks in getLanguages:',
           error
         )
       }

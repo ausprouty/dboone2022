@@ -86,12 +86,12 @@ import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
+
 import { seriesMixin } from '@/mixins/SeriesMixin.js'
 import { authorMixin } from '@/mixins/AuthorMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
 export default {
-  mixins: [bookMarkMixin, seriesMixin, authorMixin, publishMixin],
+  mixins: [ seriesMixin, authorMixin, publishMixin],
   props: ['country_code', 'language_iso', 'library_code', 'folder_name'],
   computed: mapState(['bookmark']),
   components: {
@@ -103,7 +103,7 @@ export default {
       readonly: false,
       write: false,
       publish: false,
-      book_image:null,
+      book_image: null,
       prototype_text: 'Prototype Series and Chapters',
       publish_text: 'Publish Series and Chapters',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,

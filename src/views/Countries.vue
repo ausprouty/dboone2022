@@ -18,12 +18,10 @@ import { mapState } from 'vuex'
 import NavBar from '@/components/NavBarFront.vue'
 import Country from '@/components/Country.vue'
 import ContentService from '@/services/ContentService.js'
+import AuthorService from '@/services/AuthorService.js'
 import LogService from '@/services/LogService.js'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
 
 export default {
-  mixins: [bookMarkMixin],
-
   components: {
     Country,
     NavBar,
@@ -39,7 +37,7 @@ export default {
   },
   async created() {
     try {
-      await this.CheckBookmarks(this.$route.params)
+      await AuthorService.checkBookmarks(this.$route.params)
       var response = await ContentService.getCountries(this.$route.params)
       this.countries = response.text
     } catch (error) {

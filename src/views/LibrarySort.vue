@@ -57,11 +57,11 @@ import AuthorService from '@/services/AuthorService.js'
 import LogService from '@/services/LogService.js'
 import draggable from 'vuedraggable'
 import { mapState } from 'vuex'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
+
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
 import { authorMixin } from '@/mixins/AuthorMixin.js'
 export default {
-  mixins: [bookMarkMixin, libraryMixin, authorMixin],
+  mixins: [ libraryMixin, authorMixin],
   props: ['country_code', 'language_iso', 'library_code'],
   computed: mapState(['bookmark', 'cssURL', 'standard']),
   components: {

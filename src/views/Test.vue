@@ -8,12 +8,10 @@
 <script>
 
 import PrototypeService from '@/services/PrototypeService.js'
-import BibleService from '@/services/BibleService.js'
 import { mapState } from 'vuex'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
 import { authorMixin } from '@/mixins/AuthorMixin.js'
 export default {
-  mixins: [authorMixin, bookMarkMixin],
+  mixins: [authorMixin],
   computed: mapState(['bookmark', 'cssURL', 'standard']),
   data() {
     return {
@@ -30,10 +28,10 @@ export default {
       var params = {}
       params.recnum = 387
       params.library_code = 'friends'
-      
+
       var response = await PrototypeService.publish('bookmark', params)
       console.log(response)
-      
+
     }
   }
 }

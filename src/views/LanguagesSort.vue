@@ -64,11 +64,11 @@ import AuthorService from '@/services/AuthorService.js'
 import LogService from '@/services/LogService.js'
 import draggable from 'vuedraggable'
 import { mapState } from 'vuex'
-import { bookMarkMixin } from '@/mixins/BookmarkMixin.js'
+
 import { languageMixin } from '@/mixins/LanguageMixin.js'
 import { authorMixin } from '@/mixins/AuthorMixin.js'
 export default {
-  mixins: [bookMarkMixin, languageMixin, authorMixin],
+  mixins: [ languageMixin, authorMixin],
   props: ['country_code'],
   components: {
     NavBar,
