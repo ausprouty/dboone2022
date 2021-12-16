@@ -1,22 +1,29 @@
 <?php
 myRequireOnce('writeLog.php');
 
-// get images from folder (in /content) so it can transfer from edit to prototype
+// get images from site and  default directories
 function getImagesForSite($p){
 	$out['debug'] = 'getImages'. "\n";
 	$results = '[';
 	$out['debug'] = 'in get Images for Site' . "\n";
-    $dir = ROOT_EDIT_CONTENT . $p['image_dir'];
-	$out['debug'] .= 'dir:' .  $dir . "\n";
-	if (file_exists($dir)){
-		$handler = opendir ($dir);
-		while ($mfile = readdir ($handler)){
-			if ($mfile != '.' && $mfile != '..' ){
-					$results.= '"' .  $mfile .'",';
-			}
+    //define("SITE_CODE", 'mc2');
+    // define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
 
+    $check['default'] =ROOT_EDIT . 'sites/default/'. $p['image_dir'];
+    $check[SITE_CODE]  = ROOT_EDIT . 'sites/'. SITE_CODE . '/' .$p['image_dir'];
+	foreach ($check as $key=> $dir){
+		$dir = str_ireplace('//', '/', $dir);
+		$out['debug'] .= 'dir:' .  $dir . "\n";
+		if (file_exists($dir)){
+			$handler = opendir ($dir);
+			while ($mfile = readdir ($handler)){
+				if ($mfile != '.' && $mfile != '..' ){
+						$results.= '"/sites/'. $key . '/'. $p['image_dir'] .'/'. $mfile .'",';
+				}
+
+			}
+			closedir ($handler);
 		}
-		closedir ($handler);
 	}
 	if (strlen($results) > 1){
 		$results = substr($results,0, -1) . ']';

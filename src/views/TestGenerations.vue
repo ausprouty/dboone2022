@@ -182,9 +182,8 @@ export default {
       var param = {}
       var output = ''
       var temp = ''
-      param.series_image_dir = 'M2/eng/multiply3'
-      param.image_dir = 'M2/images/standard'
-      var img = await AuthorService.getImagesInContentDirectory(param)
+
+      var img = await AuthorService.getImagesInContentDirectory('A2/images/standard')
       if (img) {
         var length = img.length
         for (var i = 0; i < length; i++) {

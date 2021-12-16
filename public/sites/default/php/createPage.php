@@ -1,7 +1,11 @@
 <?php
 myRequireOnce ('bookmark.php');
+myRequireOnce ('writeLog.php');
 
 function createPage($p, $data){
+    if (!isset($p['debug'])){
+        $p['debug'] = '';
+    }
     $p['debug'] .= "\n\nI am in createPage with these values\n";
     //show data values for pag
     $temp = '';
@@ -30,6 +34,10 @@ function createPage($p, $data){
         $nav = myGetPrototypeFile('navRibbon.html');
         $this_template = str_replace('[[nav]]', $nav, $this_template);
         $ribbon = isset($bookmark['library']->format->back_button) ? $bookmark['library']->format->back_button->image : DEFAULT_BACK_RIBBON;
+        $p['debug'] .= "Ribbon  of page in series is  $ribbon\n";
+        if (isset($bookmark['library']->format->back_button)){
+             $p['debug'] .= "Bookmark refers to".   $bookmark['library']->format->back_button . "\n";
+        }
         // this is always going back to the index; and we don't want that with Transferable Concepts
         // TODO: allow going back to previous study
         $link_value =   $bookmark['language']->folder . '/'. $data['folder_name'].'/index.html';
@@ -71,7 +79,7 @@ function createPage($p, $data){
          $nav = myGetPrototypeFile('navRibbon.html');
          $this_template = str_replace('[[nav]]', $nav, $this_template);
          $ribbon = isset($bookmark['library']->format->back_button->image) ? $bookmark['library']->format->back_button->image : DEFAULT_BACK_RIBBON;
-
+         $p['debug'] .= "ribbon is $ribbon\n";
         // this will work if there is no special library index.
         $index = 'index.html';
         if ($p['library_code'] != 'library'){
@@ -92,10 +100,12 @@ function createPage($p, $data){
         $page_title_and_image_value  = '<img  src ="'. $img  .  '"/>';
         $page_title_and_image_value .= '<h1>'. $bookmark['book']->title . '</h1>';
     }
+
     if (!isset($this_template)){
         $p['debug'] .= 'FATAL ERROR. No Page Template for recnum'. $p['recnum'] . "\n";
         return $p;
     }
+
     $local_js = '<script> This is my script </script>';
     $dir_value = $bookmark['language']->rldir;
     $card_style_value = '/sites/default/styles/cardGLOBAL.css';
@@ -133,8 +143,11 @@ function createPage($p, $data){
         $version_value,
         $footer
     );
+    $p['debug'] .= "Ribbon:  $ribbon\n ";
     $text = str_replace($placeholders, $replace, $this_template);
     $out['text'] = str_replace('{{ dir }}',  $dir_value, $text); // because dir is inside of page_title_and_image_valu
     $out['p'] = $p;
+      $p['debug'] .= "text:\n  $text\n ";
+    writeLog('createPage', $p['debug']);
     return $out;
 }

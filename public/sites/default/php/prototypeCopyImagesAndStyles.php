@@ -41,16 +41,17 @@ function prototypeCopyImagesAndStyles ($text, $scope){
             $from = str_ireplace('//', '/', $from);
             $out['debug'] .= $from . "\n";
             $to = $destination_dir. $filename;
+            $to = str_ireplace('//', '/', $to);
             if (file_exists($from)){
                 createDirectory($to);
                 // do not copy html files or you will overwrite current index page
                 if (!is_dir($from) && strpos ($to, '.html') === false){
                     copy ($from, $to );
-                    $out['debug'] .= ' copied ' . $filename . ' from' . $from . ' to '. $to . "\n";
+                    $out['debug'] .= ' copied ' . $filename . ' from' . $from . ' to '. $to . "\n\n";
                 }
             }
             else{
-
+                $out['debug'] .= "FILE NOT FOUND\n\n";
                 $out['message'] .= "$from not found in prototypeCopyImagesAndStyles \n";
                 $out['error'] = true;
 
@@ -62,7 +63,7 @@ function prototypeCopyImagesAndStyles ($text, $scope){
         $out['message'] .= "no images found\n";
         $out['error'] = true;
     }
-    writeLog('CopyImagesAndStyles',  $out['debug']);
+    writeLog('prototypeCopyImagesAndStyles',  $out['debug']);
     return $out;
 
 }

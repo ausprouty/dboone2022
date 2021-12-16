@@ -1,11 +1,14 @@
 <?php
+myRequireOnce('writeLog.php');
+
 function createLibrary($p, $text) {
-     /* Return a container for the books in this library. 
+     /* Return a container for the books in this library.
     This will be used to prototype these books by prototypeLibraryandBooks.
     */
-    $p['books'] = []; 
+    $p['books'] = [];
     $out=[];
-    $filename =  $p['library_code']; 
+    $debug = "createLibrary\n";
+    $filename =  $p['library_code'];
      //
     // get bookmark
     //
@@ -20,7 +23,7 @@ function createLibrary($p, $text) {
     //
     //  Format Navigation area;
     //
-   
+
     $no_ribbon = isset($text->format->no_ribbon)? isset($text->format->no_ribbon) :false;
     if ($no_ribbon){
         $p['debug'] .= 'prototypeLibrary was asked not to set ribbon at top '. "\n";
@@ -31,15 +34,16 @@ function createLibrary($p, $text) {
         $p['debug'] .= 'Ribbon In prototypeLibrary '. "\n";
         $nav = myGetPrototypeFile('navRibbon.html');
         $ribbon = isset($text->format->back_button)?$text->format->back_button->image : DEFAULT_BACK_RIBBON ;
-    } 
+    }
+     $debug .= "ribbon is $ribbon\n";
     $body = str_replace('[[nav]]',$nav, $body);
     //
     //  Replace other variables for Library
     //
-  
+
     $val = isset($text->format->image->image) ? $text->format->image->image : null;
     $body = str_replace('{{ library.image }}',$val, $body);
-    
+
     $val = isset($text->text)? $text->text : null;
     $body = str_replace('{{ library.text }}',$val, $body);
 
@@ -53,7 +57,7 @@ function createLibrary($p, $text) {
     }
     // get language footer in prototypeOEpublish.php
     $footer = prototypeLanguageFooter($p);
-   
+
     $placeholders = array(
         '{{ link }}',
         '{{ ribbon }}',
@@ -78,13 +82,13 @@ function createLibrary($p, $text) {
         $p['debug'] .= 'Using template for bookImage '. "\n";
     }
     $book_template = myGetPrototypeFile('' . $temp);
-    // 
+    //
     //  replace for values in book templage for each book
     //
     $books = '';
     $placeholders = array(
-        '{{ link }}', 
-        '{{ book.image }}', 
+        '{{ link }}',
+        '{{ book.image }}',
         '{{ book.title }}',
         '{{ language.rldir }}'
     );
@@ -98,7 +102,7 @@ function createLibrary($p, $text) {
             else{
                 if (isset($book->prototype)){
                     $status = $book->prototype;
-                } 
+                }
             }
             if ($status  == true ){
                 if (!isset($book->hide)){$book->hide = false;}
@@ -146,7 +150,7 @@ function createLibrary($p, $text) {
     }
     $out['p'] = $p;
     $out['body'] = str_replace('[[books]]',$books, $body);
-    
+    writeLog('createLibrary', $debug);
     return $out;
 }
 function _write_library_log($p, $book){

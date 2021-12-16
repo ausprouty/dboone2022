@@ -50,30 +50,22 @@ export const libraryMixin = {
   },
   computed: mapState(['user', 'bookmark']),
   methods: {
-    async getLibrary() {
+    async getLibrary(params) {
       LogService.consoleLogMessage('started getLibrary in LibraryMixin')
       try {
         this.error = this.loaded = ''
         this.loading = true
-        console.log('in getLibrary in Library Mixin')
-        console.log(this.$route.params)
-        if (!this.$route.params.library_code) {
-          this.$route.params.library_code = 'library'
+        if (typeof params.library_code == 'undefined') {
+          params.library_code = 'library'
         } else {
-          if (this.$route.params.library_code.includes('.html')) {
-            this.$route.params.library_code =
-              this.$route.params.library_code.slice(0, -5)
-            console.log('assigned: ' + this.$route.params.library_code)
+          if (params.library_code.includes('.html')) {
+            params.library_code = params.library_code.slice(0, -5)
+            console.log('assigned: ' + params.library_code)
           }
         }
-        console.log('about to get Library with:')
-        console.log(this.$route.params)
-        console.log('as')
-        console.log(this.user)
-        var params = this.$route.params
+        console.log(params)
+        alert('see params for this library')
         var response = await ContentService.getLibrary(params)
-        console.log('response from Get Library')
-        console.log(response)
         if (typeof response.text == 'undefined') {
           response.text = ''
           response.text.text = ''
@@ -86,49 +78,50 @@ export const libraryMixin = {
         } else {
           this.recnum = this.publish_date = this.prototype_date = ''
         }
-        console.log('about to check bookmarks with:')
-        console.log(params)
-        console.log('as')
-        console.log(this.user)
+
         var bmark = await this.CheckBookmarks(params)
+        this.bookmark = bmark
         this.image_dir = process.env.VUE_APP_SITE_IMAGE_DIR
-        if (typeof bmark.language.image_dir != 'undefined') {
-          // LogService.consoleLogMessage('get Library is using Bookmark')
-          console.log(bmark.language.image_dir)
-          this.image_dir = bmark.language.image_dir
+        if (typeof bmark.language !== 'undefined') {
+          if (typeof bmark.language.image_dir !== 'undefined') {
+            this.image_dir = bmark.language.image_dir
+            this.rldir = bmark.language.rldir
+          }
         }
-        this.rldir = bmark.language.rldir
       } catch (error) {
         LogService.consoleLogError('There was an error in LibraryMixin:', error)
         this.newLibrary()
       }
     },
-    async getImagesInContentDirectory(directory) {
-      // get images for library header
+    async getImages(where, directory) {
+      // get images for library formatted for dropdown
       var options = []
-      var param = {}
-      param.route = JSON.stringify(this.$route.params)
-      param.image_dir = directory
-      var img = await AuthorService.getImagesInContentDirectory(param)
+      var img = []
+      if (where == 'content') {
+        img = await AuthorService.getImagesInContentDirectory(directory)
+      } else {
+        img = await AuthorService.getImagesForSite(directory)
+      }
       if (typeof img !== 'undefined') {
         if (img.length > 0) {
           img = img.sort()
           var length = img.length
           var i = 0
+          var pos = 0
           for (i = 0; i < length; i++) {
             var formatted = {}
-            formatted.title = img[i]
-            formatted.image = directory + '/' + img[i]
+            pos = img[i].lastIndexOf('/') + 1
+            formatted.title = img[i].substring(pos)
+            formatted.image = img[i]
             options.push(formatted)
           }
         }
       }
-      LogService.consoleLogMessage(
-        'from getImagesInContentDirectory for ' + directory
-      )
+      LogService.consoleLogMessage('from getImages for ' + directory)
       LogService.consoleLogMessage(options)
       return options
     },
+
     async getLibraryIndex() {
       this.error = this.loaded = null
       this.loading = true
@@ -164,48 +157,6 @@ export const libraryMixin = {
           title: 'Life Principles',
           image: 'life.jpg',
           format: 'series',
-          style: process.env.VUE_APP_SITE_STYLE,
-        },
-        {
-          id: 2,
-          code: 'basics',
-          title: 'Basic Conversations',
-          image: 'basics.jpg',
-          format: 'series',
-          style: process.env.VUE_APP_SITE_STYLE,
-        },
-        {
-          id: 3,
-          code: 'community',
-          title: 'Live Community',
-          image: 'community.jpg',
-          format: 'page',
-          page: 'community',
-          style: process.env.VUE_APP_SITE_STYLE,
-        },
-        {
-          id: 4,
-          code: 'steps',
-          title: 'First Steps',
-          image: 'firststeps.jpg',
-          format: 'series',
-          style: process.env.VUE_APP_SITE_STYLE,
-        },
-        {
-          id: 5,
-          code: 'compass',
-          title: 'Compass',
-          image: 'compass.jpg',
-          format: 'series',
-          style: process.env.VUE_APP_SITE_STYLE,
-        },
-        {
-          id: 6,
-          code: 'about',
-          title: 'About MyFriends',
-          image: 'about.jpg',
-          format: 'page',
-          page: 'community',
           style: process.env.VUE_APP_SITE_STYLE,
         },
       ]

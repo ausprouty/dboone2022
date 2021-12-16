@@ -413,25 +413,19 @@ export default {
         this.getSeries(this.$route.params)
         LogService.consoleLogMessage('I got series')
         // get images
-        var param = {}
-        param.series_image_dir =
+        this.image_permission = this.authorize('write', this.$route.params)
+        this.series_image_dir =
           this.$route.params.country_code +
           '/' +
           this.$route.params.language_iso +
           '/' +
           this.$route.params.folder_name
-        param.image_dir = this.bookmark.language.image_dir
-        LogService.consoleLogMessage(
-          'image dir: ' + param.image_dir.substring(0, 2)
+        var imageDirectories = []
+        imageDirectories.push(this.series_image_dir)
+        imageDirectories.push(this.bookmark.language.image_dir)
+        var img = await AuthorService.getImagesInContentDirectories(
+          imageDirectories
         )
-        // this.image_permission = this.authorize(
-        //   'write',
-        //   param.image_dir.substring(0, 2)
-        // )
-        this.image_permission = this.authorize('write', this.$route.params)
-        //   param.image_dir.substring(0, 2)
-        this.series_image_dir = param.series_image_dir
-        var img = await AuthorService.getImagesInContentDirectory(param)
         if (img) {
           img.push('')
           this.images = img.sort()

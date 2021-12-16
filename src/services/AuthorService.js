@@ -323,20 +323,37 @@ export default {
 
     return folders
   },
-  async getImagesForSite(params) {
-    var images = {}
+  async getImagesForSite(directory) {
+    var params = {}
     params.page = 'getImagesForSite'
     params.action = 'getImagesForSite'
+    params.image_dir = directory
     var content = await this.aReturnContent(params)
     console.log('content from getImagesForSite')
+    console.log(content)
+    if (content) {
+      var images = JSON.parse(content)
+    }
+    return images
+  },
+  async getImagesInContentDirecties(directories) {
+    var images = {}
+    var params = {}
+    params.image_dirs = directories
+    params.page = 'getImagesInContentDirectories'
+    params.action = 'getImagesInContentDirectories'
+    var content = await this.aReturnContent(params)
+    console.log('content from getImagesInContentDirectories')
     console.log(content)
     if (content) {
       images = JSON.parse(content)
     }
     return images
   },
-  async getImagesInContentDirectory(params) {
+  async getImagesInContentDirectory(directory) {
     var images = {}
+    var params = {}
+    params.image_dir = directory
     params.page = 'getImagesInContentDirectory'
     params.action = 'getImagesInContentDirectory'
     var content = await this.aReturnContent(params)

@@ -3,6 +3,7 @@ myRequireOnce ('prototypeORpublish.php');
 myRequireOnce ('bookmark.php');
 
 function createSeries($p, $data){
+    $debug= "createSeries\n";
     $text = json_decode($data['text']);
     // $p['debug'] .= "\n\n In prototypeSeries\n";
      // get language footer in prototypeOEpublish.php
@@ -52,7 +53,7 @@ function createSeries($p, $data){
     $download_now = isset($bookmark['language']->download)? $bookmark['language']->download : 'Download for Offline Use';
     $description = isset($text->description) ? $text->description : NULL;
     $ribbon = isset($bookmark['library']->format->back_button) ? $bookmark['library']->format->back_button->image : DEFAULT_BACK_RIBBON;
-
+    $debug= "ribbon is $ribbon\n";
     $language_dir = '/content/'. $data['country_code'] .'/'. $data['language_iso'] .'/'. $data['folder_name'] .'/';
     $json = $language_dir . 'files.json';
     $p['files_json'] = '[{"url":"'.  $json .'"},' ."\n"; // rest to be filled in with chapters
@@ -148,6 +149,7 @@ function createSeries($p, $data){
     }
     $out['text'] = str_replace('[[chapters]]', $chapters_text, $this_template);
     $out['p'] = $p;
+    writeLog('creatSeries', $debug);
     return $out;
 }
 

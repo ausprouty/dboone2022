@@ -188,7 +188,9 @@ export default {
     }
     // get images
     this.options = []
-    var img = await AuthorService.getImagesInContentDirectory(param)
+    var img = await AuthorService.getImagesInContentDirectory(
+      this.bookmark.language.image_dir
+    )
 
     if (typeof img !== 'undefined') {
       img.push('')

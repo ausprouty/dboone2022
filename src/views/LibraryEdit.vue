@@ -640,9 +640,10 @@ export default {
     },
     async showForm() {
       try {
-        await this.getLibrary()
+        await this.getLibrary(this.$route.params)
         this.books = this.bookmark.library.books
-        this.images = await this.getImagesInContentDirectory(
+        this.images = await this.getImages(
+          'content',
           this.bookmark.language.image_dir
         )
         LogService.consoleLogMessage(this.images)

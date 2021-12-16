@@ -191,7 +191,7 @@ export default {
       try {
         this.recnum = null
         //this.$store.dispatch('newBookmark', 'clear')
-        await this.getLibrary()
+        await this.getLibrary(this.$route.params)
         this.back = '/preview/languages/' + this.$route.params.country_code
         //todo: allow this to backtrack
         // this is only true if the library goes back to a custom library
@@ -199,6 +199,7 @@ export default {
         if (typeof this.$route.params.library_code == 'undefined') {
           this.$route.params.library_code = ''
         }
+        console.log (this.bookmark)
         if (this.$route.params.library_code != 'library') {
           if (typeof this.bookmark.country.custom !== 'undefined') {
             this.back =

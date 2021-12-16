@@ -69,7 +69,7 @@ export default {
   async created() {
     try {
       this
-      await this.getLibrary()
+      await this.getLibrary(this.$route.params)
       this.loaded = true
       this.loading = false
     } catch (error) {

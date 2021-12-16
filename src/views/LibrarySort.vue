@@ -131,7 +131,7 @@ export default {
   },
   async created() {
     try {
-      await this.getLibrary()
+      await this.getLibrary(this.$route.params)
       this.authorized = this.authorize('write', this.$route.params)
       this.loaded = true
       this.loading = false
