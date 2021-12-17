@@ -126,7 +126,7 @@ export const libraryMixin = {
       this.loading = true
       this.recnum = null
       this.publish_date = null
-      await this.UnsetBookmarks()
+      //await this.UnsetBookmarks()
       await AuthorService.bookmark(this.$route.params)
       var response = await ContentService.getLibraryIndex(this.$route.params)
       if (response) {

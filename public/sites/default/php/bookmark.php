@@ -83,7 +83,14 @@ function bookmark ($p){
         }
     }
     $out['content'] = $b['bookmark'];
-    writeLog( 'bookmark', $b['bookmark']);
+    if (isset($p['scope'])){
+      writeLog( 'bookmark'.$p['scope'] , $b['bookmark']);
+
+    }
+    else{
+        writeLog( 'bookmark', $b['bookmark']);
+    }
+
     return $out;
 }
 function checkBookmarkCountry($b){

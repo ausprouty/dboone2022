@@ -1,6 +1,6 @@
-import LogService from '@/services/LogService.js'
-import ContentService from '@/services/ContentService.js'
 import AuthorService from '@/services/AuthorService.js'
+import ContentService from '@/services/ContentService.js'
+import LogService from '@/services/LogService.js'
 
 export const countriesMixin = {
   data() {
@@ -49,14 +49,7 @@ export const countriesMixin = {
         this.error = this.loaded = null
         this.loading = true
         this.countries = []
-        await AuthorService.bookmark(this.$route.params)
-      } catch (error) {
-        LogService.consoleLogError(
-          'There was an error withcheckBookmarks in CountriesMixin:',
-          error
-        )
-      }
-      try {
+        AuthorService.bookmarkClear()
         var response = await ContentService.getCountries(this.$route.params)
         if (typeof response.text != 'undefined') {
           this.countries = response.text

@@ -171,7 +171,7 @@ export default {
           this.usb_text = 'Error Creating USB'
         }
       } else {
-        this.UnsetBookmarks()
+      //  this.UnsetBookmarks()
         this.recnum = null
         this.loaded = false
         this.loading = true

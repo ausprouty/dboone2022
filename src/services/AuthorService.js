@@ -172,6 +172,10 @@ export default {
     return await this.aReturnResponse(params)
   },
   async bookmark(params) {
+    if (params.scope == 'countries') {
+      store.dispatch('newBookmark', null)
+      return
+    }
     params.page = 'bookmark'
     params.action = 'bookmark'
     var content = await this.aReturnContent(params)
@@ -185,6 +189,9 @@ export default {
       store.dispatch('newBookmark', null)
     }
     return content
+  },
+  bookmarkClear() {
+    store.dispatch('newBookmark', null)
   },
 
   clearActionAndPage() {
@@ -544,7 +551,10 @@ export default {
   },
 
   toAuthorizedFormData(params) {
-    if (typeof store.state.user.token == 'undefined') {
+    if (
+      typeof store.state.user.token == 'undefined' &&
+      params.action != 'login'
+    ) {
       alert('user token is now undefined')
     }
     params.my_uid = store.state.user.uid

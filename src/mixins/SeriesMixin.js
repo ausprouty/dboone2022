@@ -1,6 +1,7 @@
+import AuthorService from '@/services/AuthorService.js'
 import ContentService from '@/services/ContentService.js'
 import LogService from '@/services/LogService.js'
-import { type } from 'jquery'
+
 export const seriesMixin = {
   data() {
     return {

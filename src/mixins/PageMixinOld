@@ -33,7 +33,7 @@ export const pageMixin = {
   methods: {
     async getPage() {
       try {
-        await this.UnsetBookmarks()
+        //await this.UnsetBookmarks()
         this.error = this.loaded = null
         this.loading = true
         this.countries = []

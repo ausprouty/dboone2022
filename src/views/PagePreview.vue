@@ -186,7 +186,7 @@ export default {
         this.error = response['message']
         this.loaded = false
       } else {
-        this.UnsetBookmarks()
+      //  this.UnsetBookmarks()
         this.recnum = null
         this.loaded = false
         this.loading = true

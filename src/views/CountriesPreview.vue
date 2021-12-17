@@ -98,7 +98,6 @@ export default {
       var response = null
       var params = {}
       params.recnum = this.recnum
-      //params.bookmark = JSON.stringify(this.bookmark)
       params.route = JSON.stringify(this.$route.params)
       if (location == 'prototype') {
         response = await PrototypeService.publish('countries', params)
@@ -111,7 +110,7 @@ export default {
         this.error = response['message']
         this.loaded = false
       } else {
-        this.UnsetBookmarks()
+        //this.UnsetBookmarks()
         this.recnum = null
         this.loaded = false
         this.loading = true
@@ -119,6 +118,7 @@ export default {
         await this.loadView()
       }
     },
+    /*
     async localBookmark(recnum) {
       var param = {}
       param.recnum = recnum
@@ -127,12 +127,14 @@ export default {
       LogService.consoleLogMessage('localBookmark')
       LogService.consoleLogMessage(bm)
     },
+    */
     async loadView() {
       try {
         await this.getCountries()
-        if (this.recnum) {
+       /* if (this.recnum) {
           this.localBookmark(this.recnum)
         }
+        */
         this.authorized = this.authorize('write', this.$route.params)
         // authorize for prototype and publish
         this.publish = false
@@ -163,7 +165,7 @@ export default {
         ) // Logs out the error
       }
     },
-    toFormData(obj) {
+    /*toFormData(obj) {
       var form_data = new FormData()
       for (var key in obj) {
         form_data.append(key, obj[key])
@@ -175,6 +177,7 @@ export default {
       }
       return form_data
     },
+    */
   },
   beforeCreate() {
     this.$route.params.version = 'latest'

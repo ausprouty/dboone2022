@@ -91,7 +91,7 @@ import { seriesMixin } from '@/mixins/SeriesMixin.js'
 import { authorMixin } from '@/mixins/AuthorMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
 export default {
-  mixins: [ seriesMixin, authorMixin, publishMixin],
+  mixins: [seriesMixin, authorMixin, publishMixin],
   props: ['country_code', 'language_iso', 'library_code', 'folder_name'],
   computed: mapState(['bookmark']),
   components: {
@@ -183,7 +183,7 @@ export default {
         this.error = response['message']
         this.loaded = false
       } else {
-        this.UnsetBookmarks()
+        //  this.UnsetBookmarks()
         this.recnum = null
         this.loaded = false
         this.loading = true
