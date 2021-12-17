@@ -16,17 +16,11 @@ $p = getParameters();
 if (isset($p['my_uid'])){
     myRequireOnceSetup($p['my_uid']);
 }
-
 myHeaders(); // send cors headers
-
 myRequireOnce('writeLog.php');
-//myRequireOnce ('sql.php');
-
 myRequireOnce ('getLatestContent.php');
-
 myRequireOnce ('getContentByRecnum.php');
-
-$debug .= 'past Parameters';
+$debug .= 'past Parameters' . "\n";
 if (isset($p['debug'])){
     $debug .= $p['debug'];
     $p['debug'] = null;
@@ -45,7 +39,6 @@ else{
         $debug .= 'Scope was not set.  Sorry'. "\n";
     }
 }
-
 // many times $out['text'] was created by json_encode.
 // decode here so we can properly send it back in good form.
 //$debug .= $out['content']['text'];
@@ -56,18 +49,19 @@ if (isset($out['content']['text'])){
     }
 }
 // create log file
-if ("LOG_MODE"== 'write_log'){
-    $debug .= "\n\n\n";
-    $debug .= strlen(json_encode($out, JSON_UNESCAPED_UNICODE));
-    $debug .= "\n\nHERE IS JSON_ENCODE OF DATA\n";
-    $debug .= json_encode($out, JSON_UNESCAPED_UNICODE) . "\n";
-    $fn = "ContentApi-" . $p['scope'] ;
-    writeContentLog($fn, $debug);
-}
+
+$debug .= "\n\n\n";
+$debug .= strlen(json_encode($out, JSON_UNESCAPED_UNICODE));
+$debug .= "\n\nHERE IS JSON_ENCODE OF DATA\n";
+$debug .= json_encode($out, JSON_UNESCAPED_UNICODE) . "\n";
+$fn = "ContentApi-" . $p['scope'] ;
+writeLog($fn, $debug);
+
 
 header("Content-type: application/json");
 echo json_encode($out, JSON_UNESCAPED_UNICODE);
 die();
+
 //
 //   FUNCTIONS
 //
@@ -111,24 +105,4 @@ function getParameters(){
     }
     $p['debug'] = $debug;
     return $p;
-}
-
-
-
-function writeContentLog($filename, $content){
-	if (!is_array($content)){
-		$text = $content;
-	}
-	else{
-		$text = '';
-		foreach ($content as $key=> $value){
-			$text .= $key . ' => '. $value . "\n";
-		}
-	}
-	if (!file_exists(ROOT_LOG)){
-		mkdir(ROOT_LOG);
-	}
-	$fh = fopen(ROOT_LOG . $filename . '.txt', 'w');
-	fwrite($fh, $text);
-    fclose($fh);
 }

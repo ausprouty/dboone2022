@@ -87,7 +87,7 @@ function getLatestContent($p){
 
     }
     $out['debug'] .= $sql . "\n";
-    writeLog ('getLatestContent', $out['debug'] );
+
     // execute query
     if ($sql){
         $result = sqlArray($sql);
@@ -110,5 +110,7 @@ function getLatestContent($p){
         }
 
     }
+    writeLog ('getLatestContent-debug', $out['debug'] );
+    writeLog ('getLatestContent', $out['content'] );
     return $out;
 }

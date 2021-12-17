@@ -555,7 +555,10 @@ export default {
       typeof store.state.user.token == 'undefined' &&
       params.action != 'login'
     ) {
-      alert('user token is now undefined')
+      alert(
+        'in Author Service user token is now undefined for action ' +
+          params.action
+      )
     }
     params.my_uid = store.state.user.uid
     params.token = store.state.user.token

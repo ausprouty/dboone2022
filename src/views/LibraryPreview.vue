@@ -74,7 +74,7 @@ import { libraryMixin } from '@/mixins/LibraryMixin.js'
 import { authorMixin } from '@/mixins/AuthorMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
 export default {
-  mixins: [ libraryMixin, authorMixin, publishMixin],
+  mixins: [libraryMixin, authorMixin, publishMixin],
   props: ['country_code', 'language_iso', 'library_code'],
   computed: mapState(['bookmark', 'cssURL', 'standard']),
   components: {
@@ -171,7 +171,7 @@ export default {
           this.usb_text = 'Error Creating USB'
         }
       } else {
-      //  this.UnsetBookmarks()
+        //  this.UnsetBookmarks()
         this.recnum = null
         this.loaded = false
         this.loading = true
@@ -192,6 +192,7 @@ export default {
         this.recnum = null
         //this.$store.dispatch('newBookmark', 'clear')
         await this.getLibrary(this.$route.params)
+        alert('After this.getLibrary and usertoken is' + this.user.token)
         this.back = '/preview/languages/' + this.$route.params.country_code
         //todo: allow this to backtrack
         // this is only true if the library goes back to a custom library
@@ -199,8 +200,10 @@ export default {
         if (typeof this.$route.params.library_code == 'undefined') {
           this.$route.params.library_code = ''
         }
-        console.log (this.bookmark)
+        console.log('bookmark in Load View')
+        console.log(this.bookmark)
         if (this.$route.params.library_code != 'library') {
+          alert('Library code is' + this.$route.params.library_code)
           if (typeof this.bookmark.country.custom !== 'undefined') {
             this.back =
               '/preview/libraryIndex/' +

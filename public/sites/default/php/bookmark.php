@@ -84,7 +84,7 @@ function bookmark ($p){
     }
     $out['content'] = $b['bookmark'];
     if (isset($p['scope'])){
-      writeLog( 'bookmark'.$p['scope'] , $b['bookmark']);
+      writeLog( 'bookmark-'.$p['scope'] , $b['bookmark']);
 
     }
     else{
