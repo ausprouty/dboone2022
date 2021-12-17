@@ -63,12 +63,12 @@
 
 <script>
 import Book from '@/components/BookPreview.vue'
-import { mapState } from 'vuex'
 import NavBar from '@/components/NavBarAdmin.vue'
 import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
 import UsbService from '@/services/UsbService.js'
+import { mapState } from 'vuex'
 
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
 import { authorMixin } from '@/mixins/AuthorMixin.js'

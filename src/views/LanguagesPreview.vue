@@ -69,7 +69,7 @@ import { languageMixin } from '@/mixins/LanguageMixin.js'
 import { authorMixin } from '@/mixins/AuthorMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
 export default {
-  mixins: [ languageMixin, authorMixin, publishMixin],
+  mixins: [languageMixin, authorMixin, publishMixin],
   props: ['country_code'],
   components: {
     Language,
@@ -145,7 +145,7 @@ export default {
         this.error = response['message']
         this.loaded = false
       } else {
-      //  this.UnsetBookmarks()
+        //  this.UnsetBookmarks()
         this.recnum = null
         this.loaded = false
         this.loading = true
