@@ -31,6 +31,7 @@ if (isset($p['recnum'])){
 else{
     if (isset($p['scope'])){
         $out = getLatestContent($p);
+         $debug .= 'I am going to getLatestContent'. "\n";
         if (isset($out['debug'])){
             $debug .= $out['debug'];
         }

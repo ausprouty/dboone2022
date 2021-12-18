@@ -76,7 +76,7 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
     writeLog('publishFiles-74', $output);
     // append footer
     $output .= myGetPrototypeFile('footer.html');
-    $output=  version2Text($output);
+    $output=  ($output);
     writeLog('publishFiles-77', $output);
     // copy all images and styles to the prototype directory
     $response = prototypeCopyImagesAndStyles($output, $scope);

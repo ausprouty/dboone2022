@@ -43,6 +43,7 @@ export default {
       params.function = 'aReturnContentParsed'
       LogService.consoleLog('aReturnResponse', params, response)
       if (response.data.login) {
+        alert('Author Service is pushing you to login')
         this.$router.push({
           name: 'login',
         })
@@ -66,6 +67,7 @@ export default {
       params.function = 'aReturnContent'
       this.consoleLog(params, response)
       if (response.data.login) {
+        alert('Author Service is pushing you to login')
         this.$router.push({
           name: 'login',
         })
@@ -98,6 +100,7 @@ export default {
       params.function = 'aReturnContentParsed'
       this.consoleLog(params, response)
       if (response.data.login) {
+        alert('Author Service is pushing you to login')
         this.$router.push({
           name: 'login',
         })
@@ -126,6 +129,7 @@ export default {
       params.function = 'aReturn'
       this.consoleLog(params, response)
       if (response.data.login) {
+        alert('Author Service is pushing you to login')
         this.$router.push({
           name: 'login',
         })
@@ -551,15 +555,6 @@ export default {
   },
 
   toAuthorizedFormData(params) {
-    if (
-      typeof store.state.user.token == 'undefined' &&
-      params.action != 'login'
-    ) {
-      alert(
-        'in Author Service user token is now undefined for action ' +
-          params.action
-      )
-    }
     params.my_uid = store.state.user.uid
     params.token = store.state.user.token
     params.site = apiSite

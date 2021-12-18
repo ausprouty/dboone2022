@@ -15,21 +15,15 @@ export const authorMixin = {
         return false
       }
       if (typeof this.user.expires == 'undefined') {
-        alert('in authorMixin user.expires is undefined')
         this.$router.push({ name: 'login' })
       }
       // check if expired
-      var date = new Date()
-      var timestamp = date.getTime() / 1000
-      if (this.user.expires < timestamp) {
-        alert(
-          'in authorMixin user.expires is expired: ' +
-            this.user.expires +
-            '< ' +
-            timestamp
-        )
-        this.$router.push({ name: 'login' })
-      }
+    //  var date = new Date()
+   //   var timestamp = date.getTime() / 1000
+     // if (this.user.expires < timestamp) {
+//
+     //   this.$router.push({ name: 'login' })
+      //}
       // can edit anything
       if (
         this.user.scope_countries == '*' &&

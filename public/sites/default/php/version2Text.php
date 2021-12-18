@@ -4,6 +4,10 @@ function version2Text($text){
     $text = str_ireplace('"/sites/default/images/up.png', '"/sites/default/images/up.png', $text);
     $text = str_ireplace('"/sites/default/images/forward.png', '"/sites/default/images/forward.png', $text);
     $text = str_ireplace('"/content/', '"/sites/default/content/', $text);
+    $text = str_ireplace('"/sites/myfriends/sites/mc2/', '/sites/myfriends/sites/mc2/', $text);
+
+    $text = str_ireplace('"/content/AU/images/standard/','', $text);
+    $text = str_ireplace('"/content/ZZ/styles/myfriendsGLOBAL.css"', '', $text);
 
    return $text;
 }

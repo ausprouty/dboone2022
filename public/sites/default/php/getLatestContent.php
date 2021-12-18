@@ -9,13 +9,12 @@ myRequireOnce('writeLog.php');
 */
 function getLatestContent($p){
     $out = [];
-    $out['debug'] ='In getLatestContent' . "\n";
+    $out['debug'] ='In getLatestContent Dec 18' . "\n";
     if (!isset($p['scope'])){
         $out['debug'] .=  'No scope was set';
         return $out;
     }
     $out['debug'] .= $p['scope'] . "\n";
-    $text_file = false;
 
     switch($p['scope']){
         case "countries":
@@ -33,9 +32,19 @@ function getLatestContent($p){
                 ORDER BY recnum DESC LIMIT 1";
             break;
         case "library":
-            $out['debug'] .='Case is library' . "\n";
+            $out['debug'] .='Case is Library' . "\n";
             if (!isset($p['library_code'])){
                 $p['library_code'] = 'library';
+            }
+            else{
+                if (strpos($p['library_code'], '.html') !== FALSE){
+                     $out['debug'] .='library code contains .html' . "\n";
+                    $p['library_code'] = str_ireplace('.html', '', $p['library_code']);
+                }
+                else{
+                     $out['debug'] .=  $p['library_code']  . ' does not contain .html' . "\n";
+                }
+
             }
             $sql = "SELECT * from content
                 WHERE country_code = '". $p['country_code'] . "'
@@ -73,7 +82,6 @@ function getLatestContent($p){
             break;
         case "page":
             $out['debug'] .='Case is page' . "\n";
-             $text_file = true;
             $sql = "SELECT * from content
                 WHERE country_code = '". $p['country_code'] . "'
                 AND language_iso = '" . $p['language_iso'] . "'
@@ -92,9 +100,9 @@ function getLatestContent($p){
     if ($sql){
         $result = sqlArray($sql);
         if (isset($result['recnum'])){
-            if ($text_file){
+            //if ($text_file){
                 $result['text'] = version2Text($result['text']);
-            }
+           // }
             $out['debug'] .='Recnum ' . $result['recnum'] ."\n";
             $out['content']= $result;
         }

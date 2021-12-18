@@ -76,8 +76,6 @@ export default {
           //var response = {}
           params.username = this.username
           params.password = this.password
-          console.log(process.env.VUE_APP_SITE_LOCATION)
-          console.log(params)
           let res = await AuthorService.login(params)
           console.log(res)
           this.$store.dispatch('loginUser', [res.content])

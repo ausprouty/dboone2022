@@ -51,24 +51,47 @@ export const libraryMixin = {
   computed: mapState(['user', 'bookmark']),
   methods: {
     async getLibrary(params) {
+      console.log(params)
+      this.error = this.loaded = null
+      this.loading = true
+      this.recnum = null
+      this.publish_date = null
+      console.log(this.$route.params)
+      await AuthorService.bookmark(this.$route.params)
+      var response = await ContentService.getLibrary(this.$route.params)
+      if (response) {
+        if (response.recnum) {
+          this.recnum = response.recnum
+          this.publish_date = response.publish_date
+          this.prototype_date = response.prototype_date
+        }
+        var text = response.text
+        this.pageText = text.page
+        this.style = text.style
+        this.footerText = text.footer
+      } else {
+        this.pageText = ''
+        this.style = ''
+        this.footerText = ''
+      }
+      this.image_dir = process.env.VUE_APP_SITE_IMAGE_DIR
+      if (typeof this.bookmark.language !== 'undefined') {
+        if (typeof this.bookmark.language.image_dir !== 'undefined') {
+          this.image_dir = this.bookmark.language.image_dir
+          this.rldir = this.bookmark.language.rldir
+        }
+      }
+
+      this.loaded = true
+      this.loading = false
+    },
+    async getLibraryX(params) {
       LogService.consoleLogMessage('started getLibrary in LibraryMixin')
       try {
         this.error = this.loaded = ''
         this.loading = true
-        if (typeof params.library_code == 'undefined') {
-          params.library_code = 'library'
-        } else {
-          if (params.library_code.includes('.html')) {
-            params.library_code = params.library_code.slice(0, -5)
-            console.log('assigned: ' + params.library_code)
-          }
-        }
-        console.log(params)
+
         var response = await ContentService.getLibrary(params)
-        alert(
-          'I finished getting Content Serive getLibrary and usertoken is' +
-            this.user.token
-        )
         console.log(response)
         if (typeof response.text == 'undefined') {
           response.text = ''
@@ -82,13 +105,7 @@ export const libraryMixin = {
         } else {
           this.recnum = this.publish_date = this.prototype_date = ''
         }
-        alert(
-          'I am about to get bookmarkLibrary and usertoken is' + this.user.token
-        )
         var bmark = await AuthorService.bookmark(params)
-        alert(
-          'I finished get bookmarkLibrary and usertoken is' + this.user.token
-        )
         this.image_dir = process.env.VUE_APP_SITE_IMAGE_DIR
         if (typeof bmark.language !== 'undefined') {
           if (typeof bmark.language.image_dir !== 'undefined') {
@@ -96,7 +113,6 @@ export const libraryMixin = {
             this.rldir = bmark.language.rldir
           }
         }
-        alert('I finished getLibrary and usertoken is' + this.user.token)
       } catch (error) {
         LogService.consoleLogError('There was an error in LibraryMixin:', error)
         // this.newLibrary()
