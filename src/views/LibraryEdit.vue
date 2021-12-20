@@ -551,7 +551,7 @@ export default {
         template = 'new'
       }
       if (typeof styles_set == 'undefined') {
-        styles_set = 'mc2'
+        styles_set = 'default'
       }
       // use default style if not set
       if (typeof css == 'undefined') {
@@ -680,8 +680,7 @@ export default {
           this.image = this.$route.params.library_code + '.png'
         }
         this.library_format = this.bookmark.library.format
-        this.header_image =
-          this.site_dir + this.bookmark.library.format.image.image
+        this.header_image = this.bookmark.library.format.image.image
         this.image_permission = this.authorize('write', this.$route.params)
         this.authorized = this.authorize('write', this.$route.params)
         this.loaded = true

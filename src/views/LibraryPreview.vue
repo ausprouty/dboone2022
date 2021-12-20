@@ -215,8 +215,7 @@ export default {
           }
         }
         if (typeof this.bookmark.library.format.image !== 'undefined') {
-          this.back_image =
-            this.site_directory + this.bookmark.library.format.image.image
+          this.back_image = this.bookmark.library.format.image.image
         }
         this.style = this.bookmark.library.format.style
         this.readonly = this.authorize('readonly', this.$route.params)

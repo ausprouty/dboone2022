@@ -182,7 +182,8 @@ function checkBookmarkLibrary($b){
         writeLog('ERROR - checkBookmarkLibrary-parameters', $b);
         writeLog('ERROR - checkBookmarkLibrary-debug', $out['debug']);
          writeLog('ERROR - checkBookmarkLibrary-res',  $res['content']);
-        trigger_error("No r in checkBookmarkLibrary", E_USER_ERROR);
+         $message = "No r in checkBookmarkLibrary for ". $b['library_code'];
+        trigger_error( $message , E_USER_ERROR);
     }
     // legacy data does not have ['books'] so move data there
     if (isset($r->books)){
