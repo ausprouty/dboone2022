@@ -5,6 +5,7 @@ myRequireOnce('copyGlobal.php');
 myRequireOnce('createDirectory.php');
 myRequireOnce('getTitle.php');
 myRequireOnce('languageSpecificJavascripts.php');
+myRequireOnce('makePathsRelative.php');
 myRequireOnce('modifyHeaders.php');
 myRequireOnce('modifyImages.php');
 myRequireOnce('prototypeCopyImagesAndStyles.php');
@@ -68,25 +69,16 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
     $output = str_replace($placeholders, $replace,  $output);
     // insert text
     $output .= $text;
-    writeLog('publishFiles-69', $output);
     // remove dupliate CSS
-    $response = prototypeRemoveDuplicateCSS($output);
-    $out['debug'] .= $response['debug'];
-    $output = $response['content'];
-    writeLog('publishFiles-74', $output);
+    $output = prototypeRemoveDuplicateCSS($output);
     // append footer
     $output .= myGetPrototypeFile('footer.html');
-    $output=  ($output);
-    writeLog('publishFiles-77', $output);
     // copy all images and styles to the prototype directory
     $response = prototypeCopyImagesAndStyles($output, $scope);
-    writeLog('publishFiles-80', $output);
-    $response = modifyImages($output, $scope);
-    if (isset($response['debug'])){
-        $out['debug'] .= $response['debug'];
+    $output = modifyImages($output, $scope);
+    if (isset($p['usb'])){
+      $output = makePathsRelative($output, $fname);
     }
-    $output = $response['content'];
-    writeLog('publishFiles-85', $output);
     // make sure we have all the necessary directories
     dirMake($fname);
     // write the file

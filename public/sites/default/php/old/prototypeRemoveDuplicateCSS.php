@@ -3,6 +3,7 @@
    You want to remove duplicates
     <link rel="stylesheet" href="/sites/default/styles/cardGLOBAL.css" />
 */
+myRequireOnce('writeLog.php');
 function prototypeRemoveDuplicateCSS($text){
     $out= [];
     $out['debug'] = 'In prototypeRemoveDuplicateCSS' . "\n";
@@ -40,7 +41,7 @@ function prototypeRemoveDuplicateCSS($text){
             $out['debug'] .= $text;
         }
     }
-    $out['content']= $text;
-    return $out;
+   writeLog ('prototypeRemoveDuplicateCSS', $out['debug']);
+    return $text;
 
 }

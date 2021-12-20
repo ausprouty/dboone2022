@@ -37,7 +37,7 @@ function prototypeLibraryAndBooks($p){
                 $p['folder_name'] = $code;
                 //$p['debug'] .= "\n\n Parameters for prototypeSeriesAndChapters\n";
                // $p['debug'] .= json_encode($p, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n";
-                $out = prototypeSeriesAndChapters($p);
+                prototypeSeriesAndChapters($p);
                 //$p['debug'] .= $out['debug'];
                 //$p['debug'] .= "\n\n Parameters AFTER prototypeSeriesAndChapters\n";
                // $p['debug'] .= json_encode($p, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n";
