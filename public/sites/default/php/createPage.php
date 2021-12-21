@@ -3,10 +3,8 @@ myRequireOnce ('bookmark.php');
 myRequireOnce ('writeLog.php');
 
 function createPage($p, $data){
-    if (!isset($p['debug'])){
-        $p['debug'] = '';
-    }
-    $p['debug'] .= "\n\nI am in createPage with these values\n";
+
+    $debug = "\n\nI am in createPage with these values\n";
     //show data values for pag
     $temp = '';
     foreach ($data as $key=>$value){
@@ -15,8 +13,7 @@ function createPage($p, $data){
     // get bookmark
     $b['recnum'] =  $p['recnum'];
     $b['library_code'] = $p['library_code'];
-    $bm = bookmark($b);
-    $bookmark = $bm['content'];
+    $bookmark = bookmark($b);
     $p['selected_css'] = isset($bookmark['book']->style)? $bookmark['book']->style: STANDARD_CSS;
     if (!isset($bookmark['book']->format)){
        $debug = 'Bookmark[book]->format not set for  recnum ' . $b['recnum'] .' in prototype page with library code ' . $b['library_code'] ."\n";
@@ -27,21 +24,21 @@ function createPage($p, $data){
     }
 
     if ($bookmark['book']->format == 'series'){
-        $p['debug'] .= 'This is a series for ' . $data['folder_name'] . "\n";
+        $debug .= 'This is a series for ' . $data['folder_name'] . "\n";
         $this_template = myGetPrototypeFile('pageInSeries.html');
 
         // insert nav bar and set ribbon value and link value
         $nav = myGetPrototypeFile('navRibbon.html');
         $this_template = str_replace('[[nav]]', $nav, $this_template);
         $ribbon = isset($bookmark['library']->format->back_button) ? $bookmark['library']->format->back_button->image : DEFAULT_BACK_RIBBON;
-        $p['debug'] .= "Ribbon  of page in series is  $ribbon\n";
+        $debug .= "Ribbon  of page in series is  $ribbon\n";
         if (isset($bookmark['library']->format->back_button)){
-             $p['debug'] .= "Bookmark refers to".   $bookmark['library']->format->back_button . "\n";
+             $debug .= "Bookmark refers to".   $bookmark['library']->format->back_button . "\n";
         }
         // this is always going back to the index; and we don't want that with Transferable Concepts
         // TODO: allow going back to previous study
         $link_value =   $bookmark['language']->folder . '/'. $data['folder_name'].'/index.html';
-        $p['debug'] .= 'The link value is ' . $link_value . "\n";
+        $debug .= 'The link value is ' . $link_value . "\n";
         // compute $page_title_and_image for series
         if (isset($bookmark['page']->image)){
             if ($bookmark['page']->image){
@@ -73,13 +70,13 @@ function createPage($p, $data){
 
     // values for page that is not part of a series
     if ($bookmark['book']->format == 'page'){
-        $p['debug'] .= 'This is a page' . "\n";
+        $debug .= 'This is a page' . "\n";
         $this_template = myGetPrototypeFile('page.html');
          // insert nav bar
          $nav = myGetPrototypeFile('navRibbon.html');
          $this_template = str_replace('[[nav]]', $nav, $this_template);
          $ribbon = isset($bookmark['library']->format->back_button->image) ? $bookmark['library']->format->back_button->image : DEFAULT_BACK_RIBBON;
-         $p['debug'] .= "ribbon is $ribbon\n";
+         $debug .= "ribbon is $ribbon\n";
         // this will work if there is no special library index.
         $index = 'index.html';
         if ($p['library_code'] != 'library'){
@@ -102,7 +99,7 @@ function createPage($p, $data){
     }
 
     if (!isset($this_template)){
-        $p['debug'] .= 'FATAL ERROR. No Page Template for recnum'. $p['recnum'] . "\n";
+        $debug .= 'FATAL ERROR. No Page Template for recnum'. $p['recnum'] . "\n";
         return $p;
     }
 
@@ -113,13 +110,13 @@ function createPage($p, $data){
     $page_text_value = $data['text'];
     $version_value = $p['version'];
      // get language footer
-     $p['debug'] .= "I am about to go to prototypeLanguageFooter\n ";
+     $debug .= "I am about to go to prototypeLanguageFooter\n ";
       // get language footer in prototypeOEpublish.php
      $footer = prototypeLanguageFooter($p); // returns  $footer
 
-      $p['debug'] .= "Here is my template\n";
-      $p['debug'] .= $this_template . "\n";
-       $p['debug'] .= "That was my template\n";
+      $debug .= "Here is my template\n";
+      $debug .= $this_template . "\n";
+       $debug .= "That was my template\n";
      // define placeholders
      $placeholders = array(
         '{{ dir }}',
@@ -143,11 +140,11 @@ function createPage($p, $data){
         $version_value,
         $footer
     );
-    $p['debug'] .= "Ribbon:  $ribbon\n ";
+    $debug .= "Ribbon:  $ribbon\n ";
     $text = str_replace($placeholders, $replace, $this_template);
-    $out['text'] = str_replace('{{ dir }}',  $dir_value, $text); // because dir is inside of page_title_and_image_valu
+    $text = str_replace('{{ dir }}',  $dir_value, $text); // because dir is inside of page_title_and_image_valu
     $out['p'] = $p;
-      $p['debug'] .= "text:\n  $text\n ";
-    writeLog('createPage', $p['debug']);
-    return $out;
+      $debug .= "text:\n  $text\n ";
+    writeLog('createPage', $debug);
+    return $text;
 }

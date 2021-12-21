@@ -9,7 +9,7 @@
 
 */
 function modifyRevealSummary($text){
-    $out = [];
+    
     $debug = "In _revealSummary Today\n";
     $template = '<div id="Summary[id]" class="summary">[TagOpen]+ [Word][TagClose]</div>'. "\n";
     $template .= '<div class="collapsed" id ="Text[id]">'. "\n";

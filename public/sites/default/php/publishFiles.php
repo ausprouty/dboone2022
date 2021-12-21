@@ -20,8 +20,8 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
 
     // start with header
     $output = myGetPrototypeFile('header.html');
-    //$p['debug'] .= "\n". 'publishFiles' . "\n";
-    $out['debug'] = 'In publishFiles with: ' . $fname .  "\n";
+    //$debug .= "\n". 'publishFiles' . "\n";
+    $debug = 'In publishFiles with: ' . $fname .  "\n";
     // add onload only if files are here
     $onload_note_js = '';
     if (strpos($text, '<form') !== false){
@@ -30,8 +30,8 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
         $note_index = $p['country_code'] .'-'. $p['language_iso'] .'-'.$p['folder_name'] .'-'.$filename;
         $onload_note_js = ' onLoad= "showNotes(\'' . $note_index . '\')" ';
         $output .= '<!--- publishFiles added onLoad -->' ."\n";
-        $out['debug'] =   $onload_note_js  ."\n";
-        $out['debug'] =   $output  ."\n";
+        $debug =   $onload_note_js  ."\n";
+        $debug =   $output  ."\n";
     }
     if (strpos($text, '<div class="header') !== false){
         $result = modifyHeaders($text);
@@ -46,9 +46,9 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
         $text = str_ireplace("nobreak", "nobreak-final", $text);
     }
     $result = getTitle($p['recnum']);
-    $out['debug'] .= $result['debug'] ."\n";
+    $debug .= $result['debug'] ."\n";
     $title = WEBSITE_TITLE . $result['content'];
-    $out['debug'] .= 'title is '. $title ."\n";
+    $debug .= 'title is '. $title ."\n";
     $local_js = '<script> This is my script</script>';
     $placeholders = array(
         '{{ title }}',
@@ -84,12 +84,12 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
     // write the file
     $fh = fopen($fname, 'w');
     if ($fh){
-        $out['debug'] .= 'File Written to ' .  $fname . "\n";
+        $debug .= 'File Written to ' .  $fname . "\n";
         fwrite($fh, $output);
         fclose($fh);
     }
     else{
-        $out['debug'] .= 'NOT able to write' .  $fname . "\n";
+        $debug .= 'NOT able to write' .  $fname . "\n";
         $out['error'] = true;
     }
     return ($out);

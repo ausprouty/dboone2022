@@ -1,9 +1,9 @@
 <?php
 
 function getFoldersContent($p){
-	$out['debug'] = 'getFoldersContent'. "\n";
+	$debug = 'getFoldersContent'. "\n";
 	if (!$p['language_iso']){
-		$out['debug'] .= "language_iso not set\n";
+		$debug .= "language_iso not set\n";
 		return $out;
 	}
 	$exclude = array('images', 'styles', 'templates');
@@ -28,7 +28,7 @@ function getFoldersContent($p){
 			$results = null;
 		}
 	}
-	$out['content'] = $results;
+	$out = $results;
 	return $out;
 }
 
@@ -37,28 +37,28 @@ function getFoldersContent($p){
 // this looks for template in the country/language/templates directory
 // and then returns as content
 function getTemplate($p){
-	$out['debug'] = 'getTemplate'. "\n";
+	$debug = 'getTemplate'. "\n";
 	if (!$p['language_iso']){
-		$out['debug'] .= "language_iso not set\n";
+		$debug .= "language_iso not set\n";
 		return $out;
 	}
 	if (!$p['template']){
-		$out['debug'] .= "template not set\n";
+		$debug .= "template not set\n";
 		return $out;
 	}
 
 	$language_dir = ROOT_EDIT_CONTENT . $p['country_code'] .'/'. $p['language_iso'] ;
 	$template = $language_dir .'/templates/'. $p['template'];
-	$out['debug'] =' template is '. $p['template']. "\n";
+	$debug =' template is '. $p['template']. "\n";
 	if (file_exists($template)){
 		$out['message'] = "Template Found: $template";
-		$out['debug'] .= "Template Found: $template". "\n";
-		$out['debug'].= file_get_contents($template) . "\n";
-		$out['content'] = file_get_contents($template);
+		$debug .= "Template Found: $template". "\n";
+		$debug.= file_get_contents($template) . "\n";
+		$out = file_get_contents($template);
 	}
 	else{
-		$out['content'] = null;
-		$out['debug'] .= "NO template found". "\n";
+		$out = null;
+		$debug .= "NO template found". "\n";
 		$out['message'] = "NO Templates found";
 	}
 	$out['error'] = false;
@@ -66,23 +66,23 @@ function getTemplate($p){
 }
 // use country and language
 function getTemplates($p){
-	$out['debug'] = 'getTemplates'. "\n";
+	$debug = 'getTemplates'. "\n";
 	if (!$p['language_iso']){
-		$out['debug'] .= "language_iso not set\n";
+		$debug .= "language_iso not set\n";
 		return $out;
 	}
 
     $results = '[';
 	$template_directory = ROOT_EDIT_CONTENT. $p['country_code'] .'/'. $p['language_iso'] .'/templates/';
-	$out['debug'] .= $template_directory . "\n";
+	$debug .= $template_directory . "\n";
 	// find folders
 	if (!file_exists($template_directory)){
         $include = 'setup.php';
 		myRequireOnce('setup.php');
-		$out['debug'] .= ' template directory does not exist so going to Setup Templates' . "\n";
+		$debug .= ' template directory does not exist so going to Setup Templates' . "\n";
 		$out2 = setupTemplatesCountry ($p);
 		$out3 = setupTemplatesLanguage ($p);
-		$out['debug'] .= $out2 ['debug'] . $out3 ['debug'];
+		$debug .= $out2 ['debug'] . $out3 ['debug'];
     }
 	if (file_exists($template_directory)){
         $results = '[';
@@ -114,11 +114,11 @@ function getTemplates($p){
 			$out['error'] = false;
 		}
 		else{
-			$out['debug'] .= ' No templates so going to Setup Templates' . "\n";
+			$debug .= ' No templates so going to Setup Templates' . "\n";
 			myRequireOnce('setup.php');
 			$out2 = setupTemplatesCountry ($p);
 			$out3 = setupTemplatesLanguage($p);
-			$out['debug'] .= $out2 ['debug'] . $out3 ['debug'];
+			$debug .= $out2 ['debug'] . $out3 ['debug'];
 			$handler = opendir ($template_directory);
 			while ($mfile = readdir ($handler)){
 				if ($mfile != '.' && $mfile != '..' ){
@@ -141,7 +141,7 @@ function getTemplates($p){
 				$out['error'] = false;
 			}
 		}
-		$out['content'] = $results;
+		$out = $results;
 	}
 	return $out;
 

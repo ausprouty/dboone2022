@@ -11,9 +11,9 @@ and replace with
 and copy files to prototype or publish directory
 */
 function  modifyImages($text, $scope){
-   $out = [];
+   
    $text= modifyContentImages($text, $scope);
-   $out['content'] = $text;
+   $out = $text;
    return  $out;
 }
 
@@ -30,7 +30,7 @@ function modifyContentImages($text, $scope){
             return;
     }
 
-    $out = [];
+    
     $out['message'] = null;
     $debug = 'In modifyImages' . "\n";
     $debug .= $scope . "\n";

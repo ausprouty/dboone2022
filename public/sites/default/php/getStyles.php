@@ -1,19 +1,19 @@
 <?php
 // get styles from default, site  and country
 function getStyles($p){
-	$out['debug'] = 'getStyles'. "\n";
+	$debug = 'getStyles'. "\n";
 	if (!$p['country_code']){
-		$out['debug'] .= "country_code not set\n";
+		$debug .= "country_code not set\n";
 		return $out;
 	}
-	$out['debug'] = 'getStyles'. "\n";
+	$debug = 'getStyles'. "\n";
 	$global_directory = '/sites/default/styles/' ;
     $site_directory = '/sites/' . $p['site'] . '/styles/';
 	$country_directory = ROOT_EDIT. '/sites/'.  $p['site'] . '/'. $p['country_code'] . '/styles/';
 	$results = '[';
-	$out['debug'] = $country_directory . "\n";
-	$out['debug'] .= $global_directory . "\n";
-    $out['debug'] .= $country_directory . "\n";
+	$debug = $country_directory . "\n";
+	$debug .= $global_directory . "\n";
+    $debug .= $country_directory . "\n";
 	if (file_exists( ROOT_EDIT. $global_directory)){
 		$handler = opendir (ROOT_EDIT. $global_directory);
 		while ($mfile = readdir ($handler)){
@@ -49,7 +49,7 @@ function getStyles($p){
 		$results = null;
 		$out['message'] = "NO styles found";
 	}
-	$out['content'] = $results;
+	$out = $results;
 	$out['error'] = false;
 	return $out;
 

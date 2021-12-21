@@ -3,7 +3,7 @@
 function updateUser($params){
 	$out=[];
 	if (!$params['member_uid']){
-		 $out['debug'] = 'member_uid not set in updateUser';
+		 $debug = 'member_uid not set in updateUser';
 		return $out;
 	}
 	$sql = 'UPDATE members SET
@@ -13,18 +13,18 @@ function updateUser($params){
 		'scope_languages = "'. $params['scope_languages'] . '", ' .
 		'start_page = "'. $params['start_page'] . '" ' .
 		' WHERE  uid = ' . $params['member_uid'] . ' LIMIT 1';
-	$out['debug'] = $sql . "\n";
+	$debug = $sql . "\n";
     sqlArray($sql, 'update');
 	if  ($params['password']){
 		// password
-		//$out['debug'] .= '|'. $params['password'] . '|' ."\n";
+		//$debug .= '|'. $params['password'] . '|' ."\n";
 		if (strlen($params['password']) > 5){
 			$hash = password_hash($params['password'], PASSWORD_DEFAULT);
 		$sql = 'UPDATE members SET
 			password = "'. $hash . '"
 			 WHERE  uid = ' . $params['member_uid'] . ' LIMIT 1';
 		sqlArray($sql, 'update');
-		$out['debug'] .= $sql . "\n";
+		$debug .= $sql . "\n";
 		}
 	}
 	if  ($params['username']){
@@ -32,8 +32,8 @@ function updateUser($params){
 			username = "'. $params['username'] . '"
 			 WHERE  uid = ' . $params['member_uid'] . ' LIMIT 1';
 		sqlArray($sql, 'update');
-		$out['debug'] .= $sql . "\n";
+		$debug .= $sql . "\n";
 	}
-    $out['content'] = 'updated';
+    $out = 'updated';
     return $out;
 }

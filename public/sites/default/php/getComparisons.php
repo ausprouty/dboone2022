@@ -1,49 +1,49 @@
 <?php
 
 function getComparisons($p){
-    $out['debug'] = 'getFoldersContent'. "\n";
-    $out['content']['countries'] = getCountries($p);
-    $out['content']['languages'] = getLanguages($p);
-    if (isset($out['content']['languages']['change'])){
-        $p['language_iso'] = $out['content']['languages']['change'];
-        $out['debug'] .= 'Changed language_iso to '. $p['language_iso'] ;
+    $debug = 'getFoldersContent'. "\n";
+    $out['countries'] = getCountries($p);
+    $out['languages'] = getLanguages($p);
+    if (isset($out['languages']['change'])){
+        $p['language_iso'] = $out['languages']['change'];
+        $debug .= 'Changed language_iso to '. $p['language_iso'] ;
     }
-    $out['content']['library'] = getLibraries($p);
-    if (isset($out['content']['library']['change'])){
-        $p['library_code'] = $out['content']['library']['change'];
-        $out['debug'] .= 'Changed libary_code to '. $p['library_code'];
+    $out['library'] = getLibraries($p);
+    if (isset($out['library']['change'])){
+        $p['library_code'] = $out['library']['change'];
+        $debug .= 'Changed libary_code to '. $p['library_code'];
     }
-    $out['content']['books'] = getBooks($p);
-    $out['debug'].=  $out['content']['books']['debug'];
-    if (isset($out['content']['books']['change'])){
-        $p['folder_name'] = $out['content']['books']['change'];
-        $out['debug'] .= 'Changed folder_name to '. $p['folder_name'];
+    $out['books'] = getBooks($p);
+    $debug.=  $out['books']['debug'];
+    if (isset($out['books']['change'])){
+        $p['folder_name'] = $out['books']['change'];
+        $debug .= 'Changed folder_name to '. $p['folder_name'];
     }
-    $out['content']['chapters'] = getChapters($p);
+    $out['chapters'] = getChapters($p);
     $p['content_type'] = 'series';
-    if (isset($out['content']['chapters']['change'])){
-        if ($out['content']['chapters']['change'] != ''){
-            $p['filename'] = $out['content']['chapters']['change'];
-            $out['debug'] .= 'Changed filename to '. $p['filename'];
+    if (isset($out['chapters']['change'])){
+        if ($out['chapters']['change'] != ''){
+            $p['filename'] = $out['chapters']['change'];
+            $debug .= 'Changed filename to '. $p['filename'];
         }
         else{
             $p['content_type'] = 'page';
         }
     }
-    $out['content']['versions'] = getVersions($p);
-    if (isset($out['content']['versions']['change'])){
-        $p['recnum'] = $out['content']['versions']['change'];
-        $out['debug'] .= 'Changed version to '. $p['version'];
+    $out['versions'] = getVersions($p);
+    if (isset($out['versions']['change'])){
+        $p['recnum'] = $out['versions']['change'];
+        $debug .= 'Changed version to '. $p['version'];
     }
     unset($p['my_uid']);
     unset($p['token']);
-    $out['content']['params'] = $p;
+    $out['params'] = $p;
     return $out;
 
 }
 
 function getCountries($p){
-    $out = [];
+    
     $output = [];
     $output['country'] = 'I did not find it';
     $sql = 'SELECT * FROM content  
@@ -75,7 +75,7 @@ function getCountries($p){
     return $output;
 }
 function getLanguages($p){
-    $out = [];
+    
     $output = [];
     $output['language'] = null;
     if (!isset($p['country_code'])){
@@ -107,7 +107,7 @@ function getLanguages($p){
     return $output;
 }
 function getLibraries($p){
-    $out = [];
+    
     $output = [];
     $output['library'] = null;
     if (!isset($p['country_code']) || !isset($p['language_iso']) || !isset($p['library_code'])){
@@ -120,10 +120,10 @@ function getLibraries($p){
    $sql = "SELECT DISTINCT filename  FROM content 
     WHERE  country_code = '" . $p['country_code'] . "' 
     AND language_iso = '" . $p['language_iso'] ."' AND folder_name = ''";
-    //$p['debug'] .= $sql. "\n";
+    //$debug .= $sql. "\n";
     $query = sqlMany($sql, 'query');
     if (!$query){
-        $p['debug'] .= 'no libraries found'. "\n";
+        $debug .= 'no libraries found'. "\n";
         return $p;
     }
     while($data = $query->fetch_array()){
@@ -151,7 +151,7 @@ function getBooks($p){
         $output['parameters'] =$p;
         return $output;
     }
-    $out = [];
+    
     $output = [];
     $output['book'] = null;
     $output['debug'] = null;
@@ -197,7 +197,7 @@ function getBooks($p){
 }
 
 function getChapters($p){
-    $out = [];
+    
     $output = [];
     $output['chapter'] = null;
     if (!isset($p['country_code']) || !isset($p['language_iso']) || !isset($p['folder_name'])){
@@ -236,7 +236,7 @@ function getChapters($p){
     return $output;
 }
 function getVersions($p){
-    $out = [];
+    
     $output = [];
     if (!isset($p['country_code']) || !isset($p['language_iso']) || !isset($p['folder_name'])){
         $output['debug'] = 'Parameter missing';

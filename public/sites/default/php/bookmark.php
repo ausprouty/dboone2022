@@ -14,28 +14,26 @@ myRequireOnce ('writeLog.php');
 
 */
 function bookmark ($p){
-    $bm = [];
-    $out['debug'] = 'I entered Bookmark' . "\n";
+    $debug = 'I entered Bookmark' . "\n";
     $b['bookmark'] = null;
-
     writeLog ('bookmark-20-', $p);
 
 
     if (isset($p['recnum'])){
          // be sure to add this in for library since you can not yet derive it.
         $b['library_code'] = isset($p['library_code'])?$p['library_code']:null;
-        $out['debug'] .= 'library_code ' . $b['library_code'] . "\n\n";
+        $debug .= 'library_code ' . $b['library_code'] . "\n\n";
         // find other parameters for bookmark from recnum
-        $out['debug'] .= 'recnum is ' . $p['recnum'] . "\n";
+        $debug .= 'recnum is ' . $p['recnum'] . "\n";
         $starting = objectFromRecnum($p['recnum']);
         $b['country_code'] = $starting->country_code;
-        $out['debug'] .= 'b[country_code] is ' . $b['country_code'] . "\n";
+        $debug .= 'b[country_code] is ' . $b['country_code'] . "\n";
         $b['language_iso'] = $starting->language_iso;
-        $out['debug'] .= 'b[language_iso] is ' . $b['language_iso'] . "\n";
+        $debug .= 'b[language_iso] is ' . $b['language_iso'] . "\n";
         $b['folder_name'] = $starting->folder_name;
-        $out['debug'] .= 'b[folder_name] is ' . $b['folder_name'] . "\n";
+        $debug .= 'b[folder_name] is ' . $b['folder_name'] . "\n";
         $b['filename'] = $starting->filename;
-        $out['debug'] .= 'b[filename] ' . $b['filename'] . "\n\n";
+        $debug .= 'b[filename] ' . $b['filename'] . "\n\n";
     }
     else{
         $b['country_code'] = isset($p['country_code'])?$p['country_code']:null;
@@ -52,37 +50,37 @@ function bookmark ($p){
     if ($b['country_code']){
         $response = checkBookmarkCountry($b);
         $b['bookmark']['country'] = $response['content'];
-        $out['debug'] .= $response['debug'] . "\n";
-         // writeLog ('bookmark-53-country-', $out['debug']);
+        $debug .= $response['debug'] . "\n";
+         // writeLog ('bookmark-53-country-', $debug);
 
         if ($b['language_iso']){
             $response = checkBookmarkLanguage($b);
             $b ['bookmark'] ['language'] = $response['content'];
-            $out['debug'] .=  $response['debug']. "\n";
-            // writeLog ('bookmark-59-language', $out['debug']);
+            $debug .=  $response['debug']. "\n";
+            // writeLog ('bookmark-59-language', $debug);
 
             if (isset($b['library_code'])){
                 $response = checkBookmarkLibrary($b);
                 $b['bookmark']['library']  = $response['content'];
-                $out['debug'] .=  $response['debug']. "\n";
+                $debug .=  $response['debug']. "\n";
 
                 if ($b['folder_name']){
                     $response = checkBookmarkSeries($b);
                     $b['bookmark']['series'] = $response['content'];
-                    $out['debug'] .=  $response['debug']. "\n";
+                    $debug .=  $response['debug']. "\n";
                     $response = checkBookmarkBook($b);
                     $b['bookmark']['book'] = $response['content'];
-                    $out['debug'] .=  $response['debug']. "\n";
+                    $debug .=  $response['debug']. "\n";
                     if ($b['filename']){
                         $response = checkBookmarkPage($b);
                         $b['bookmark']['page'] = $response['content'];
-                        $out['debug'] .=  $response['debug'];
+                        $debug .=  $response['debug'];
                     }
                 }
             }
         }
     }
-    $out['content'] = $b['bookmark'];
+    $out = $b['bookmark'];
     if (isset($p['scope'])){
       writeLog( 'bookmark-'.$p['scope'] , $b['bookmark']);
 
@@ -94,156 +92,150 @@ function bookmark ($p){
     return $out;
 }
 function checkBookmarkCountry($b){
-    $out = [];
-    $out['debug'] = 'in checkBookmarkCountry'. "\n";
-    $out['content'] = null;
+
+    $debug = 'in checkBookmarkCountry'. "\n";
+    $out = null;
     $b['scope'] = 'countries';
-    $res = getLatestContent($b);
-    $out['debug'] .= $res['debug'];
-    $out['debug'] .= 'response is'.  $res['content']['text']."\n";
-    $response = json_decode($res['content']['text']);
+    $content = getLatestContent($b);
+    $response = json_decode($content['text']);
     if (!$response){
-        writeLog('checkBookmarkCountry', $out['debug']);
+        writeLog('checkBookmarkCountry', $debug);
         trigger_error("No response in checkBookmarkCountry", E_USER_ERROR);
     }
     foreach ($response as $country){
         if ($country->code == $b['country_code']){
-            $out['content'] = $country;
+            $out = $country;
         }
     }
     return $out;
 }
 function checkBookmarkLanguage($b){
-    $out = [];
-    $out['debug'] = 'in checkBookmarkLanguage'. "\n";
-    $out['content'] = null;
+
+    $debug = 'in checkBookmarkLanguage'. "\n";
+   $out = null;
     $b['scope'] = 'languages';
-    $res = getLatestContent($b);
-    $response = json_decode($res['content']['text']);
+    $content = getLatestContent($b);
+    $response = json_decode( $content['text']);
     if (!$response){
-        writeLog('ERROR - checkBookmarkLanguage', $out['debug']);
+        writeLog('ERROR - checkBookmarkLanguage', $debug);
         trigger_error("No response in checkBookmarkLanguage", E_USER_ERROR);
     }
     if (isset($response->languages)){
         foreach ($response->languages as $language){
             if ($language->iso == $b['language_iso']){
-                $out['content'] = $language;
+                $out = $language;
             }
         }
     }else{
-        $out['debug'] .= 'NO response for languages'.  "\n";
+        $debug .= 'NO response for languages'.  "\n";
     }
 
     return $out;
 }
 // no longer used
 function checkBookmarkLibraries($b){
-    $out = [];
-    $out['debug'] = 'in checkBookmarkLibraries'. "\n";
-    $out['content'] = null;
+
+    $debug = 'in checkBookmarkLibraries'. "\n";
+   $out = null;
     $b['scope'] = 'libraryNames';
     // find possible libraries with books
-    $names = getLatestContent($b);
+    $content = getLatestContent($b);
+    $names = json_decode( $content['text']);
     if (!$names){
-        writeLog('checkBookmarkLibraries', $out['debug']);
+        writeLog('checkBookmarkLibraries', $debug);
         trigger_error("No names in checkBookmarkLibraries", E_USER_ERROR);
     }
     foreach ($names as $name){
         if ($name !== 'index' && $name !== 'languages'){
             $b['library_code'] = $name;
             $b['scope'] = 'library';
-            $res = getLatestContent($b);
-            $out['debug'] .= $res['debug'];
-            $out['debug'] .= 'response is'.  $res['content']['text'] ."\n";
-            $response = json_decode($res['content']['text']);
+            $content = getLatestContent($b);
+            $response = json_decode($content['text']);
             $books = $response->books;
             foreach($books as $book){
-                $out['content'][] = $book;
+                $out[] = $book;
             }
         }
     }
     return $out;
 }
 function checkBookmarkLibrary($b){
-    $out = [];
-    $out['debug'] = 'in checkBookmarkLibrary'. "\n";
-    $out['content'] = null;
+   $debug = 'in checkBookmarkLibrary'. "\n";
+   $out = null;
     if ($b['library_code'] !== 'index'){
          $b['scope'] = 'library';
     }
     else{
         $b['scope'] = 'libraryIndex';
     }
-    $res = getLatestContent($b);
-    $out['debug'] .= $res['debug'];
-    $out['debug'] .= 'response is'.  $res['content']['text'] ."\n";
-    $r = json_decode($res['content']['text']);
-    if (!$r){
+    $content = getLatestContent($b);
+
+    $library = json_decode($content['text']);
+    if (!$library){
         writeLog('ERROR - checkBookmarkLibrary-parameters', $b);
-        writeLog('ERROR - checkBookmarkLibrary-debug', $out['debug']);
+        writeLog('ERROR - checkBookmarkLibrary-debug', $debug);
          writeLog('ERROR - checkBookmarkLibrary-res',  $res['content']);
          $message = "No r in checkBookmarkLibrary for ". $b['library_code'];
         trigger_error( $message , E_USER_ERROR);
     }
     // legacy data does not have ['books'] so move data there
-    if (isset($r->books)){
-        $response = $r;
+    if (isset($library->books)){
+        $response = $library;
     }
     else{
         $response = new stdClass();
-        $response->books = $r;
+        $response->books = $library;
     }
-    $out['content'] = $response;
+    $out  = $response;
     return $out;
 }
 function checkBookmarkBook($b){
-    $out = [];
-    $out['debug'] = 'In check BookmarkBook' . "\n";
-    $out['content'] = null;
+    $debug = 'In check BookmarkBook' . "\n";
+    $out = null;
     $this_book = $b['folder_name'];
     if ($this_book == 'pages'){
         $this_book = $b['filename'];
     }
-    $out['debug'] .= 'This book is '.  $this_book . "\n";
+    $debug .= 'This book is '.  $this_book . "\n";
     if (isset($b['bookmark']['library']->books)){
         $books = $b['bookmark']['library']->books;
         foreach ($books as $book){
             if (!isset($book->code)){
-                $out['debug'] .= 'Book code is not set' . "\n";
+                $debug .= 'Book code is not set' . "\n";
                 $code = isset($book->name) ? $book->name : NULL;
             }
             else{
                 $code = $book->code;
             }
             if ($code == $this_book){
-                $out['debug'] .= 'Found this code in book array' . "\n";
-                $out['debug'] .= json_encode($book, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n";
-                $out['content'] = $book;
+                $debug .= 'Found this code in book array' . "\n";
+                $debug .= json_encode($book, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n";
+                $out = $book;
             }
         }}
     return $out;
 }
 function checkBookmarkSeries($b){
-    $out = [];
-    $out['debug'] = 'in checkBookmarkSeries'. "\n";
-    $out['content'] = null;
+
+    $debug = 'in checkBookmarkSeries'. "\n";
+     $out = null;
     $b['scope'] = 'series';
-    $res = getLatestContent($b);
-    $out['debug'] .= $res['debug'];
-    $out['debug'] .= 'response is'.  $res['content']['text'] ."\n";
-    $response = json_decode($res['content']['text']);
+    $content = getLatestContent($b);
+    $debug .= $res['debug'];
+    $debug .= 'response is'.  $content['text'] ."\n";
+    $response = json_decode($content['text']);
     if (!$response){
-        writeLog('checkBookmarkSeries', $out['debug']);
+        writeLog('checkBookmarkSeries', $debug);
         trigger_error("No response in checkBookmarkSeries", E_USER_ERROR);
     }
-    $out['content'] = $response;
+    $out = $response;
     return $out;
 }
 
 function checkBookmarkPage($b){
-    $out = [];
-    $out['debug'] = 'in checkBookmarkPage'. "\n";
-    $out['content'] = null;
+
+    $debug = 'in checkBookmarkPage'. "\n";
+   $out = null;
     // is this part of a series?
     if (isset($b['bookmark']['series'])){
         // go through series bookmark to find chapter information
@@ -251,18 +243,18 @@ function checkBookmarkPage($b){
            $chapters = $b['bookmark']['series']->chapters;
            foreach ($chapters as $chapter){
                if ($chapter->filename == $b['filename']){
-                $out['content'] = $chapter;
+                $out = $chapter;
                }
            }
         }
         // this should not happen
         else{
-            $out['content'] =  $b['bookmark']['book'];
+            $out =  $b['bookmark']['book'];
         }
     }
     // this is a basic page from the library and does not have any data?
     else{
-        $out['content'] =  $b['bookmark']['book'];
+        $out =  $b['bookmark']['book'];
     }
     return $out;
 }

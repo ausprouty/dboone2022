@@ -41,9 +41,9 @@ function debugSeriesCrawlX ($p){
         die("Connection has failed: " . $conn->connect_error);
     }
     $output = new stdClass();
-    $out = [];
+    
     $edit_root = ROOT_EDIT .  'content';
-    $out['debug'] = 'in debugCrawl' . "\n";
+    $debug = 'in debugCrawl' . "\n";
     $countries = folderArray($edit_root);
     foreach ($countries as $country){
         $country_dir = $edit_root . '/'. $country;
@@ -81,7 +81,7 @@ function debugSeriesCrawlX ($p){
                             ('$version','$edit_date','$edit_uid','$language',
                             '$country','$folder','json',
                             '','index','$text')";
-                        $out['debug'] .= $sql . "\n";
+                        $debug .= $sql . "\n";
                         $conn->query($sql);
                     }
                 }
@@ -101,9 +101,9 @@ function debugLibraryCrawl ($p){
         die("Connection has failed: " . $conn->connect_error);
     }
     $output = new stdClass();
-    $out = [];
+    
     $edit_root = ROOT_EDIT .  'content';
-    $out['debug'] = 'in debugCrawl' . "\n";
+    $debug = 'in debugCrawl' . "\n";
     $countries = folderArray($edit_root);
     foreach ($countries as $country){
         $country_dir = $edit_root . '/'. $country;
@@ -144,7 +144,7 @@ function debugLibraryCrawl ($p){
                         ('$version','$edit_date','$edit_uid','$language',
                         '$country','','json',
                         '','library','$text')";
-                    $out['debug'] .= $sql . "\n";
+                    $debug .= $sql . "\n";
                     $conn->query($sql);
                 }
             }
@@ -175,7 +175,7 @@ function debugClean($p){
                 ('$data->version','$data->edit_date','$data->edit_uid','$data->language_iso',
                 '$data->country_code','$data->folder_name','$data->filetype',
                 '$data->title','$data->filename','$text')";
-            $out['debug'] .= $sql . "\n";
+            $debug .= $sql . "\n";
             $conn->query($sql);
         }
     }
@@ -187,7 +187,7 @@ function debugLibraryX($p){
         die("Connection has failed: " . $conn->connect_error);
     }
     $sql = 'SELECT * FROM content WHERE filename = "library" ';
-    $out['debug'] = $sql . "\n";
+    $debug = $sql . "\n";
     $output = new stdClass();
     $query = $conn->query($sql);
     while ($data = $query->fetch_object()){
@@ -220,7 +220,7 @@ function debugLibraryX($p){
             ('$data->version','$data->edit_date','$data->edit_uid','$data->language_iso',
             '$data->country_code','$data->folder_name','$data->filetype',
             '$data->title','$data->filename','$text')";
-        $out['debug'] .= $sql . "\n";
+        $debug .= $sql . "\n";
         $conn->query($sql);
     }
     return $out;
@@ -231,7 +231,7 @@ function debugLife($p){
         die("Connection has failed: " . $conn->connect_error);
     }
     $sql = 'SELECT * FROM content WHERE filename = "library"';
-    $out['debug'] = $sql . "\n";
+    $debug = $sql . "\n";
     $query = $conn->query($sql);
     while ($data = $query->fetch_object()){
         $text = str_ireplace('principle2', 'life2', $data->text);
@@ -245,7 +245,7 @@ function debugLife($p){
             ('$data->version','$data->edit_date','$data->edit_uid','$data->language_iso',
             '$data->country_code','$data->folder_name','$data->filetype',
             '$data->title','$data->filename','$text')";
-        $out['debug'] .= $sql . "\n";
+        $debug .= $sql . "\n";
         $conn->query($sql);
     }
     return $out;
@@ -288,7 +288,7 @@ function debugSeries($p){
         die("Connection has failed: " . $conn->connect_error);
     }
     $sql = 'SELECT * FROM content WHERE filename = "library"';
-    $out['debug'] = $sql . "\n";
+    $debug = $sql . "\n";
     $query = $conn->query($sql);
     while ($data = $query->fetch_object()){
         $output->description = '';
@@ -304,7 +304,7 @@ function debugSeries($p){
             ('$data->version','$data->edit_date','$data->edit_uid','$data->language_iso',
             '$data->country_code','$data->folder_name','$data->filetype',
             '$data->title','$data->filename','$text')";
-        $out['debug'] .= $sql . "\n";
+        $debug .= $sql . "\n";
         $conn->query($sql);
     }
     return $out;

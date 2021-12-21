@@ -25,8 +25,8 @@
 define("KEY", '3d116e49d7d98c6e20bf0f4a9c88e4cc');
 myRequireOnce ('vendor/dbt/dbt.inc');
 function bibleGetPassageDBT($p){
-    $out = [];
-    $out['debug'] = '';
+    
+    $debug = '';
     $dbt = new Dbt (KEY);
    // todo: this link is not right
     $link = 'https://live.bible.is/bible/'.   $p['damId']  . '/'. $p['book_id']. '/'. $p['chapterId'];
@@ -40,7 +40,7 @@ function bibleGetPassageDBT($p){
         $p['verseEnd'],  
         $markup
     );
-    $out['debug'] .= 'first pass: '. $v . "\n";
+    $debug .= 'first pass: '. $v . "\n";
 	// try a second time
 	if (!$v){
 		$v = $dbt->getTextVerse( 
@@ -51,13 +51,13 @@ function bibleGetPassageDBT($p){
             $p['verseEnd'],
             $markup
         );
-        $out['debug'] .= 'second pass: '. $v . "\n";
+        $debug .= 'second pass: '. $v . "\n";
 	}
 	if ($v){
         $verses = json_decode($v);
         $text = convertDbtArrayToPassage($verses);
-        $out['debug'] .= $text['debug'];
-        $out['content']= [
+        $debug .= $text['debug'];
+        $out= [
             'reference' => $text['reference'],
             'text' => $text['text'],
             'link' => $link
@@ -86,8 +86,8 @@ function bibleGetPassageDBT($p){
 
 */
 function convertDbtArrayToPassage($verses){
-    $out = [];
-    $out['debug'] = '';
+    
+    $debug = '';
     $count = 0;
     $text = '<p>';
    
@@ -95,7 +95,7 @@ function convertDbtArrayToPassage($verses){
         if ($count == 0){
             $reference = $verse->book_name . ' ' . $verse->chapter_id . ': ' ;
             $reference .= $verse->verse_id;
-            $out['debug'] .= 'title: '. $reference;
+            $debug .= 'title: '. $reference;
             $first_verse = $verse->verse_id;
             $paragraph_number = $verse->paragraph_number;
             $count++;
@@ -115,7 +115,7 @@ function convertDbtArrayToPassage($verses){
     $result = [
         'reference'=> $reference,
         'text'=> $text,
-        'debug'=> $out['debug']
+        'debug'=> $debug
     ];
     return $result;
 }

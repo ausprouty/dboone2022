@@ -47,8 +47,8 @@ function modifyRevealVideo($text, $bookmark){
     
 }
 function revealVideoOld($text, $bookmark){
-    $out = [];
-    $out['debug'] = 'In revealVideo';
+    
+    $debug = 'In revealVideo';
     $watch_phrase = $bookmark['language']->watch;
 
     $template= '<button id="VideoTitle[id]" type="button" class="collapsible external-movie">[Title]</button>
@@ -71,7 +71,7 @@ function revealVideoOld($text, $bookmark){
         $pos_end = mb_strpos($text, '</div>', $pos_start);
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $old = mb_substr($text, $pos_start, $length);
-        $out['debug'] .=  "old is $old\n";
+        $debug .=  "old is $old\n";
         //find Video Title and add phrase "Watch Online"
         $word = trim(strip_tags($old));
         $word = trim(strip_tags($old));
@@ -97,8 +97,8 @@ function revealVideoOld($text, $bookmark){
         $new = str_replace('[Player]', $player, $new); 
         $new = str_replace('[Video]', $video, $new); 
 
-        $out['debug'] .=  "word is $word\n";
-        $out['debug'] .=  "new is $new\n";
+        $debug .=  "word is $word\n";
+        $debug .=  "new is $new\n";
         
          // from https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
          // added these because we are not using a multi-bite function below.
@@ -107,7 +107,7 @@ function revealVideoOld($text, $bookmark){
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $text = substr_replace($text, $new, $pos_start, $length);
     }
-    $out['content'] = $text;
+    $out = $text;
     return $out;
 }
 /* <div class="reveal video">&nbsp;
@@ -116,8 +116,8 @@ function revealVideoOld($text, $bookmark){
 <hr /></div>
 */
 function revealVideo($text, $bookmark){
-    $out = [];
-    $out['debug'] = 'In revealVideo' . "\n";;
+    
+    $debug = 'In revealVideo' . "\n";;
     $watch_phrase = $bookmark['language']->watch;
     $template= '<button id="revealButton[id]" type="button" class="external-movie [video_type]">[Title]</button>
         <div class="collapsed">[Video]</div>
@@ -132,7 +132,7 @@ function revealVideo($text, $bookmark){
         $pos_end = strpos($text, '</div>', $pos_start);
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $old = substr($text, $pos_start, $length);
-        $out['debug'] .=  "old is | $old |\n";
+        $debug .=  "old is | $old |\n";
         //find Video Title and add phrase "Watch Online"
         $word = trim(strip_tags($old));
         $word = trim(strip_tags($old));
@@ -144,13 +144,13 @@ function revealVideo($text, $bookmark){
         $new = str_replace('[Title]', $word, $new);
         // find type of video
         $pos_video_type_start = strpos($old, 'refId=');
-        $out['debug'] .=  "pos_video_type_start | $pos_video_type_start |\n";
+        $debug .=  "pos_video_type_start | $pos_video_type_start |\n";
         $pos_video_type_end = strpos($old, '_', $pos_video_type_start );
-        $out['debug'] .=  "pos_video_type_end | $pos_video_type_end |\n";
+        $debug .=  "pos_video_type_end | $pos_video_type_end |\n";
         $video_type_length = $pos_video_type_end - $pos_video_type_start - 6;
-        $out['debug'] .=  "video_type_length | $video_type_length |\n";
+        $debug .=  "video_type_length | $video_type_length |\n";
         $video_type_string = substr($old, $pos_video_type_start + 6, $video_type_length);
-        $out['debug'] .=  "video_type_string | $video_type_string |\n";
+        $debug .=  "video_type_string | $video_type_string |\n";
         switch ($video_type_string){
             case 1:
                 $video_type = 'jfilm';
@@ -171,8 +171,8 @@ function revealVideo($text, $bookmark){
         $video = '['. $video_type . ']' . mb_substr($old, $pos_vid_start, $vid_length); //-Acts7306-0-0
         $new = str_replace('[Video]', $video, $new); 
         $new = str_replace('[video_type]', $video_type, $new); 
-        $out['debug'] .=  "word is | $word |\n";
-        $out['debug'] .=  "new is | $new |\n";
+        $debug .=  "word is | $word |\n";
+        $debug .=  "new is | $new |\n";
         
          // from https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
          // added these because we are not using a multi-bite function below.
@@ -181,12 +181,12 @@ function revealVideo($text, $bookmark){
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $text = substr_replace($text, $new, $pos_start, $length);
     }
-    $out['content'] = $text;
+    $out = $text;
     return $out;
 }
 function revealVideoActs($text, $bookmark){
-    $out = [];
-    $out['debug'] = 'In revealVideoActs' . "\n";;
+    
+    $debug = 'In revealVideoActs' . "\n";;
     $watch_phrase = $bookmark['language']->watch;
     $template= '<button id="ActsButton[id]" type="button" class="external-movie acts">[Title]</button>
         <div class="collapsed">[Video]</div>
@@ -201,7 +201,7 @@ function revealVideoActs($text, $bookmark){
         $pos_end = mb_strpos($text, '</div>', $pos_start);
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $old = mb_substr($text, $pos_start, $length);
-        $out['debug'] .=  "old is $old\n";
+        $debug .=  "old is $old\n";
         //find Video Title and add phrase "Watch Online"
         $word = trim(strip_tags($old));
         $word = trim(strip_tags($old));
@@ -215,8 +215,8 @@ function revealVideoActs($text, $bookmark){
         $vid_length = $pos_vid_end - $pos_vid_start + 0; // add 0 because we don't want any of that
         $video = '[acts]' . mb_substr($old, $pos_vid_start, $vid_length); //-Acts7306-0-0
         $new = str_replace('[Video]', $video, $new); 
-        $out['debug'] .=  "word is $word\n";
-        $out['debug'] .=  "new is $new\n";
+        $debug .=  "word is $word\n";
+        $debug .=  "new is $new\n";
         
          // from https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
          // added these because we are not using a multi-bite function below.
@@ -225,12 +225,12 @@ function revealVideoActs($text, $bookmark){
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $text = substr_replace($text, $new, $pos_start, $length);
     }
-    $out['content'] = $text;
+    $out = $text;
     return $out;
 }
 function revealVideoJFilm($text, $bookmark){
-    $out = [];
-    $out['debug'] = 'In revealVideoJFilm' . "\n";;
+    
+    $debug = 'In revealVideoJFilm' . "\n";;
     $watch_phrase = $bookmark['language']->watch;
     $template= '<button id="JFilmButton[id]" type="button" class="external-movie jfilm">[Title]</button>
         <div class="collapsed">[Video]</div>
@@ -245,7 +245,7 @@ function revealVideoJFilm($text, $bookmark){
         $pos_end = mb_strpos($text, '</div>', $pos_start);
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $old = mb_substr($text, $pos_start, $length);
-        $out['debug'] .=  "old is $old\n";
+        $debug .=  "old is $old\n";
         //find Video Title and add phrase "Watch Online"
         $word = trim(strip_tags($old));
         $word = trim(strip_tags($old));
@@ -259,8 +259,8 @@ function revealVideoJFilm($text, $bookmark){
         $vid_length = $pos_vid_end - $pos_vid_start + 0; // add 0 because we don't want any of that
         $video = '[jfilm]' . mb_substr($old, $pos_vid_start, $vid_length); //-Acts7306-0-0
         $new = str_replace('[Video]', $video, $new); 
-        $out['debug'] .=  "word is $word\n";
-        $out['debug'] .=  "new is $new\n";
+        $debug .=  "word is $word\n";
+        $debug .=  "new is $new\n";
         
          // from https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
          // added these because we are not using a multi-bite function below.
@@ -269,12 +269,12 @@ function revealVideoJFilm($text, $bookmark){
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $text = substr_replace($text, $new, $pos_start, $length);
     }
-    $out['content'] = $text;
+    $out = $text;
     return $out;
 }
 function revealVideoLumo($text, $bookmark){
-    $out = [];
-    $out['debug'] = 'In revealVideoLumo' . "\n";;
+    
+    $debug = 'In revealVideoLumo' . "\n";;
     $watch_phrase = $bookmark['language']->watch;
     $template= '<button id="LumoButton[id]" type="button" class="external-movie lumo">[Title]</button>
         <div class="collapsed">[Video]</div>
@@ -289,7 +289,7 @@ function revealVideoLumo($text, $bookmark){
         $pos_end = mb_strpos($text, '</div>', $pos_start);
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $old = mb_substr($text, $pos_start, $length);
-        $out['debug'] .=  "old is $old\n";
+        $debug .=  "old is $old\n";
         //find Video Title and add phrase "Watch Online"
         $word = trim(strip_tags($old));
         $word = trim(strip_tags($old));
@@ -303,8 +303,8 @@ function revealVideoLumo($text, $bookmark){
         $vid_length = $pos_vid_end - $pos_vid_start + 0; // add 0 because we don't want any of that
         $video = '[lumo]' . mb_substr($old, $pos_vid_start, $vid_length); //-Acts7306-0-0
         $new = str_replace('[Video]', $video, $new); 
-        $out['debug'] .=  "word is $word\n";
-        $out['debug'] .=  "new is $new\n";
+        $debug .=  "word is $word\n";
+        $debug .=  "new is $new\n";
         
          // from https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
          // added these because we are not using a multi-bite function below.
@@ -313,14 +313,14 @@ function revealVideoLumo($text, $bookmark){
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $text = substr_replace($text, $new, $pos_start, $length);
     }
-    $out['content'] = $text;
+    $out = $text;
     return $out;
 }
 
 
 function revealVideoVimeo($text, $bookmark){
-    $out = [];
-    $out['debug'] = 'In revealVideoJFilm' . "\n";;
+    
+    $debug = 'In revealVideoJFilm' . "\n";;
     $watch_phrase = $bookmark['language']->watch;
     $template= '<button id="VimeoButton[id]" type="button" class="external-movie ">[Title]</button>
         <div class="collapsed">[Video]</div>' ;
@@ -333,7 +333,7 @@ function revealVideoVimeo($text, $bookmark){
         $pos_end = mb_strpos($text, '</div>', $pos_start);
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $old = mb_substr($text, $pos_start, $length);
-        $out['debug'] .=  "old is $old\n";
+        $debug .=  "old is $old\n";
         //find Video Title and add phrase "Watch Online"
         $word = trim(strip_tags($old));
         $word = trim(strip_tags($old));
@@ -351,8 +351,8 @@ function revealVideoVimeo($text, $bookmark){
         $vid_length = $pos_vid_end - $pos_vid_start -10; //  because we don't want any of that 'vimeo.com/'
         $video = '[vimeo]' . mb_substr($old, $pos_vid_start +10 , $vid_length); //-Acts7306-0-0
         $new = str_replace('[Video]', $video, $new); 
-        $out['debug'] .=  "word is | $word |\n";
-        $out['debug'] .=  "new is | $new |\n";
+        $debug .=  "word is | $word |\n";
+        $debug .=  "new is | $new |\n";
         
          // from https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
          // added these because we are not using a multi-bite function below.
@@ -361,7 +361,7 @@ function revealVideoVimeo($text, $bookmark){
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $text = substr_replace($text, $new, $pos_start, $length);
     }
-    $out['content'] = $text;
-    writeLog('revealVideoVimeo', $out['debug']);
+    $out = $text;
+    writeLog('revealVideoVimeo', $debug);
     return $out;
 }

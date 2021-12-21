@@ -13,18 +13,18 @@
      );
  */     
 function createBibleDbtArrayFromPassage($p){
-    $out = [];
-    $out['debug']= 'I am in createBibleDbtArrayFromPassage'. "\n";
-    $out['debug'] .= '$p[entry] is ' . $p['entry'] . "\n";
-    //writeLog('createBibleDbtArrayFromPassage19-' . time(), $out['debug']);
+    
+    $debug= 'I am in createBibleDbtArrayFromPassage'. "\n";
+    $debug .= '$p[entry] is ' . $p['entry'] . "\n";
+    //writeLog('createBibleDbtArrayFromPassage19-' . time(), $debug);
     $passages = explode(';',$p['entry'] );
     foreach ($passages as $passage){
         $p['passage']= trim($passage);
-        $out['debug'] .= '$p[passage] is ' .  $p['passage'] . "\n";
-       // writeLog('createBibleDbtArrayFromPassage24-' . time(), $out['debug']);
+        $debug .= '$p[passage] is ' .  $p['passage'] . "\n";
+       // writeLog('createBibleDbtArrayFromPassage24-' . time(), $debug);
         $one = createBibleDbtArray($p);
-        $out['debug'] .= $one['debug'];
-        $out['content'][] = $one['content'];
+        $debug .= $one['debug'];
+        $out[] = $one['content'];
         //writeLog('createBibleDbtArrayFromPassage28-' . time(), $one['content']);
         if ($one['error']){
             $out['error'] = $one['error'];
@@ -33,8 +33,8 @@ function createBibleDbtArrayFromPassage($p){
     return $out;
 }
 function createBibleDbtArray($p){
-    $out = [];
-    $out['debug']= "\n\n" .'I am in createBibleDbtArray'. "\n";
+    
+    $debug= "\n\n" .'I am in createBibleDbtArray'. "\n";
     //OK to here
     $language_iso = $p['language_iso'];
     $passage = $p['passage'];
@@ -58,41 +58,41 @@ function createBibleDbtArray($p){
     $data = sqlBibleArray($sql);
     if (is_array($data)){
         foreach ($data as $key => $value){
-            $out['debug'] .= $key . '=>' . $value . "\n";
+            $debug .= $key . '=>' . $value . "\n";
         }
     }
     else{
-        $out['debug'] .= "No valid data from Bible Array\n";
+        $debug .= "No valid data from Bible Array\n";
     }
     
-    //writeLog('createBibleDbtArray64-' . time(), $out['debug']);
+    //writeLog('createBibleDbtArray64-' . time(), $debug);
 
     if (isset($data['book_id'])){
-        $out['debug'] .= $data['book_id'] . "\n";
-       // writeLog('createBibleDbtArray68-' . time(), $out['debug']);
+        $debug .= $data['book_id'] . "\n";
+       // writeLog('createBibleDbtArray68-' . time(), $debug);
     }
     if (!isset($data['book_id'])){
-        $out['debug'] .= 'trying to find in English' . "\n";
-        //writeLog('createBibleDbtArray72-' . time(), $out['debug']);
+        $debug .= 'trying to find in English' . "\n";
+        //writeLog('createBibleDbtArray72-' . time(), $debug);
         // try English if language_iso does not work
         $sql = "SELECT book_id, testament FROM hl_online_bible_book 
         WHERE  eng  = '$book_lookup' LIMIT 1";
         $data = sqlBibleArray($sql);
         if (!isset($data['book_id'])){
-            $out['content'] = null;
+           $out = null;
             $out['error'] = true;
-            $out['debug'] .=  'Book ID not found' . "\n";
+            $debug .=  'Book ID not found' . "\n";
             return $out;
         }
     }
-    //writeLog('createBibleDbtArray78-' . time(), $out['debug']);
+    //writeLog('createBibleDbtArray78-' . time(), $debug);
     // pull apart chapter
     $pass = str_replace($book, '', $passage);
-    $out['debug'] .= 'pass is ' . "$pass\n";
+    $debug .= 'pass is ' . "$pass\n";
     $pass = str_replace(' ' , '', $pass);
-    $out['debug'] .= 'pass is ' . "$pass\n";
+    $debug .= 'pass is ' . "$pass\n";
     $i = strpos($pass, ':');
-    $out['debug'] .= 'i ' . "$i\n";
+    $debug .= 'i ' . "$i\n";
     if ($i !== FALSE){
         $chapterId = substr($pass, 0, $i);
         $verses = substr($pass, $i+1);
@@ -120,11 +120,11 @@ function createBibleDbtArray($p){
         'collection_code' => $data['testament'],
     );
     foreach ($dbt_array as $key => $value){
-        $out['debug'] .= $key . ' => ' . $value . "\n";
+        $debug .= $key . ' => ' . $value . "\n";
     }
-    $out['debug'] .= 'at the end of dbt' . "\n";
-   // writeLog('createBibleDbtArray118-' . time(), $out['debug']);
+    $debug .= 'at the end of dbt' . "\n";
+   // writeLog('createBibleDbtArray118-' . time(), $debug);
     $out['error'] = false;
-    $out['content'] = $dbt_array;
+    $out = $dbt_array;
     return $out;
 }

@@ -24,8 +24,8 @@ myRequireOnce('sql.php');
 */
 
 function bibleGetPassage($p){
-    $out = [];
-    $out['debug'] = 'I came into  bibleGetPassage' . "\n";
+    
+    $debug = 'I came into  bibleGetPassage' . "\n";
     // make sure bid is set
     if (!isset($p['bid'])){
         if (isset($p['collection_code'])){
@@ -41,13 +41,13 @@ function bibleGetPassage($p){
             }
         }
         if (!isset($p['bid'])){
-            $out['debug'] .= 'p[bid] is not set' . "\n\n\n";
-            //writeLog ('bibleGetPassage45-' . time(), $out['debug']);
+            $debug .= 'p[bid] is not set' . "\n\n\n";
+            //writeLog ('bibleGetPassage45-' . time(), $debug);
             return $out;
         }
     }
     $sql = "SELECT * FROM dbm_bible WHERE bid = " . $p['bid'];
-    //$out['debug'] = $sql . "\n";
+    //$debug = $sql . "\n";
     $data = sqlBibleArray($sql);
     if ($data['right_to_left'] != 't'){
         $p['rldir'] = 'ltr';
@@ -56,19 +56,19 @@ function bibleGetPassage($p){
         $p['rldir'] = 'rtl';
     }
    
-    //$out['debug'] = $data['source']  . "\n";
+    //$debug = $data['source']  . "\n";
     if ($data['source'] == 'bible_gateway'){
         myRequireOnce ('bibleGetPassageBiblegateway.php');
         $p['version_code'] = $data['version_code'];
         $res = bibleGetPassageBiblegateway($p);
-        $out['content'] = $res['content'];
-        $out['debug'] .= $res['debug'];
+        $out = $res['content'];
+        $debug .= $res['debug'];
         return $out;
     }
     if ($data['source']  == 'dbt'){
         myRequireOnce('bibleGetPassageDBT.php');
         $p['damId'] = $data['dam_id'];
-        $out['content'] = bibleGetPassageDBT($p);
+        $out = bibleGetPassageDBT($p);
         return $out;
     }
     return $out;

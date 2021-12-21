@@ -6,10 +6,10 @@
 function copyGlobal($source, $destination){
 	
 	$out = array();
-	$out['debug'] = "Asked to copy $source to $destination \n";
+	$debug = "Asked to copy $source to $destination \n";
 	
 	if (file_exists($source)){
-		//$out['debug'] = 'Source exists: '. $source . "\n";
+		//$debug = 'Source exists: '. $source . "\n";
 		$handler = opendir ($source);
 		while ($mfile = readdir ($handler)){
 			if ($mfile != '.' && $mfile != '..' ){
@@ -17,20 +17,20 @@ function copyGlobal($source, $destination){
 				if (!is_dir($setup_file)){
 					$newfile = str_replace('GLOBAL', '', $mfile);
 					$destination_file = $destination . $newfile;
-					//$out['debug'] .= 'Destination File: '. $destination_file . "\n";
+					//$debug .= 'Destination File: '. $destination_file . "\n";
 					if (!file_exists($destination_file)){
-						//$out['debug'] .= 'Does not exist'. "\n";
+						//$debug .= 'Does not exist'. "\n";
 						if (!is_dir($destination_file)){
-								//$out['debug'] .= 'Is not directory: ' . "\n";
+								//$debug .= 'Is not directory: ' . "\n";
 							if (strpos($setup_file, '.') !== FALSE){
-								//$out['debug'] .= 'Has a dot: ' . "\n";
+								//$debug .= 'Has a dot: ' . "\n";
 								copy ($setup_file, $destination_file);
-								$out['debug'] .=  ' copied ' .  $setup_file . ' to ' . $destination_file . "\n\n";
+								$debug .=  ' copied ' .  $setup_file . ' to ' . $destination_file . "\n\n";
 							}
 						}
 					}
 					else{
-						$out['debug'] = 'Destination exists: '. $destination_file . "\n\n";
+						$debug = 'Destination exists: '. $destination_file . "\n\n";
 					}
 				}
 			}

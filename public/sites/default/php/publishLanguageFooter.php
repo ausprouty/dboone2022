@@ -6,9 +6,7 @@ function publishLanguageFooter($p){
     // get bookmark
     $b['recnum'] = $p['recnum'];
     $b['library_code'] = isset($p['library_code'])?$p['library_code']:'library';
-    $bm = bookmark($b);
-    $bookmark = $bm['content'];
-    $debug .= isset($bm['debug'])? $bm['debug']:null;
+    $bookmark  = bookmark($b);
     //
     $bookmark['country'] = $bookmark['country'];
     $url = isset($bookmark['country']->url) ?  $bookmark['country']->url: 'https://myfriends.life';

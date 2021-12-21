@@ -13,26 +13,26 @@ myRequireOnce('writeLog.php');
 */
 
 function biblePopupMaker($p){
-    $out = [];
-    $out['debug'] = '';
-    $out['debug'] .= 'in biblePopupMaker' . "\n";
+    
+    $debug = '';
+    $debug .= 'in biblePopupMaker' . "\n";
     if (!isset($p['text'])){
         writeLog('biblePopupMaker-20', 'No Text');
         trigger_error("p[text] is not set in biblePopupMaker", E_USER_ERROR);
-        $out['debug'] .= 'p[text] is not set' . "\n\n\n";
+        $debug .= 'p[text] is not set' . "\n\n\n";
         return $out;
     }
     if (!isset($p['bookmark'])){
         writeLog('biblePopupMaker-26', 'No Bookmark');
         trigger_error("p[bookmark] is not set in biblePopupMaker", E_USER_ERROR);
-        $out['debug'] .= 'p[bookmark] is not set' . "\n\n\n";
+        $debug .= 'p[bookmark] is not set' . "\n\n\n";
         return $out;
     }
     $bookmark = json_decode ($p['bookmark']);
     $ot = $bookmark->language->bible_ot;
     $nt = $bookmark->language->bible_nt;
-    $out['debug'] .= "nt and ot are $nt and $ot\n";
-    writeLog('biblePopupMaker-33', $out['debug']);
+    $debug .= "nt and ot are $nt and $ot\n";
+    writeLog('biblePopupMaker-33', $debug);
     $template = '<a href="javascript:popUp(\'pop[id]\')">[reference]</a>
     <div class="popup" id="pop[id]">[text]</div>';
     $text = $p['text'];
@@ -51,8 +51,8 @@ function biblePopupMaker($p){
             $span_length = $pos_end - $pos_start + 7;
             $span = substr($text, $pos_start, $span_length); //<span class="bible-link">Matthew 5:14</span>
             $p['entry'] = $reference;
-            $out['debug'] .= $reference . "\n";
-            $out['debug'] .= $span . "\n";
+            $debug .= $reference . "\n";
+            $debug .= $span . "\n";
             // create dbtArray
             $res = createBibleDbtArrayFromPassage($p);
             if (isset($res['content'])){
@@ -97,9 +97,9 @@ function biblePopupMaker($p){
     unset($p['recnum']);
     $res = getLatestContent($p);
     if ($res['debug']){
-        $out['debug'] .= $res['debug'];
+        $debug .= $res['debug'];
     }
-    $out['content'] = $res['content'];
+    $out = $res['content'];
     return $out;
 }
 function _removeH3($text) {

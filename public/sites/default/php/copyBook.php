@@ -1,8 +1,8 @@
 <?php
 
 function copyBook($p){
-    $out = [];
-    $out['debug']= '';
+    
+    $debug= '';
     if (!$p['source'] || !$p['destination']){
         return;
     }
@@ -23,7 +23,7 @@ function copyBook($p){
     $query = sqlMany($sql);
     while($data = $query->fetch_array()){
         $filename = $data['filename'];
-        $out['debug'] .= 'filename is ' . $filename ."\n";
+        $debug .= 'filename is ' . $filename ."\n";
         $sql2 = "SELECT * 
             FROM  content 
             WHERE country_code = '$country_code' 
@@ -35,7 +35,7 @@ function copyBook($p){
        
         $d = sqlArray($sql2);
         $filetype = $d['filetype'];
-        $out['debug'] .=  $d['filename']  . '-- '. $d['recnum'] ."\n";
+        $debug .=  $d['filename']  . '-- '. $d['recnum'] ."\n";
         $title = $d['title'];
         $text = $d['text'];
         $sql3 = "INSERT INTO content (version,edit_date, edit_uid, language_iso, country_code, folder_name, filetype, title, filename, text) VALUES

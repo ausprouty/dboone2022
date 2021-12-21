@@ -51,7 +51,7 @@ function publishLanguages($p){
         if ($sql){
             sqlArray($sql,'update');
         }
-        //$p['debug'] .= $sql. "\n";
+        //$debug .= $sql. "\n";
 
         $debug .= 'About to enter publishLanguagesAvailable' . "\n";
         // now update languages Available

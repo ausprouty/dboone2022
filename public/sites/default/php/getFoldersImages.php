@@ -5,19 +5,19 @@ myRequireOnce('writeLog.php');
 
 // get folders from global, country, and language
 function getFoldersImages($p){
-	$out['debug'] = 'getFoldersImages'. "\n";
+	$debug = 'getFoldersImages'. "\n";
     $content_directory = ROOT_EDIT . '/sites/' . $p['site'] .'/content/';
-	$out['debug'] .= " checking $content_directory \n";
+	$debug .= " checking $content_directory \n";
 	$countries = array();
 	$results = '[';
     //find all countries
 	if (file_exists($content_directory)){
-		$out['debug'] .= 'content directory exists' . "\n";
+		$debug .= 'content directory exists' . "\n";
 		$dir = new DirectoryIterator($content_directory);
 		foreach ($dir as $fileinfo) {
 			if ($fileinfo->isDir() && !$fileinfo->isDot()) {
 				$name = $fileinfo->getFilename();
-                $out['debug'] .= $name . "\n";
+                $debug .= $name . "\n";
 				if (strlen($name) == 2){
 					$countries[] = $name;
 				}
@@ -25,8 +25,8 @@ function getFoldersImages($p){
 		}
 		foreach ($countries as $country){
 			$check = $content_directory . $country .'/images';
-             $out['debug'] .= "Checking $check \n";
-			$out['debug'] .= $check . "\n";
+             $debug .= "Checking $check \n";
+			$debug .= $check . "\n";
 			if (file_exists($check)){
 				$dir = new DirectoryIterator($check);
 				foreach ($dir as $fileinfo) {
@@ -38,7 +38,7 @@ function getFoldersImages($p){
 			}
 			// check for Langauges --  we assume only language names are 3 char long
 			$check = $content_directory . $country ;
-			$out['debug'] .= $check . "\n";
+			$debug .= $check . "\n";
 			if (file_exists($check)){
 				$dir = new DirectoryIterator($check);
 				foreach ($dir as $fileinfo) {
@@ -47,7 +47,7 @@ function getFoldersImages($p){
 						if (strlen($name) == 3){
 							$language_iso = $name;
 							$check = $content_directory . $country .'/'.$language_iso . '/images/';
-							$out['debug'] .= $check . "\n";
+							$debug .= $check . "\n";
 							if (file_exists($check)){
 								$dir = new DirectoryIterator($check);
 								foreach ($dir as $fileinfo) {
@@ -72,15 +72,15 @@ function getFoldersImages($p){
 			$results = null;
 			$out['message'] = "NO Language FOLDERS";
 		}
-		$out['content'] = $results;
+		$out = $results;
 		$out['error'] = false;
 	}
 	else{
 		$results = null;
-		$out['debug'] .= $content_directory. " does not exist\n";
+		$debug .= $content_directory. " does not exist\n";
 		$out['message'] =  "NO Language Folders";
 	}
-    writeLog('getFoldersImages', $out['debug']);
+    writeLog('getFoldersImages', $debug);
 	return $out;
 
 }

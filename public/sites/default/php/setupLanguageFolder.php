@@ -6,13 +6,13 @@
 
 function setupLanguageFolder($p){
 
-$out['debug'] = ' Entered setupLanguageFolder'."\n";
+$debug = ' Entered setupLanguageFolder'."\n";
 	if (!isset($p['country_code'])){
-		$out['debug'] = 'country code not set'."\n";
+		$debug = 'country code not set'."\n";
 		return $out;
 	}
 	if (!isset($p['language_iso'])){
-		$out['debug'] = 'language_iso not set'."\n";
+		$debug = 'language_iso not set'."\n";
 		return $out;
 	}
 
@@ -42,14 +42,14 @@ $out['debug'] = ' Entered setupLanguageFolder'."\n";
 	if (!file_exists($destination)){
 		dirMake($destination);
 	}
-	$out['content'] = 'success';
+	$out = 'success';
 	return $out;
 }
 
 function XsetupLanguageFolder($p){
-	$out['debug'] = 'setupLanguageFolder'. "\n";
+	$debug = 'setupLanguageFolder'. "\n";
 	if (!isset($p['language_iso'])){
-		$out['debug'] = 'language_iso not set'."\n";
+		$debug = 'language_iso not set'."\n";
 		return $out;
 	}
 	$setup_directory = ROOT_EDIT_CONTENT. $p['country_code'] .'/' ;
@@ -85,7 +85,7 @@ function XsetupLanguageFolder($p){
         $existing = getLatestContent($p);
 
         if (!isset($existing['content'])){
-            $out['debug'] .= 'not in database' . "\n";
+            $debug .= 'not in database' . "\n";
             $p['text'] = file_get_contents($source);
             $p['filename']= 'library';
             $p['filetype'] = 'json';
@@ -106,7 +106,7 @@ function XsetupLanguageFolder($p){
 	}
 
 	//copy templates
-	//$out['debug'] .= 'copy templates' . "\n";
+	//$debug .= 'copy templates' . "\n";
 	//setupTemplatesLanguage($p);
 	return $out;
 }

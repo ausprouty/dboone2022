@@ -1,8 +1,8 @@
 <?php
 function bibleUpdateABSJson($p){
-    $out = [];
+    
     $total = 0;
-    $out['debug'] = 'in bibleUpdateAbsJson' . "\n";
+    $debug = 'in bibleUpdateAbsJson' . "\n";
     $text = file_get_contents(ROOT_LOG .  'scripture.api.bible.json');
     $abs = json_decode($text);
     $volumes = $abs->data;
@@ -40,10 +40,10 @@ function bibleUpdateABSJson($p){
             '$version_code','$collection_code','$right_to_left', '$text','$audio','$mobile','$web')";
         $result = sqlBibleInsert($sql);
 
-        $out['debug'] .= $sql .  "\n";
+        $debug .= $sql .  "\n";
  
     }
-    $out['debug'] .= "\n\n\n\n" . $total ;
+    $debug .= "\n\n\n\n" . $total ;
     return $out;
 }
 function bibleABSnew(){
@@ -62,7 +62,7 @@ function bibleABSnew(){
             $found_count++;
         }
     }
-    $out['content'] = $found_count . '/'. $tried_count;
+    $out = $found_count . '/'. $tried_count;
     return $out;
 
 }

@@ -15,6 +15,6 @@ function getUsers($params){
         $json .= ' "uid": "'. $member['uid'] . '"},';
      }
      $json = substr($json, 0, -1) . ']';
-     $out['content'] = $json;
+     $out = $json;
     return $out;
 }

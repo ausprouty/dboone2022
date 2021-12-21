@@ -69,7 +69,7 @@ Output for Lumo [Nerw] : where input is https://api.arclight.org/videoPlayerUrl?
 */
 function modifyRevealVideo($text, $bookmark){
 
-    $out = [];
+    
     $debug = 'In revealVideo' . "\n";;
     $watch_phrase = $bookmark['language']->watch;
     $template_link= '<button id="revealButton[id]" type="button" class="external-movie [video_type]">[title_phrase]</button>

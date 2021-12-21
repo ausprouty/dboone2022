@@ -5,13 +5,12 @@ myRequireOnce ('bookmark.php');
 function createSeries($p, $data){
     $debug= "createSeries\n";
     $text = json_decode($data['text']);
-    // $p['debug'] .= "\n\n In prototypeSeries\n";
+    // $debug .= "\n\n In prototypeSeries\n";
      // get language footer in prototypeOEpublish.php
     $footer = prototypeLanguageFooter($p); // returns $footer
     $b['recnum'] = $p['recnum'];
     $b['library_code'] = $p['library_code'];
-    $bm = bookmark($b);
-    $bookmark = $bm['content'];
+    $bookmark  = bookmark($b);
     $selected_css = isset($bookmark['book']->style) ? $bookmark['book']->style :STANDARD_CSS ;
     $json_dir =  '/content/'. $bookmark['language']->folder .'/'.$p['folder_name'] .'/'; // for files.json
 

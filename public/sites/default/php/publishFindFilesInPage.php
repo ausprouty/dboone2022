@@ -10,7 +10,7 @@ function  publishFindFilesInPage($text){
     $find_begin = '"/content/';
     $find_end = '"';
     if (strpos($text, $find_begin)!== false){
-        //$p['debug'] .= "Images found\n";
+        //$debug .= "Images found\n";
         while (strpos($text, $find_begin) !== false){
             $pos_begin = strpos($text, $find_begin);
             $text = substr($text, $pos_begin);
@@ -35,7 +35,7 @@ function  publishFindFilesInPage($text){
             //}
 
             $text = substr($text, $pos_end);
-           // $p['debug'] .= ' copied ' . $from . ' to '. $to . "\n";
+           // $debug .= ' copied ' . $from . ' to '. $to . "\n";
         }
     }
     else{

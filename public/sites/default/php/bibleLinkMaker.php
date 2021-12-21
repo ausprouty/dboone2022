@@ -4,11 +4,11 @@ myRequireOnce ('create.php');
 myRequireOnce('getLatestContent.php');
 
 function bibleLinkMaker($p){
-    $out = [];
-    $out['debug'] = 'in bibleLinkMaker' . "\n";
+    
+    $debug = 'in bibleLinkMaker' . "\n";
     if (!isset($p['text'])){
         trigger_error("'p[text] is not set in bibleLinkMaker", E_USER_ERROR);
-        $out['debug'] .= 'p[text] is not set' . "\n\n\n";
+        $debug .= 'p[text] is not set' . "\n\n\n";
         return $out;
     }
     $text = $p['text'];
@@ -57,7 +57,7 @@ function bibleLinkMaker($p){
                         }
                     }
                     if ($count_spaces == 0){
-                        $out['debug'] .= "No verses for $book \n";
+                        $debug .= "No verses for $book \n";
                     }
                     else{
         
@@ -65,7 +65,7 @@ function bibleLinkMaker($p){
                         $real_book_start = $book_start +  $pattern_length;
                         $length = $reference_end - $book_start - $pattern_length + 1;
                         $reference_text = mb_substr($text,$real_book_start, $length );
-                        $out['debug'] .= "$reference_text \n";
+                        $debug .= "$reference_text \n";
                         $real_length = $length + $pattern_length;
                         $new = $pattern. '<span class="bible-link">' . $reference_text . '</span>';
                         $text = substr_replace($text, $new, $book_start, $real_length);
@@ -81,8 +81,8 @@ function bibleLinkMaker($p){
     unset($p['recnum']);
     $res = getLatestContent($p);
     if ($res['debug']){
-        $out['debug'] .= $res['debug'];
+        $debug .= $res['debug'];
     }
-    $out['content'] = $res['content'];
+    $out = $res['content'];
     return $out;
 }

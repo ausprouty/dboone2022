@@ -4,21 +4,21 @@ myRequireOnce('copyGlobal.php');
 
 
 function setupImageFolder($p){
-	$out['debug'] = 'setupImageFolder'. "\n";
+	$debug = 'setupImageFolder'. "\n";
 	if (!isset($p['language_iso'])){
-		$out['debug'] = 'language_iso not set'."\n";
+		$debug = 'language_iso not set'."\n";
 		return $out;
 	}
 	$source = ROOT_EDIT_CONTENT. $p['country_code'] .'/images/standard/' ;
-	$out['debug'] .= "source is $source\n";
+	$debug .= "source is $source\n";
 	$destination = ROOT_EDIT_CONTENT. $p['country_code'] .'/' .$p['language_iso'] .'/images/standard/' ;
-	$out['debug'] .= "destination is $destination\n";
+	$debug .= "destination is $destination\n";
 	if (!file_exists($destination)){
 		dirMake($destination);
-		$out['debug'] .= "making $destination\n";
+		$debug .= "making $destination\n";
 	}
 	copyGlobal($source, $destination);
-	$out['content'] = 'success';
+	$out = 'success';
 	return $out;
 }
 
@@ -28,12 +28,12 @@ function setupImageFolder($p){
 
 function setupTemplatesLanguage($p){
 	if (!isset($p['language_iso'])){
-		$out['debug'] = 'language_iso not set'."\n";
+		$debug = 'language_iso not set'."\n";
 		return $out;
 	}
 	$setup_directory = ROOT_EDIT_CONTENT. $p['country_code'] .'/' ;
 	$language_directory = ROOT_EDIT_CONTENT. $p['country_code'] .'/'. $p['language_iso'] . '/' ;
-	$out['debug'] = 'setupTemplatesLanguage' . "\n";
+	$debug = 'setupTemplatesLanguage' . "\n";
 	if (!file_exists($language_directory . 'templates')){
 		dirMake($language_directory . 'templates');
 	}
@@ -47,14 +47,14 @@ function setupTemplatesLanguage($p){
 				dirMake($language_directory .'templates/'. $dir);
 			}
 			$source = $setup_directory .'templates/'. $dir . '/';
-			$out['debug'] .= 'Source is '. $source . "\n";
+			$debug .= 'Source is '. $source . "\n";
 			if (file_exists($source)){
 				$destination = $language_directory .'templates/'. $dir . '/';
-				$out['debug'] .= 'Destination is '. $destination . "\n";
+				$debug .= 'Destination is '. $destination . "\n";
 				copyGlobal($source, $destination);
 			}
 		}
 	}
-	$out['content'] = 'success';
+	$out = 'success';
 	return $out;
 }

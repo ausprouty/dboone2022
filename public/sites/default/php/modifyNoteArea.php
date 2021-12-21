@@ -18,7 +18,7 @@ to:
 
   */
   function modifyNoteArea($text,  $bookmark){
-    $out = [];
+    
     $debug = "in modifyNoteArea\n";
     $standard_instruction = $bookmark['language']->notes;
     $template = '

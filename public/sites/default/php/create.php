@@ -2,7 +2,7 @@
 
 //// add content to database
 function createContent($p){
-	$out['debug'] = "\n\n\n\n\n" . 'In createContent'. "\n";
+	$debug = "\n\n\n\n\n" . 'In createContent'. "\n";
 	$text = isset($p['text']) ? $p['text'] :NULL;
 	if (!$text){
 		$out['error'] = true;
@@ -38,29 +38,29 @@ function createContent($p){
 			$out['message'] = "Could not add Content";
 		}
 	}
-	$out['debug'] .= $sql . "\n";
-	$out['debug'] .= $out['message'] . "\n";
+	$debug .= $sql . "\n";
+	$debug .= $out['message'] . "\n";
 	return $out;
 }
 
 // create directory
 function createContentFolder($p){
-	$out['debug'] = 'createContentFolder'. "\n";
+	$debug = 'createContentFolder'. "\n";
 	
 	$dir = ROOT_EDIT_CONTENT . $p['country_code']. '/'. $p['language_iso'] . '/'. $p['$folder_name'];
-	$out['debug'] .= 'dir: ' . $dir ."\n";
+	$debug .= 'dir: ' . $dir ."\n";
 	if (!file_exists($dir)){
 		dirMake ($dir);
 	}
 	return $out;
 }
 function createDirectoryLanguages($p){
-	$out['debug'] = 'createDirectoryLanguages'. "\n";
+	$debug = 'createDirectoryLanguages'. "\n";
 	$dir_country = ROOT_EDIT_CONTENT . $p['country_code'] .'/';
 	$languages = json_decode ($p['text']);
 	foreach ($langauges as $language_iso){
 		$dir = $dir_country . $language_iso;
-		$out['debug'] .= 'dir: ' . $dir ."\n";
+		$debug .= 'dir: ' . $dir ."\n";
 		if (!file_exists($dir)){
 			dirMake ($dir);
 		}
@@ -70,7 +70,7 @@ function createDirectoryLanguages($p){
 
 // create directory
 function createDir($p){
-	$out['debug'] = 'createDir'. "\n";
+	$debug = 'createDir'. "\n";
 	switch ($scope){
 		case 'country':
 			$dir = ROOT_EDIT_CONTENT . $p['country_code'];
@@ -81,7 +81,7 @@ function createDir($p){
 		case 'folder':
 			break;
 	}
-	$out['debug'] .= 'dir: ' . $dir ."\n";
+	$debug .= 'dir: ' . $dir ."\n";
 	if (!file_exists($dir)){
 		dirMake ($dir);
 	}
@@ -90,18 +90,18 @@ function createDir($p){
 }
 // create series index; I can not see any reason to do this.
 function createSeriesIndex($p){
-	$out['debug'] = "I could not see any reason to createSeriesIndex\n";
+	$debug = "I could not see any reason to createSeriesIndex\n";
 	return $out;
 
-	$out['debug'] = 'createSeriesIndex'. "\n";
+	$debug = 'createSeriesIndex'. "\n";
 	if (!isset($p['folder_name'])){
-		$out['debug'] = 'Folder Name not set'. "\n";
+		$debug = 'Folder Name not set'. "\n";
 		$out['error'] = true;
 		return $out;
 	}
 	$content = '[]';
 	$file_index = ROOT_EDIT_CONTENT . $p['country_code'] . '/'. $p['language_iso'] . '/'. $p['folder_name'] .'/index.html';
-	$out['debug'] .= 'index: ' . $file_index  ."\n";
+	$debug .= 'index: ' . $file_index  ."\n";
 	if (!file_exists($file_index )){
 		dirMake($file_index);
 		$fh = fopen($file_index , 'w');
@@ -113,12 +113,12 @@ function createSeriesIndex($p){
 function createStyle($p){
 	if (!isset($p['country_code'] )){
 		$out['error'] = true;
-		$out['debug'] = "Country code not set in create Style";
-		$out['message'] = $out['debug'];
+		$debug = "Country code not set in create Style";
+		$out['message'] = $debug;
 		return $out;
 
 	}
-	$out['debug'] = 'createStyle'. "\n";
+	$debug = 'createStyle'. "\n";
 	switch ($_FILES['file']['type']){
 		case 'text/css':
 		   $type = '.css';
@@ -129,12 +129,12 @@ function createStyle($p){
     }
 	if ($valid){
 		$dir = ROOT_EDIT_CONTENT . $p['country_code'] . '/styles/';
-		$out['debug'] .= 'directory: '. $dir . "\n";
+		$debug .= 'directory: '. $dir . "\n";
 		if (!file_exists($dir)){
 			dirMake ($dir);
 		}
 		$fname = $dir. $_FILES["file"]["name"];
-		$out['debug'] .= 'fname: '. $fname . "\n";
+		$debug .= 'fname: '. $fname . "\n";
 		if (move_uploaded_file($_FILES["file"]["tmp_name"], $fname)) {
 			$out['error'] = false;
 			$out['message'] = "Style Saved";
@@ -148,7 +148,7 @@ function createStyle($p){
 }
 
 function createTemplate ($p){
-	$out['debug'] = 'createTemplate'. "\n";
+	$debug = 'createTemplate'. "\n";
 	switch ($_FILES['file']['type']){
 		case 'text/html':
 		   $type = '.html';

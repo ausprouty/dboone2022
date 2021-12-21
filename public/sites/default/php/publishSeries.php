@@ -28,8 +28,8 @@ function publishSeries ($p){
               // find css
               $b['recnum'] = $p['recnum'];
               $b['library_code'] = $p['library_code'];
-              $bm = bookmark($b);
-              $bookmark = $bm['content'];
+              $bookmark  = bookmark($b);
+
               $selected_css = isset($bookmark['book']->style) ? $bookmark['book']->style :STANDARD_CSS ;
               //
             $dir = ROOT_PUBLISH_CONTENT.  $p['country_code'] .'/'. $p['language_iso'] .'/'. $p['folder_name'] .'/';

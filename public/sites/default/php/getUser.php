@@ -13,6 +13,6 @@ function getUser($params){
     $json .= ' "start_page": "'. $member['start_page'] . '",';
     $json .= ' "username": "'. $member['username'] . '",';
     $json .= ' "uid": "'. $member['uid'] . '"}';
-     $out['content'] = $json;
+     $out = $json;
     return $out;
 }

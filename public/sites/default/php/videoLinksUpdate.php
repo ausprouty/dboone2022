@@ -4,36 +4,32 @@ myRequireOnce('getContentByRecnum.php');
 myRequireOnce('getLatestContent.php');
 
 function videoLinksUpdate($p){
-    $out = [];
-    $out['debug'] = 'I was in updateVideoLinks'. "\n";
+    
+    $debug = 'I was in updateVideoLinks'. "\n";
     $p['scope'] = 'page';
-    $res = getContentByRecnum($p);
-    if ($res['debug']){
-        $out['debug'] .= $res['debug'];
-    }
-    $text = $res['content']['text'];
+    $content = getContentByRecnum($p);
+
+    $text = $content['text'];
     if (strpos($text, '<div class="reveal video') !== FALSE){
         $find = '<div class="reveal video';
-        $response=  videoLinksFix($text, $find);
-        $text = $response['content'];
-        $out['debug'] .= $response['debug'];
+        $text =  videoLinksFix($text, $find);
     }
-    $res['content'] ['text']= $text;
-    createContent($res['content']);
-    $res['content']['scope'] = 'page';
-    unset($res['recnum']);
-    $res = getLatestContent($res['content']);
+    $content ['text']= $text;
+    createContent($content );
+    $content ['scope'] = 'page';
+    unset($content ['recnum']);
+    $res = getLatestContent($content );
     if ($res['debug']){
-        $out['debug'] .= $res['debug'];
+        $debug .= $res['debug'];
     }
-    $out['content'] = $res['content'];
+    $out = $res['content'];
     return $out;
 }
 /* <div class="reveal video">&nbsp;
 <hr /><a href="https://api.arclight.org/videoPlayerUrl?refId=6_529-GOJohnEnglish4724">John 10:22-42</a>
 */
 function videoLinksFix($text, $find){
-   
+
     $count = substr_count($text, $find);
     for ($i = 0; $i < $count; $i++){
         $new = videoLinksTemplate();
@@ -42,8 +38,8 @@ function videoLinksFix($text, $find){
         $pos_end = strpos($text, '</div>', $pos_start);
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $old = substr($text, $pos_start, $length);
-        $out['debug'] .=  "old is | $old |\n";
-        //find Video Title 
+        $debug .=  "old is | $old |\n";
+        //find Video Title
         $word = trim(strip_tags($old));
         $word = trim(strip_tags($old));
         $word = str_replace('&nbsp;', ' ', $word);
@@ -55,14 +51,14 @@ function videoLinksFix($text, $find){
         $link_end = strpos($text, '"', $link_start);
         $link_length = $link_end - $link_start;
         $link = substr($text, $link_start, $link_length);
-        $new = str_replace('[Link]', $link, $new); 
-        $out['debug'] .=  "word is | $word |\n";
-        $out['debug'] .=  "new is | $new |\n";
+        $new = str_replace('[Link]', $link, $new);
+        $debug .=  "word is | $word |\n";
+        $debug .=  "new is | $new |\n";
          // from https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
         $text = substr_replace($text, $new, $pos_start, $length);
     }
-    $out['content'] = $text;
-    return $out;
+
+    return $text;
 
 }
 
@@ -96,6 +92,6 @@ function videoLinksTemplate(){
             </tr>
         </tbody>
     </table>
-    
+
     <hr /></div>';
 }

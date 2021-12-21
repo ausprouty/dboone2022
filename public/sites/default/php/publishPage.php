@@ -22,10 +22,7 @@ function publishPage ($p){
     foreach ($data as $key=>$value){
         $debug .= $key . ' => '. $value . "\n";
     }
-    $result = createPage($p, $data);
-    $p = $result['p'];
-    $text = $result['text'];
-    $debug .= isset($result['debug'])? $result['debug'] . "\n" : null;
+    $text  = createPage($p, $data);
     //
     // find files in page for series json file
     //
@@ -37,15 +34,13 @@ function publishPage ($p){
     }
     $p['files_in_page'] = isset($result['files_in_page']) ? $result['files_in_page'] : [];
     $p['files_in_page'] = array_merge($p['files_in_page'], $result['files_in_page']);
-    if (isset($result['message'])){
-        $debug .= $result['message'];
-    }
+
 
      // get bookmark for stylesheet
     $b['recnum'] =  $p['recnum'];
     $b['library_code'] = $p['library_code'];
-    $bm = bookmark($b);
-    $bookmark = $bm['content'];
+    $bookmark = bookmark($b);
+
     $selected_css = isset($bookmark['book']->style)? $bookmark['book']->style: STANDARD_CSS;
     //
     // class="nobreak" need to be changed to class="nobreak-final" so color is correct

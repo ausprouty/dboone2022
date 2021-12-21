@@ -3,9 +3,9 @@ myRequireOnce('writeLog.php');
 
 // get images from site and  default directories
 function getImagesForSite($p){
-	$out['debug'] = 'getImages'. "\n";
+	$debug = 'getImages'. "\n";
 	$results = '[';
-	$out['debug'] = 'in get Images for Site' . "\n";
+	$debug = 'in get Images for Site' . "\n";
     //define("SITE_CODE", 'mc2');
     // define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
 
@@ -13,7 +13,7 @@ function getImagesForSite($p){
     $check[SITE_CODE]  = ROOT_EDIT . 'sites/'. SITE_CODE . '/' .$p['image_dir'];
 	foreach ($check as $key=> $dir){
 		$dir = str_ireplace('//', '/', $dir);
-		$out['debug'] .= 'dir:' .  $dir . "\n";
+		$debug .= 'dir:' .  $dir . "\n";
 		if (file_exists($dir)){
 			$handler = opendir ($dir);
 			while ($mfile = readdir ($handler)){
@@ -33,9 +33,9 @@ function getImagesForSite($p){
 		$results = null;
 		$out['message'] = "NO images found";
 	}
-	$out['content'] = $results;
+	$out = $results;
 	$out['error'] = false;
-    writeLog('getImagesForSite',$out['debug'] );
+    writeLog('getImagesForSite',$debug );
 	return $out;
 
 }

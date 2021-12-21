@@ -3,13 +3,13 @@
 
 function getLanguagesAvailable($p){
     $available = [];
-    $out = [];
-    $out['debug'] = "\n\n\n\n\n". 'In getLanguagesAvailable '. "\n";
+    
+    $debug = "\n\n\n\n\n". 'In getLanguagesAvailable '. "\n";
     // flags
     $sql = "SELECT * FROM content 
                 WHERE filename = 'countries'  
                 ORDER BY recnum DESC LIMIT 1";
-    $out['debug'] .= "$sql \n";
+    $debug .= "$sql \n";
     $data = sqlArray($sql);
     $countries_array = json_decode($data['text']);
     //find prototype countries data
@@ -27,7 +27,7 @@ function getLanguagesAvailable($p){
         $data = sqlArray($sql);
         $text = json_decode($data['text']);
         if (!isset($text->languages)){
-            $out['debug'] .= '$text->languages not found for ' . $country['country_code']. "\n";
+            $debug .= '$text->languages not found for ' . $country['country_code']. "\n";
             $out['error'] = true;
         }
         else{
@@ -38,7 +38,7 @@ function getLanguagesAvailable($p){
                     $flag = '../images/country/'. $country_object->image;
                 }
             }
-            $out['debug'] .= "$flag is flag for " .  $country['country_code']. " \n";
+            $debug .= "$flag is flag for " .  $country['country_code']. " \n";
             foreach ($text->languages as $language){
                 if (isset($language->publish)){
                     if ($language->publish){
@@ -64,7 +64,7 @@ function getLanguagesAvailable($p){
         }
 
     }
-    $out['content']= $available;
+    $out= $available;
     return $out;
    
    

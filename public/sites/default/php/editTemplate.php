@@ -4,21 +4,21 @@
 // this looks for template in the language/templates directory
 
 function editTemplate($p){
-	$out['debug'] = 'getTemplate'. "\n";
+	$debug = 'getTemplate'. "\n";
 	if (!$p['language_iso']){
-		$out['debug'] .= "language_iso not set\n";
+		$debug .= "language_iso not set\n";
 		return $out;
 	}
 	if (!$p['template']){
-		$out['debug'] .= "template not set\n";
+		$debug .= "template not set\n";
 		return $out;
     }
     if (!$p['text']){
-		$out['debug'] .= "no text\n";
+		$debug .= "no text\n";
 		return $out;
     }
     if (!$p['book_format']){
-		$out['debug'] .= "book_format not set\n";
+		$debug .= "book_format not set\n";
 		return $out;
     }
     $template_dir = ROOT_EDIT_CONTENT . $p['country_code'] .'/'. $p['language_iso'] .'/templates/';
@@ -34,7 +34,7 @@ function editTemplate($p){
         $p['template'] .= '.html';
     }
     $destination = $template_dir . $p['template'];
-	$out['debug'] .=' destination is '. $destination. "\n";
+	$debug .=' destination is '. $destination. "\n";
 	//if (file_exists($destination)){
   //      $newname = str_ireplace('.html', '.bak'. time(), $destination);
 //		rename ($destination, $newname);// already exists

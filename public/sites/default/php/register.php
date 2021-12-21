@@ -4,26 +4,26 @@ myRequireOnce ('sql.php');
 
 function registerUser($p){
     $out = array();
-    $out['debug'] = 'Register User' ."\n";
+    $debug = 'Register User' ."\n";
     if (isset($p['authorizer'])){
         $sql = "SELECT countries FROM members WHERE uid = '" . $p['authorizer'] . "' LIMIT 1";
-        $out['debug'] .= $sql. "\n";
+        $debug .= $sql. "\n";
         $check = sqlArray($sql);
         if ($check['countries'] == '*' ){
             $sql = "SELECT uid FROM members WHERE username = '". $p['username'] . "' LIMIT 1";
-            $out['debug'] .= $sql. "\n";
+            $debug .= $sql. "\n";
             $content =sqlArray($sql);
             if (!$content){
                 $hash = password_hash($p['password'], PASSWORD_DEFAULT);
-                $out['debug'] .= $hash. "\n";
+                $debug .= $hash. "\n";
                 $sql = "INSERT INTO members ( username, password,firstname, lastname, scope_countries, scope_languages, start_page) VALUES
                     ('". $p['username'] . "','" . $hash . "','".
                     $p['firstname'] . "','". $p['lastname'] . "','" . $p['scope'] .  "','".
                     $p['languages'] . "','" . $p['start_page']. "')";
 
-                $out['debug'] .= $sql. "\n";
+                $debug .= $sql. "\n";
                 sqlInsert($sql);
-                $out['content'] = 'registered';
+                $out = 'registered';
                 $out['error'] = false;
             }
             else{

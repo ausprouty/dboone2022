@@ -6,10 +6,10 @@ myRequireOnce('writeLog.php');
 function getImagesInContentDirectory($p){
 
 	$results = '[';
-	$out['debug'] = 'in getImagesInContentDirectory' . "\n";
+	$debug = 'in getImagesInContentDirectory' . "\n";
     $dir = ROOT_EDIT . $p['image_dir'];
 	$dir= str_ireplace('//', '/', $dir);
-	$out['debug'] .= 'dir:' .  $dir . "\n";
+	$debug .= 'dir:' .  $dir . "\n";
 	if (file_exists($dir)){
 		$handler = opendir ($dir);
 		while ($mfile = readdir ($handler)){
@@ -28,9 +28,9 @@ function getImagesInContentDirectory($p){
 		$results = null;
 		$out['message'] = "NO images found";
 	}
-	$out['content'] = $results;
+	$out = $results;
 	$out['error'] = false;
-    writeLog('getImagesInContentDirectory',$out['debug'] );
+    writeLog('getImagesInContentDirectory',$debug );
 	return $out;
 
 }
