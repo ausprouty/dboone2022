@@ -1,5 +1,6 @@
 <?php
 myRequireOnce ('create.php');
+myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFiles.php');
 myRequireOnce ('publishSeries.php');
 myRequireOnce ('publishPage.php');
@@ -16,7 +17,7 @@ function publishSeriesAndChapters ($p){
 
     // find the list of chapters that are ready to publish
     $series = objectFromRecnum($p['recnum']);
-    $series_dir = ROOT_PUBLISH_CONTENT .  $series->country_code . '/'. $series->language_iso . '/'. $series->folder_name . '/';
+    $series_dir = publishDestination($p) .  $series->country_code . '/'. $series->language_iso . '/'. $series->folder_name . '/';
     // make sure folder exists
     if (!file_exists( $series_dir)){
         dirMake ($series_dir);

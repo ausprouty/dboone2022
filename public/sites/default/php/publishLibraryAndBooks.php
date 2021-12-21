@@ -1,7 +1,7 @@
 <?php
 myRequireOnce ('publishFiles.php');
-myRequireOnce('publishLibrary.php');
-myRequireOnce('publishSeriesAndChapters.php');
+myRequireOnce ('publishLibrary.php');
+myRequireOnce ('publishSeriesAndChapters.php');
 
 function publishLibraryAndBooks($p){
 

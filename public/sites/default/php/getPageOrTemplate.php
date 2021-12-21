@@ -1,11 +1,11 @@
 <?php
+myRequireOnce ('bibleDbtArray.php');
+myRequireOnce ('bibleGetPassage.php');
 myRequireOnce ('sql.php');
-myRequireOnce('bibleGetPassage.php');
-myRequireOnce('bibleDbtArray.php');
-myRequireOnce('version2Text.php');
+myRequireOnce ('version2Text.php');
 
 function getPageOrTemplate ($p){
-    
+
     $debug = 'In getPageOrTemplate'. "\n";
     $ok = true;
     if (!$p['filename']){
@@ -27,7 +27,7 @@ function getPageOrTemplate ($p){
         $bookmark = json_decode($p['bookmark']);
     }
     else{
-        myRequireOnce('bookmark.php');
+        myRequireOnce ('bookmark.php');
         $debug = "No bookmark given, so looking for it now";
         $res = bookmark ($p);
         $bookmark = $res['content'];
@@ -150,7 +150,7 @@ function _bible_block_driver($dbt_study, $nt, $ot, $read_more){
 }
 
 function _create_bible_block($bible_content){
-    
+
     $out =
         '<p class ="reference">' .
         $bible_content['reference'] .

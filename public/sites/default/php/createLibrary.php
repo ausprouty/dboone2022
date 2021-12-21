@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 
 function createLibrary($p, $text) {
      /* Return a container for the books in this library.

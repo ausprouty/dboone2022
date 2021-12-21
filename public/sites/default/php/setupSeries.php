@@ -1,6 +1,6 @@
 <?php
-myRequireOnce('create.php');
-myRequireOnce('getLatestContent.php');
+myRequireOnce ('create.php');
+myRequireOnce ('getLatestContent.php');
 
 function setupSeries($p){
 	/* This expects input of Series in tab format (number| title | description| bible reference| filename|image|publish)

@@ -1,12 +1,12 @@
 <?php
 // https://dbt.io/library/volume
 
-define("KEY", '3d116e49d7d98c6e20bf0f4a9c88e4cc');
+
 myRequireOnce ('vendor/dbt/dbt.inc');
 function bibleUpdateDBT($p){
-    
+
     $debug = 'I was in Bible Update';
-    $dbt = new Dbt (KEY);
+    $dbt = new Dbt (DBT_KEY);
    // $text = 'hi there';
     $text = $dbt->getLibraryVolume();
     $fh = fopen(ROOT_LOG . 'dbt.txt', 'w');
@@ -16,7 +16,7 @@ function bibleUpdateDBT($p){
 }
 
 function bibleCheckDBTIndex($p){
-    
+
     $found = 0;
     $total = 0;
     $debug = 'in bibleCheckDBTIndex' . "\n";
@@ -88,7 +88,7 @@ function bibleCheckDBTIndex($p){
 }
 
 function bibleCheckDBTDetail($p){
-    
+
     $out ='';
     $found = 0;
     $total = 0;

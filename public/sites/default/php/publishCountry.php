@@ -1,7 +1,8 @@
 <?php
-myRequireOnce('copyGlobal.php');
-myRequireOnce ('publishFiles.php');
+myRequireOnce ('copyGlobal.php');
 myRequireOnce ('publishDestination.php');
+myRequireOnce ('publishFiles.php');
+
 
 function publishCountry($p){
     $debug = 'in prototypeCountry' . "\n";

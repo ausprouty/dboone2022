@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('sql.php');
+myRequireOnce ('sql.php');
 /*requires $p as array:
         'entry' => 'Zephaniah 1:2-3'
         'bookId' => 'Zeph',  
@@ -66,7 +66,7 @@ function bibleGetPassage($p){
         return $out;
     }
     if ($data['source']  == 'dbt'){
-        myRequireOnce('bibleGetPassageDBT.php');
+        myRequireOnce ('bibleGetPassageDBT.php');
         $p['damId'] = $data['dam_id'];
         $out = bibleGetPassageDBT($p);
         return $out;

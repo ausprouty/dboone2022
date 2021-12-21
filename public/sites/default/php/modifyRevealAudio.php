@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 /*
 Input is:
     <--Start Audio Template-->

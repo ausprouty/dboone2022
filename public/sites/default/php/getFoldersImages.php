@@ -1,6 +1,6 @@
 <?php
 
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 // get folders from both global and country
 
 // get folders from global, country, and language

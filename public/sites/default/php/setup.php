@@ -1,6 +1,6 @@
 <?php
-myRequireOnce('create.php');
-myRequireOnce('copyGlobal.php');
+myRequireOnce ('create.php');
+myRequireOnce ('copyGlobal.php');
 
 
 function setupImageFolder($p){

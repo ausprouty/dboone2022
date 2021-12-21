@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 // get styles that actually reside in the node_modules directory
 function getCkEditStyleSets($p){
 

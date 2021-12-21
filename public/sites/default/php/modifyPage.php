@@ -1,19 +1,20 @@
 <?php
-myRequireOnce('prototypeFindFilesInPage.php');
-myRequireOnce('createPage.php');
-myRequireOnce('getTitle.php');
-myRequireOnce('modifyBibleLinks.php');
-myRequireOnce('modifyHeader.php');
-myRequireOnce('modifyJavascript.php');
-myRequireOnce('modifyLinks.php');
-myRequireOnce('modifyNoteArea.php');
-myRequireOnce('modifyRevealAudio.php');
-myRequireOnce('modifyRevealBible.php');
-myRequireOnce('modifyRevealSummary.php');
-myRequireOnce('modifyRevealTrainer.php');
-myRequireOnce('modifyRevealVideo.php');
-myRequireOnce('modifySendAction.php');
-myRequireOnce('writeLog.php');
+
+myRequireOnce ('createPage.php');
+myRequireOnce ('getTitle.php');
+myRequireOnce ('modifyBibleLinks.php');
+myRequireOnce ('modifyHeader.php');
+myRequireOnce ('modifyJavascript.php');
+myRequireOnce ('modifyLinks.php');
+myRequireOnce ('modifyNoteArea.php');
+myRequireOnce ('modifyRevealAudio.php');
+myRequireOnce ('modifyRevealBible.php');
+myRequireOnce ('modifyRevealSummary.php');
+myRequireOnce ('modifyRevealTrainer.php');
+myRequireOnce ('modifyRevealVideo.php');
+myRequireOnce ('modifySendAction.php');
+myRequireOnce ('prototypeFindFilesInPage.php');
+myRequireOnce ('writeLog.php');
 
 
 function modifyPage($text, $p, $data, $bookmark){

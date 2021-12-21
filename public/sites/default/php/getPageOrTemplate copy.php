@@ -1,10 +1,11 @@
 <?php
+
+myRequireOnce ('bibleDbtArray.php');
+myRequireOnce ('bibleGetPassage.php');
 myRequireOnce ('sql.php');
-myRequireOnce('bibleGetPassage.php');
-myRequireOnce('bibleDbtArray.php');
 
 function getPageOrTemplate ($p){
-    
+
     $debug = 'In getPageOrTemplate'. "\n";
     $bookmark = json_decode($p['bookmark']);
     $p['template']= null;
@@ -115,7 +116,7 @@ function _getBiblePassage(){
 }
 
 function _create_bible_block($bible_content){
-    
+
     $out =
     '<div class="bible_container bible">' .
         '<p class ="reference">' .

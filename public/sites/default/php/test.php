@@ -1,5 +1,6 @@
 <?php
-myRequireOnce ('.env.api.mc2.local.php');
+myRequireOnce ('.env.api.mc2.remote.php');
+
 $files = dirlist('../');
 echo $files .'<br>';
 echo(ROOT_LOG).'<br>';
@@ -26,7 +27,7 @@ function dirlist ($directory){
 	}
  return $results;
 }
-/* 
+/*
 /  returns a json array of all folders in a given path
 */
 function folders($path){

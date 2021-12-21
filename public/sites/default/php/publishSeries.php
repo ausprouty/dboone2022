@@ -1,7 +1,8 @@
 <?php
 
-myRequireOnce ('publishFiles.php');
 myRequireOnce ('createSeries.php');
+myRequireOnce ('publishFiles.php');
+
 
 // returns $p[files_json] for use by prototypeSeriesandChapters
 function publishSeries ($p){
@@ -32,7 +33,7 @@ function publishSeries ($p){
 
               $selected_css = isset($bookmark['book']->style) ? $bookmark['book']->style :STANDARD_CSS ;
               //
-            $dir = ROOT_PUBLISH_CONTENT.  $p['country_code'] .'/'. $p['language_iso'] .'/'. $p['folder_name'] .'/';
+            $dir = publishDestination($p) .  $p['country_code'] .'/'. $p['language_iso'] .'/'. $p['folder_name'] .'/';
             // make sure folder exists
             if (!file_exists($dir)){
                 dirMake ($dir);

@@ -2,6 +2,7 @@
 define("GOOGLE_APPLICATION_CREDENTIALS", './google/TranslationbyCom-63a4cd822907.json');
 // also added to google/auth/src/CredentialsLoader.php line 69
 myRequireOnce ('vendor/autoload.php');
+
 use Google\Cloud\Translate\V3\TranslationServiceClient;
 // from https://github.com/googleapis/google-cloud-php/tree/master/Translate
 $translationClient = new TranslationServiceClient();

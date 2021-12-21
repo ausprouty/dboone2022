@@ -2,8 +2,8 @@
 
 myRequireOnce ('publishFiles.php');
 myRequireOnce ('sql.php');
-myRequireOnce('version2Text.php');
-myRequireOnce('writeLog.php');
+myRequireOnce ('version2Text.php');
+myRequireOnce ('writeLog.php');
 
 /* return latest content
 */

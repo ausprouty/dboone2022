@@ -3,7 +3,8 @@
    You want to remove duplicates
     <link rel="stylesheet" href="/sites/default/styles/cardGLOBAL.css" />
 */
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
+
 function publishRemoveDuplicateCSS($text){
 
     $debug = 'In prototypeRemoveDuplicateCSS' . "\n";

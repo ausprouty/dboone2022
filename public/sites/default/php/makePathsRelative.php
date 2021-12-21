@@ -1,6 +1,6 @@
 <?php
 
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 
 function makePathsRelative( $text, $filename){
     $debug="$filename \n";

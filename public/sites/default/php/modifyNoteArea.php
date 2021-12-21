@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 /*
 alter notes area from input:
 

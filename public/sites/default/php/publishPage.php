@@ -1,8 +1,11 @@
 <?php
 myRequireOnce ('createPage.php');
+myRequireOnce ('modifyPage.php');
+myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFiles.php');
-myRequireOnce('publishFindFilesInPage.php');
-myRequireOnce('modifyPage.php');
+myRequireOnce ('publishFindFilesInPage.php');
+
+
 
 function publishPage ($p){
 
@@ -51,7 +54,7 @@ function publishPage ($p){
     $text = modifyPage($text, $p, $data, $bookmark);
 
     // write file
-    $series_dir = ROOT_PUBLISH_CONTENT.  $data['country_code'] .'/'.
+    $series_dir = publishDestination($p) .  $data['country_code'] .'/'.
         $data['language_iso'] .'/'. $data['folder_name'] .'/';
     $fname = $series_dir . $data['filename'] .'.html';
     $text .= '<!--- Created by publishPage-->' . "\n";

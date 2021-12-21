@@ -1,18 +1,18 @@
 <?php
 
-myRequireOnce('bookmark.php');
-myRequireOnce('copyGlobal.php');
-myRequireOnce('createDirectory.php');
-myRequireOnce('getTitle.php');
-myRequireOnce('languageSpecificJavascripts.php');
-myRequireOnce('makePathsRelative.php');
-myRequireOnce('modifyHeaders.php');
-myRequireOnce('modifyImages.php');
-myRequireOnce('publishCopyImagesAndStyles.php');
-myRequireOnce('publishLanguageFooter.php');
-myRequireOnce('publishRemoveDuplicateCSS.php');
-myRequireOnce('version2Text.php');
-myRequireOnce('writeLog.php');
+myRequireOnce ('bookmark.php');
+myRequireOnce ('copyGlobal.php');
+myRequireOnce ('createDirectory.php');
+myRequireOnce ('getTitle.php');
+myRequireOnce ('languageSpecificJavascripts.php');
+myRequireOnce ('makePathsRelative.php');
+myRequireOnce ('modifyHeaders.php');
+myRequireOnce ('modifyImages.php');
+myRequireOnce ('publishCopyImagesAndStyles.php');
+myRequireOnce ('publishLanguageFooter.php');
+myRequireOnce ('publishRemoveDuplicateCSS.php');
+myRequireOnce ('version2Text.php');
+myRequireOnce ('writeLog.php');
 
 
 // $scope must be 'publish' or 'publish'

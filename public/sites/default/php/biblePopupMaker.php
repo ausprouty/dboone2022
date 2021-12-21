@@ -1,10 +1,10 @@
 <?php
 
 myRequireOnce ('create.php');
-myRequireOnce('getLatestContent.php');
-myRequireOnce('bibleDbtArray.php');
-myRequireOnce('bibleGetPassage.php');
-myRequireOnce('writeLog.php');
+myRequireOnce ('bibleDbtArray.php');
+myRequireOnce ('bibleGetPassage.php');
+myRequireOnce ('getLatestContent.php');
+myRequireOnce ('writeLog.php');
 /* This routine changes bible-link into bible-popup
 
    Input is : <span class="bible-link">Matthew 5:14</span>
@@ -13,7 +13,7 @@ myRequireOnce('writeLog.php');
 */
 
 function biblePopupMaker($p){
-    
+
     $debug = '';
     $debug .= 'in biblePopupMaker' . "\n";
     if (!isset($p['text'])){

@@ -51,9 +51,6 @@ function publishCountries($p){
     $main_template .= '<!--- Created by prototypeCountries-->' . "\n";
     publishFiles( $p['destination'], $p, $fname, $main_template,   STANDARD_CSS,  $selected_css);
 
-   // $fname = ROOT_PUBLISH  .'index.html';
-   // publishFiles( $p['destination'], $p, $fname, $main_template,   STANDARD_CSS,  $selected_css);
-
     //
     // update records
     //

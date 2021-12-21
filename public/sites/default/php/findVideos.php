@@ -1,10 +1,10 @@
 <?php
 
-myRequireOnce ('sql.php');
 myRequireOnce ('.env.api.remote.mc2.php');
 myRequireOnce ('.env.cors.php');
+myRequireOnce ('bibleDbtArray.php');
 myRequireOnce ('getLatestContent.php');
-myRequireOnce('bibleDbtArray.php');
+myRequireOnce ('sql.php');
 
 $debug = "In Find VideO<br>\n";
 $p = array(
@@ -16,7 +16,7 @@ $p = array(
 );
 
 echo nl2br($debug);
-$sql = "SELECT DISTINCT filename FROM  content 
+$sql = "SELECT DISTINCT filename FROM  content
     WHERE country_code = '". $p['country_code'] . "'
     AND language_iso = '" . $p['language_iso'] . "'
     AND folder_name  = '" . $p['folder_name'] . "'
@@ -61,7 +61,7 @@ while($data = $query->fetch_array()){
             $debug .=  $data['filename'] . ' || ' . $video . ' | ' . $video_ref. "\n";
         }
     }
-   
+
 }
 _writeThisLog('findVideo', $debug);
 echo nl2br($debug);
@@ -89,13 +89,13 @@ function _convertTitle($passage, $p){
     // get valid bookId
     $conn = new mysqli(HOST, USER, PASS, DATABASE_BIBLE);
     $conn->set_charset("utf8");
-    $sql = "SELECT $iso AS title FROM hl_online_bible_book 
+    $sql = "SELECT $iso AS title FROM hl_online_bible_book
         WHERE  en  = '$book_lookup' LIMIT 1";
     $query = $conn->query($sql);
     $data = $query->fetch_object();
     $new =  $data->title;
     $passage = str_replace($book_lookup, $new, $passage);
-    return $passage;    
+    return $passage;
   }
 
  /* find Bible reference
@@ -121,7 +121,7 @@ function _revealBible($text, $filename){
         $out .= $filename . '|'. $word . '||'. "\n";
         $pos_start = $pos_end;
     }
-    
+
     return $out;
 
 }

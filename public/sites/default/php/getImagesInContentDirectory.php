@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 
 // get images from folder (in /content) so it can transfer from edit to prototype
 //also used to return list of images for selet

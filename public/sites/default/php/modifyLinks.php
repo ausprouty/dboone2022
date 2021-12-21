@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 
 function modifyLinks($text){
     // take these out so we can put in proper links later.  The editors like the so they can follow links in the editor.

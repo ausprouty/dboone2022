@@ -77,7 +77,7 @@ function getTemplates($p){
 	// find folders
 	if (!file_exists($template_directory)){
         $include = 'setup.php';
-		myRequireOnce('setup.php');
+		myRequireOnce ('setup.php');
 		$debug .= ' template directory does not exist so going to Setup Templates' . "\n";
 		$out2 = setupTemplatesCountry ($p);
 		$out3 = setupTemplatesLanguage ($p);
@@ -112,7 +112,7 @@ function getTemplates($p){
 		}
 		else{
 			$debug .= ' No templates so going to Setup Templates' . "\n";
-			myRequireOnce('setup.php');
+			myRequireOnce ('setup.php');
 			setupTemplatesCountry ($p);
 			etupTemplatesLanguage($p);
 			$handler = opendir ($template_directory);

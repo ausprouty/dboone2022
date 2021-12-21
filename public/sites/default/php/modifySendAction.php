@@ -1,4 +1,5 @@
 <?php
+
 function modifySendAction($text, $p, $data){
     $debug = 'In _sendAction'. "\n";
     $page = $p['country_code'] . '-'. $p['language_iso'] . '-'. $p['folder_name'] . '-'. $data['filename'] .'.html';

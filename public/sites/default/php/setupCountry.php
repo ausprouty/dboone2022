@@ -1,6 +1,6 @@
 <?php
-//myRequireOnce('create.php');
-//myRequireOnce('copyGlobal.php');
+//myRequireOnce ('create.php');
+//myRequireOnce ('copyGlobal.php');
 
 // define("ROOT_EDIT_CONTENT", '../../../edit.mc2.online/sites/mc2/content/');
 // define("ROOT_EDIT", '/home/globa544/edit.mc2.online');

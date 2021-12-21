@@ -1,13 +1,14 @@
 <?php
 return;
-myRequireOnce ('sql.php');
+
 myRequireOnce ('.env.api.remote.mc2.php');
 myRequireOnce ('.env.cors.php');
+myRequireOnce ('create.php');
 myRequireOnce ('getLatestContent.php');
-myRequireOnce('create.php');
+myRequireOnce ('sql.php');
 
 $debug = "in ImportSeriesFromOtherUsers<br>\n";
-$sql = 'SELECT DISTINCT filename FROM content 
+$sql = 'SELECT DISTINCT filename FROM content
     WHERE language_iso = "eng"
     AND country_code = "M2"
     AND folder_name = "tc"

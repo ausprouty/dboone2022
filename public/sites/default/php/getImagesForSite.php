@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 
 // get images from site and  default directories
 function getImagesForSite($p){

@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 
 function modifyHeaders($text){
     $debug = 'I am in modifyHeaders'."\n";

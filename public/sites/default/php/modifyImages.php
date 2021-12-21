@@ -2,8 +2,10 @@
 /*
 Looking for all images and styles that are in the current file
 */
-myRequireOnce('createDirectory.php');
-myRequireOnce('dirList.php');
+myRequireOnce ('createDirectory.php');
+myRequireOnce ('dirList.php');
+myRequireOnce ('publishDestination.php');
+
 
 
 /* find "/sites/'. SITE_DIRECTORY . '/content/';
@@ -19,16 +21,8 @@ function  modifyImages($text, $scope){
 
 function modifyContentImages($text, $scope){
     $source_dir = '../' . ROOT_EDIT;
-    switch ($scope){
-        case 'prototype':
-            $destination_dir = ROOT_PROTOTYPE;
-            break;
-        case 'publish':
-            $destination_dir = ROOT_PUBLISH;
-            break;
-        default:
-            return;
-    }
+    $destination_dir = publishDestination($p);
+
 
     $debug = 'In modifyImages' . "\n";
     $debug .= $scope . "\n";

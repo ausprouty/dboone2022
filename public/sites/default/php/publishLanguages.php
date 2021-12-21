@@ -1,13 +1,16 @@
 <?php
+myRequireOnce ('createLanguages.php');
+myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFiles.php');
 myRequireOnce ('publishLanguagesAvailable.php');
-myRequireOnce ('createLanguages.php');
+
 
 function publishLanguages($p){
-    $debug = 'In publishLanguages with ROOT_PROTOTYPE_CONTENT '. ROOT_PROTOTYPE_CONTENT . "\n";
+    $publishDestination = publishDestination($p);
+    $debug = 'In publishLanguages with publishDestination '. $publishDestination . "\n";
     $creator =   "\n" .'&nbsp; <!--- Created by publishLanguages -->&nbsp; '.  "\n";
     $selected_css = 'sites/default/styles/cardGLOBAL.css';
-    $p['country_dir'] = ROOT_PROTOTYPE_CONTENT . $p['country_code'] . '/';
+    $p['country_dir'] = $publishDestination . $p['country_code'] . '/';
      // get language footer in publishOEpublish.php
     $footer = publishLanguageFooter($p);
     //

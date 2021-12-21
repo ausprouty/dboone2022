@@ -1,6 +1,8 @@
 <?php
 
+myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFiles.php');
+
 
 function publishLibraryIndex($p){
 
@@ -32,18 +34,18 @@ function publishLibraryIndex($p){
     }
     $body = $body .  $footer  ;
     // set file name
-    $language_dir = ROOT_PUBLISH_CONTENT . $p['country_code'] . '/'. $p['language_iso'];
+    $language_dir = publishDestination($p) . $p['country_code'] . '/'. $p['language_iso'];
     $fname = $language_dir . '/index.html';
     // write  file
     $body .= '<!--- Created by publishLibrary-->' . "\n";
     publishFiles( $p['destination'], $p, $fname, $body,   STANDARD_CSS,  $selected_css);
     //TODO: make this a variable
     // Australia is the current owner of this site, so their file goes to root
-    if ($fname  ==  ROOT_PUBLISH_CONTENT .'AU/eng/index.html'){
-        $fname = ROOT_PUBLISH. 'index.html';
+    if ($fname  ==  publishDestination($p) .'AU/eng/index.html'){
+        $fname = publishDestination($p). 'index.html';
         $debug .= 'I am sending Australian index to  ' . $fname;
         publishFiles( $p['destination'], $p, $fname, $body,   STANDARD_CSS,  $selected_css);
-        $fname = ROOT_PUBLISH_CONTENT. 'index.html';
+        $fname = publishDestination($p). 'index.html';
         $debug .= 'I am sending Australian index to  ' . $fname;
         publishFiles( $p['destination'], $p, $fname, $body,   STANDARD_CSS,  $selected_css);
     }

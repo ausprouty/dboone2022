@@ -1,10 +1,11 @@
 <?php
 return;
-myRequireOnce ('sql.php');
+
 myRequireOnce ('.env.api.remote.mc2.php');
 myRequireOnce ('.env.cors.php');
+myRequireOnce ('create.php');
 myRequireOnce ('getLatestContent.php');
-myRequireOnce('create.php');
+myRequireOnce ('sql.php');
 
 $debug = "in ImportSeriesFromOtherUsers<br>\n";
 $sql = 'SELECT DISTINCT filename FROM myfriends
@@ -22,7 +23,7 @@ $sql = 'SELECT DISTINCT filename FROM myfriends
          'folder_name' => 'multiply',
          'filename' => $data['filename']
      );
-     $sql = "SELECT * from myfriends 
+     $sql = "SELECT * from myfriends
         WHERE country_code = '". $p['country_code'] . "'
         AND language_iso = '" . $p['language_iso'] . "'
         AND folder_name = '" . $p['folder_name'] . "'

@@ -1,6 +1,7 @@
 <?php
-myRequireOnce ('publishFiles.php');
 myRequireOnce ('bookmark.php');
+myRequireOnce ('publishFiles.php');
+
 
 function createSeries($p, $data){
     $debug= "createSeries\n";

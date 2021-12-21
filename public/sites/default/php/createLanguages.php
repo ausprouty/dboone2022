@@ -1,4 +1,5 @@
 <?php
+myRequireOnce ('publishDestination.php');
 
 function createLanguages($p, $data){
     $debug = 'In createLanguages'. "\n";
@@ -48,7 +49,7 @@ function createLanguages($p, $data){
             //
             // make sure Language directory exits? Do I need this????
             //
-            $p['language_dir'] = ROOT_PROTOTYPE_CONTENT  . '/'. $language->folder .'/';
+            $p['language_dir'] = publishDestination($p) . '/'. $language->folder .'/';
             if (!file_exists($p['language_dir'])){
                 dirMake($p['language_dir']);
             }

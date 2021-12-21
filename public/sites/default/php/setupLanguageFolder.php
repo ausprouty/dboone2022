@@ -1,8 +1,8 @@
 <?php
-//myRequireOnce('create.php');
-//myRequireOnce('getLatestContent.php');
-//myRequireOnce('setup.php');
-//myRequireOnce('copyGlobal.php');
+//myRequireOnce ('create.php');
+//myRequireOnce ('getLatestContent.php');
+//myRequireOnce ('setup.php');
+//myRequireOnce ('copyGlobal.php');
 
 function setupLanguageFolder($p){
 
