@@ -10,7 +10,7 @@
  */
 
 function getBibleVersions($p){
-    
+
     $out = [];
     $output = [];
     $language_iso = $p['language_iso'];
@@ -34,13 +34,13 @@ function getBibleVersions($p){
         $count++;
     }
     if ($count > 0){
-        $out['error'] = false;
+
         $debug .= 'encode of all';
         $debug .= json_encode( $out, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES). "\n";
     }
     else{
-        $out['error'] = true;
-        $out['message'] = "No Bibles for that langauge\n";
+         $message = "No Bibles for  ". $p['language_iso'];
+        trigger_error( $message, E_USER_ERROR);
         $out= [];
     }
     $conn->close();

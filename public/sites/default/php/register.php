@@ -24,22 +24,19 @@ function registerUser($p){
                 $debug .= $sql. "\n";
                 sqlInsert($sql);
                 $out = 'registered';
-                $out['error'] = false;
+
             }
             else{
-                $out['message'] = "Username already in use";
-                $out['error'] = true;
+                $out = "Username already in use";
             }
         }
         else{
-            $out['message'] = "Not Authorized to add Editors";
-            $out['error'] = true;
+            $out= "Not Authorized to add Editors";
 
         }
     }
     else{
-        $out['message'] = "Not Registered";
-        $out['error'] = true;
+        $out = "Not Registered";
     }
     return $out;
 }

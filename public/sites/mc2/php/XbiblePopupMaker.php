@@ -89,7 +89,7 @@ function biblePopupMaker($p){
     if ($res['debug']){
         $out['debug'] .= $res['debug'];
     }
-    $out['content'] = $res['content'];
+    $out = $res['content'];
     return $out;
 }
 function _removeH3($text) {

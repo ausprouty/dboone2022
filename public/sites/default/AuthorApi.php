@@ -2,7 +2,7 @@
 
 /*
   Returns Json encoded array
-	$out['content'] = successful content
+	$out = successful content
 	$out['login']  is set if login fails (login only)
 	$out['token']  for authorization (login only)
 	$out['debug']  for some debugging purposes
@@ -54,7 +54,12 @@ if (isset($p['action'])){
 	else{
 		$debug .=  $p['token'] . " is token\n";
 		// take action if authorized user
-		if (!isset($p['token'])){die();}
+		if (!isset($p['token'])){
+			$message = "Token is not set";
+			$debug .= $message;
+            trigger_error( $message, E_USER_ERROR);
+			die;
+		}
 		$ok = myApiAuthorize($p['token']);
 		unset($p['token']);  // so it will not be sent back
 		if($ok){
@@ -70,36 +75,37 @@ if (isset($p['action'])){
 					$out = $action ($p);
 				}
 				else{
-					$debug .=  $p['page']  . " does not exist\n";
+					$message = $p['page']  . " does not exist";
+					$debug .= $message;
+                    trigger_error( $message, E_USER_ERROR);
 				}
 			}
 			else{
-				$debug .=   "Page not set\n";
+				$message = $p['page']  . "is not set";
+				$debug .= $message;
+                trigger_error( $message, E_USER_ERROR);
+
 			}
-			if (isset($out['debug'])){
-				$debug .= $out['debug'];
-				unset ($out['debug']);
-			}
+
 		}
 		else{
-			$debug .= 'NOT AUTHORIED';
-			$out['error'] = 'Please login';
+			$message = "Not Authorized";
+			$debug .= $message;
+            trigger_error( $message, E_USER_ERROR);
 		}
 	}
 }
 else{
-	$debug .= 'NO ACTION';
-	$out['error'] = 'no action';
-	$p['action'] = 'NoAction';
+	$message = "No Action";
+	$debug .= $message;
+    trigger_error( $message, E_USER_ERROR);
 }
 
-//if ('LOG_MODE' == 'write_log'){
-	$debug .= "\n\nHERE IS JSON_ENCODE OF DATA THAT IS NOT ESCAPED\n";
-	$debug .= json_encode($out) . "\n";
-	if (LOG_MODE == 'write_log'){
-		writeLog($p['action'] ,   $debug);
-	}
-//}
+
+$debug .= "\n\nHERE IS JSON_ENCODE OF DATA THAT IS NOT ESCAPED\n";
+$debug .= json_encode($out) . "\n";
+writeLog($p['action'] ,   $debug);
+
 // return response
 header("Content-type: application/json");
 echo json_encode($out, JSON_UNESCAPED_UNICODE);

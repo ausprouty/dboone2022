@@ -159,7 +159,7 @@ function modifyRevealVideo($text, $bookmark){
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $text = substr_replace($text, $new, $pos_start, $length);
     }
-    $out['content'] = $text;
+    $out = $text;
     writeLog('modifyVideoReveal', $out['debug']);
     return $out;
 }

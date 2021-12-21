@@ -276,7 +276,7 @@ function _removeDuplicateCSS($text){
             $out['debug'] .= $text;
         }
     }
-    $out['content']= $text;
+    $out= $text;
     return $out;
 
     return $out;

@@ -50,7 +50,7 @@ function getStyles($p){
 		$out['message'] = "NO styles found";
 	}
 	$out = $results;
-	$out['error'] = false;
+	
 	return $out;
 
 }

@@ -34,7 +34,7 @@ function getImagesForSite($p){
 		$out['message'] = "NO images found";
 	}
 	$out = $results;
-	$out['error'] = false;
+	
     writeLog('getImagesForSite',$debug );
 	return $out;
 

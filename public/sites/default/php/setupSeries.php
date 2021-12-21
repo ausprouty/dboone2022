@@ -11,29 +11,32 @@ function setupSeries($p){
         $debug .= $key .' -- '. $value . "\n";
     }
 	if (!isset($p['folder_name'])){
-		$debug = 'folder_name not set'."\n";
-		return $out;
+        $message = "folder_name not set";
+        trigger_error( $message, E_USER_ERROR);
+		return NULL;
     }
      //checks for errors is_uploaded_file($_FILES['file']['tmp_name']))
     if ($_FILES['file']['error'] != UPLOAD_ERR_OK ){
-        $debug = 'upload error'."\n";
-		return $out;
-    }        
+		$message = "upload error";
+        trigger_error( $message, E_USER_ERROR);
+		return NULL;
+    }
         //checks that file is uploaded
     if (!is_uploaded_file($_FILES['file']['tmp_name'])) {
-        $debug = 'temp file not found'."\n";
-		return $out;
+		$message = "temp file not found";
+        trigger_error( $message, E_USER_ERROR);
+		return NULL;
     }
     $bad = array('"', '–');
     $good = array('', '-');
-    $text = new stdClass(); 
+    $text = new stdClass();
     $text->series= $p['series_name'];
     $text->template = isset($p['series_name'])? $p['series_name']: null;
 	$text->language = $p['language_iso'];
 	$text->description = $p['description'];
     $i = 0;
     $chapters = [];
-    $imported_text =  file_get_contents_utf8($_FILES['file']['tmp_name']); 
+    $imported_text =  file_get_contents_utf8($_FILES['file']['tmp_name']);
     $lines = explode("\n", $imported_text);
     foreach ($lines as $line){
         $item = explode ("\t", $line);
@@ -62,7 +65,7 @@ function setupSeries($p){
             $chapter->reference =  trim($item[3]);
             $chapter->filename =  substr($chapter_filename, 0, -5);
             $chapter->image =  trim($item[5]);
-            $chapter->publish =  $chapter_publish;	
+            $chapter->publish =  $chapter_publish;
             $debug .= json_encode($chapter, JSON_UNESCAPED_UNICODE) . "\n";
             $chapters[] = $chapter;
             $i++;
@@ -78,15 +81,8 @@ function setupSeries($p){
 	$p['filename'] = 'index';
 	$p['filetype'] = 'json';
 	$o = createContent($p);
-	$debug .= $o['debug'];
-	$out['error'] = isset($o['error']) ? $o['error']: false;
-    $out['message'] = isset($o['message']) ? $o['message']: false;
     $p['scope'] = 'series';
-    $o = getLatestContent($p);
-    $debug .= $o['debug'];
-	$out['error'] = isset($o['error']) ? $o['error']: false;
-    $out['message'] = isset($o['message']) ? $o['message']: false;
-    $out = $o['content'];
+    $out = getLatestContent($p);
 	return $out;
 }
 function file_get_contents_utf8($fn) {

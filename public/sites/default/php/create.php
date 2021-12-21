@@ -5,9 +5,9 @@ function createContent($p){
 	$debug = "\n\n\n\n\n" . 'In createContent'. "\n";
 	$text = isset($p['text']) ? $p['text'] :NULL;
 	if (!$text){
-		$out['error'] = true;
-		$out['message'] = '$p[text] can not be null';
-		return $out;
+		$message = "in createContent '$p[text] can not be null' ";
+        trigger_error( $message, E_USER_ERROR);
+        die;
 	}
 	else{
 
@@ -21,32 +21,29 @@ function createContent($p){
 		$title = isset($p['title']) ? $p['title'] : NULL;
 		$filename = isset($p['filename']) ? $p['filename'] : NULL;
 		$page = isset($p['page']) ? $p['page'] : NULL;
-		
+
 		$conn = new mysqli(HOST, USER, PASS, DATABASE_CONTENT);
 		$text = $conn->real_escape_string($text);
-		
+
 		$sql = "INSERT into content (version,edit_date,edit_uid,language_iso,
-			country_code,folder_name,filetype,title,filename, page, text) values 
+			country_code,folder_name,filetype,title,filename, page, text) values
 			('$version','$edit_date','$my_uid','$language_iso',
 			'$country_code','$folder_name','$filetype','$title','$filename','$page','$text')";
-		$query = $conn->query($sql);
-		if($query){
-			$out['message'] = "Content Added Successfully";
-		}
-		else{
-			$out['error'] = true;
-			$out['message'] = "Could not add Content";
+		$result = $conn->query($sql);
+		if(!$result)
+			$message = "Could not add Content ";
+        	trigger_error( $message, E_USER_ERROR);
+
 		}
 	}
 	$debug .= $sql . "\n";
-	$debug .= $out['message'] . "\n";
 	return $out;
 }
 
 // create directory
 function createContentFolder($p){
 	$debug = 'createContentFolder'. "\n";
-	
+
 	$dir = ROOT_EDIT_CONTENT . $p['country_code']. '/'. $p['language_iso'] . '/'. $p['$folder_name'];
 	$debug .= 'dir: ' . $dir ."\n";
 	if (!file_exists($dir)){
@@ -86,7 +83,7 @@ function createDir($p){
 		dirMake ($dir);
 	}
 	return $out;
-	
+
 }
 // create series index; I can not see any reason to do this.
 function createSeriesIndex($p){
@@ -95,9 +92,9 @@ function createSeriesIndex($p){
 
 	$debug = 'createSeriesIndex'. "\n";
 	if (!isset($p['folder_name'])){
-		$debug = 'Folder Name not set'. "\n";
-		$out['error'] = true;
-		return $out;
+		$message = "Folder Name not set";
+        trigger_error( $message, E_USER_ERROR);
+		return NULL;
 	}
 	$content = '[]';
 	$file_index = ROOT_EDIT_CONTENT . $p['country_code'] . '/'. $p['language_iso'] . '/'. $p['folder_name'] .'/index.html';
@@ -112,10 +109,9 @@ function createSeriesIndex($p){
 }
 function createStyle($p){
 	if (!isset($p['country_code'] )){
-		$out['error'] = true;
-		$debug = "Country code not set in create Style";
-		$out['message'] = $debug;
-		return $out;
+		$message =  "Country code not set in create Style";
+        trigger_error( $message, E_USER_ERROR);
+		return NULL;
 
 	}
 	$debug = 'createStyle'. "\n";
@@ -136,12 +132,13 @@ function createStyle($p){
 		$fname = $dir. $_FILES["file"]["name"];
 		$debug .= 'fname: '. $fname . "\n";
 		if (move_uploaded_file($_FILES["file"]["tmp_name"], $fname)) {
-			$out['error'] = false;
+
 			$out['message'] = "Style Saved";
 		}
 		else{
-			$out['error'] = true;
-			$out['message'] = "Style NOT Saved";
+			$message = "Style NOT Saved";
+            trigger_error( $message, E_USER_ERROR);
+			return NULL;
 		}
 	}
 	return $out;
@@ -166,15 +163,14 @@ function createTemplate ($p){
 			$fname = $dir . '/'. $_FILES["file"]["name"];
 
 			if (move_uploaded_file($_FILES["file"]["tmp_name"], $fname)) {
-				$out['error'] = false;
-				$out['message'] = "Style Saved";
+
+				$debug .= "Style Saved";
 			}
 			else{
-				$out['error'] = true;
-				$out['message'] = "Style NOT Saved";
+				$message = "Style NOT Saved";
+                trigger_error( $message, E_USER_ERROR);
 			}
 		}
-		
 	}
 	return $out;
 }

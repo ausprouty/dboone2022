@@ -194,7 +194,7 @@ function  _removeImages($text){
     }
     $new_text .= $line . "\n";
 }
-$out['content'] = $new_text;
+$out = $new_text;
 return $out;
 
  }

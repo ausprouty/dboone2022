@@ -29,7 +29,7 @@ function getImagesInContentDirectory($p){
 		$out['message'] = "NO images found";
 	}
 	$out = $results;
-	$out['error'] = false;
+	
     writeLog('getImagesInContentDirectory',$debug );
 	return $out;
 

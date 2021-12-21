@@ -125,6 +125,6 @@ function modifyRevealSummary($text){
         $text = substr_replace($text, $new, $pos_start, $length);
         $pos_start = $pos_end;
     }
-    $out['content'] = $text;
+    $out = $text;
     return $out;
 }

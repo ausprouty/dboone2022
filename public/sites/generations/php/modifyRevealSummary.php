@@ -46,7 +46,7 @@ function modifyRevealSummary($text){
             $out['debug'] .= $response['debug'];
         }
     }
-    $out['content'] = $text;
+    $out = $text;
     return $out;
 
 }
@@ -206,6 +206,6 @@ function modifyRevealSummaryMaker($text, $mark, $size, $script){
         $pos_start = $pos_end;
         $out['debug'] = null;
     }
-    $out['content'] = $text;
+    $out = $text;
     return $out;
 }

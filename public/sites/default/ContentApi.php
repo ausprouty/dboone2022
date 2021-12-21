@@ -1,9 +1,7 @@
 <?php
 $debug = 'Content API Post' . "\n";
-
 $backend = '../'. $_GET['site'] . '/.env.api.'.  $_GET['location'] . '.php';
 
-$text = $backend;
 if (file_exists($backend)){
 	require_once ($backend);
 }
@@ -11,7 +9,7 @@ else{
 	trigger_error("No backend for  Content Api: $backend", E_USER_ERROR);
 }
 $p = array();
-$out = [];
+$out = null;
 $p = getParameters();
 if (isset($p['my_uid'])){
     myRequireOnceSetup($p['my_uid']);
@@ -21,32 +19,27 @@ myRequireOnce('writeLog.php');
 myRequireOnce ('getLatestContent.php');
 myRequireOnce ('getContentByRecnum.php');
 $debug .= 'past Parameters' . "\n";
-if (isset($p['debug'])){
-    $debug .= $p['debug'];
-    $p['debug'] = null;
-}
+
 if (isset($p['recnum'])){
     $out = getContentbyRecnum($p);
 }
 else{
     if (isset($p['scope'])){
         $out = getLatestContent($p);
-         $debug .= 'I am going to getLatestContent'. "\n";
-        if (isset($out['debug'])){
-            $debug .= $out['debug'];
-        }
+        $debug .= 'I am going to getLatestContent'. "\n";
     }
     else{
-        $debug .= 'Scope was not set.  Sorry'. "\n";
+        $message = "in ContentApi Scope was not set.  Sorry";
+        trigger_error( $message, E_USER_ERROR);
     }
 }
 // many times $out['text'] was created by json_encode.
 // decode here so we can properly send it back in good form.
-//$debug .= $out['content']['text'];
-if (isset($out['content']['text'])){
-    $ok =  json_decode($out['content']['text']);
+//$debug .= $out['text'];
+if (isset($out['text'])){
+    $ok =  json_decode($out['text']);
     if ($ok){
-        $out['content']['text'] = $ok;
+        $out['text'] = $ok;
     }
 }
 // create log file

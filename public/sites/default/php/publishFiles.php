@@ -89,8 +89,9 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
         fclose($fh);
     }
     else{
-        $debug .= 'NOT able to write' .  $fname . "\n";
-        $out['error'] = true;
+        $message = " 'NOT able to write' .  $fname";
+        trigger_error( $message, E_USER_ERROR);
+
     }
-    return ($out);
+    return $out;
 }

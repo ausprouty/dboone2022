@@ -2,12 +2,12 @@
 
 /* requires $p as array:
          'entry' => 'Zephaniah 1:2-3'
-          'bookId' => 'Zeph',  
-          'chapterId' => 1, 
-          'verseStart' => 2, 
+          'bookId' => 'Zeph',
+          'chapterId' => 1,
+          'verseStart' => 2,
           'verseEnd' => 3,
          'collection_code' => 'OT' ,
-         'version_ot' => '123', // this is bid 
+         'version_ot' => '123', // this is bid
          'version_nt' => '134'
      )
 
@@ -22,32 +22,31 @@
         verse_text: "أَحَبَّ اللهُ كُلَّ النَّاسِ لِدَرالَ حَيَاةَ الْخُلُودِ."
 */
 
-define("KEY", '3d116e49d7d98c6e20bf0f4a9c88e4cc');
+
 myRequireOnce ('vendor/dbt/dbt.inc');
 function bibleGetPassageDBT($p){
-    
     $debug = '';
-    $dbt = new Dbt (KEY);
+    $dbt = new Dbt (DBT_KEY);
    // todo: this link is not right
     $link = 'https://live.bible.is/bible/'.   $p['damId']  . '/'. $p['book_id']. '/'. $p['chapterId'];
     $markup = null;
-    $out['error'] = false;
-    $v = $dbt->getTextVerse( 
-        $p['damId'], 
-        $p['bookId'], 
-        $p['chapterId'] , 
-        $p['verseStart'], 
-        $p['verseEnd'],  
+
+    $v = $dbt->getTextVerse(
+        $p['damId'],
+        $p['bookId'],
+        $p['chapterId'] ,
+        $p['verseStart'],
+        $p['verseEnd'],
         $markup
     );
     $debug .= 'first pass: '. $v . "\n";
 	// try a second time
 	if (!$v){
-		$v = $dbt->getTextVerse( 
-            $p['damId'], 
-            $p['bookId'], 
-            $p['chapterId'] , 
-            $p['verseStart'], 
+		$v = $dbt->getTextVerse(
+            $p['damId'],
+            $p['bookId'],
+            $p['chapterId'] ,
+            $p['verseStart'],
             $p['verseEnd'],
             $markup
         );
@@ -64,8 +63,9 @@ function bibleGetPassageDBT($p){
         ];
     }
     else{
-        $out['message'] = "Verses not found ";
-        $out['error'] = true;
+        $message = "in Bible Versions Verses not found  ";
+        trigger_error( $message, E_USER_ERROR);
+        $out = NULL;
     }
 
     return $out;
@@ -86,11 +86,11 @@ function bibleGetPassageDBT($p){
 
 */
 function convertDbtArrayToPassage($verses){
-    
+
     $debug = '';
     $count = 0;
     $text = '<p>';
-   
+
     foreach ($verses as $verse){
         if ($count == 0){
             $reference = $verse->book_name . ' ' . $verse->chapter_id . ': ' ;

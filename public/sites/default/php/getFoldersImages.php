@@ -73,7 +73,7 @@ function getFoldersImages($p){
 			$out['message'] = "NO Language FOLDERS";
 		}
 		$out = $results;
-		$out['error'] = false;
+		
 	}
 	else{
 		$results = null;

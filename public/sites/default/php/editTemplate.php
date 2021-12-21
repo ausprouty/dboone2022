@@ -42,6 +42,6 @@ function editTemplate($p){
     $fh = fopen($destination , 'w');
     fwrite($fh, $p['text']);
     fclose($fh);
-	$out['error'] = false;
+	
 	return $out;
 }

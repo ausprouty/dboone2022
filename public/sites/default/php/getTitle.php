@@ -1,9 +1,9 @@
 <?php
 function getTitle($recnum){
-    
+
     $debug = 'In getTitle' ."\n";
     if (isset($recnum)) {
-        $sql = 'SELECT * FROM content 
+        $sql = 'SELECT * FROM content
             WHERE  recnum  = '. $recnum;
         $debug .= $sql. "\n";
         $data = sqlArray($sql);
@@ -14,7 +14,7 @@ function getTitle($recnum){
     }
     // do we have a page?
     if ($data['filetype'] == 'html'){
-        $sql = 'SELECT * FROM content 
+        $sql = 'SELECT * FROM content
              WHERE  country_code  = "'. $data['country_code'] .'"
             AND language_iso = "' . $data['language_iso']   .'"
             AND folder_name  = "'. $data['folder_name'] .'"
@@ -33,17 +33,16 @@ function getTitle($recnum){
                 }
             }
         }
-       $out = null;
-        $out['error'] = 'No Title Found';
-        $debug .= 'No Title Found'. "\n";
-        return $out;
+        $message = "in getTitle No Title Found ";
+        trigger_error( $message, E_USER_ERROR);
+        return NULL;
 
     }
     // do we have a series index?
    if ($data['folder_name']){
-        $sql = 'SELECT * FROM content 
+        $sql = 'SELECT * FROM content
         WHERE  country_code  = "'. $data['country_code'] .'"
-        AND language_iso = "' . $data['language_iso']   .'" 
+        AND language_iso = "' . $data['language_iso']   .'"
         AND filename = "library"
         ORDER BY recnum DESC LIMIT 1';
         $debug .= $sql. "\n";
@@ -58,39 +57,37 @@ function getTitle($recnum){
                     return $out;
                 }
             }
-           $out = null;
-            $out['error'] = 'No Title Found';
-            $debug .= 'No Title Found'. "\n";
-            return $out;
+           $message = "in getTitle No Title Found ";
+           trigger_error( $message, E_USER_ERROR);
+           return NULL;
         }
         else{
-           $out = null;
-            $out['error'] = 'No Title Found';
-            $debug .= 'No Title Found'. "\n";
-            return $out; 
+           $message = "in getTitle No Title Found ";
+           trigger_error( $message, E_USER_ERROR);
+           return NULL;
         }
    }
    // do we have a language index?
    if ($data['language_iso']){
-    $sql = 'SELECT * FROM content 
-        WHERE  country_code  = "'. $data['country_code'] .'"
-        AND filename = "languages"
-        ORDER BY recnum DESC LIMIT 1';
-    $debug .= $sql. "\n";
-    $result = sqlArray($sql);
-    $debug .= $result['text']. "\n";
-    $index = json_decode($result['text']);
-    foreach ($index->languages as $language){
-        if ($language->iso == $data['language_iso']){
-            $title = $language->name;
-            $out = $title . ' index';
-            return $out;
+        $sql = 'SELECT * FROM content
+            WHERE  country_code  = "'. $data['country_code'] .'"
+            AND filename = "languages"
+            ORDER BY recnum DESC LIMIT 1';
+        $debug .= $sql. "\n";
+        $result = sqlArray($sql);
+        $debug .= $result['text']. "\n";
+        $index = json_decode($result['text']);
+        foreach ($index->languages as $language){
+            if ($language->iso == $data['language_iso']){
+                $title = $language->name;
+                $out = $title . ' index';
+                return $out;
+            }
         }
-    }
-   $out = null;
-    $out['error'] = 'No Title Found';
-    $debug .= 'No Title Found'. "\n";
-    return $out;
+    $out = null;
+        $message = "in getTitle No Title Found ";
+        trigger_error( $message, E_USER_ERROR);
+        return NULL;
     }
     // do we have a country index?
    if ($data['country_code']){

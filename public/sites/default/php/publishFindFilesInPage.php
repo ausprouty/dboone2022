@@ -39,11 +39,9 @@ function  publishFindFilesInPage($text){
         }
     }
     else{
-        if (!isset($p['message'])){
-            $out['message'] = '';
-        }
-        $out['message'] .= "no files found\n";
-        $out['error'] = true;
+        $message = "no files found ";
+        trigger_error( $message, E_USER_ERROR);
+
 
     }
     return $out;

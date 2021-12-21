@@ -3,32 +3,32 @@
 
 function getLanguagesAvailable($p){
     $available = [];
-    
+
     $debug = "\n\n\n\n\n". 'In getLanguagesAvailable '. "\n";
     // flags
-    $sql = "SELECT * FROM content 
-                WHERE filename = 'countries'  
+    $sql = "SELECT * FROM content
+                WHERE filename = 'countries'
                 ORDER BY recnum DESC LIMIT 1";
     $debug .= "$sql \n";
     $data = sqlArray($sql);
     $countries_array = json_decode($data['text']);
     //find prototype countries data
     //
-    $sql = "SELECT distinct country_code FROM content 
+    $sql = "SELECT distinct country_code FROM content
         WHERE  prototype_date != ''
         AND country_code != '' ";
     $query = sqlMany($sql);
     while($country = $query->fetch_array()){
         // get prototyped languages from each prototyped country
-        $sql = "SELECT * FROM content 
-            WHERE  country_code = '". $country['country_code'] ."' 
-            AND filename = 'languages'  AND prototype_date != '' 
+        $sql = "SELECT * FROM content
+            WHERE  country_code = '". $country['country_code'] ."'
+            AND filename = 'languages'  AND prototype_date != ''
             ORDER BY recnum DESC LIMIT 1";
         $data = sqlArray($sql);
         $text = json_decode($data['text']);
         if (!isset($text->languages)){
-            $debug .= '$text->languages not found for ' . $country['country_code']. "\n";
-            $out['error'] = true;
+            $message = '$text->languages not found for ' . $country['country_code'];
+            trigger_error( $message, E_USER_ERROR);
         }
         else{
             // look for flag
@@ -43,7 +43,7 @@ function getLanguagesAvailable($p){
                 if (isset($language->publish)){
                     if ($language->publish){
                         $library = 'previewLibrary';
-                        if (isset($language->custom)){ 
+                        if (isset($language->custom)){
                             if ($language->custom =='true'){
                                 $library = 'previewLibraryIndex';
                             }
@@ -66,9 +66,9 @@ function getLanguagesAvailable($p){
     }
     $out= $available;
     return $out;
-   
-   
-   
+
+
+
 }
 function _sortByIso($a, $b){
     if ($a['language_iso'] = $b['language_iso']){
@@ -82,8 +82,8 @@ function _sortByIso($a, $b){
 
 function _flag($country_code){
     $flag = '';
-    $sql = "SELECT * FROM content 
-            AND filename = 'countries'  AND prototype_date != '' 
+    $sql = "SELECT * FROM content
+            AND filename = 'countries'  AND prototype_date != ''
             ORDER BY recnum DESC LIMIT 1";
     $countries = sqlArray($sql);
     foreach ($countries as $country){

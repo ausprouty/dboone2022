@@ -88,17 +88,17 @@ function getLatestContent($p){
         $result = sqlArray($sql);
         if (isset($result['recnum'])){
             $out['debug'] .='Recnum ' . $result['recnum'] ."\n";
-            $out['content']= $result;
-            $out['content']['text']=moveImagesGenerations($out['content']['text']);
+            $out= $result;
+            $out['text']=moveImagesGenerations($out['text']);
         }
         else{
             if ($p['scope'] == 'library'){
                 $out['debug'] .= 'NOTE: USING DEFAULT LIBRARY  FROM LIBRARY.json' ."\n";
-                $out['content']['text'] =  myGetPrototypeFile('library.json');
+                $out['text'] =  myGetPrototypeFile('library.json');
             }
             else{
                 $out['debug'] .= 'No default ' ."\n";
-                $out['content'] =  null;
+                $out =  null;
             }
         }
 

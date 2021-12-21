@@ -1,19 +1,19 @@
 <?php
- /* requires $p['language_iso'] 
+ /* requires $p['language_iso']
  and $p['entry'] in form of 'Zephaniah 1:2-3'
 
  returns array:
      $dbt = array(
          'entry' => 'Zephaniah 1:2-3'
-          'bookId' => 'Zeph',  
-          'chapterId' => 1, 
-          'verseStart' => 2, 
+          'bookId' => 'Zeph',
+          'chapterId' => 1,
+          'verseStart' => 2,
           'verseEnd' => 3,
          'collection_code' => 'OT' ,
      );
- */     
+ */
 function createBibleDbtArrayFromPassage($p){
-    
+
     $debug= 'I am in createBibleDbtArrayFromPassage'. "\n";
     $debug .= '$p[entry] is ' . $p['entry'] . "\n";
     //writeLog('createBibleDbtArrayFromPassage19-' . time(), $debug);
@@ -22,18 +22,12 @@ function createBibleDbtArrayFromPassage($p){
         $p['passage']= trim($passage);
         $debug .= '$p[passage] is ' .  $p['passage'] . "\n";
        // writeLog('createBibleDbtArrayFromPassage24-' . time(), $debug);
-        $one = createBibleDbtArray($p);
-        $debug .= $one['debug'];
-        $out[] = $one['content'];
-        //writeLog('createBibleDbtArrayFromPassage28-' . time(), $one['content']);
-        if ($one['error']){
-            $out['error'] = $one['error'];
-        }
+        $out = createBibleDbtArray($p);
     }
     return $out;
 }
 function createBibleDbtArray($p){
-    
+
     $debug= "\n\n" .'I am in createBibleDbtArray'. "\n";
     //OK to here
     $language_iso = $p['language_iso'];
@@ -50,8 +44,8 @@ function createBibleDbtArray($p){
     }
 
     // get valid bookId
- 
-    $sql = "SELECT book_id, testament FROM hl_online_bible_book 
+
+    $sql = "SELECT book_id, testament FROM hl_online_bible_book
         WHERE  $language_iso  = '$book_lookup' LIMIT 1";
     //writeLog('createBibleDbtArray57-' . time(), $sql);
 
@@ -64,7 +58,7 @@ function createBibleDbtArray($p){
     else{
         $debug .= "No valid data from Bible Array\n";
     }
-    
+
     //writeLog('createBibleDbtArray64-' . time(), $debug);
 
     if (isset($data['book_id'])){
@@ -75,14 +69,14 @@ function createBibleDbtArray($p){
         $debug .= 'trying to find in English' . "\n";
         //writeLog('createBibleDbtArray72-' . time(), $debug);
         // try English if language_iso does not work
-        $sql = "SELECT book_id, testament FROM hl_online_bible_book 
+        $sql = "SELECT book_id, testament FROM hl_online_bible_book
         WHERE  eng  = '$book_lookup' LIMIT 1";
         $data = sqlBibleArray($sql);
         if (!isset($data['book_id'])){
-           $out = null;
-            $out['error'] = true;
             $debug .=  'Book ID not found' . "\n";
-            return $out;
+            $message = "in createBibleDbtArray Book ID not found ";
+            trigger_error( $message, E_USER_ERROR);
+            die;
         }
     }
     //writeLog('createBibleDbtArray78-' . time(), $debug);
@@ -108,14 +102,14 @@ function createBibleDbtArray($p){
     }
     else{
         $chapterId = $p;
-        $verseStart = 1; 
+        $verseStart = 1;
         $verseEnd = 200;
     }
     $dbt_array = array(
         'entry' => $passage,
         'bookId' => $data['book_id'],
-        'chapterId' => $chapterId, 
-        'verseStart' => $verseStart, 
+        'chapterId' => $chapterId,
+        'verseStart' => $verseStart,
         'verseEnd' => $verseEnd,
         'collection_code' => $data['testament'],
     );
@@ -123,8 +117,7 @@ function createBibleDbtArray($p){
         $debug .= $key . ' => ' . $value . "\n";
     }
     $debug .= 'at the end of dbt' . "\n";
-   // writeLog('createBibleDbtArray118-' . time(), $debug);
-    $out['error'] = false;
+    writeLog('createBibleDbtArray', $debug);
     $out = $dbt_array;
     return $out;
 }

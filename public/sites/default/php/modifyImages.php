@@ -11,7 +11,7 @@ and replace with
 and copy files to prototype or publish directory
 */
 function  modifyImages($text, $scope){
-   
+
    $text= modifyContentImages($text, $scope);
    $out = $text;
    return  $out;
@@ -30,7 +30,7 @@ function modifyContentImages($text, $scope){
             return;
     }
 
-    
+
     $out['message'] = null;
     $debug = 'In modifyImages' . "\n";
     $debug .= $scope . "\n";
@@ -60,8 +60,8 @@ function modifyContentImages($text, $scope){
             }
         }
         else{
-            $out['message'] .= "$from not found in prototypeCopyImagesAndStyles \n";
-            $out['error'] = true;
+            $message = "$from not found in prototypeCopyImagesAndStyles";
+           trigger_error( $message, E_USER_ERROR);
         }
     }
     $good = 'src="/content/';

@@ -61,7 +61,7 @@ function getTemplate($p){
 		$debug .= "NO template found". "\n";
 		$out['message'] = "NO Templates found";
 	}
-	$out['error'] = false;
+
 	return $out;
 }
 // use country and language
@@ -111,14 +111,13 @@ function getTemplates($p){
 		if (strlen($results) > 1){
 			$results = substr($results,0, -1) . ']';
 			$out['message'] = "Templates found";
-			$out['error'] = false;
+
 		}
 		else{
 			$debug .= ' No templates so going to Setup Templates' . "\n";
 			myRequireOnce('setup.php');
-			$out2 = setupTemplatesCountry ($p);
-			$out3 = setupTemplatesLanguage($p);
-			$debug .= $out2 ['debug'] . $out3 ['debug'];
+			setupTemplatesCountry ($p);
+			etupTemplatesLanguage($p);
 			$handler = opendir ($template_directory);
 			while ($mfile = readdir ($handler)){
 				if ($mfile != '.' && $mfile != '..' ){
@@ -138,7 +137,7 @@ function getTemplates($p){
 			if (strlen($results) > 1){
 				$results = substr($results,0, -1) . ']';
 				$out['message'] = "Templates found";
-				$out['error'] = false;
+
 			}
 		}
 		$out = $results;
