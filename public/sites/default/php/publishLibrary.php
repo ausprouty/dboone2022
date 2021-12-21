@@ -4,8 +4,8 @@ myRequireOnce ('createLibrary.php');
 
 
 function publishLibrary($p){
-    $p['status'] = 'publish';
-    $p['debug'] .= 'In publishLibrary '. "\n";
+
+    $debug = 'In publishLibrary '. "\n";
     //
     // get data for current library
     //
@@ -16,7 +16,7 @@ function publishLibrary($p){
         AND folder_name = '' AND filename = '$filename'
         AND prototype_date IS NOT NULL
         ORDER BY recnum DESC LIMIT 1";
-    $p['debug'] .= $sql. "\n";
+    $debug .= $sql. "\n";
     $data = sqlArray($sql);
     $text = json_decode($data['text']);
      // set style
@@ -26,7 +26,7 @@ function publishLibrary($p){
     else{
         $selected_css = '/sites/default/styles/cardGLOBAL.css';
     }
-   $body  = createLibrary($p, $text);
+    $body = createLibrary($p, $text);
 
     //
     // write file
@@ -52,7 +52,7 @@ function publishLibrary($p){
         AND folder_name = ''
         AND prototype_date IS NOT NULL
         AND publish_date IS NULL";
-    $p['debug'] .= $sql. "\n";
+    $debug .= $sql. "\n";
     sqlArray($sql,'update');
     return $p;
 }

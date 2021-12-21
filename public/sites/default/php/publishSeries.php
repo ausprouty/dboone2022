@@ -5,10 +5,8 @@ myRequireOnce ('createSeries.php');
 
 // returns $p[files_json] for use by prototypeSeriesandChapters
 function publishSeries ($p){
-    $p['status'] = 'publish';
-    if (!isset($p['debug'])){
-        $p['debug'] = null;
-    }
+
+    $debug = "In publishSeries\n";
     //
     //find series data
     //
@@ -18,15 +16,15 @@ function publishSeries ($p){
         AND folder_name = '" .$p['folder_name'] ."'  AND filename = 'index'
         AND prototype_date IS NOT NULL
         ORDER BY recnum DESC LIMIT 1";
-   // $p['debug'] .= $sql. "\n";
+   // $debug .= $sql. "\n";
     $data = sqlArray($sql);
-    //$p['debug'] .= $data['text'] . "\n";
+    //$debug .= $data['text'] . "\n";
     $text = json_decode($data['text']);
     if ($text){
         // create Series
-        $text = createSeries($p, $data);
-
-        if ($text){
+        $result = createSeries($p, $data);
+        $p = $result['p'];
+        if ($result['text']){
               // find css
               $b['recnum'] = $p['recnum'];
               $b['library_code'] = $p['library_code'];
@@ -50,12 +48,12 @@ function publishSeries ($p){
                 AND folder_name = '" . $p['folder_name'] ."'  AND filename = 'index'
                 AND prototype_date IS NOT NULL
                 AND publish_date IS NULL";
-            //$p['debug'] .= $sql. "\n";
+            //$debug .= $sql. "\n";
             sqlArray($sql, 'update');
         }
     }
     else{
-        $p['debug'] .= 'No text found for the above query '.  "\n";
+        $debug .= 'No text found for the above query '.  "\n";
 
     }
     return $p;

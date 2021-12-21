@@ -4,38 +4,36 @@ myRequireOnce ('createLibrary.php');
 
 
 function prototypeLibrary($p){
-    $p['status'] = 'prototype';
-   
+
     $p['language_dir'] = ROOT_PROTOTYPE_CONTENT . $p['country_code'] . '/'. $p['language_iso'] .'/';
-    $p['debug'] .= 'In prototypeLibrary and ROOT_PROTOTYPE_CONTENT is '. ROOT_PROTOTYPE_CONTENT ."\n";
+    $debug .= 'In prototypeLibrary and ROOT_PROTOTYPE_CONTENT is '. ROOT_PROTOTYPE_CONTENT ."\n";
     //
     // get data for current library
     //
-    $filename =  $p['library_code']; 
-    $sql = "SELECT * FROM content 
-        WHERE  country_code = '" . $p['country_code']. "'  
-        AND language_iso = '". $p['language_iso'] ."' 
-        AND folder_name = '' AND filename = '$filename' 
+    $filename =  $p['library_code'];
+    $sql = "SELECT * FROM content
+        WHERE  country_code = '" . $p['country_code']. "'
+        AND language_iso = '". $p['language_iso'] ."'
+        AND folder_name = '' AND filename = '$filename'
         ORDER BY recnum DESC LIMIT 1";
-    $p['debug'] .= $sql. "\n";
+    $debug .= $sql. "\n";
     $data = sqlArray($sql);
-    $p['debug'] .= isset($data['recnum']) ? $data['recnum'] : 'No Recnum Found';
-    $p['debug'] .= $data['text']. "\n";
+    $debug .= isset($data['recnum']) ? $data['recnum'] : 'No Recnum Found';
+    $debug .= $data['text']. "\n";
     $text = json_decode($data['text']);
     // set style
     if (isset($text->format->style)){
-        $p['debug'] .= 'style is set '. "\n";
+        $debug .= 'style is set '. "\n";
         $selected_css = $text->format->style;
-        $p['debug'] .= $selected_css. "\n";
+        $debug .= $selected_css. "\n";
     }
     else{
-        $p['debug'] .= 'style is NOT set '. "\n";
+        $debug .= 'style is NOT set '. "\n";
         $selected_css = '/sites/default/styles/cardGLOBAL.css';
     }
 
-    $out = createLibrary($p, $text); // see createLibrary.php
-    $p = $out['p'];
-    $body = $out['body'];
+    $body = createLibrary($p, $text); // see createLibrary.php
+
     //
     // write file
     // if filename == 'library', switch to 'index' because it means there is no
@@ -52,13 +50,28 @@ function prototypeLibrary($p){
     // update records
     //
     $time = time();
-    $sql = "UPDATE content 
-        SET prototype_date = '$time', prototype_uid = '". $p['my_uid'] . "'
-        WHERE country_code = '". $p['country_code']. "' 
-        AND language_iso = '" . $p['language_iso'] ."' 
-        AND folder_name = ''
-        AND prototype_date IS NULL";
-    $p['debug'] .= $sql. "\n";
-    sqlArray($sql,'update');
-    return $p;
+    $sql = '';
+    if ($p['destination'] == 'prototype'){
+        $sql = "UPDATE content
+            SET prototype_date = '$time', prototype_uid = '". $p['my_uid'] . "'
+            WHERE country_code = '". $p['country_code']. "'
+            AND language_iso = '" . $p['language_iso'] ."'
+            AND folder_name = ''
+            AND prototype_date IS NULL";
+    }
+    if ($p['destination'] == 'publish'){
+        $sql = "UPDATE content
+            SET publish_date = '$time', publish_uid = '". $p['my_uid'] . "'
+            WHERE country_code = '". $p['country_code']. "'
+            AND language_iso = '" . $p['language_iso'] ."'
+            AND folder_name = ''
+            AND publish_date IS NULL";
+    }
+    if ($sql){
+       sqlArray($sql,'update');
+    }
+
+    writeLog('publishLibrary', $debug);
+
+    return true;
 }
