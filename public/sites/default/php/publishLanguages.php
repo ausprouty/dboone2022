@@ -4,7 +4,6 @@ myRequireOnce ('publishLanguagesAvailable.php');
 myRequireOnce ('createLanguages.php');
 
 function publishLanguages($p){
-
     $debug = 'In publishLanguages with ROOT_PROTOTYPE_CONTENT '. ROOT_PROTOTYPE_CONTENT . "\n";
     $creator =   "\n" .'&nbsp; <!--- Created by publishLanguages -->&nbsp; '.  "\n";
     $selected_css = 'sites/default/styles/cardGLOBAL.css';
@@ -24,7 +23,7 @@ function publishLanguages($p){
     // create page
     //
     $text = createLanguages($p, $data);
-    if (isset($text)){
+    if ($text){
         $fname = $p['country_dir']. 'languages.html';
         $debug .= 'Creating ' . $fname. "\n";
         $text =  $text . $creator;
@@ -34,27 +33,30 @@ function publishLanguages($p){
         // update records
         //
         $time = time();
-        $sql = null;
+        $sql= null;
         if ($p['destination'] == 'publish'){
-            $sql = "UPDATE content
-                SET publish_date = '$time', publish_uid = '". $p['my_uid'] . "'
-                WHERE country_code = '". $p['country_code']. "'
-                AND filename = 'languages'
-                AND publish_date IS NULL";
+             $sql = "UPDATE content
+            SET publish_date = '$time', publish_uid = '". $p['my_uid'] . "'
+            WHERE country_code = '". $p['country_code']. "'
+            AND filename = 'languages'
+            AND publish_date IS NULL";
         }
         if ($p['destination'] == 'prototype'){
-            $sql = "UPDATE content
-                SETprototype_date = '$time', prototype_uid = '". $p['my_uid'] . "'
-                WHERE country_code = '". $p['country_code']. "'
-                AND filename = 'languages'
-                AND prototype_date IS NULL";
+             $sql = "UPDATE content
+            SET prototype_date = '$time', prototype_uid = '". $p['my_uid'] . "'
+            WHERE country_code = '". $p['country_code']. "'
+            AND filename = 'languages'
+            AND prototype_date IS NULL";
         }
         if ($sql){
             sqlArray($sql,'update');
         }
+        //$p['debug'] .= $sql. "\n";
+
         $debug .= 'About to enter publishLanguagesAvailable' . "\n";
         // now update languages Available
         publishLanguagesAvailable($p);
+        writeLog('publishLanguages', $debug);
     }
-    return true;
+    return $out;
 }

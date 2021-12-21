@@ -51,10 +51,10 @@ function prototypeCountries($p){
     // write countries file
     $main_template .= '<!--- Created by prototypeCountries-->' . "\n";
     $file = ROOT_PROTOTYPE_CONTENT .'index.html';
-    publishFiles( 'prototype', $p, $file, $main_template,   STANDARD_CSS,  STANDARD_CARD_CSS);
+    publishFiles( $p['destination'], $p, $file, $main_template,   STANDARD_CSS,  STANDARD_CARD_CSS);
 
     $fname = ROOT_PROTOTYPE  .'index.html';
-    publishFiles( 'prototype', $p, $fname, $main_template,   STANDARD_CSS,  STANDARD_CARD_CSS);
+    publishFiles( $p['destination'], $p, $fname, $main_template,   STANDARD_CSS,  STANDARD_CARD_CSS);
 
     //
     // update records

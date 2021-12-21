@@ -41,7 +41,7 @@ function publishSeries ($p){
             }
             $fname = $dir . 'index.html';
             $result['text'] .= '<!--- Created by publishSeries-->' . "\n";
-            publishFiles( 'publish', $p, $fname, $result['text'],  STANDARD_CSS, $selected_css);
+            publishFiles( $p['destination'], $p, $fname, $result['text'],  STANDARD_CSS, $selected_css);
             $time = time();
             $sql = "UPDATE content 
                 SET publish_date = '$time', publish_uid = '". $p['my_uid']. "' 

@@ -83,7 +83,7 @@ function prototypePage ($p){
     // go to publishFiles
     //writeLog('prototypePage-84', $p['debug']);
     writeLog('prototypePage-86', $text);
-    $response = publishFiles( 'prototype', $p, $fname, $text,  STANDARD_CSS, $selected_css);
+    $response = publishFiles( $p['destination'], $p, $fname, $text,  STANDARD_CSS, $selected_css);
     $p['debug'] .= $response['debug'];
     //
     // update records

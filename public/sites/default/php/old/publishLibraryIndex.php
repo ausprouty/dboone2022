@@ -34,16 +34,16 @@ function publishLibraryIndex($p){
     $fname = $language_dir . '/index.html';
     // write  file
     $body .= '<!--- Created by publishLibrary-->' . "\n";
-    publishFiles( 'publish', $p, $fname, $body,   STANDARD_CSS,  $selected_css);
+    publishFiles( $p['destination'], $p, $fname, $body,   STANDARD_CSS,  $selected_css);
     //TODO: make this a variable
     // Australia is the current owner of this site, so their file goes to root
     if ($fname  ==  ROOT_PUBLISH_CONTENT .'AU/eng/index.html'){
         $fname = ROOT_PUBLISH. 'index.html';
         $p['debug'] .= 'I am sending Australian index to  ' . $fname;
-        publishFiles( 'publish', $p, $fname, $body,   STANDARD_CSS,  $selected_css);
+        publishFiles( $p['destination'], $p, $fname, $body,   STANDARD_CSS,  $selected_css);
         $fname = ROOT_PUBLISH_CONTENT. 'index.html';
         $p['debug'] .= 'I am sending Australian index to  ' . $fname;
-        publishFiles( 'publish', $p, $fname, $body,   STANDARD_CSS,  $selected_css);
+        publishFiles( $p['destination'], $p, $fname, $body,   STANDARD_CSS,  $selected_css);
     }
     // update records
     //

@@ -39,7 +39,7 @@ function prototypeSeries ($p){
             // publish files
             $fname = $series_dir . 'index.html';
             $result['text'] .= '<!--- Created by prototypeSeries-->' . "\n";
-            publishFiles( 'prototype', $p, $fname, $result['text'],  STANDARD_CSS, $selected_css);
+            publishFiles( $p['destination'], $p, $fname, $result['text'],  STANDARD_CSS, $selected_css);
             $time = time();
             $sql = "UPDATE content 
                 SET prototype_date = '$time', prototype_uid = '". $p['my_uid']. "' 

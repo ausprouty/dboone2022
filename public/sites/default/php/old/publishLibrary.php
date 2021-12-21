@@ -40,7 +40,7 @@ function publishLibrary($p){
     }
     $fname = $dir . $filename . '.html';
     $body .= '<!--- Created by publishLibrary-->' . "\n";
-    publishFiles( 'publish', $p, $fname, $body, STANDARD_CARD_CSS, $selected_css);
+    publishFiles( $p['destination'], $p, $fname, $body, STANDARD_CARD_CSS, $selected_css);
 
      //
     // update records

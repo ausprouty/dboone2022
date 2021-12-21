@@ -46,7 +46,7 @@ function prototypeLibrary($p){
 
     $fname = $p['language_dir'] . $filename . '.html';
     $body .= '<!--- Created by prototypeLibrary-->' . "\n";
-    publishFiles( 'prototype', $p, $fname, $body, STANDARD_CARD_CSS, $selected_css);
+    publishFiles( $p['destination'], $p, $fname, $body, STANDARD_CARD_CSS, $selected_css);
 
      //
     // update records

@@ -98,7 +98,7 @@ function prototypeLanguagesAvailable($p){
     $fname = ROOT_PROTOTYPE_CONTENT. 'languages.html';
     $p['debug'] .= "Copied Languages available to $fname \n";
     $body .= '<!--- Created by protoLanguagesAvailable-->' . "\n";
-    publishFiles( 'prototype', $p, $fname, $body, STANDARD_CSS, $selected_css);
+    publishFiles( $p['destination'], $p, $fname, $body, STANDARD_CSS, $selected_css);
     return $p;
 }
 

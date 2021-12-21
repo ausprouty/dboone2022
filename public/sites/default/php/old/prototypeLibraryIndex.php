@@ -36,15 +36,15 @@ function prototypeLibraryIndex($p){
     // write  file
     //TODO: chage current owner to defined variable
     $body .= '<!--- Created by protoLibraryIndex-->' . "\n";
-    publishFiles( 'prototype', $p, $fname, $body,   STANDARD_CSS,  $selected_css);
+    publishFiles( $p['destination'], $p, $fname, $body,   STANDARD_CSS,  $selected_css);
     // Australia is the current owner of this site, so their file goes to root
     if ($fname  ==  ROOT_PROTOTYPE_CONTENT .'AU/eng/index.html'){
         $fname = ROOT_PUBLISH . 'index.html';
         $p['debug'] .= 'I am sending Australian index to  ' . $fname;
-        publishFiles( 'prototype', $p, $fname, $body,   STANDARD_CSS,  $selected_css);
+        publishFiles( $p['destination'], $p, $fname, $body,   STANDARD_CSS,  $selected_css);
         $fname = ROOT_PROTOTYPE_CONTENT . 'index.html';
         $p['debug'] .= 'I am sending Australian index to  ' . $fname;
-        publishFiles( 'prototype', $p, $fname, $body,   STANDARD_CSS,  $selected_css);
+        publishFiles( $p['destination'], $p, $fname, $body,   STANDARD_CSS,  $selected_css);
     }
     
     // update records

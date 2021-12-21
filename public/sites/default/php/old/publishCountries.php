@@ -49,10 +49,10 @@ function publishCountries($p){
     // write countries file
     $fname = publishDestination ($p)  .'index.html';
     $main_template .= '<!--- Created by prototypeCountries-->' . "\n";
-    publishFiles( 'publish', $p, $fname, $main_template,   STANDARD_CSS,  $selected_css);
+    publishFiles( $p['destination'], $p, $fname, $main_template,   STANDARD_CSS,  $selected_css);
 
    // $fname = ROOT_PUBLISH  .'index.html';
-   // publishFiles( 'prototype', $p, $fname, $main_template,   STANDARD_CSS,  $selected_css);
+   // publishFiles( $p['destination'], $p, $fname, $main_template,   STANDARD_CSS,  $selected_css);
 
     //
     // update records

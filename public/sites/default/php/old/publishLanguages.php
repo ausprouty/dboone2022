@@ -3,7 +3,7 @@ myRequireOnce ('publishFiles.php');
 myRequireOnce ('publishLanguagesAvailable.php');
 myRequireOnce ('createLanguages.php');
 //
-// this updates Languages for a given country 
+// this updates Languages for a given country
 //  AND also updates the Languges Available for the site
 //
 function publishLanguages($p){
@@ -19,35 +19,45 @@ function publishLanguages($p){
     //
     //find series data
     //
-    $sql = "SELECT * FROM content 
-        WHERE  country_code = '". $p['country_code'] ."' 
-         AND filename = 'languages' 
+    $sql = "SELECT * FROM content
+        WHERE  country_code = '". $p['country_code'] ."'
+         AND filename = 'languages'
         ORDER BY recnum DESC LIMIT 1";
     $p['debug'] .= $sql. "\n";
     $data = sqlArray($sql);
     //
     // create page
     //
-    $result = createLanguages($p, $data);
-    if (isset($result['body'])){
+    $text = createLanguages($p, $data);
+    if ($text){
         $fname = $p['country_dir']. 'languages.html';
         $p['debug'] .= $fname. "\n";
         $result['body'] .= '<!--- Created by prototypeLanguages-->' . "\n";
-        publishFiles( 'publish', $p, $fname, $result['body'], STANDARD_CSS, STANDARD_CARD_CSS);  
+        publishFiles( $p['destination'], $p, $fname, $text, STANDARD_CSS, STANDARD_CARD_CSS);
         //
         // update records
         //
         $time = time();
-        $sql = "UPDATE content 
-            SET publish_date = '$time', prototype_uid = '". $p['my_uid'] . "'
-            WHERE country_code = '". $p['country_code']. "' 
-            AND filename = 'languages'
-            AND publish_date IS NULL";
-        //$p['debug'] .= $sql. "\n";
-        sqlArray($sql,'update');
-
+        $sql = null;
+        if ($p['destination'] == 'publish'){
+            $sql = "UPDATE content
+                SET publish_date = '$time', publish_uid = '". $p['my_uid'] . "'
+                WHERE country_code = '". $p['country_code']. "'
+                AND filename = 'languages'
+                AND publish_date IS NULL";
+        }
+        if ($p['destination'] == 'prototype'){
+            $sql = "UPDATE content
+                SET prototype_date = '$time', prototype_uid = '". $p['my_uid'] . "'
+                WHERE country_code = '". $p['country_code']. "'
+                AND filename = 'languages'
+                AND prototype_date IS NULL";
+        }
+        if ($sql){
+             sqlArray($sql,'update');
+        }
         // now update languages Available
-        $p = publishLanguagesAvailable($p);
+        publishLanguagesAvailable($p);
     }
-    return $p;
+    return true;
 }
