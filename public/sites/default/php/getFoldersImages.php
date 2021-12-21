@@ -66,19 +66,21 @@ function getFoldersImages($p){
 		}
 		if (strlen($results) > 1){
 			$results = substr($results,0, -1) . ']';
-			$out['message'] = "Language folders found";
+			$debug .= "Language folders found";
 		}
 		else{
-			$results = null;
-			$out['message'] = "NO Language FOLDERS";
+
+			$message = "NO Language FOLDER";
+            trigger_error( $message, E_USER_ERROR);
+		    return NULL;
 		}
 		$out = $results;
-		
+
 	}
 	else{
-		$results = null;
-		$debug .= $content_directory. " does not exist\n";
-		$out['message'] =  "NO Language Folders";
+        $message = $content_directory. " does not exist";
+        trigger_error( $message, E_USER_ERROR);
+		return NULL;
 	}
     writeLog('getFoldersImages', $debug);
 	return $out;

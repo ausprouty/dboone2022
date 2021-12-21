@@ -22,14 +22,15 @@ function getImagesInContentDirectory($p){
 	}
 	if (strlen($results) > 1){
 		$results = substr($results,0, -1) . ']';
-		$out['message'] = "Images found";
+		$debug .= "Images found";
 	}
 	else{
-		$results = null;
-		$out['message'] = "NO images found";
+		$message = "NO images found";
+        trigger_error( $message, E_USER_ERROR);
+		return NULL;
 	}
 	$out = $results;
-	
+
     writeLog('getImagesInContentDirectory',$debug );
 	return $out;
 

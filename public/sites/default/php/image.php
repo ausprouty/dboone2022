@@ -36,7 +36,7 @@ function imageStore($p){
 		$debug .= 'fname: '. $fname . "\n";
 		if (move_uploaded_file($_FILES["file"]["tmp_name"], $fname)) {
 
-            $out['message'] = "Image Saved";
+            $debug .= "Image Saved";
             $debug .= "Image Saved";
 		}
 		else{

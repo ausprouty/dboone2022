@@ -43,14 +43,15 @@ function getStyles($p){
 	}
 	if (strlen($results) > 1){
 		$results = substr($results,0, -1) . ']';
-		$out['message'] = "Styles found";
+		$debug .= "Styles found";
 	}
 	else{
-		$results = null;
-		$out['message'] = "NO styles found";
+		$message = "NO styles found";
+        trigger_error( $message, E_USER_ERROR);
+		return NULL;
 	}
 	$out = $results;
-	
+
 	return $out;
 
 }

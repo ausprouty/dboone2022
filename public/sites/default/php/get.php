@@ -51,15 +51,14 @@ function getTemplate($p){
 	$template = $language_dir .'/templates/'. $p['template'];
 	$debug =' template is '. $p['template']. "\n";
 	if (file_exists($template)){
-		$out['message'] = "Template Found: $template";
 		$debug .= "Template Found: $template". "\n";
 		$debug.= file_get_contents($template) . "\n";
 		$out = file_get_contents($template);
 	}
 	else{
-		$out = null;
-		$debug .= "NO template found". "\n";
-		$out['message'] = "NO Templates found";
+		$message = "NO Templates found ";
+        trigger_error( $message, E_USER_ERROR);
+		return NULL;
 	}
 
 	return $out;
@@ -110,8 +109,6 @@ function getTemplates($p){
 		}
 		if (strlen($results) > 1){
 			$results = substr($results,0, -1) . ']';
-			$out['message'] = "Templates found";
-
 		}
 		else{
 			$debug .= ' No templates so going to Setup Templates' . "\n";
@@ -136,7 +133,7 @@ function getTemplates($p){
 			}
 			if (strlen($results) > 1){
 				$results = substr($results,0, -1) . ']';
-				$out['message'] = "Templates found";
+				$debug .= "Templates found";
 
 			}
 		}

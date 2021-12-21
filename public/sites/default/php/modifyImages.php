@@ -30,8 +30,6 @@ function modifyContentImages($text, $scope){
             return;
     }
 
-
-    $out['message'] = null;
     $debug = 'In modifyImages' . "\n";
     $debug .= $scope . "\n";
     $debug .= $text . "\n\n";

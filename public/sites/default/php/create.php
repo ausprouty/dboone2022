@@ -132,8 +132,7 @@ function createStyle($p){
 		$fname = $dir. $_FILES["file"]["name"];
 		$debug .= 'fname: '. $fname . "\n";
 		if (move_uploaded_file($_FILES["file"]["tmp_name"], $fname)) {
-
-			$out['message'] = "Style Saved";
+		   $message = "Style Saved";
 		}
 		else{
 			$message = "Style NOT Saved";
