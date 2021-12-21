@@ -37,7 +37,7 @@ import LogService from '@/services/LogService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
 export default {
   components: {
-    NavBar
+    NavBar,
   },
   data() {
     return {
@@ -45,7 +45,7 @@ export default {
       destination: null,
       password: null,
       source_options: [],
-      destination_options: []
+      destination_options: [],
     }
   },
   methods: {
@@ -56,15 +56,15 @@ export default {
       this.destination = ''
       this.source = ''
       await AuthorService.copyBook(param)
-    }
+    },
   },
   async created() {
     var response = await AuthorService.getCurrentBooks()
-    this.source_options = JSON.parse(response.data.content)
-     LogService.consoleLogMessage(this.source_options)
+    this.source_options = JSON.parse(response.data)
+    LogService.consoleLogMessage(this.source_options)
     response = await AuthorService.getCurrentLanguages()
-    this.destination_options = JSON.parse(response.data.content)
+    this.destination_options = JSON.parse(response.data)
     LogService.consoleLogMessage(this.destination_options)
-  }
+  },
 }
 </script>

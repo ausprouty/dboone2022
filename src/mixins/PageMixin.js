@@ -56,12 +56,12 @@ export const pageMixin = {
         LogService.consoleLogMessage('response from getPage')
         LogService.consoleLogMessage(response)
         // has this page been prototyped or published?
-        if (response.content.recnum) {
-          this.recnum = response.content.recnum
-          this.publish_date = response.content.publish_date
-          this.prototype_date = response.content.prototype_date
+        if (response.recnum) {
+          this.recnum = response.recnum
+          this.publish_date = response.publish_date
+          this.prototype_date = response.prototype_date
         }
-        this.pageText = response.content.text
+        this.pageText = response.text
 
         // bring up passage if needed
         if (this.pageText.includes('[BiblePassage]')) {

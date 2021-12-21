@@ -267,7 +267,7 @@ export default {
       country.code = 'NW'
       countries.push(country)
       var response = await AuthorService.setupCountries(countries)
-      if (response.data.content != 'success') {
+      if (response.data != 'success') {
         alert('setupCountries not successful')
       }
       return response

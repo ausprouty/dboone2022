@@ -172,7 +172,7 @@ export default {
 
     async testSetupCountries() {
       var response = await AuthorService.setupCountries(this.countries)
-      if (response.data.content != 'success') {
+      if (response.data != 'success') {
         alert('setupCountries not successful')
       }
       return response
