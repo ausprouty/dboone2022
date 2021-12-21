@@ -18,61 +18,57 @@ import store from '@/store/store.js'
 export default {
   async publish(scope, params) {
     var action = null
+    params.site = process.env.VUE_APP_SITE
+    params.location = process.env.VUE_APP_LOCATION
     params.my_uid = store.state.user.uid
     params.token = store.state.user.token
-    // params.bookmark = JSON.stringify(store.state.bookmark)
-
-    // LogService.consoleLogMessage('publish')
-    // LogService.consoleLogMessage(params)
+    params.destination = 'usb'
     switch (scope) {
       case 'bookmark':
-        action = 'AuthorApi.php?page=bookmarkToUSB&action=bookmark'
+        action = 'AuthorApi.php?page=bookmark&action=bookmark'
         break
       case 'countries':
-        action =
-          'AuthorApi.php?page=publishCountriesToUSB&action=publishCountries'
+        action = 'AuthorApi.php?page=publishCountries&action=publishCountries'
         break
       case 'country':
-        action = 'AuthorApi.php?page=publishCountryToUSB&action=publishCountry'
+        action = 'AuthorApi.php?page=publishCountry&action=publishCountry'
         break
       case 'language':
-        action = 'AuthorApi.php?page=publishToUSB&action=publishLanguage'
+        action = 'AuthorApi.php?page=publish&action=publishLanguage'
         break
       case 'languages':
-        action =
-          'AuthorApi.php?page=publishLanguagesToUSB&action=publishLanguages'
+        action = 'AuthorApi.php?page=publishLanguages&action=publishLanguages'
         break
       case 'languagesAvailable':
         action =
-          'AuthorApi.php?page=publishLanguagesAvailableToUSB&action=publishLanguagesAvailable'
+          'AuthorApi.php?page=publishLanguagesAvailable&action=publishLanguagesAvailable'
         break
       case 'library':
-        action = 'AuthorApi.php?page=publishLibraryToUSB&action=publishLibrary'
+        action = 'AuthorApi.php?page=publishLibrary&action=publishLibrary'
         break
       case 'libraryAndBooks':
         action =
-          'AuthorApi.php?page=publishLibraryAndBooksToUSB&action=publishLibraryAndBooks'
+          'AuthorApi.php?page=publishLibraryAndBooks&action=publishLibraryAndBooks'
         break
       case 'libraryIndex':
         action =
-          'AuthorApi.php?page=publishLibraryIndexToUSB&action=publishLibraryIndex'
+          'AuthorApi.php?page=publishLibraryIndex&action=publishLibraryIndex'
         break
       case 'series':
-        action = 'AuthorApi.php?page=publishSeriesToUSB&action=publishSeries'
+        action = 'AuthorApi.php?page=publishSeries&action=publishSeries'
         break
       case 'seriesAndChapters':
         action =
-          'AuthorApi.php?page=publishSeriesAndChaptersToUSB&action=publishSeriesAndChapters'
+          'AuthorApi.php?page=publishSeriesAndChapters&action=publishSeriesAndChapters'
         break
       case 'page':
-        action =
-          'AuthorApi.php?page=publishPageToUSBToUSB&action=publishPageToUSB'
+        action = 'AuthorApi.php?page=publishPage&action=publishPage'
         break
       case 'default':
         action = null
     }
     var complete_action =
-        action + '&site=' + apiSite + '&location=' + apiLocation
+      action + '&site=' + apiSite + '&location=' + apiLocation
     var contentForm = this.toFormData(params)
     var response = await apiSECURE.post(complete_action, contentForm)
     return response

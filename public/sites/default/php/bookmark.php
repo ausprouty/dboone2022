@@ -2,7 +2,7 @@
 
 // see  https://stackoverflow.com/questions/7381900/php-decoding-and-encoding-json-with-unicode-characters
 
-myRequireOnce ('prototypeORpublish.php');
+myRequireOnce ('publishFiles.php');
 myRequireOnce ('getLatestContent.php');
 myRequireOnce ('writeLog.php');
 

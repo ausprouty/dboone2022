@@ -94,10 +94,4 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
     }
     return ($out);
 }
-function prototypeCopyDir($source, $destination){
-    if (!file_exists($destination)){
-        dirMake ($destination);
-    }
-    copyGlobal($source, $destination);
-    return $out;
-}
+

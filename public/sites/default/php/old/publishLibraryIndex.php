@@ -1,6 +1,6 @@
 <?php
 
-myRequireOnce ('prototypeORpublish.php');
+myRequireOnce ('publishFiles.php');
 
 function publishLibraryIndex($p){
     $p['status'] = 'publish';

@@ -1,5 +1,5 @@
 <?php
-myRequireOnce ('prototypeORpublish.php');
+myRequireOnce ('publishFiles.php');
 myRequireOnce ('prototypeLanguagesAvailable.php');
 myRequireOnce ('createLanguages.php');
 

@@ -1,6 +1,6 @@
 <?php
 
-myRequireOnce ('prototypeORpublish.php');
+myRequireOnce ('publishFiles.php');
 
 function prototypeLibraryIndex($p){
     $p['debug'] = 'in prototypeLibraryIndex' . "\n";

@@ -59,8 +59,8 @@ function publishCountries($p){
     //
     $time = time();
     $sql = null;
-
-    if ($p['destination'] == 'publish'){    $sql = "UPDATE content
+    if ($p['destination'] == 'publish'){
+        $sql = "UPDATE content
             SET publish_date = '$time', publish_uid = '". $p['my_uid'] ."'
             WHERE  filename = 'countries'
             AND prototype_date IS NOT NULL

@@ -1,6 +1,6 @@
 <?php
 
-myRequireOnce ('prototypeORpublish.php');
+myRequireOnce ('publishFiles.php');
 myRequireOnce('modifyPage.php');
 
 function publishPage ($p){
@@ -69,7 +69,7 @@ function publishPage ($p){
         $data['language_iso'] .'/'. $data['folder_name'] .'/';
     $fname = $series_dir . $data['filename'] .'.html';
     $text .= '<!--- Created by publishPage-->' . "\n";
-    // go to prototypeORpublish
+    // go to publishFiles
     publishFiles( 'publish', $p, $fname, $text,  STANDARD_CSS, $selected_css);
     $p['debug'] .= $response['debug'];
     //

@@ -1,6 +1,6 @@
 <?php
 
-myRequireOnce ('prototypeORpublish.php');
+myRequireOnce ('publishFiles.php');
 myRequireOnce ('createSeries.php');
 
 // returns $p[files_json] for use by prototypeSeriesandChapters

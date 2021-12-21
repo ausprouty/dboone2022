@@ -1,5 +1,5 @@
 <?php
-myRequireOnce ('prototypeORpublish.php');
+myRequireOnce ('publishFiles.php');
 
 function publishLanguagesAvailable($p){
     $p['status'] = 'publish';

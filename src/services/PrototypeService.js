@@ -16,12 +16,13 @@ import store from '@/store/store.js'
 
 // I want to export a JSON.stringified of response.data.content.text
 export default {
-  async publish(scope, params) {
+  async prototype(scope, params) {
     var action = null
     params.site = process.env.VUE_APP_SITE
     params.location = process.env.VUE_APP_LOCATION
     params.my_uid = store.state.user.uid
     params.token = store.state.user.token
+    params.destination = 'prototype'
     // params.bookmark = JSON.stringify(store.state.bookmark)
 
     //LogService.consoleLogMessage('publish')
@@ -31,59 +32,56 @@ export default {
         action = 'AuthorApi.php?page=bookmark&action=bookmark'
         break
       case 'countries':
-        action =
-          'AuthorApi.php?page=prototypeCountries&action=prototypeCountries'
+        action = 'AuthorApi.php?page=publishCountries&action=publishCountries'
         break
       case 'country':
-        action = 'AuthorApi.php?page=prototypeCountry&action=prototypeCountry'
+        action = 'AuthorApi.php?page=publishCountry&action=publishCountry'
         break
       case 'language':
-        action = 'AuthorApi.php?page=prototype&action=prototypeLanguage'
+        action = 'AuthorApi.php?page=publish&action=publishLanguage'
         break
       case 'languages':
-        action =
-          'AuthorApi.php?page=prototypeLanguages&action=prototypeLanguages'
+        action = 'AuthorApi.php?page=publishLanguages&action=publishLanguages'
         break
       case 'languagesAvailable':
         action =
-          'AuthorApi.php?page=prototypeLanguagesAvailable&action=prototypeLanguagesAvailable'
+          'AuthorApi.php?page=publishLanguagesAvailable&action=publishLanguagesAvailable'
         break
       case 'library':
-        action = 'AuthorApi.php?page=prototypeLibrary&action=prototypeLibrary'
+        action = 'AuthorApi.php?page=publishLibrary&action=publishLibrary'
         break
       case 'libraryAndBooks':
         action =
-          'AuthorApi.php?page=prototypeLibraryAndBooks&action=prototypeLibraryAndBooks'
+          'AuthorApi.php?page=publishLibraryAndBooks&action=publishLibraryAndBooks'
         break
       case 'libraryIndex':
         action =
-          'AuthorApi.php?page=prototypeLibraryIndex&action=prototypeLibraryIndex'
+          'AuthorApi.php?page=publishLibraryIndex&action=publishLibraryIndex'
         break
       case 'series':
-        action = 'AuthorApi.php?page=prototypeSeries&action=prototypeSeries'
+        action = 'AuthorApi.php?page=publishSeries&action=publishSeries'
         break
       case 'seriesAndChapters':
         action =
-          'AuthorApi.php?page=prototypeSeriesAndChapters&action=prototypeSeriesAndChapters'
+          'AuthorApi.php?page=publishSeriesAndChapters&action=publishSeriesAndChapters'
         break
       case 'page':
-        action = 'AuthorApi.php?page=prototypePage&action=prototypePage'
+        action = 'AuthorApi.php?page=publishPage&action=publishPage'
         break
-      case 'readyToPrototypeCountry':
+      case 'readyTopublishCountry':
         action =
-          'AuthorApi.php?page=readyToPrototype&action=readyToPrototypeCountry'
+          'AuthorApi.php?page=readyTopublish&action=readyTopublishCountry'
         break
-      case 'readyToPrototypeLanguage':
+      case 'readyTopublishLanguage':
         action =
-          'AuthorApi.php?page=readyToPrototype&action=readyToPrototypeLanguage'
+          'AuthorApi.php?page=readyTopublish&action=readyTopublishLanguage'
         break
-      case 'readyToPrototypeLibrary':
+      case 'readyTopublishLibrary':
         action =
-          'AuthorApi.php?page=readyToPrototype&action=readyToPrototypeLibrary'
+          'AuthorApi.php?page=readyTopublish&action=readyTopublishLibrary'
         break
-      case 'readyToPrototypeSeries':
-        action =
-          'AuthorApi.php?page=readyToPrototype&action=readyToPrototypeSeries'
+      case 'readyTopublishSeries':
+        action = 'AuthorApi.php?page=readyTopublish&action=readyTopublishSeries'
         break
       case 'default':
         action = null

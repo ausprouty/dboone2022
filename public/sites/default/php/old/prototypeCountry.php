@@ -1,6 +1,6 @@
 <?php
 
-myRequireOnce ('prototypeORpublish.php');
+myRequireOnce ('publishFiles.php');
 
 function prototypeCountry($p){
     $p['debug'] = 'in prototypeCountry' . "\n";

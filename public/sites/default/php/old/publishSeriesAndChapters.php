@@ -1,6 +1,6 @@
 <?php
 
-myRequireOnce ('prototypeORpublish.php');
+myRequireOnce ('publishFiles.php');
 myRequireOnce ('publishSeries.php');
 myRequireOnce ('publishPage.php');
 myRequireOnce ('create.php');

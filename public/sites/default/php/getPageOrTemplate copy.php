@@ -65,7 +65,8 @@ function getPageOrTemplate ($p){
                 // ok to here
                 $dbt = createBibleDbtArrayFromPassage($p);
                 $out['debug'] .= $dbt['debug']. "\n";
-                $out['debug'] .= json_encode($dbt['content'], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) "\n";
+                $out['debug'] .= json_encode($dbt['content'],
+                JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n";
                 $out['content'] ['text'] = 'please write routine to add ' . $ref . '</br>';
                 if ($dbt['content']){ // but this may be an array
                     $out['debug'] .= '$dbt[content] found'. "\n";

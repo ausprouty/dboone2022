@@ -1,5 +1,5 @@
 <?php
-myRequireOnce ('prototypeORpublish.php');
+myRequireOnce ('publishFiles.php');
 myRequireOnce('publishLibrary.php');
 myRequireOnce('publishSeriesAndChapters.php');
 

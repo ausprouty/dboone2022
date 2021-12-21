@@ -1,5 +1,5 @@
 <?php
-myRequireOnce ('prototypeORpublish.php');
+myRequireOnce ('publishFiles.php');
 
 function publishWrite($p, $fname, $text, $standard_css, $selected_css){
 	$p['status'] = 'publish';

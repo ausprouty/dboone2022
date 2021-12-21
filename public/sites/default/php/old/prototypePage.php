@@ -1,6 +1,6 @@
 <?php
 
-myRequireOnce ('prototypeORpublish.php');
+myRequireOnce ('publishFiles.php');
 myRequireOnce('modifyPage.php');
 myRequireOnce('writeLog.php');
 
@@ -81,7 +81,7 @@ function prototypePage ($p){
         $data['language_iso'] .'/'. $data['folder_name'] .'/';
     $fname = $series_dir . $data['filename'] .'.html';
     $text .= '<!--- Created by Stanard prototypePage-->' . "\n";
-    // go to prototypeORpublish
+    // go to publishFiles
     //writeLog('prototypePage-84', $p['debug']);
     writeLog('prototypePage-86', $text);
     $response = publishFiles( 'prototype', $p, $fname, $text,  STANDARD_CSS, $selected_css);
