@@ -19,7 +19,7 @@ to:
   */
   function modifyNoteArea($text,  $bookmark){
     $out = [];
-    $out['debug'] = "in modifyNoteArea\n";
+    $debug = "in modifyNoteArea\n";
     $standard_instruction = $bookmark['language']->notes;
     $template = '
     <div class="note-div">
@@ -30,7 +30,7 @@ to:
     ';
 
     $count = substr_count($text, '<div class="note-area"');
-    $out['debug'] = "count is $count" ."\n";
+    $debug = "count is $count" ."\n";
     for ($i = 1; $i<= $count; $i++){
         $pos_start = strpos($text,'<div class="note-area"');
         $pos_end = strpos($text, '</div>', $pos_start);
@@ -41,7 +41,7 @@ to:
         $row_end = strpos($block, '">', $row_start );
         $row_length = $row_end - $row_start;
         $rows = substr($block, $row_start, $row_length);
-        $out['debug'] .=  "block is $block\n";
+        $debug .=  "block is $block\n";
         if ($rows == 1){
             $label_start = strpos($block, '<form id="note#">' ) + 17;
             $label_end = strpos($block, '<br />', $label_start );
@@ -68,10 +68,10 @@ to:
 
          // from https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
         $text = substr_replace($text, $new_template, $pos_start, $length);
-        $out['debug'] .= "\n\n\n\n\nafteR replace\n";
-        $out['debug'] .= "$text" ."\n";
+        $debug .= "\n\n\n\n\nafteR replace\n";
+        $debug .= "$text" ."\n";
     }
-    $out['content'] = $text;
-    writeLog('modifyNoteArea', $out['debug']);
-    return $out;
+
+    writeLog('modifyNoteArea', $debug);
+    return $text;
   }

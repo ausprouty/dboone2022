@@ -73,9 +73,8 @@ function prototypePage ($p){
     // modify the page for notes and links
     //
      writeLog('prototypePage-75', $text);
-    $response = modifyPage($text, $p, $data, $bookmark);
-    $p['debug'] = $response['debug'];
-    $text = $response['content'];
+    $text = modifyPage($text, $p, $data, $bookmark);
+
     // write file
     $series_dir = ROOT_PROTOTYPE_CONTENT.  $data['country_code'] .'/'.
         $data['language_iso'] .'/'. $data['folder_name'] .'/';

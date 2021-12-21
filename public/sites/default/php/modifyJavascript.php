@@ -23,18 +23,14 @@ function modifyJavascript($text){
         $script = str_ireplace('&lt;', '<', $script);
         $script = str_ireplace('&gt;', '>', $script);
         $script = str_ireplace('&amp;', '&', $script);
-        
+
         $script .= '</script>';
         $debug .= $old . "\n";
         // replace javascript
         $text = substr_replace($text, $script, $pos_start, $length);
-        
+
     }
-    
-   
     writeLog('modifyJavascript-25', $debug);
-    $output['text']= $text;
-    $output['debug'] = $debug;
-    return $output;
-   
+    return $text;
+
 }

@@ -1,6 +1,6 @@
 <?php
 /*
-Input is: 
+Input is:
   <div class="trainer">
 
 Output is
@@ -14,10 +14,9 @@ And append to text
 
 */
 function modifyRevealTrainer($text){
-    $out = [];
     $template = '<div id="TrainerNote#" class="trainer-hide">';
     $count = substr_count($text, '<div class="trainer"');
-    $out['debug'] = "count is $count" ."\n";
+    $debug = "count is $count" ."\n";
     for ($i = 1; $i<= $count; $i++){
         $pos_start = strpos($text,'<div class="trainer"');
         $pos_end = strpos($text, '>', $pos_start);
@@ -34,6 +33,5 @@ function modifyRevealTrainer($text){
     $new_end_template = str_replace('#', $count, $end_template );
     $text .= $new_end_template;
     $text .= '<!-- Note Count End -->'. "\n";
-    $out['content'] = $text;
-    return $out;
+    return $text;
 }

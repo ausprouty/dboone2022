@@ -32,9 +32,9 @@ function modifyContentImages($text, $scope){
 
     $out = [];
     $out['message'] = null;
-    $out['debug'] = 'In modifyImages' . "\n";
-    $out['debug'] .= $scope . "\n";
-    $out['debug'] .= $text . "\n\n";
+    $debug = 'In modifyImages' . "\n";
+    $debug .= $scope . "\n";
+    $debug .= $text . "\n\n";
 
     //  "sites/generations
     $find = 'src="/sites/'. SITE_DIRECTORY . '/content/';
@@ -49,14 +49,14 @@ function modifyContentImages($text, $scope){
         $filename = substr($text, $pos_start, $length);
         $from = $source_dir. $filename;
         $from = str_ireplace('//', '/', $from);
-        $out['debug'] .= $from . "\n";
+        $debug .= $from . "\n";
         if (file_exists($from)){
              $to = $destination_dir. str_ireplace($remove, '', $filename);
             createDirectory($to);
             // do not copy html files or you will overwrite current index page
             if (!is_dir($from) && strpos ($to, '.html') === false){
                 copy ($from, $to );
-                $out['debug'] .= ' _copyImagesAndStyles copied ' . $filename . ' from' . $from . ' to '. $to . "\n";
+                $debug .= ' _copyImagesAndStyles copied ' . $filename . ' from' . $from . ' to '. $to . "\n";
             }
         }
         else{
@@ -66,8 +66,7 @@ function modifyContentImages($text, $scope){
     }
     $good = 'src="/content/';
     $text = str_ireplace($find, $good, $text);
-    $out['content'] = $text;
-    writeLog('Modify Content Images-64',  $out['debug']);
+    writeLog('Modify Content Images-64',  $debug);
     return $text;
 
 }

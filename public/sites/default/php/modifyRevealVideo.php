@@ -29,10 +29,10 @@ Input is:
                 </tr>
             </tbody>
         </table>
-        
+
     <hr /></div>';
 
-Data structure: 
+Data structure:
  video Types from ArcLight:  https://api.arclight.org/videoPlayerUrl?refId=1_529-jf6159-30-0
     1_ = jfilm
     2_ = acts
@@ -68,9 +68,9 @@ Output for Lumo [Nerw] : where input is https://api.arclight.org/videoPlayerUrl?
 
 */
 function modifyRevealVideo($text, $bookmark){
-    
+
     $out = [];
-    $out['debug'] = 'In revealVideo' . "\n";;
+    $debug = 'In revealVideo' . "\n";;
     $watch_phrase = $bookmark['language']->watch;
     $template_link= '<button id="revealButton[id]" type="button" class="external-movie [video_type]">[title_phrase]</button>
         <div class="collapsed">[video]</div>';
@@ -91,7 +91,7 @@ function modifyRevealVideo($text, $bookmark){
         $title_phrase =  $word = str_replace('%', $title, $watch_phrase);
         //find url
         $url = modifyVideoRevealFindText($old, 4);
-        $out['debug'] .=  "url is | $url |\n";
+        $debug .=  "url is | $url |\n";
         // find type of video and trim url
         if (strpos($url, 'api.arclight.org/videoPlayerUrl?') != FALSE){
             $new .=  $template_options; // JESUS project videos are available in many languages
@@ -117,9 +117,9 @@ function modifyRevealVideo($text, $bookmark){
             }
             // find start and end times
             $start_time = modifyVideoRevealFindTime ($old, 7);
-            $out['debug'] .=  "start_time is | $start_time |\n";
+            $debug .=  "start_time is | $start_time |\n";
             $end_time = modifyVideoRevealFindTime ($old, 9);
-            $out['debug'] .=  "end time is | $end_time |\n";
+            $debug .=  "end time is | $end_time |\n";
             if ($start_time || $end_time){
                 $url .= '&start='. $start_time . '&end=' .$end_time;
             }
@@ -138,25 +138,23 @@ function modifyRevealVideo($text, $bookmark){
         }
         else{
             $video_type = 'url';
-
         }
-        // make replacements   
+        // make replacements
         $video = '['. $video_type . ']' . $url; //[lumo]-GOMatt2512
-       
-        $out['debug'] .=  "video is | $video |\n";
-        $new = str_replace('[video]', $video, $new); 
-        $new = str_replace('[video_type]', $video_type, $new); 
+
+        $debug .=  "video is | $video |\n";
+        $new = str_replace('[video]', $video, $new);
+        $new = str_replace('[video_type]', $video_type, $new);
         $new = str_replace('[id]', $i, $new);
         $new = str_replace('[title_phrase]', $title_phrase, $new);
-        $out['debug'] .=  "new is | $new |\n";
-        // replace old 
+        $debug .=  "new is | $new |\n";
+        // replace old
          // from https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $text = substr_replace($text, $new, $pos_start, $length);
     }
-    $out['content'] = $text;
-    writeLog('modifyVideoReveal', $out['debug']);
-    return $out;
+    writeLog('modifyVideoReveal', $debug);
+    return $text;
 }
 // return the text from the td_segment
 function modifyVideoRevealFindText($old, $td_number){
