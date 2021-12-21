@@ -14,7 +14,7 @@ const apiSECURE = axios.create({
 import axios from 'axios'
 import store from '@/store/store.js'
 
-// I want to export a JSON.stringified of response.data.content.text
+// I want to export a JSON.stringified of response.data.text
 export default {
   async publish(scope, params) {
     var action = null

@@ -16,7 +16,7 @@ const apiCONTENT = axios.create({
     'Content-Type': 'application/json',
   },
 })
-// I want to export a JSON.stringified of response.data.content.text
+// I want to export a JSON.stringified of response.data.text
 export default {
   async getCountries(params) {
     params.scope = 'countries'
@@ -58,8 +58,8 @@ export default {
       var response = await apiCONTENT.post(postContentDestination, contentForm)
       LogService.consoleLog('returnContent', response)
       params.function = 'returnContent'
-      if (response.data.content) {
-        content = response.data.content
+      if (response.data) {
+        content = response.data
       }
       return content
     } catch (error) {

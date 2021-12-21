@@ -14,7 +14,7 @@ const apiSECURE = axios.create({
 import axios from 'axios'
 import store from '@/store/store.js'
 
-// I want to export a JSON.stringified of response.data.content.text
+// I want to export a JSON.stringified of response.data.text
 export default {
   async prototype(scope, params) {
     var action = null
@@ -93,8 +93,8 @@ export default {
       var contentForm = this.toFormData(params)
       var response = await apiSECURE.post(complete_action, contentForm)
       console.log(response)
-      if (response.data.content) {
-        content = response.data.content
+      if (response.data) {
+        content = response.data
       }
       return content
     } catch (error) {

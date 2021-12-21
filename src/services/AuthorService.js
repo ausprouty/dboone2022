@@ -26,7 +26,7 @@ const apiIMAGE = axios.create({
     'Content-Type': 'multipart/form-data',
   },
 })
-// I want to export a JSON.stringified of response.data.content.text
+// I want to export a JSON.stringified of response.data.text
 export default {
   consoleLog(params, response) {
     if (log == true) {
@@ -73,12 +73,12 @@ export default {
         })
       }
       //this.clearActionAndPage()
-      if (typeof response.data.content !== 'undefined') {
+      if (typeof response.data !== 'undefined') {
         console.log(' have data content')
-        content = response.data.content
-      } else if (typeof response.content !== 'undefined') {
+        content = response.data
+      } else if (typeof response !== 'undefined') {
         console.log(' have  content')
-        content = response.content
+        content = response
       }
       //this.clearActionAndPage()
       return content
@@ -105,8 +105,8 @@ export default {
           name: 'login',
         })
       }
-      if (response.data.content) {
-        parse = JSON.parse(response.data.content)
+      if (response.data) {
+        parse = JSON.parse(response.data)
       }
       //this.clearActionAndPage()
       return parse
@@ -480,7 +480,7 @@ export default {
         }
       }
     }
-    return res // returns data.content ='success'
+    return res // returns data ='success'
   },
   async setupLanguageFolder(params) {
     params.page = 'setupLanguageFolder'
