@@ -18,10 +18,12 @@ myRequireOnce ('writeLog.php');
 // $scope must be 'publish' or 'publish'
 function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css){
 
+    $debug = 'In publishFiles with: ' . $fname .  "\n";
+    writeLog('publishFiles-22', $debug);
     // start with header
     $output = myGetPrototypeFile('header.html');
     //$debug .= "\n". 'publishFiles' . "\n";
-    $debug = 'In publishFiles with: ' . $fname .  "\n";
+     writeLog('publishFiles-26', $output);
     // add onload only if files are here
     $onload_note_js = '';
     if (strpos($text, '<form') !== false){
@@ -45,9 +47,7 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
         // class="nobreak" need to be changed to class="nobreak-final" so color is correct
         $text = str_ireplace("nobreak", "nobreak-final", $text);
     }
-    $result = getTitle($p['recnum']);
-    $debug .= $result['debug'] ."\n";
-    $title = WEBSITE_TITLE . $result['content'];
+    $title = WEBSITE_TITLE . getTitle($p['recnum']);
     $debug .= 'title is '. $title ."\n";
     $local_js = '<script> This is my script</script>';
     $placeholders = array(
@@ -69,16 +69,20 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
     $output = str_replace($placeholders, $replace,  $output);
     // insert text
     $output .= $text;
+     writeLog('publishFiles-72', $output);
     // remove dupliate CSS
     $output = publishRemoveDuplicateCSS($output);
+     writeLog('publishFiles-75', $output);
     // append footer
     $output .= myGetPrototypeFile('footer.html');
+     writeLog('publishFiles-78', $output);
     // copy all images and styles to the publish directory
-    $response = publishCopyImagesAndStyles($output, $scope);
+    //$response = publishCopyImagesAndStyles($output, $scope);
     $output = modifyImages($output, $scope);
-    if (isset($p['usb'])){
-      $output = makePathsRelative($output, $fname);
-    }
+    writeLog('publishFiles-82', $output);
+    $output = makePathsRelative($output, $fname);
+    writeLog('publishFiles-84', $output);
+
     // make sure we have all the necessary directories
     dirMake($fname);
     // write the file
@@ -93,5 +97,6 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
         trigger_error( $message, E_USER_ERROR);
 
     }
+    writeLog('publishFiles-100', $output);
     return $out;
 }

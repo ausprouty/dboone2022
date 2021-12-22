@@ -4,12 +4,14 @@ myRequireOnce ('modifyPage.php');
 myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFiles.php');
 myRequireOnce ('publishFindFilesInPage.php');
+myRequireOnce ('writeLog.php');
 
 
 
 function publishPage ($p){
 
     $debug = 'In publishPage' . "\n";
+    writeLog ('publishPage-14', $debug);
     if (!isset($p['recnum'])){
        $message = "in PublishPage no value for recnum ";
         trigger_error( $message, E_USER_ERROR);
@@ -25,16 +27,20 @@ function publishPage ($p){
     foreach ($data as $key=>$value){
         $debug .= $key . ' => '. $value . "\n";
     }
+    writeLog ('publishPage-30', $debug);
     $text  = createPage($p, $data);
+    writeLog ('publishPage-32', $text);
     //
     // find files in page for series json file
     //
     $result  = publishFindFilesInPage($text, $p['destination']);
+     writeLog ('publishPage-37', $result);
     if (isset($result['files_in_page'])){
         foreach ($result['files_in_page'] as $file_found){
             $debug .=  $file_found . "\n";
         }
     }
+    writeLog ('publishPage-43', $debug);
     $p['files_in_page'] = isset($result['files_in_page']) ? $result['files_in_page'] : [];
     $p['files_in_page'] = array_merge($p['files_in_page'], $result['files_in_page']);
 
@@ -43,6 +49,7 @@ function publishPage ($p){
     $b['recnum'] =  $p['recnum'];
     $b['library_code'] = $p['library_code'];
     $bookmark = bookmark($b);
+    writeLog ('publishPage-52', $bookmark);
 
     $selected_css = isset($bookmark['book']->style)? $bookmark['book']->style: STANDARD_CSS;
     //
@@ -51,17 +58,18 @@ function publishPage ($p){
      //
     // modify the page for notes and links
     //
+     writeLog ('p61ublishPage-', $text);
     $text = modifyPage($text, $p, $data, $bookmark);
-
+    writeLog ('publishPage-62', $text);
     // write file
     $series_dir = publishDestination($p) .  $data['country_code'] .'/'.
         $data['language_iso'] .'/'. $data['folder_name'] .'/';
     $fname = $series_dir . $data['filename'] .'.html';
     $text .= '<!--- Created by publishPage-->' . "\n";
+    writeLog ('publishPage-69', $text);
     // go to publishFiles
     publishFiles( $p['destination'], $p, $fname, $text,  STANDARD_CSS, $selected_css);
-    $debug .= $response['debug'];
-    //
+    writeLog ('publishPage-72', $debug);//
     // update records
     //
     $time = time();
@@ -86,8 +94,7 @@ function publishPage ($p){
     }
     if ($sql){
         sqlArray($sql, 'update');
-        return $p;
     }
-    //$debug .= $sql. "\n";
-
+    writeLog ('publishPage-93', $debug);
+    return($p);
 }

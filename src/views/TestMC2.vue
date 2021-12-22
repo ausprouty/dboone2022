@@ -15,6 +15,9 @@
 import AuthorService from '@/services/AuthorService.js'
 import BibleService from '@/services/BibleService.js'
 import ContentService from '@/services/ContentService.js'
+import PrototypeService from '@/services/PrototypeService.js'
+import PublishService from '@/services/PublishService.js'
+import UsbService from '@/services/UsbService.js'
 import LogService from '@/services/LogService.js'
 import { mapState } from 'vuex'
 
@@ -52,6 +55,9 @@ export default {
         'testSetupLanguageFolder',
         'testSeries',
         'testGetPage',
+        'testPrototypePage',
+        'testPublishPage',
+        'testUSBPage',
       ],
     }
   },
@@ -273,6 +279,42 @@ export default {
       params.language_iso = 'yor'
       params.country_code = 'M2'
       var response = await AuthorService.setupLanguageFolder(params)
+      return response
+    },
+    async testPrototypePage() {
+      var params = this.setupParams()
+      params.country_code = 'M2'
+      params.language_iso = 'eng'
+      params.folder_name = 'multiply1'
+      params.filename = 'multiply104'
+      params.scope = 'page'
+      var content = await AuthorService.getPageOrTemplate(params)
+      params.recnum = content.recnum
+      var response = await PrototypeService.prototype('page', params)
+      return response
+    },
+    async testPublishPage() {
+      var params = this.setupParams()
+      params.country_code = 'M2'
+      params.language_iso = 'eng'
+      params.folder_name = 'multiply1'
+      params.filename = 'multiply104'
+      params.scope = 'page'
+      var content = await AuthorService.getPageOrTemplate(params)
+      params.recnum = content.recnum
+      var response = await PublishService.publish('page', params)
+      return response
+    },
+    async testUSBPage() {
+      var params = this.setupParams()
+      params.country_code = 'M2'
+      params.language_iso = 'eng'
+      params.folder_name = 'multiply1'
+      params.filename = 'multiply104'
+      params.scope = 'page'
+      var content = await AuthorService.getPageOrTemplate(params)
+      params.recnum = content.recnum
+      var response = await UsbService.publish('page', params)
       return response
     },
   },

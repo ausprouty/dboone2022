@@ -21,7 +21,10 @@ function getPageOrTemplate ($p){
         $ok = false;
     }
     if (!$ok){
-        return $out;
+        $message = "Missing filename, foldername or language in  getPageOrTemplate ";
+        writeLogError('getPageOrTemplate', $message);
+        trigger_error( 'getPageOrTemplate', E_USER_ERROR);
+        return NULL;
     }
     if (isset($p['bookmark'])){
         $bookmark = json_decode($p['bookmark']);
@@ -29,9 +32,8 @@ function getPageOrTemplate ($p){
     else{
         myRequireOnce ('bookmark.php');
         $debug = "No bookmark given, so looking for it now";
-        $res = bookmark ($p);
-        $bookmark = $res['content'];
-        $debug .= $res['debug'];
+        $bookmark = bookmark ($p);
+
     }
     $p['template']= null;
     if (isset($bookmark->book->template)){

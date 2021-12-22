@@ -48,11 +48,7 @@ function bookmark ($p){
     }
   writeLog ('bookmark-48-', $b);
     if ($b['country_code']){
-        $response = checkBookmarkCountry($b);
-        $b['bookmark']['country'] = $response['content'];
-        $debug .= $response['debug'] . "\n";
-         // writeLog ('bookmark-53-country-', $debug);
-
+        $b['bookmark']['country'] = checkBookmarkCountry($b);
         if ($b['language_iso']){
             $b ['bookmark'] ['language']  = checkBookmarkLanguage($b);
             if (isset($b['library_code'])){
@@ -86,7 +82,7 @@ function checkBookmarkCountry($b){
     $content = getLatestContent($b);
     $response = json_decode($content);
     if (!$response){
-        writeLog('checkBookmarkCountry', $debug);
+        writeLogError('checkBookmarkCountry', $debug);
         trigger_error("No response in checkBookmarkCountry", E_USER_ERROR);
     }
     foreach ($response as $country){

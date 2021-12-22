@@ -386,6 +386,11 @@ export default {
     params.action = 'getLanguagesForAuthorization'
     return this.aReturnContent(params)
   },
+   async getLatestContent(params) {
+    params.page = 'getLatestContent'
+    params.action = 'getLatestContent'
+    return this.aReturnContentParsed(params)
+  },
   async getPage(params) {
     if (typeof params.template != 'undefined') {
       delete params.template

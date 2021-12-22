@@ -143,8 +143,9 @@ function createPage($p, $data){
     $debug .= "Ribbon:  $ribbon\n ";
     $text = str_replace($placeholders, $replace, $this_template);
     $text = str_replace('{{ dir }}',  $dir_value, $text); // because dir is inside of page_title_and_image_valu
-    $out['p'] = $p;
+
       $debug .= "text:\n  $text\n ";
-    writeLog('createPage', $debug);
+    writeLog('createPage-148', $debug);
+    writeLog('createPage-149', $text);
     return $text;
 }

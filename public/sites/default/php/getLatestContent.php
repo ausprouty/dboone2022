@@ -11,8 +11,10 @@ function getLatestContent($p){
 
     $debug ='In getLatestContent Dec 18' . "\n";
     if (!isset($p['scope'])){
-        $debug .=  'No scope was set';
-        return $out;
+        $message =  'In getLatestContent No scope was set';
+        writeLogError( 'getLatestContent', $message);
+        trigger_error($message, E_USER_ERROR);
+        return NULL;
     }
     $debug .= $p['scope'] . "\n";
 
