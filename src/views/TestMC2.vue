@@ -47,12 +47,11 @@ export default {
         'testLanguagesForAuthorization',
         'testGetPage',
         'testGetPageOrTemplate',
-        'testLibraryIndex',
         'testSetupImageFolder',
         'testSetupCountries',
         'testSetupLanguageFolder',
         'testSeries',
-        'testPage',
+        'testGetPage',
       ],
     }
   },
@@ -176,7 +175,6 @@ export default {
     },
 
     async testImagesGet() {
-
       var output = ''
       var temp = ''
       var img = await AuthorService.getImagesInContentDirectory(
@@ -241,13 +239,6 @@ export default {
       params.country_code = 'M2'
       params.language_iso = 'eng'
       var response = await ContentService.getLibrary(params)
-      return response
-    },
-    async testLibraryIndex() {
-      var params = this.setupParams()
-      params.country_code = 'M2'
-      params.language_iso = 'eng'
-      var response = await ContentService.getLibraryIndex(params)
       return response
     },
 

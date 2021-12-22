@@ -12,7 +12,7 @@ function bibleUpdateDBT($p){
     $fh = fopen(ROOT_LOG . 'dbt.txt', 'w');
 	fwrite($fh, $text);
     fclose($fh);
-    return $out;
+    return $text;
 }
 
 function bibleCheckDBTIndex($p){

@@ -4,7 +4,7 @@ myRequireOnce ('create.php');
 myRequireOnce ('getLatestContent.php');
 
 function bibleLinkMaker($p){
-    
+
     $debug = 'in bibleLinkMaker' . "\n";
     if (!isset($p['text'])){
         trigger_error("'p[text] is not set in bibleLinkMaker", E_USER_ERROR);
@@ -60,7 +60,7 @@ function bibleLinkMaker($p){
                         $debug .= "No verses for $book \n";
                     }
                     else{
-        
+
                         $reference_end = $letter_check - 1;
                         $real_book_start = $book_start +  $pattern_length;
                         $length = $reference_end - $book_start - $pattern_length + 1;
@@ -79,10 +79,6 @@ function bibleLinkMaker($p){
     createContent($p);
     $p['scope'] = 'page';
     unset($p['recnum']);
-    $res = getLatestContent($p);
-    if ($res['debug']){
-        $debug .= $res['debug'];
-    }
-    $out = $res['content'];
+    $out = getLatestContent($p);
     return $out;
 }

@@ -1,10 +1,11 @@
 <?php
-
+myRequireOnce('writeLog.php');
 
 function getLanguagesAvailable($p){
     $available = [];
 
-    $debug = "\n\n\n\n\n". 'In getLanguagesAvailable '. "\n";
+    $debug = 'In getLanguagesAvailable '. "\n";
+    writeLog('getLanguagesAvailable-8' ,$debug );
     // flags
     $sql = "SELECT * FROM content
                 WHERE filename = 'countries'
@@ -14,31 +15,50 @@ function getLanguagesAvailable($p){
     $countries_array = json_decode($data['text']);
     //find prototype countries data
     //
-    $sql = "SELECT distinct country_code FROM content
+    if ($p['destination']=='prototype'){
+        $sql = "SELECT distinct country_code FROM content
         WHERE  prototype_date != ''
         AND country_code != '' ";
+    }
+    else{
+         $sql = "SELECT distinct country_code FROM content
+        WHERE  prototype_date != '' AND publish_date != ''
+        AND country_code != '' ";
+    }
+
     $query = sqlMany($sql);
+    writeLog('getLanguagesAvailable-22' ,$debug );
     while($country = $query->fetch_array()){
         // get prototyped languages from each prototyped country
-        $sql = "SELECT * FROM content
-            WHERE  country_code = '". $country['country_code'] ."'
-            AND filename = 'languages'  AND prototype_date != ''
-            ORDER BY recnum DESC LIMIT 1";
+         if ($p['destination']=='prototype'){
+            $sql = "SELECT * FROM content
+                WHERE  country_code = '". $country['country_code'] ."'
+                AND filename = 'languages'  AND prototype_date != ''
+                ORDER BY recnum DESC LIMIT 1";
+         }
+         else{
+              $sql = "SELECT * FROM content
+                WHERE  country_code = '". $country['country_code'] ."'
+                AND filename = 'languages'  AND prototype_date != ''
+                AND publish_date != ''
+                ORDER BY recnum DESC LIMIT 1";
+         }
         $data = sqlArray($sql);
         $text = json_decode($data['text']);
         if (!isset($text->languages)){
             $message = '$text->languages not found for ' . $country['country_code'];
-            trigger_error( $message, E_USER_ERROR);
+            writeLogError('getLanguagesAvailable-33' , $message );
         }
         else{
             // look for flag
             $flag = 'unknown';
             foreach ($countries_array as $country_object){
                 if ($country_object->code == $country['country_code']){
-                    $flag = '../images/country/'. $country_object->image;
+                    $flag = DIR_DEFAULT_SITE . 'images/country/'. $country_object->image;
                 }
             }
             $debug .= "$flag is flag for " .  $country['country_code']. " \n";
+            writeLog('getLanguagesAvailable-44' , $text->languages );
             foreach ($text->languages as $language){
                 if (isset($language->publish)){
                     if ($language->publish){
@@ -59,12 +79,15 @@ function getLanguagesAvailable($p){
                     }
                 }
             }
+            writeLog('getLanguagesAvailable-65' , $available );
             usort($available, '_sortByIso');
+            writeLog('getLanguagesAvailable-67' ,$available );
 
         }
 
     }
     $out= $available;
+    writeLog('getLanguagesAvailable-71' , $out );
     return $out;
 
 

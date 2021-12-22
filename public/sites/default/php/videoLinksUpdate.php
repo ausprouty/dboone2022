@@ -4,7 +4,7 @@ myRequireOnce ('getContentByRecnum.php');
 myRequireOnce ('getLatestContent.php');
 
 function videoLinksUpdate($p){
-    
+
     $debug = 'I was in updateVideoLinks'. "\n";
     $p['scope'] = 'page';
     $content = getContentByRecnum($p);
@@ -18,11 +18,7 @@ function videoLinksUpdate($p){
     createContent($content );
     $content ['scope'] = 'page';
     unset($content ['recnum']);
-    $res = getLatestContent($content );
-    if ($res['debug']){
-        $debug .= $res['debug'];
-    }
-    $out = $res['content'];
+    $out = getLatestContent($content );
     return $out;
 }
 /* <div class="reveal video">&nbsp;

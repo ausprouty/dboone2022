@@ -23,11 +23,10 @@ $sql = 'SELECT DISTINCT filename FROM content
          'folder_name' => 'tc',
          'filename' => $data['filename']
      );
-    $res = getLatestContent($p);
-    $new = $res['content'];
+    $new = getLatestContent($p);
     $new['country_code'] = 'A2';
     $new['my_uid'] = 999; // done by computer
-    $res = createContent($new);
+    createContent($new);
 
  }
  writeThisLog('importSeries.txt', $debug);

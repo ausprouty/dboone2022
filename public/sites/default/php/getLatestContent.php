@@ -101,19 +101,18 @@ function getLatestContent($p){
         $result = sqlArray($sql);
         if (isset($result['recnum'])){
             //if ($text_file){
-                $result['text'] = version2Text($result['text']);
+                $out = version2Text($result['text']);
            // }
             $debug .='Recnum ' . $result['recnum'] ."\n";
-            $out = $result;
         }
         else{
             if ($p['scope'] == 'library'){
                 $debug .= 'NOTE: USING DEFAULT LIBRARY  FROM LIBRARY.json' ."\n";
-                $out['text'] =  myGetPrototypeFile('library.json');
+                $out =  myGetPrototypeFile('library.json');
             }
             else{
                 $debug .= 'No default ' ."\n";
-                $out['text'] =  null;
+                $out =  null;
             }
         }
 

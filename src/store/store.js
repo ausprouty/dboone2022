@@ -66,11 +66,12 @@ export default new Vuex.Store({
   mutations: {
     LOGIN_USER(state, value) {
       state.user = value[0]
-      localStorage.setItem('user', JSON.stringify(state.user))
+    },
+    LOGOUT_USER(state) {
+      state.user = {}
     },
     SET_USER_DATA(state, userData) {
       state.user = userData
-      localStorage.setItem('user', JSON.stringify(userData))
       axios.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${userData.token}`
@@ -194,6 +195,9 @@ export default new Vuex.Store({
     },
     loginUser({ commit }, [mark]) {
       commit('LOGIN_USER', [mark])
+    },
+    logoutUser({ commit }) {
+      commit('LOGOUT_USER')
     },
   },
 })

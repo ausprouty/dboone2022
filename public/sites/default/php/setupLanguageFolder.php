@@ -84,7 +84,7 @@ function XsetupLanguageFolder($p){
         $p['scope'] = 'library';
         $existing = getLatestContent($p);
 
-        if (!isset($existing['content'])){
+        if (!isset($existing)){
             $debug .= 'not in database' . "\n";
             $p['text'] = file_get_contents($source);
             $p['filename']= 'library';
@@ -94,7 +94,7 @@ function XsetupLanguageFolder($p){
 			$p['scope'] = 'library';
 			$existing = getLatestContent($p);
         }
-        $output['content']= $existing;
+        $out= $existing;
 
 	}
 	else{

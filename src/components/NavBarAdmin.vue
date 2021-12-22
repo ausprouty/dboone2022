@@ -133,7 +133,7 @@ export default {
           })
           break
         case 'logout':
-          this.user = null
+          this.$store.dispatch('logoutUser')
           this.$router.push({
             name: 'login',
           })

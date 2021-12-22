@@ -3,9 +3,9 @@
 //// add content to database
 function createContent($p){
 	$debug = "\n\n\n\n\n" . 'In createContent'. "\n";
-	$text = isset($p['text']) ? $p['text'] :NULL;
+	$text = isset($p['text']) ? $p['text'] : NULL;
 	if (!$text){
-		$message = "in createContent '$p[text] can not be null' ";
+		$message = "in createContent $p[text] can not be null";
         trigger_error( $message, E_USER_ERROR);
         die;
 	}
@@ -30,7 +30,7 @@ function createContent($p){
 			('$version','$edit_date','$my_uid','$language_iso',
 			'$country_code','$folder_name','$filetype','$title','$filename','$page','$text')";
 		$result = $conn->query($sql);
-		if(!$result)
+		if(!$result){
 			$message = "Could not add Content ";
         	trigger_error( $message, E_USER_ERROR);
 

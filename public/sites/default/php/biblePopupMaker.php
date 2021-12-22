@@ -95,11 +95,7 @@ function biblePopupMaker($p){
     createContent($p);
     $p['scope'] = 'page';
     unset($p['recnum']);
-    $res = getLatestContent($p);
-    if ($res['debug']){
-        $debug .= $res['debug'];
-    }
-    $out = $res['content'];
+    $out = getLatestContent($p);
     return $out;
 }
 function _removeH3($text) {

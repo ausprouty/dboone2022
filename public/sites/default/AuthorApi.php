@@ -45,7 +45,7 @@ if (isset($p['page'])){
 	$debug .= 'MyPage: ' . myFile($p['page'] . '.php') . "\n";
 }
 $debug .= $p['action'] .  " is action\n";
-writelog ($p['action'] . 'parameters', $p);
+writelog ($p['action'] . '-parameters', $p);
 if (isset($p['action'])){
 	// login routine
 	if ($p['action'] == 'login'){
@@ -57,25 +57,31 @@ if (isset($p['action'])){
 		if (!isset($p['token'])){
 			$message = "Token is not set";
 			$debug .= $message;
-            trigger_error( $message, E_USER_ERROR);
-			die;
+			// TODO: remove this
+            //trigger_error( $message, E_USER_ERROR);
+			//die;
+			$p['token'] = LOCAL_TOKEN;
 		}
 		$ok = myApiAuthorize($p['token']);
 		unset($p['token']);  // so it will not be sent back
 		if($ok){
+			writeLog($p['action'] . '-authorized',   $debug);
 			myRequireOnce ('dirMake.php');
 			$debug .= " we are OK \n";
 			if (isset($p['page'])){
 				$p['page'] = myFile($p['page'] . '.php');
 				if (file_exists($p['page'])){
+					writeLog($p['action'] . '-required',   $debug);
 					$debug .= 'I am adding page ' . $p['page']  . "\n";
 					require_once ($p['page'] );
 					$action = $p['action'];
 					$debug .= 'action is '  . $action ."\n";
 					$out = $action ($p);
+					writeLog($p['action'] . '-completed',   $debug);
 				}
 				else{
 					$message = $p['page']  . " does not exist";
+					writeLog($p['action'] . 'error',  $message);
 					$debug .= $message;
                     trigger_error( $message, E_USER_ERROR);
 				}
@@ -84,9 +90,7 @@ if (isset($p['action'])){
 				$message = $p['page']  . "is not set";
 				$debug .= $message;
                 trigger_error( $message, E_USER_ERROR);
-
 			}
-
 		}
 		else{
 			$message = "Not Authorized";

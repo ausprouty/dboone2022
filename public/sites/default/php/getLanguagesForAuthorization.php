@@ -3,7 +3,7 @@
 function getLanguagesForAuthorization($p){
     $available = [];
 
-    $debug = "\n\n\n\n\n". 'In getLanguagesForAuthorization '. "\n";
+    $debug = 'In getLanguagesForAuthorization '. "\n";
     // flags
     $sql = "SELECT * FROM content
                 WHERE filename = 'countries'
@@ -13,21 +13,37 @@ function getLanguagesForAuthorization($p){
     $countries_array = json_decode($data['text']);
     //find prototype countries data
     //
-    $sql = "SELECT distinct country_code FROM content
-        WHERE  prototype_date != ''
-        AND country_code != '' ";
+    if ($p['destination']=='prototype'){
+        $sql = "SELECT distinct country_code FROM content
+            WHERE  prototype_date != ''
+            AND country_code != '' ";
+    }
+    else{
+         $sql = "SELECT distinct country_code FROM content
+            WHERE  prototype_date != '' AND publish_date != ''
+            AND country_code != '' ";
+    }
     $query = sqlMany($sql);
     while($country = $query->fetch_array()){
         // get prototyped languages from each prototyped country
-        $sql = "SELECT * FROM content
-            WHERE  country_code = '". $country['country_code'] ."'
-            AND filename = 'languages'  AND prototype_date != ''
-            ORDER BY recnum DESC LIMIT 1";
+        if ($p['destination']=='prototype'){
+            $sql = "SELECT * FROM content
+                WHERE  country_code = '". $country['country_code'] ."'
+                AND filename = 'languages'  AND prototype_date != ''
+                ORDER BY recnum DESC LIMIT 1";
+        }
+        else{
+            $sql = "SELECT * FROM content
+                WHERE  country_code = '". $country['country_code'] ."'
+                AND filename = 'languages'  AND prototype_date != ''
+                AND publish_date != ''
+                ORDER BY recnum DESC LIMIT 1";
+        }
         $data = sqlArray($sql);
         $text = json_decode($data['text']);
         if (!isset($text->languages)){
             $message = 'in getLanguagesForAuthorization $text->languages not found for ' . $country['country_code'];
-            trigger_error( $message, E_USER_ERROR);
+            writeLogError('getLanguagesForAuthorization-46' , $message );
         }
         else{
             foreach ($text->languages as $language){

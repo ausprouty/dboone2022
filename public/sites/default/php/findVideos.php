@@ -27,8 +27,7 @@ while($data = $query->fetch_array()){
     $video = '';
     $video_ref = '';
     $p['filename'] = $data['filename'];
-    $response = getLatestContent($p);
-    $page = $response['content'];
+    $page = getLatestContent($p);
     $text = $page['text'];
 
     if (strpos($text, '<div class="reveal bible">') !== FALSE){

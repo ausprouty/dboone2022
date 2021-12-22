@@ -17,6 +17,15 @@ function writeLog($filename, $content){
     fclose($fh);
 
 }
+function writeLogError($filename, $content){
+	$text = var_dump_ret($content);
+    if (!file_exists(ROOT_LOG)){
+		mkdir(ROOT_LOG);
+	}
+	$fh = fopen(ROOT_LOG . $filename . '.txt', 'w');
+	fwrite($fh, $text);
+    fclose($fh);
+}
 
 function var_dump_ret($mixed = null) {
   ob_start();

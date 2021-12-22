@@ -54,27 +54,14 @@ function bookmark ($p){
          // writeLog ('bookmark-53-country-', $debug);
 
         if ($b['language_iso']){
-            $response = checkBookmarkLanguage($b);
-            $b ['bookmark'] ['language'] = $response['content'];
-            $debug .=  $response['debug']. "\n";
-            // writeLog ('bookmark-59-language', $debug);
-
+            $b ['bookmark'] ['language']  = checkBookmarkLanguage($b);
             if (isset($b['library_code'])){
-                $response = checkBookmarkLibrary($b);
-                $b['bookmark']['library']  = $response['content'];
-                $debug .=  $response['debug']. "\n";
-
+                $b['bookmark']['library'] = checkBookmarkLibrary($b);
                 if ($b['folder_name']){
-                    $response = checkBookmarkSeries($b);
-                    $b['bookmark']['series'] = $response['content'];
-                    $debug .=  $response['debug']. "\n";
-                    $response = checkBookmarkBook($b);
-                    $b['bookmark']['book'] = $response['content'];
-                    $debug .=  $response['debug']. "\n";
+                     $b['bookmark']['series'] = checkBookmarkSeries($b);
+                     $b['bookmark']['book'] = checkBookmarkBook($b);
                     if ($b['filename']){
-                        $response = checkBookmarkPage($b);
-                        $b['bookmark']['page'] = $response['content'];
-                        $debug .=  $response['debug'];
+                       $b['bookmark']['page'] = checkBookmarkPage($b);
                     }
                 }
             }
@@ -97,7 +84,7 @@ function checkBookmarkCountry($b){
     $out = null;
     $b['scope'] = 'countries';
     $content = getLatestContent($b);
-    $response = json_decode($content['text']);
+    $response = json_decode($content);
     if (!$response){
         writeLog('checkBookmarkCountry', $debug);
         trigger_error("No response in checkBookmarkCountry", E_USER_ERROR);
@@ -115,7 +102,7 @@ function checkBookmarkLanguage($b){
    $out = null;
     $b['scope'] = 'languages';
     $content = getLatestContent($b);
-    $response = json_decode( $content['text']);
+    $response = json_decode( $content);
     if (!$response){
         writeLog('ERROR - checkBookmarkLanguage', $debug);
         trigger_error("No response in checkBookmarkLanguage", E_USER_ERROR);
@@ -134,13 +121,12 @@ function checkBookmarkLanguage($b){
 }
 // no longer used
 function checkBookmarkLibraries($b){
-
-    $debug = 'in checkBookmarkLibraries'. "\n";
+   $debug = 'in checkBookmarkLibraries'. "\n";
    $out = null;
     $b['scope'] = 'libraryNames';
     // find possible libraries with books
     $content = getLatestContent($b);
-    $names = json_decode( $content['text']);
+    $names = json_decode( $content);
     if (!$names){
         writeLog('checkBookmarkLibraries', $debug);
         trigger_error("No names in checkBookmarkLibraries", E_USER_ERROR);
@@ -150,7 +136,7 @@ function checkBookmarkLibraries($b){
             $b['library_code'] = $name;
             $b['scope'] = 'library';
             $content = getLatestContent($b);
-            $response = json_decode($content['text']);
+            $response = json_decode($content);
             $books = $response->books;
             foreach($books as $book){
                 $out[] = $book;
@@ -170,7 +156,7 @@ function checkBookmarkLibrary($b){
     }
     $content = getLatestContent($b);
 
-    $library = json_decode($content['text']);
+    $library = json_decode($content);
     if (!$library){
         writeLog('ERROR - checkBookmarkLibrary-parameters', $b);
         writeLog('ERROR - checkBookmarkLibrary-debug', $debug);
@@ -221,9 +207,8 @@ function checkBookmarkSeries($b){
      $out = null;
     $b['scope'] = 'series';
     $content = getLatestContent($b);
-    $debug .= $res['debug'];
-    $debug .= 'response is'.  $content['text'] ."\n";
-    $response = json_decode($content['text']);
+    $debug .= 'response is'.  $content ."\n";
+    $response = json_decode($content);
     if (!$response){
         writeLog('checkBookmarkSeries', $debug);
         trigger_error("No response in checkBookmarkSeries", E_USER_ERROR);
