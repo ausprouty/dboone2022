@@ -16,5 +16,6 @@ function publishDestination ($p){
       return ROOT_USB;
   }
   $message= 'In publishDestination invalid destination:  ' . $p['destination'];
+  writeLogError('publishDestination', $message);
   trigger_error($message, E_USER_ERROR);
 }

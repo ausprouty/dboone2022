@@ -62,7 +62,7 @@ function publishPage ($p){
     $text = modifyPage($text, $p, $data, $bookmark);
     writeLog ('publishPage-62', $text);
     // write file
-    $series_dir = publishDestination($p) .  $data['country_code'] .'/'.
+    $series_dir = publishDestination($p) . 'content/'. $data['country_code'] .'/'.
         $data['language_iso'] .'/'. $data['folder_name'] .'/';
     $fname = $series_dir . $data['filename'] .'.html';
     $text .= '<!--- Created by publishPage-->' . "\n";

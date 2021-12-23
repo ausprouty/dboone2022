@@ -29,7 +29,7 @@ function  publishFindFilesInPage($text){
             //    if (!isset($p['message'])){
             //        $out['message'] = '';
             //    }
-            //    $out['message'] .= "$mine not found in prototypeCopyImagesAndStyles \n";
+            //    $out['message'] .= "$mine not found in publishCopyImagesAndStyles \n";
             ////    $out['error'] = true;
 
             //}

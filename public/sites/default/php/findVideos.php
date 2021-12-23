@@ -5,6 +5,7 @@ myRequireOnce ('.env.cors.php');
 myRequireOnce ('bibleDbtArray.php');
 myRequireOnce ('getLatestContent.php');
 myRequireOnce ('sql.php');
+myRequireOnce ('writeLog.php');
 
 $debug = "In Find VideO<br>\n";
 $p = array(
@@ -62,7 +63,7 @@ while($data = $query->fetch_array()){
     }
 
 }
-_writeThisLog('findVideo', $debug);
+writeLog('findVideo-66', $debug);
 echo nl2br($debug);
 return;
 
@@ -126,17 +127,3 @@ function _revealBible($text, $filename){
 }
 
 
-function _writeThisLog($filename, $content){
-	if (!is_array($content)){
-		$text = $content;
-	}
-	else{
-		$text = '';
-		foreach ($content as $key=> $value){
-			$text .= $key . ' => '. $value . "\n";
-		}
-	}
-	$fh = fopen(ROOT_LOG . $filename . '.txt', 'w');
-	fwrite($fh, $text);
-    fclose($fh);
-}

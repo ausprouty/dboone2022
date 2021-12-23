@@ -45,7 +45,6 @@ function createPage($p, $content){
                 writeLog('createPage-45-pagetitle',  $page_title_and_image_value);
             }
         }
-
         // you do not have an image to insert
         if (!isset($page_title_and_image_value)){
             $title = $bookmark['page']->title;
@@ -69,7 +68,7 @@ function createPage($p, $content){
 
         }
     }
-    writeLog('createPage-469-debug', $debug);
+    writeLog('createPage-72-debug', $debug);
     // values for page that is not part of a series
     if ($bookmark['book']->format == 'page'){
         $debug .= 'This is a page' . "\n";
@@ -100,14 +99,14 @@ function createPage($p, $content){
         $page_title_and_image_value  = '<img  src ="'. $img  .  '"/>';
         $page_title_and_image_value .= '<h1>'. $bookmark['book']->title . '</h1>';
     }
-
+   writeLog('createPage-103-debug', $debug);
     if (!isset($this_template)){
         $debug .= 'FATAL ERROR. No Page Template for recnum'. $p['recnum'] . "\n";
         writeLog('createPage-77-debug', $debug);
         writeLogError('createPage', $debug);
         return NULL;
     }
-
+    writeLog('createPage-109-debug', $debug);
     $local_js = '<script> This is my script </script>';
     $dir_value = $bookmark['language']->rldir;
     $card_style_value = '/sites/default/styles/cardGLOBAL.css';

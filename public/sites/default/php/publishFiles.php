@@ -10,20 +10,20 @@ myRequireOnce ('modifyHeaders.php');
 myRequireOnce ('modifyImages.php');
 myRequireOnce ('publishCopyImagesAndStyles.php');
 myRequireOnce ('publishLanguageFooter.php');
-myRequireOnce ('publishRemoveDuplicateCSS.php');
+myRequireOnce ('publishCSS.php');
 myRequireOnce ('version2Text.php');
 myRequireOnce ('writeLog.php');
 
 
-// $scope must be 'publish' or 'publish'
-function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css){
+// destination must be 'staging', 'publish', or USB
+function publishFiles( $destination , $p, $fname, $text, $standard_css, $selected_css){
 
     $debug = 'In publishFiles with: ' . $fname .  "\n";
-    writeLog('publishFiles-22', $debug);
+    writeLog('publishFiles-22-fname', $debug);
     // start with header
     $output = myGetPrototypeFile('header.html');
     //$debug .= "\n". 'publishFiles' . "\n";
-     writeLog('publishFiles-26', $output);
+     writeLog('publishFiles-26-header', $output);
     // add onload only if files are here
     $onload_note_js = '';
     if (strpos($text, '<form') !== false){
@@ -43,7 +43,7 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
     else{
         $headers= '';
     }
-    if ($scope != 'staging'){
+    if ($destination != 'staging'){
         // class="nobreak" need to be changed to class="nobreak-final" so color is correct
         $text = str_ireplace("nobreak", "nobreak-final", $text);
     }
@@ -69,21 +69,23 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
     $output = str_replace($placeholders, $replace,  $output);
     // insert text
     $output .= $text;
-     writeLog('publishFiles-72', $output);
+     writeLog('publishFiles-72-text', $output);
     // remove dupliate CSS
-    $output = publishRemoveDuplicateCSS($output);
-     writeLog('publishFiles-75', $output);
+    $output = publishCSS($output, $p);
+     writeLog('publishFiles-75-text', $output);
     // append footer
     $output .= myGetPrototypeFile('footer.html');
-     writeLog('publishFiles-78', $output);
+     writeLog('publishFiles-78-text', $output);
     // copy all images and styles to the publish directory
-    //$response = publishCopyImagesAndStyles($output, $scope);
-    $output = modifyImages($output, $scope);
-    writeLog('publishFiles-82', $output);
+    //$response = publishCopyImagesAndStyles($output, $destination);
+    $d['destination'] =$destination;
+    $output = modifyImages($output, $d);
+    writeLog('publishFiles-82-text', $output);
     $output = makePathsRelative($output, $fname);
-    writeLog('publishFiles-84', $output);
+    writeLog('publishFiles-84-text', $output);
 
     // make sure we have all the necessary directories
+    writeLog('publishFiles-88-filename', $fname);
     dirMake($fname);
     // write the file
     $fh = fopen($fname, 'w');
