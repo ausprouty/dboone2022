@@ -44,7 +44,7 @@ function publishLanguages($p){
             AND filename = 'languages'
             AND publish_date IS NULL";
         }
-        if ($p['destination'] == 'prototype'){
+        if ($p['destination'] == 'staging'){
              $sql = "UPDATE content
             SET prototype_date = '$time', prototype_uid = '". $p['my_uid'] . "'
             WHERE country_code = '". $p['country_code']. "'

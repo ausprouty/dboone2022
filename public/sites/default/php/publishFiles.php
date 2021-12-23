@@ -43,7 +43,7 @@ function publishFiles( $scope , $p, $fname, $text, $standard_css, $selected_css)
     else{
         $headers= '';
     }
-    if ($scope != 'prototype'){
+    if ($scope != 'staging'){
         // class="nobreak" need to be changed to class="nobreak-final" so color is correct
         $text = str_ireplace("nobreak", "nobreak-final", $text);
     }

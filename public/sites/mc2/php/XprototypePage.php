@@ -76,7 +76,7 @@ function prototypePage ($p){
     $p['debug'] .= $response['debug'];
     $text = $response['content'];
     // write file
-    $series_dir = ROOT_PROTOTYPE_CONTENT.  $data['country_code'] .'/'. 
+    $series_dir = ROOT_STAGING_CONTENT.  $data['country_code'] .'/'. 
         $data['language_iso'] .'/'. $data['folder_name'] .'/';
     $fname = $series_dir . $data['filename'] .'.html';
     $text .= '<!--- Created by prototypePage for MC2 -->' . "\n";

@@ -11,7 +11,7 @@ myRequireOnce ('writeLog.php');
 function publishPage ($p){
 
     $debug = 'In publishPage' . "\n";
-    writeLog ('publishPage-14', $debug);
+    writeLog ('publishPage-14-p', $p);
     if (!isset($p['recnum'])){
        $message = "in PublishPage no value for recnum ";
         trigger_error( $message, E_USER_ERROR);
@@ -27,20 +27,20 @@ function publishPage ($p){
     foreach ($data as $key=>$value){
         $debug .= $key . ' => '. $value . "\n";
     }
-    writeLog ('publishPage-30', $debug);
+    writeLog ('publishPage-30-debug', $debug);
     $text  = createPage($p, $data);
     writeLog ('publishPage-32', $text);
     //
     // find files in page for series json file
     //
     $result  = publishFindFilesInPage($text, $p['destination']);
-     writeLog ('publishPage-37', $result);
+     writeLog ('publishPage-37-result', $result);
     if (isset($result['files_in_page'])){
         foreach ($result['files_in_page'] as $file_found){
             $debug .=  $file_found . "\n";
         }
     }
-    writeLog ('publishPage-43', $debug);
+    writeLog ('publishPage-43-debug', $debug);
     $p['files_in_page'] = isset($result['files_in_page']) ? $result['files_in_page'] : [];
     $p['files_in_page'] = array_merge($p['files_in_page'], $result['files_in_page']);
 
@@ -49,7 +49,7 @@ function publishPage ($p){
     $b['recnum'] =  $p['recnum'];
     $b['library_code'] = $p['library_code'];
     $bookmark = bookmark($b);
-    writeLog ('publishPage-52', $bookmark);
+    writeLog ('publishPage-52-bookmark', $bookmark);
 
     $selected_css = isset($bookmark['book']->style)? $bookmark['book']->style: STANDARD_CSS;
     //
@@ -58,7 +58,7 @@ function publishPage ($p){
      //
     // modify the page for notes and links
     //
-     writeLog ('p61ublishPage-', $text);
+     writeLog ('publishPage-61-text', $text);
     $text = modifyPage($text, $p, $data, $bookmark);
     writeLog ('publishPage-62', $text);
     // write file
@@ -66,10 +66,10 @@ function publishPage ($p){
         $data['language_iso'] .'/'. $data['folder_name'] .'/';
     $fname = $series_dir . $data['filename'] .'.html';
     $text .= '<!--- Created by publishPage-->' . "\n";
-    writeLog ('publishPage-69', $text);
+    writeLog ('publishPage-69-text', $text);
     // go to publishFiles
     publishFiles( $p['destination'], $p, $fname, $text,  STANDARD_CSS, $selected_css);
-    writeLog ('publishPage-72', $debug);//
+    writeLog ('publishPage-72-debug', $debug);//
     // update records
     //
     $time = time();
@@ -83,7 +83,7 @@ function publishPage ($p){
         AND filename = '". $data['filename'] . "'
         AND publish_date IS NULL";
     }
-    if ($p['destination'] == 'prototype'){
+    if ($p['destination'] == 'staging'){
         $sql = "UPDATE content
         SET prototype_date = '$time', prototype_uid = '". $p['my_uid']. "'
         WHERE  country_code = '". $data['country_code'] ."' AND
@@ -95,6 +95,7 @@ function publishPage ($p){
     if ($sql){
         sqlArray($sql, 'update');
     }
-    writeLog ('publishPage-93', $debug);
+    writeLog ('publishPage-98-debug', $debug);
+    writeLog ('publishPage-99-p', $p);
     return($p);
 }

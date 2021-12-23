@@ -1,13 +1,13 @@
 <?php
 /*
-define("ROOT_PROTOTYPE", '/home/globa544/staging.mc2.online/');
+define("ROOT_STAGING", '/home/globa544/staging.mc2.online/');
 define("ROOT_PUBLISH", '/home/globa544/app.mc2.online/');
 define("ROOT_USB", '/home/globa544/usb.mc2.online/');
 */
 
 function publishDestination ($p){
-    if($p['destination'] == 'prototype'){
-      return ROOT_PROTOTYPE;
+    if($p['destination'] == 'staging'){
+      return ROOT_STAGING;
   }
   if($p['destination'] == 'publish'){
       return ROOT_PUBLISH;

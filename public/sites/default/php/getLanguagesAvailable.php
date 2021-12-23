@@ -15,7 +15,7 @@ function getLanguagesAvailable($p){
     $countries_array = json_decode($data['text']);
     //find prototype countries data
     //
-    if ($p['destination']=='prototype'){
+    if ($p['destination']=='staging'){
         $sql = "SELECT distinct country_code FROM content
         WHERE  prototype_date != ''
         AND country_code != '' ";
@@ -30,7 +30,7 @@ function getLanguagesAvailable($p){
     writeLog('getLanguagesAvailable-22' ,$debug );
     while($country = $query->fetch_array()){
         // get prototyped languages from each prototyped country
-         if ($p['destination']=='prototype'){
+         if ($p['destination']=='staging'){
             $sql = "SELECT * FROM content
                 WHERE  country_code = '". $country['country_code'] ."'
                 AND filename = 'languages'  AND prototype_date != ''

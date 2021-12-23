@@ -57,9 +57,9 @@ function publishCountry($p){
     $p['selected_css'] = 'AU/styles/AU-freeform.css';
     // write coutnry file
     $body .= '<!--- Created by prototypeCountry-->' . "\n";
-    $p = prototypeWrite($p, $file, $body,   $p['standard_css'],  $p['selected_css']);
+    $p = publishWrite($p, $file, $body,   $p['standard_css'],  $p['selected_css']);
     $file = $language_dir_destination . '/index.html';
-    $p = prototypeWrite($p, $file, $body, $p['standard_css'], $p['selected_css']);
+    $p = publishWrite($p, $file, $body, $p['standard_css'], $p['selected_css']);
 
     //
     // update records
@@ -73,7 +73,7 @@ function publishCountry($p){
             AND folder_name = '' AND filename = 'index'
             AND publish_date IS NULL";
     }
-    if ($p['destination'] == 'prototype'){
+    if ($p['destination'] == 'staging'){
         $sql = "UPDATE content
             SET prototype_date = '$time', prototype_uid = '". $p['my_uid'] ."'
             WHERE  country_code = '" . $p['country_code'] ."'

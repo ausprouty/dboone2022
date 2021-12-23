@@ -30,7 +30,7 @@
     $conn->close();
     return $output;
  }
- 
+
 
 function sqlArray($sql, $update = NULL){
     $conn = new mysqli(HOST, USER, PASS, DATABASE_CONTENT, DATABASE_PORT);
@@ -38,7 +38,7 @@ function sqlArray($sql, $update = NULL){
         die("Connection has failed: " . $conn->connect_error);
     }
     $query = $conn->query($sql);
-   
+
     if (!$update){
         if ($query){
            $output =  $query->fetch_array();
@@ -51,7 +51,7 @@ function sqlArray($sql, $update = NULL){
         }
     }
     else{
-       $output =  $query; 
+       $output =  $query;
        $conn->close();
        return $output;
     }
@@ -100,20 +100,20 @@ function sqlText($sql, $update = NULL){
         }
     }
     else{
-       return $query; 
+       return $query;
     }
 }
-function jsonDecodedFromTextByRecnum($recnum){
-    $sql = "SELECT * FROM content 
+function jsonDecodedFromContentTextByRecnum($recnum){
+    $sql = "SELECT * FROM content
         WHERE  recnum = '$recnum'  LIMIT 1";
     $data = sqlArray($sql);
     $text = json_decode($data['text']);
     return $text;
 }
-function objectFromRecnum($recnum){
+function contentObjectFromRecnum($recnum){
     $output = null;
     if ($recnum){
-        $sql = "SELECT * FROM content 
+        $sql = "SELECT * FROM content
             WHERE  recnum = $recnum  LIMIT 1";
         $conn = new mysqli(HOST, USER, PASS, DATABASE_CONTENT, DATABASE_PORT);
         if ($conn->connect_error) {
@@ -136,7 +136,7 @@ function copyBook($p){
     if ($conn->connect_error) {
         die("Connection has failed: " . $conn->connect_error);
     }
-    
+
     $debug= '';
     if (!$p['source'] || !$p['destination']){
         return;
@@ -150,19 +150,19 @@ function copyBook($p){
     $country_code = $source[0];
     $language_iso = $source[1];
     $folder_name = $source[2];
-    $sql = "SELECT DISTINCT  filename 
-        FROM  content 
-        WHERE country_code = '$country_code' 
-        AND language_iso = '$language_iso' 
+    $sql = "SELECT DISTINCT  filename
+        FROM  content
+        WHERE country_code = '$country_code'
+        AND language_iso = '$language_iso'
         AND folder_name = '$folder_name'";
     $query = $conn->query($sql);
     while($data = $query->fetch_array()){
         $filename = $data['filename'];
         $debug .= 'filename is ' . $filename ."\n";
-        $sql2 = "SELECT * 
-            FROM  content 
-            WHERE country_code = '$country_code' 
-            AND language_iso = '$language_iso' 
+        $sql2 = "SELECT *
+            FROM  content
+            WHERE country_code = '$country_code'
+            AND language_iso = '$language_iso'
             AND folder_name = '$folder_name'
             AND filename = '$filename'
             ORDER BY recnum DESC

@@ -8,7 +8,7 @@ function createSeries($p, $data){
     $text = json_decode($data['text']);
     // $debug .= "\n\n In prototypeSeries\n";
      // get language footer in prototypeOEpublish.php
-    $footer = prototypeLanguageFooter($p); // returns $footer
+    $footer = publishLanguageFooter($p); // returns $footer
     $b['recnum'] = $p['recnum'];
     $b['library_code'] = $p['library_code'];
     $bookmark  = bookmark($b);
@@ -65,7 +65,7 @@ function createSeries($p, $data){
         $book_image =  '/content/'. $bookmark['language']->image_dir .'/' . $bookmark['book']->image ;
     }
      // get language footer in prototypeOEpublish.php
-    $footer = prototypeLanguageFooter($p); // returns  $footer
+    $footer = publishLanguageFooter($p); // returns  $footer
     //
     $replace = array(
         $bookmark['language']->rldir,

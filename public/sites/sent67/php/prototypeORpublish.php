@@ -181,7 +181,7 @@ function _copyImagesAndStyles($text, $scope){
     $source_dir = ROOT_EDIT;
     switch ($scope){
         case 'prototype':
-            $destination_dir = ROOT_PROTOTYPE;
+            $destination_dir = ROOT_STAGING;
             break;
         case 'publish':
             $destination_dir = ROOT_PUBLISH;

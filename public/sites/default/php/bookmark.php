@@ -7,16 +7,14 @@ myRequireOnce ('publishFiles.php');
 myRequireOnce ('writeLog.php');
 
 /* returns bookmark values
-
    requires: $p['recnum'] and $p['library_code];
-
    returns array $bookmark
 
 */
 function bookmark ($p){
     $debug = 'I entered Bookmark' . "\n";
     $b['bookmark'] = null;
-    writeLog ('bookmark-20-', $p);
+    writeLog ('bookmark-20-p', $p);
 
 
     if (isset($p['recnum'])){
@@ -25,7 +23,8 @@ function bookmark ($p){
         $debug .= 'library_code ' . $b['library_code'] . "\n\n";
         // find other parameters for bookmark from recnum
         $debug .= 'recnum is ' . $p['recnum'] . "\n";
-        $starting = objectFromRecnum($p['recnum']);
+        $starting = contentObjectFromRecnum($p['recnum']);
+        writeLog ('bookmark-29-starting', $starting);
         $b['country_code'] = $starting->country_code;
         $debug .= 'b[country_code] is ' . $b['country_code'] . "\n";
         $b['language_iso'] = $starting->language_iso;
@@ -46,7 +45,7 @@ function bookmark ($p){
         $b['filename'] = isset($p['filename'])?$p['filename']:null;
         if ($b['folder_name'] =='undefined') {$b['folder_name']  = null;}
     }
-  writeLog ('bookmark-48-', $b);
+    writeLog ('bookmark-48-b', $b);
     if ($b['country_code']){
         $b['bookmark']['country'] = checkBookmarkCountry($b);
         if ($b['language_iso']){
@@ -93,9 +92,8 @@ function checkBookmarkCountry($b){
     return $out;
 }
 function checkBookmarkLanguage($b){
-
     $debug = 'in checkBookmarkLanguage'. "\n";
-   $out = null;
+    $out = null;
     $b['scope'] = 'languages';
     $content = getLatestContent($b);
     $response = json_decode( $content);

@@ -21,7 +21,7 @@ function publishLanguagesAvailable($p){
     $debug .= 'Data for Country Flags' . "\n";
     $debug .= $data['text']. "\n\n";
     $countries_array = json_decode($data['text']);
-   // $footer = prototypeLanguageFooter($p);
+   // $footer = publishLanguageFooter($p);
     // get main template
      $main_template = $book_template = myGetPrototypeFile('languagesAvailable.html');
     //

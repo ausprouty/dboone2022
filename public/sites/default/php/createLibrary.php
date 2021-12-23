@@ -56,7 +56,7 @@ function createLibrary($p, $text) {
         $link = $country_index;
     }
     // get language footer in prototypeOEpublish.php
-    $footer = prototypeLanguageFooter($p);
+    $footer = publishLanguageFooter($p);
 
     $placeholders = array(
         '{{ link }}',

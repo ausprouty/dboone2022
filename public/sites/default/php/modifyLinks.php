@@ -11,11 +11,11 @@ function modifyLinks($text){
     if (strpos($text, $find) !== false){
         $text = modifyEditLinks($text, $find);
     }
-    if (WEBADDRESS_PROTOTYPE){
-        $find = '<a href="' . WEBADDRESS_PROTOTYPE;  //
+    if (WEBADDRESS_STAGING){
+        $find = '<a href="' . WEBADDRESS_STAGING;  //
         $debug .= 'Find is '. $find ."\n";
         if (strpos($text, $find) !== false){
-             $text  =  modifyPrototypeAndFinalLinks($text, WEBADDRESS_PROTOTYPE);
+             $text  =  modifyPrototypeAndFinalLinks($text, WEBADDRESS_STAGING);
         }
     }
     if (WEBADDRESS_FINAL){

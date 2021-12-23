@@ -27,6 +27,9 @@ export default {
       test: '',
       result: '',
       test_options: [
+        'testPrototypePage',
+        'testPublishPage',
+        'testUSBPage',
         'testBibleABSUpdate',
         'testBibleABSnew',
         'testBibleDBTUpdate',
@@ -55,9 +58,6 @@ export default {
         'testSetupLanguageFolder',
         'testSeries',
         'testGetPage',
-        'testPrototypePage',
-        'testPublishPage',
-        'testUSBPage',
       ],
     }
   },
@@ -286,7 +286,8 @@ export default {
       params.country_code = 'M2'
       params.language_iso = 'eng'
       params.folder_name = 'multiply1'
-      params.filename = 'multiply104'
+      params.filename = 'multiply105'
+      params.library_code = 'library'
       params.scope = 'page'
       var content = await AuthorService.getPageOrTemplate(params)
       params.recnum = content.recnum
@@ -298,7 +299,8 @@ export default {
       params.country_code = 'M2'
       params.language_iso = 'eng'
       params.folder_name = 'multiply1'
-      params.filename = 'multiply104'
+      params.filename = 'multiply105'
+      params.library_code = 'library'
       params.scope = 'page'
       var content = await AuthorService.getPageOrTemplate(params)
       params.recnum = content.recnum
@@ -310,7 +312,8 @@ export default {
       params.country_code = 'M2'
       params.language_iso = 'eng'
       params.folder_name = 'multiply1'
-      params.filename = 'multiply104'
+      params.filename = 'multiply105'
+      params.library_code = 'library'
       params.scope = 'page'
       var content = await AuthorService.getPageOrTemplate(params)
       params.recnum = content.recnum

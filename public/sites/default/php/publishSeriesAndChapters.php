@@ -16,7 +16,7 @@ function publishSeriesAndChapters ($p){
     //$debug .= 'In prototypeSeriesAndChapters '. "\n";
 
     // find the list of chapters that are ready to publish
-    $series = objectFromRecnum($p['recnum']);
+    $series = contentObjectFromRecnum($p['recnum']);
     $series_dir = publishDestination($p) .  $series->country_code . '/'. $series->language_iso . '/'. $series->folder_name . '/';
     // make sure folder exists
     if (!file_exists( $series_dir)){

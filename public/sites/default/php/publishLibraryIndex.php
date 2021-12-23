@@ -53,7 +53,7 @@ function publishLibraryIndex($p){
     //
     $time = time();
     $sql = null;
-    if ($p['destination'] == 'prototype'){
+    if ($p['destination'] == 'staging'){
         $sql = "UPDATE content
             SET prototype_date = '$time', prototype__uid = '". $p['my_uid'] ."'
             WHERE  country_code = '" . $p['country_code'] ."'
