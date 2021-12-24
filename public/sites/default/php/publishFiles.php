@@ -9,6 +9,7 @@ myRequireOnce ('makePathsRelative.php');
 myRequireOnce ('modifyHeaders.php');
 myRequireOnce ('modifyImages.php');
 myRequireOnce ('publishCopyImagesAndStyles.php');
+myRequireOnce ('publishFilesInPage.php');
 myRequireOnce ('publishLanguageFooter.php');
 myRequireOnce ('publishCSS.php');
 myRequireOnce ('version2Text.php');
@@ -75,17 +76,17 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
      writeLog('publishFiles-75-text', $output);
     // append footer
     $output .= myGetPrototypeFile('footer.html');
-     writeLog('publishFiles-78-text', $output);
+     writeLog('publishFiles-78-myGetPrototypeFile-text', $output);
     // copy all images and styles to the publish directory
     //$response = publishCopyImagesAndStyles($output, $destination);
+
     $d['destination'] =$destination;
     $output = modifyImages($output, $d);
-    writeLog('publishFiles-82-text', $output);
+    writeLog('publishFiles-86-modifyImages-text', $output);
     $output = makePathsRelative($output, $fname);
-    writeLog('publishFiles-84-text', $output);
+    writeLog('publishFiles-88-text', $output);
 
     // make sure we have all the necessary directories
-    writeLog('publishFiles-88-filename', $fname);
     dirMake($fname);
     // write the file
     $fh = fopen($fname, 'w');
@@ -100,5 +101,5 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
 
     }
     writeLog('publishFiles-100', $output);
-    return $out;
+    return $output;
 }

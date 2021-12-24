@@ -29,7 +29,7 @@ function modifyContentImages($text, $p){
     //define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
     $destination_dir = publishDestination($p);
     $debug = 'In modifyContentImages' . "\n";
-    $debug .= $destination . "\n";
+    $debug .= $p['destination'] . "\n";
     $debug .= $text . "\n\n ============ End of Text ==============\n";
      writeLog('modifyContentImages-params', $debug);
     //  "sites/generations
@@ -81,7 +81,7 @@ function copySiteImages($text, $p){
     //define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
     $destination_dir = publishDestination($p);
     $debug = 'In copySiteImages' . "\n";
-    $debug .= $destination . "\n";
+    $debug .= $p['destination'] . "\n";
     $debug .= $text . "\n\n ============ End of Text ==============\n";
      writeLog('copySiteImages-params', $debug);
     $sites = array(DIR_SITE, DIR_DEFAULT_SITE);
@@ -102,7 +102,7 @@ function copySiteImages($text, $p){
             $debug .= $from . "\n";
             writeLog('copySiteImages-103-from-'. $i, $from);
             if (file_exists($from)){
-                $to = $destination_dir. str_ireplace($remove, '', $filename);
+                $to = $destination_dir.  $filename;
                 $to = str_ireplace('//', '/', $to);
                 writeLog('copySiteImages-107-to-'. $i, $to);
                 createDirectory($to);

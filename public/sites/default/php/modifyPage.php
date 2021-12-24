@@ -38,6 +38,9 @@ function modifyPage($text, $p, $data, $bookmark){
     }
     $debug .= 'end of bookmark'. "\n";
     $debug .= 'read is ' . isset($bookmark['language']->read) ? $bookmark['language']->read : 'Not Set' . "\n";
+
+    $text= version2Text($text);
+    writeLog('modifyPages-43-version2text', $output);
     //
     // modify note fields
     //

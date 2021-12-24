@@ -3,7 +3,7 @@
    You want to remove duplicates
     <link rel="stylesheet" href="/sites/default/styles/cardGLOBAL.css" />
 */
-myRequireOnce ('//writeLog.php');
+myRequireOnce ('writeLog.php');
 
 function publishCSS($text, $p){
     //writeLog('publishCSS-9-text', $text);
@@ -65,7 +65,7 @@ function publishCSS($text, $p){
             // do not copy html files or you will overwrite current index page
             if (!is_dir($from) && strpos ($to, '.html') === false){
                 copy ($from, $to );
-                $message = ' publishCSS copied ' . $filename . ' from' . $from . ' to '. $to . "\n";
+                $message = ' publishCSS copied ' . $source . ' from' . $from . ' to '. $to . "\n";
                 //writeLog('publishCSS-69- copy-'. $count, $message);
             }
         }
