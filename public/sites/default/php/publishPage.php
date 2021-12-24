@@ -30,21 +30,7 @@ function publishPage ($p){
     writeLog ('publishPage-30-debug', $debug);
     $text  = createPage($p, $data);
     writeLog ('publishPage-32', $text);
-    //
-    // find files in page for series json file
-    //
-    $result  = publishFindFilesInPage($text, $p['destination']);
-     writeLog ('publishPage-37-result', $result);
-    if (isset($result['files_in_page'])){
-        foreach ($result['files_in_page'] as $file_found){
-            $debug .=  $file_found . "\n";
-        }
-    }
     writeLog ('publishPage-43-debug', $debug);
-    $p['files_in_page'] = isset($result['files_in_page']) ? $result['files_in_page'] : [];
-    $p['files_in_page'] = array_merge($p['files_in_page'], $result['files_in_page']);
-
-
      // get bookmark for stylesheet
     $b['recnum'] =  $p['recnum'];
     $b['library_code'] = $p['library_code'];
@@ -69,6 +55,8 @@ function publishPage ($p){
     writeLog ('publishPage-69-text', $text);
     // go to publishFiles
     publishFiles( $p['destination'], $p, $fname, $text,  STANDARD_CSS, $selected_css);
+    // make sure  all files are copied to destination directory
+    publishFilesInPage($text, $p);
     writeLog ('publishPage-72-debug', $debug);//
     // update records
     //

@@ -5,7 +5,7 @@
 
 //define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
 
-function  publishFindFilesInPage($text){
+function  publishFilesInPage($text, $p){
     $out['files_in_page'] = [];
     $find_begin = '"/content/';
     $find_end = '"';
