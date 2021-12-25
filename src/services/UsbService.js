@@ -22,7 +22,7 @@ export default {
     params.location = process.env.VUE_APP_LOCATION
     params.my_uid = store.state.user.uid
     params.token = store.state.user.token
-    params.destination = 'usb'
+    params.destination = 'sdcard'
     switch (scope) {
       case 'bookmark':
         action = 'AuthorApi.php?page=bookmark&action=bookmark'

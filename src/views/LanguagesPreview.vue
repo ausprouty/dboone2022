@@ -8,7 +8,9 @@
         <button class="button" @click="localPublish('live')">
           {{ this.publish_text }}
         </button>
-        <button class="button" @click="makeUSB()">{{ this.usb_text }}</button>
+        <button class="button" @click="makeSDCard()">
+          {{ this.sdcard_text }}
+        </button>
       </div>
       <div v-if="this.prototype">
         <button class="button" @click="localPublish('prototype')">
@@ -83,7 +85,7 @@ export default {
       publishable: false,
       prototype_text: 'Prototype',
       publish_text: 'Publish',
-      usb_text: 'Make USB',
+      sdcard_text: 'Make SDCard',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       more_languages: 'More Languages',
       choose_language: 'Choose Language',
@@ -115,15 +117,15 @@ export default {
       var link = root + this.$route.params.country_code + '/languages.html'
       window.open(link, '_blank')
     },
-    async makeUSB() {
-      this.usb_text = 'Making USB'
+    async makeSDCard() {
+      this.sdcard_text = 'Making SDCard'
       var response = null
       var params = {}
       params.recnum = this.recnum
       params.route = JSON.stringify(this.$route.params)
-      response = await PublishService.publish('usb', params)
+      response = await PublishService.publish('sdcard', params)
       console.log(response)
-      this.usb_text = 'Making USB'
+      this.sdcard_text = 'Making SDCard'
     },
     async localPublish(location) {
       if (location == 'live') {

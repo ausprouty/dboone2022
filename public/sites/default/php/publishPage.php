@@ -4,7 +4,7 @@ myRequireOnce ('modifyPage.php');
 myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFiles.php');
 myRequireOnce ('publishFindFilesInPage.php');
-myRequireOnce ('//writeLog.php');
+myRequireOnce ('writeLog.php');
 
 
 
@@ -56,8 +56,7 @@ function publishPage ($p){
     //writeLog ('publishPage-69-text', $text);
     // go to publishFiles
     publishFiles( $p['destination'], $p, $fname, $text,  STANDARD_CSS, $selected_css);
-    // make sure  all files are copied to destination directory
-    publishFilesInPage($text, $p);
+
     //writeLog ('publishPage-72-debug', $debug);//
     // update records
     //
@@ -84,6 +83,7 @@ function publishPage ($p){
     if ($sql){
         sqlArray($sql, 'update');
     }
+    $p['url'] = publishPageContentURL($p);
     //writeLog ('publishPage-98-debug', $debug);
     //writeLog ('publishPage-99-p', $p);
     return($p);

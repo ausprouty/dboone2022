@@ -9,14 +9,21 @@ myRequireOnce('writeLog.php');
 
 function  publishFilesInPage($text, $p){
     writeLog ('publishFilesInPage-11-text', $text);
-    $files= [];
-    $debug = '';
-    $destination = publishDestination($p);
     $find_begin = 'src="';
+    publishFilesInPageFind($find_begin, $text, $p);
+    $find_begin = 'href="';
+    publishFilesInPageFind($find_begin, $text, $p);
+    return true;
+
+}
+
+function publishFilesInPageFind($find_begin, $text, $p){
+    $destination = publishDestination($p);
     $find_end = '"';
     if (strpos($text, $find_begin)!== false){
-        //$debug .= "Images found\n";
+        $count = 0;
         while (strpos($text, $find_begin) !== false){
+            $count++;
             $pos_begin = strpos($text, $find_begin);
             $text = substr($text, $pos_begin + 5);
             $pos_end = strpos($text, $find_end) -1;
@@ -36,19 +43,13 @@ function  publishFilesInPage($text, $p){
             }
             else{
               $message = "$from not found in publishFilesInPage";
-              writeLogError('PublishFilesInPage-' .$filename, $message );
+              writeLogError('PublishFilesInPage-'. $count , $message );
 
             }
             $text = substr($text, $pos_end);
            // $debug .= ' copied ' . $from . ' to '. $to . "\n";
         }
     }
-    else{
-        $message = "no files found ";
-        trigger_error( $message, E_USER_ERROR);
-    }
-     writeLog ('publishFilesInPage-49-copied', $debug);
-    writeLog ('publishFilesInPage-49-files', $files);
-    return true;
-
+    writeLog ('publishFilesInPageFind-54-'. $find_begin . 'copied', $debug);
+    writeLog ('publishFilesInPageFind-54-'. $find_begin . 'files', $files);
 }

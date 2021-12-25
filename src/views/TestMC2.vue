@@ -29,7 +29,7 @@ export default {
       test_options: [
         'testPrototypePage',
         'testPublishPage',
-        'testUSBPage',
+        'testSDCardPage',
         'testBibleABSUpdate',
         'testBibleABSnew',
         'testBibleDBTUpdate',
@@ -307,7 +307,7 @@ export default {
       var response = await PublishService.publish('page', params)
       return response
     },
-    async testUSBPage() {
+    async testSDCardPage() {
       var params = this.setupParams()
       params.country_code = 'M2'
       params.language_iso = 'eng'

@@ -1,6 +1,6 @@
 <?php
 
-    $dir = "M:/MC2/USB2020";
+    $dir = "M:/MC2/SDCARD2020";
     //header('Content-type: text/html; charset=utf-8');
     //echo nl2br("starting UBB\n");
     // listFolderFiles($dir);

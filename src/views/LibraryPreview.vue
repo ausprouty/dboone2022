@@ -10,9 +10,9 @@
           {{ this.publish_text }}
         </button>
       </div>
-      <div v-if="this.usb">
-        <button class="button" @click="localPublish('usb')">
-          {{ this.usb_text }}
+      <div v-if="this.sdcard">
+        <button class="button" @click="localPublish('sdcard')">
+          {{ this.sdcard_text }}
         </button>
       </div>
       <div v-if="this.prototype">
@@ -87,7 +87,7 @@ export default {
       readonly: false,
       write: false,
       publish: false,
-      usb: false,
+      sdcard: false,
       prototype_text: 'Prototype Library and Books',
       publish_text: 'Publish Library and Books',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
@@ -145,7 +145,7 @@ export default {
       } else if (location == 'prototype') {
         this.prototype_text = 'Prototyping'
       } else {
-        this.usb_text = 'Creating USB'
+        this.sdcard_text = 'Creating SDCard'
       }
       var response = null
       var params = {}
@@ -157,7 +157,7 @@ export default {
         response = await PrototypeService.publish('libraryAndBooks', params)
       } else if (location == 'live') {
         response = await PublishService.publish('libraryAndBooks', params)
-      } else if (location == 'usb') {
+      } else if (location == 'sdcard') {
         response = await UsbService.publish('libraryAndBooks', params)
       }
       if (response['error']) {
@@ -168,7 +168,7 @@ export default {
         } else if (location == 'prototype') {
           this.prototype_text = 'Error Prototyping'
         } else {
-          this.usb_text = 'Error Creating USB'
+          this.sdcard_text = 'Error Creating SDCard'
         }
       } else {
         //  this.UnsetBookmarks()

@@ -16,7 +16,7 @@ myRequireOnce ('version2Text.php');
 myRequireOnce ('writeLog.php');
 
 
-// destination must be 'staging', 'publish', or USB
+// destination must be 'staging', 'publish', or 'sdcard'
 function publishFiles( $destination , $p, $fname, $text, $standard_css, $selected_css){
 
     $debug = 'In publishFiles with: ' . $fname .  "\n";
@@ -83,8 +83,11 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     $d['destination'] =$destination;
     $output = modifyImages($output, $d);
     writeLog('publishFiles-86-modifyImages-text', $output);
+    // make sure  all files are copied to destination directory
+    publishFilesInPage($output, $d);
     $output = makePathsRelative($output, $fname);
-    writeLog('publishFiles-88-text', $output);
+    writeLog('publishFiles-88-makePathsRelative-text', $output);
+
 
     // make sure we have all the necessary directories
     dirMake($fname);

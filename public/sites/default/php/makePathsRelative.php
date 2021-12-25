@@ -3,6 +3,7 @@
 myRequireOnce ('writeLog.php');
 
 function makePathsRelative( $text, $filename){
+   writeLog('makePathsRelative-6-text', $text);
     $debug="$filename \n";
     $debug .= $text;
     $up ='../';
@@ -12,7 +13,7 @@ function makePathsRelative( $text, $filename){
        $replace .=$up;
     }
     $out= str_ireplace ('"\\', $replace, $text);
-    $debug .= "/n/n/n" . $out;
+    writeLog('makePathsRelative-16-text', $out);
      return $out;
 
 }

@@ -83,8 +83,8 @@ export default {
       case 'readyTopublishSeries':
         action = 'AuthorApi.php?page=readyTopublish&action=readyTopublishSeries'
         break
-      case 'usb':
-        action = 'AuthorApi.php?page=makeUSB&action=makeUSB'
+      case 'sdcard':
+        action = 'AuthorApi.php?page=makeSDCard&action=makeSDCard'
         break
       case 'default':
         action = null
