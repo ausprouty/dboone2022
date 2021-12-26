@@ -67,7 +67,7 @@ export default {
     },
     setupParams(){
         var params = {}
-        params.my_uid = this.user.uid
+        params.my_uid = store.state.user.uid
         return params
     },
     async testBibleABSUpdate() {

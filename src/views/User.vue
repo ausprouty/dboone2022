@@ -176,7 +176,7 @@ export default {
         }
         params.start_page = this.$v.member.start_page.$model
         params.member_uid = this.member.uid
-        params.authorizer = this.user.uid
+        params.authorizer = store.state.user.uid
         LogService.consoleLogMessage('params for SaveForm')
         LogService.consoleLogMessage(params)
         let res = null
@@ -199,7 +199,7 @@ export default {
     async deleteForm() {
       try {
         var params = {}
-        params.authorizer = this.user.uid
+        params.authorizer = store.state.user.uid
         params.member_uid = this.member.uid
         params.member_username = this.member.username
         LogService.consoleLogMessage('params from DeleteForm')

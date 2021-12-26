@@ -14,20 +14,20 @@ export const authorMixin = {
       if (typeof route == 'undefined') {
         return false
       }
-      if (typeof this.user.expires == 'undefined') {
+      if (typeof store.state.user.expires == 'undefined') {
         this.$router.push({ name: 'login' })
       }
       // check if expired
-    //  var date = new Date()
-   //   var timestamp = date.getTime() / 1000
-     // if (this.user.expires < timestamp) {
-//
-     //   this.$router.push({ name: 'login' })
+      //  var date = new Date()
+      //   var timestamp = date.getTime() / 1000
+      // if (store.state.user.expires < timestamp) {
+      //
+      //   this.$router.push({ name: 'login' })
       //}
       // can edit anything
       if (
-        this.user.scope_countries == '*' &&
-        this.user.scope_languages == '*'
+        store.state.user.scope_countries == '*' &&
+        store.state.user.scope_languages == '*'
       ) {
         if (reason != 'readonly') {
           return true
@@ -43,11 +43,11 @@ export const authorMixin = {
         route.language_iso = 'undefined'
       }
       // check for legacy errors
-      if (typeof this.user.scope_countries === 'undefined') {
-        this.user.scope_countries = 'undefined'
+      if (typeof store.state.user.scope_countries === 'undefined') {
+        store.state.user.scope_countries = 'undefined'
       }
-      if (typeof this.user.scope_languages === 'undefined') {
-        this.user.scope_languages = 'undefined'
+      if (typeof store.state.user.scope_languages === 'undefined') {
+        store.state.user.scope_languages = 'undefined'
       }
       // check authority
       if (reason == 'read') {
@@ -55,8 +55,8 @@ export const authorMixin = {
       }
       // can edit this langauge in this country
       if (
-        this.user.scope_countries.includes(route.country_code) &&
-        this.user.scope_languages.includes(route.language_iso)
+        store.state.user.scope_countries.includes(route.country_code) &&
+        store.state.user.scope_languages.includes(route.language_iso)
       ) {
         if (reason != 'readonly') {
           return true
@@ -66,8 +66,8 @@ export const authorMixin = {
       }
       // can edit anything in country
       if (
-        this.user.scope_countries.includes(route.country_code) &&
-        this.user.scope_languages == '*'
+        store.state.user.scope_countries.includes(route.country_code) &&
+        store.state.user.scope_languages == '*'
       ) {
         if (reason != 'readonly') {
           return true

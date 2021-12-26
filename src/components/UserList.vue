@@ -24,10 +24,10 @@ export default {
     }
   },
   async created() {
-    LogService.consoleLogMessage(this.user.scope_countries)
-    if (!this.user.scope_countries) {
+    LogService.consoleLogMessage(store.state.user.scope_countries)
+    if (!store.state.user.scope_countries) {
       this.scope = ''
-    } else if (this.user.scope_countries == '*') {
+    } else if (store.state.user.scope_countries == '*') {
       this.scope_countries = 'Global'
     } else {
       await this.getCountries()
@@ -36,7 +36,7 @@ export default {
       var country_count = this.scope_countries.length
       var c = 0
       this.scope = ''
-      var user_scope = this.user.sclope_countries.split('|')
+      var user_scope = store.state.user.sclope_countries.split('|')
       var length = user_scope.length
       LogService.consoleLogMessage(length)
       for (var i = 0; i < length; i++) {

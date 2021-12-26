@@ -162,7 +162,7 @@ export default {
     async saveUserForm() {
       try {
         var params = {}
-        params.authorizer = this.user.uid
+        params.authorizer = store.state.user.uid
         params.firstname = this.firstname
         params.lastname = this.lastname
         // format scope
