@@ -20,11 +20,11 @@ myRequireOnce ('writeLog.php');
 function publishFiles( $destination , $p, $fname, $text, $standard_css, $selected_css){
 
     $debug = 'In publishFiles with: ' . $fname .  "\n";
-    writeLog('publishFiles-22-fname', $debug);
+    //writeLog('publishFiles-22-fname', $debug);
     // start with header
     $output = myGetPrototypeFile('header.html');
     //$debug .= "\n". 'publishFiles' . "\n";
-     writeLog('publishFiles-26-header', $output);
+     //writeLog('publishFiles-26-header', $output);
     // add onload only if files are here
     $onload_note_js = '';
     if (strpos($text, '<form') !== false){
@@ -70,23 +70,23 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     $output = str_replace($placeholders, $replace,  $output);
     // insert text
     $output .= $text;
-     writeLog('publishFiles-72-text', $output);
+     //writeLog('publishFiles-72-text', $output);
     // remove dupliate CSS
     $output = publishCSS($output, $p);
-     writeLog('publishFiles-75-text', $output);
+     //writeLog('publishFiles-75-text', $output);
     // append footer
     $output .= myGetPrototypeFile('footer.html');
-     writeLog('publishFiles-78-myGetPrototypeFile-text', $output);
+     //writeLog('publishFiles-78-myGetPrototypeFile-text', $output);
     // copy all images and styles to the publish directory
     //$response = publishCopyImagesAndStyles($output, $destination);
 
     $d['destination'] =$destination;
     $output = modifyImages($output, $d);
-    writeLog('publishFiles-86-modifyImages-text', $output);
+    //writeLog('publishFiles-86-modifyImages-text', $output);
     // make sure  all files are copied to destination directory
     publishFilesInPage($output, $d);
     $output = makePathsRelative($output, $fname);
-    writeLog('publishFiles-88-makePathsRelative-text', $output);
+    //writeLog('publishFiles-88-makePathsRelative-text', $output);
 
 
     // make sure we have all the necessary directories
@@ -103,6 +103,6 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
         trigger_error( $message, E_USER_ERROR);
 
     }
-    writeLog('publishFiles-100', $output);
+    //writeLog('publishFiles-100', $output);
     return $output;
 }

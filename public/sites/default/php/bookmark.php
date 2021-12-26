@@ -64,11 +64,11 @@ function bookmark ($p){
     }
     $out = $b['bookmark'];
     if (isset($p['scope'])){
-      writeLog( 'bookmark-'.$p['scope'] , $b['bookmark']);
+      //writeLog( 'bookmark-'.$p['scope'] , $b['bookmark']);
 
     }
     else{
-        writeLog( 'bookmark', $b['bookmark']);
+        //writeLog( 'bookmark', $b['bookmark']);
     }
 
     return $out;
@@ -98,7 +98,7 @@ function checkBookmarkLanguage($b){
     $content = getLatestContent($b);
     $response = json_decode( $content);
     if (!$response){
-        writeLog('ERROR - checkBookmarkLanguage', $debug);
+        //writeLog('ERROR - checkBookmarkLanguage', $debug);
         trigger_error("No response in checkBookmarkLanguage", E_USER_ERROR);
     }
     if (isset($response->languages)){
@@ -122,7 +122,7 @@ function checkBookmarkLibraries($b){
     $content = getLatestContent($b);
     $names = json_decode( $content);
     if (!$names){
-        writeLog('checkBookmarkLibraries', $debug);
+        //writeLog('checkBookmarkLibraries', $debug);
         trigger_error("No names in checkBookmarkLibraries", E_USER_ERROR);
     }
     foreach ($names as $name){
@@ -152,9 +152,9 @@ function checkBookmarkLibrary($b){
 
     $library = json_decode($content);
     if (!$library){
-        writeLog('ERROR - checkBookmarkLibrary-parameters', $b);
-        writeLog('ERROR - checkBookmarkLibrary-debug', $debug);
-         writeLog('ERROR - checkBookmarkLibrary-res',  $res['content']);
+        //writeLog('ERROR - checkBookmarkLibrary-parameters', $b);
+        //writeLog('ERROR - checkBookmarkLibrary-debug', $debug);
+         //writeLog('ERROR - checkBookmarkLibrary-res',  $res['content']);
          $message = "No r in checkBookmarkLibrary for ". $b['library_code'];
         trigger_error( $message , E_USER_ERROR);
     }
@@ -204,7 +204,7 @@ function checkBookmarkSeries($b){
     $debug .= 'response is'.  $content ."\n";
     $response = json_decode($content);
     if (!$response){
-        writeLog('checkBookmarkSeries', $debug);
+        //writeLog('checkBookmarkSeries', $debug);
         trigger_error("No response in checkBookmarkSeries", E_USER_ERROR);
     }
     $out = $response;
