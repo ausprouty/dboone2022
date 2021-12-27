@@ -51,8 +51,8 @@ export const countriesMixin = {
         this.countries = []
         AuthorService.bookmarkClear()
         var response = await ContentService.getCountries(this.$route.params)
-        if (typeof response.text != 'undefined') {
-          this.countries = response.text
+        if (typeof response != 'undefined') {
+          this.countries = response
         } else {
           this.countries = []
         }

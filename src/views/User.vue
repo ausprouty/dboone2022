@@ -118,6 +118,7 @@ import { authorMixin } from '@/mixins/AuthorMixin.js'
 import { userMixin } from '@/mixins/UserMixin.js'
 import { countriesMixin } from '@/mixins/CountriesMixin.js'
 import { languageMixin } from '@/mixins/LanguageMixin.js'
+import store from '@/store/store.js'
 
 export default {
   components: {

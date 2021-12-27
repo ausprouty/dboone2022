@@ -19,6 +19,7 @@
 <script>
 import { mapState } from 'vuex'
 import { countriesMixin } from '@/mixins/CountriesMixin.js'
+import store from '@/store/store.js'
 
 export default {
   mixins: [countriesMixin],
@@ -28,7 +29,7 @@ export default {
   data: function () {
     return {
       saving: false,
-      bMark: this.$store.state.bookmark,
+      bMark: store.state.bookmark,
     }
   },
   computed: mapState(['bookmark']),

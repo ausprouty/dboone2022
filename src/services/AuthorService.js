@@ -142,7 +142,7 @@ export default {
     } catch (error) {
       this.error = error.toString() + ' ' + params.action
       LogService.consoleLogError(
-        'something went wrong',
+        'something went Wrong',
         this.error,
         'aReturnData'
       )

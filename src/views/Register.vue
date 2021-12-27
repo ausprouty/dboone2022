@@ -122,6 +122,7 @@ import Users from '@/views/Users.vue'
 import { required } from 'vuelidate/lib/validators'
 import { authorMixin } from '@/mixins/AuthorMixin.js'
 import { countriesMixin } from '@/mixins/CountriesMixin.js'
+import store from '@/store/store.js'
 
 export default {
   components: {

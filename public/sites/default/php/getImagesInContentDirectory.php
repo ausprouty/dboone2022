@@ -8,7 +8,7 @@ function getImagesInContentDirectory($p){
     writeLog('getImagesInContentDirectory-8','I got here' );
 	$results = '[';
 	$debug = 'in getImagesInContentDirectory' . "\n";
-    $dir = ROOT_EDIT_CONTENT . $p['image_dir'];
+    $dir = ROOT_EDIT . $p['image_dir'];
 	$dir= str_ireplace('//', '/', $dir);
 	$debug .= 'dir:' .  $dir . "\n";
 	writeLog('getImagesInContentDirectory-14',$debug );

@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { mapState } from 'vuex'
+import store from '@/store/store.js'
+//import { mapState } from 'vuex'
 //import { timeout } from 'q'
 Vue.use(Vuex)
 
 export const authorMixin = {
-  computed: mapState(['user']),
+  //computed: mapState(['user']),
   methods: {
     authorize(reason, route) {
       if (this.$route.path == '/login') {
@@ -14,7 +15,7 @@ export const authorMixin = {
       if (typeof route == 'undefined') {
         return false
       }
-      if (typeof store.state.user.expires == 'undefined') {
+      if (typeof store.state.user == 'undefined') {
         this.$router.push({ name: 'login' })
       }
       // check if expired

@@ -18,6 +18,7 @@ myHeaders(); // send cors headers
 myRequireOnce('writeLog.php');
 myRequireOnce ('getLatestContent.php');
 myRequireOnce ('getContentByRecnum.php');
+myRequireOnce ('version2Text.php');
 $debug .= 'past Parameters' . "\n";
 
 if (isset($p['recnum'])){
@@ -36,10 +37,11 @@ else{
 // many times $out['text'] was created by json_encode.
 // decode here so we can properly send it back in good form.
 //$debug .= $out['text'];
-if (isset($out['text'])){
-    $ok =  json_decode($out['text']);
+if (isset($out)){
+    $out = version2Text($out);
+    $ok =  json_decode($out);
     if ($ok){
-        $out['text'] = $ok;
+        $out = $ok;
     }
 }
 // create log file

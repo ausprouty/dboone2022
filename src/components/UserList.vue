@@ -11,6 +11,7 @@
 
 <script>
 import LogService from '@/services/LogService.js'
+import store from '@/store/store.js'
 import { countriesMixin } from '@/mixins/CountriesMixin.js'
 
 export default {

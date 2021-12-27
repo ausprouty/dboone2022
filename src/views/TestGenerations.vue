@@ -17,6 +17,7 @@ import AuthorService from '@/services/AuthorService.js'
 import BibleService from '@/services/BibleService.js'
 import ContentService from '@/services/ContentService.js'
 import LogService from '@/services/LogService.js'
+import store from '@/store/store.js'
 import { mapState } from 'vuex'
 
 

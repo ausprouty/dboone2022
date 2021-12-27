@@ -8,27 +8,28 @@ function getCkEditStyleSets($p){
 	$debug = 'getCkEditStyleSets'. "\n";
 
 	$site = ROOT_EDIT. 'node_modules/ckeditor/styles.js';
+    writeLog('getCkEditStyleSets-11-site', $site);
 	//$sites[] = '/sites/default/ckeditor/styles/styles.js';
     //$sites[] =   '/sites/' . $p['site'] . '/ckeditor/styles/styles.js';
 	if (file_exists( $site)){
 		$text = file_get_contents( $site);
 		$debug .=  $text . "\n";
 		$res =_getStyleSetName($text);
-		if ($res['content']){
-			foreach ($res['content'] as $value){
+		if ($res){
+			foreach ($res as $value){
 				array_push($sets, $value);
 			}
 		}
 	}
 	$out= $sets;
-    writeLog('getCKStyleSets', $out);
-	writeLog('getCKStyleSets-debug', $debug);
+    writeLog('getCKStyleSets-25-out', $out);
+	writeLog('getCKStyleSets-26-debug', $debug);
 	return $out;
 
 }
 
 function _getStyleSetName($text){
-	
+
     $sets =[];
 	$find = 'window.CKEDITOR.stylesSet.add';
 	$bad =[' ', '(', '\''];

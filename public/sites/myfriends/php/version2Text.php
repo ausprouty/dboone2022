@@ -1,6 +1,6 @@
 <?php
 function version2Text($text){
-
+  writeLog('version2Text-3', $text);
 
     $text = str_ireplace('/sites/default/images/menu/header-hamburger.png',
                          '/sites/myfriends/images/menu/header-hamburger.png', $text);
@@ -12,6 +12,6 @@ function version2Text($text){
     $text = str_ireplace('"/content/ZZ/styles/', '"/sites/myfriends/styles/', $text);
     $text = str_ireplace('"/images/', '"/sites/default/images/', $text);
     $text = str_ireplace('"/content/', '"/sites/myfriends/content/', $text);
-
+    writeLog('version2Text-15', $text);
    return $text;
 }

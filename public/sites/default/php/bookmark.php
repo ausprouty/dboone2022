@@ -5,6 +5,7 @@
 myRequireOnce ('getLatestContent.php');
 myRequireOnce ('publishFiles.php');
 myRequireOnce ('writeLog.php');
+myRequireOnce ('version2Text.php');
 
 /* returns bookmark values
    requires: $p['recnum'] and $p['library_code];
@@ -63,6 +64,7 @@ function bookmark ($p){
         }
     }
     $out = $b['bookmark'];
+
     if (isset($p['scope'])){
       //writeLog( 'bookmark-'.$p['scope'] , $b['bookmark']);
 
@@ -70,7 +72,7 @@ function bookmark ($p){
     else{
         //writeLog( 'bookmark', $b['bookmark']);
     }
-
+    $out=version2Text($out);
     return $out;
 }
 function checkBookmarkCountry($b){

@@ -14,6 +14,7 @@ myRequireOnce ('modifyRevealTrainer.php');
 myRequireOnce ('modifyRevealVideo.php');
 myRequireOnce ('modifySendAction.php');
 myRequireOnce ('prototypeFindFilesInPage.php');
+myRequireOnce ('version2Text.php');
 myRequireOnce ('writeLog.php');
 
 

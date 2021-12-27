@@ -19,6 +19,7 @@ import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
 import UsbService from '@/services/UsbService.js'
 import LogService from '@/services/LogService.js'
+import store from '@/store/store.js'
 import { mapState } from 'vuex'
 
 export default {
@@ -51,6 +52,7 @@ export default {
         'testLanguagesGet',
         'testLanguagesAvailable',
         'testLanguagesForAuthorization',
+        'testLogin',
         'testGetPage',
         'testGetPageOrTemplate',
         'testSetupImageFolder',
@@ -245,6 +247,13 @@ export default {
       params.country_code = 'M2'
       params.language_iso = 'eng'
       var response = await ContentService.getLibrary(params)
+      return response
+    },
+    async testLogin() {
+      var params = this.setupParams()
+      params.password = 'Ruth1987'
+      params.username = 'bob'
+      var response = await AuthorService.login(params)
       return response
     },
 

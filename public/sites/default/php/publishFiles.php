@@ -12,7 +12,7 @@ myRequireOnce ('publishCopyImagesAndStyles.php');
 myRequireOnce ('publishFilesInPage.php');
 myRequireOnce ('publishLanguageFooter.php');
 myRequireOnce ('publishCSS.php');
-myRequireOnce ('version2Text.php');
+
 myRequireOnce ('writeLog.php');
 
 
