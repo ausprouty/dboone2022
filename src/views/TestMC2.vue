@@ -300,7 +300,7 @@ export default {
       params.scope = 'page'
       var content = await AuthorService.getPageOrTemplate(params)
       params.recnum = content.recnum
-      var response = await PrototypeService.prototype('page', params)
+      var response = await PrototypeService.publish('page', params)
       return response
     },
     async testPublishPage() {

@@ -36,8 +36,7 @@ function createContent($p){
 
 		}
 	}
-	$debug .= $sql . "\n";
-	return $out;
+	return TRUE;
 }
 
 // create directory
@@ -86,9 +85,10 @@ function createDir($p){
 
 }
 // create series index; I can not see any reason to do this.
+// called by Library Edit
 function createSeriesIndex($p){
 	$debug = "I could not see any reason to createSeriesIndex\n";
-	return $out;
+	return TRUE;
 
 	$debug = 'createSeriesIndex'. "\n";
 	if (!isset($p['folder_name'])){

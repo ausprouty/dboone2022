@@ -8,7 +8,7 @@ function getCkEditStyleSets($p){
 	$debug = 'getCkEditStyleSets'. "\n";
 
 	$site = ROOT_EDIT. 'node_modules/ckeditor/styles.js';
-    writeLog('getCkEditStyleSets-11-site', $site);
+    //writeLog('getCkEditStyleSets-11-site', $site);
 	//$sites[] = '/sites/default/ckeditor/styles/styles.js';
     //$sites[] =   '/sites/' . $p['site'] . '/ckeditor/styles/styles.js';
 	if (file_exists( $site)){
@@ -22,8 +22,8 @@ function getCkEditStyleSets($p){
 		}
 	}
 	$out= $sets;
-    writeLog('getCKStyleSets-25-out', $out);
-	writeLog('getCKStyleSets-26-debug', $debug);
+    //writeLog('getCKStyleSets-25-out', $out);
+	//writeLog('getCKStyleSets-26-debug', $debug);
 	return $out;
 
 }
@@ -47,7 +47,7 @@ function _getStyleSetName($text){
 		$pos_start = $pos_end;
 	}
 	$out = $sets;
-	writeLog('_getStyleSetName', $out);
-	writeLog('_getStyleSetName-debug', $debug);
+	//writeLog('_getStyleSetName', $out);
+	//writeLog('_getStyleSetName-debug', $debug);
 	return $out;
 }

@@ -2,12 +2,18 @@
 myRequireOnce ('writeLog.php');
 
 // get images from folder (in /content) so it can transfer from edit to prototype
-//also used to return list of images for selet
+//also used to return list of images for selection by Series Edit
+// sometimes the data is damaged like this:string(58) "M2/eng/multiply1,/sites/mc2/content/M2/eng/images/standard"
 function getImagesInContentDirectories($p){
 
-	$results = '[';
-	$debug = 'in getImagesInContentDirectory' . "\n";
-    foreach ($p['image_dirs'] as $directory){
+	$results = [];
+	writeLog('getImagesInContentDirectories-9-dir',$p['image_dirs']);
+	$image_dirs= explode(',', $p['image_dirs']);
+    foreach ($image_dirs as $directory){
+		if (strpos($directory, '/sites') == FALSE){
+               $directory ='/sites/'. SITE_CODE .'/content/'. $directory;
+			   writeLog('getImagesInContentDirectories-15-dirfix',$directory);
+		}
 		$dir = ROOT_EDIT . $directory;
 		$dir= str_ireplace('//', '/', $dir);
 		$debug .= 'dir:' .  $dir . "\n";
@@ -15,24 +21,16 @@ function getImagesInContentDirectories($p){
 			$handler = opendir ($dir);
 			while ($mfile = readdir ($handler)){
 				if ($mfile != '.' && $mfile != '..' ){
-						$results.= '"' . $directory . '/'.  $mfile .'",';
+					if(strpos($mfile, '.html') == FALSE && strpos($mfile, '.json' == FALSE)){
+						$results[] =  $directory . '/'.  $mfile ;
+				    }
 				}
-
 			}
 			closedir ($handler);
 		}
 	}
-	if (strlen($results) > 1){
-		$results = substr($results,0, -1) . ']';
-		$debug .= "Images found";
-	}
-	else{
-		$message = "NO images found ";
-        trigger_error( $message, E_USER_ERROR);
-		return NULL;
-	}
 	$out = $results;
-    writeLog('getImagesInContentDirectories',$debug );
+    writeLog('getImagesInContentDirectories-36-out',$out);
 	return $out;
 
 }

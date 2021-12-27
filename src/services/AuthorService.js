@@ -348,8 +348,8 @@ export default {
     }
     return images
   },
-  async getImagesInContentDirecties(directories) {
-    var images = {}
+  async getImagesInContentDirectories(directories) {
+    // var images = {}
     var params = {}
     params.image_dirs = directories
     params.page = 'getImagesInContentDirectories'
@@ -357,10 +357,10 @@ export default {
     var content = await this.aReturnContent(params)
     console.log('content from getImagesInContentDirectories')
     console.log(content)
-    if (content) {
-      images = JSON.parse(content)
-    }
-    return images
+    //if (content) {
+    //  images = JSON.parse(content)
+    //}
+    return content
   },
   async getImagesInContentDirectory(directory) {
     var images = {}
@@ -386,7 +386,7 @@ export default {
     params.action = 'getLanguagesForAuthorization'
     return this.aReturnContent(params)
   },
-   async getLatestContent(params) {
+  async getLatestContent(params) {
     params.page = 'getLatestContent'
     params.action = 'getLatestContent'
     return this.aReturnContentParsed(params)

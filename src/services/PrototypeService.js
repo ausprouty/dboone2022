@@ -16,7 +16,7 @@ import store from '@/store/store.js'
 
 // I want to export a JSON.stringified of response.data.text
 export default {
-  async prototype(scope, params) {
+  async publish(scope, params) {
     var action = null
     params.site = process.env.VUE_APP_SITE
     params.location = process.env.VUE_APP_LOCATION

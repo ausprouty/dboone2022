@@ -5,13 +5,13 @@ myRequireOnce ('writeLog.php');
 //also used to return list of images for selet
 // assumes$p[ímage_dir] ='M2/eng/images'
 function getImagesInContentDirectory($p){
-    writeLog('getImagesInContentDirectory-8','I got here' );
+    //writeLog('getImagesInContentDirectory-8','I got here' );
 	$results = '[';
 	$debug = 'in getImagesInContentDirectory' . "\n";
     $dir = ROOT_EDIT . $p['image_dir'];
 	$dir= str_ireplace('//', '/', $dir);
 	$debug .= 'dir:' .  $dir . "\n";
-	writeLog('getImagesInContentDirectory-14',$debug );
+	//writeLog('getImagesInContentDirectory-14',$debug );
 	if (file_exists($dir)){
 		$handler = opendir ($dir);
 		while ($mfile = readdir ($handler)){
@@ -29,13 +29,13 @@ function getImagesInContentDirectory($p){
 	else{
 
 		$message = "NO images found";
-		writeLog('getImagesInContentDirectory-32', $message);
+		//writeLog('getImagesInContentDirectory-32', $message);
         trigger_error( $message, E_USER_ERROR);
 		return NULL;
 	}
 	$out = $results;
 
-    writeLog('getImagesInContentDirectory-38',$debug );
+    //writeLog('getImagesInContentDirectory-38',$debug );
 	return $out;
 
 }

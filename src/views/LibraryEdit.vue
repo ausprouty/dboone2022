@@ -582,7 +582,7 @@ export default {
 
     async saveForm(action = null) {
       try {
-        // create index files
+        /* create index files
         var check = ''
         var params = {}
         var route = this.$route.params
@@ -592,11 +592,12 @@ export default {
           if (check.format == 'series') {
             route.folder_name = check.code
             route.filename = 'index'
-
             params.route = JSON.stringify(route)
             AuthorService.createSeriesIndex(params)
           }
         }
+        */
+
         // update library file
         var output = {}
         output.books = this.books
@@ -613,6 +614,7 @@ export default {
         //this.$store.dispatch('newBookmark', 'clear')
 
         var response = await AuthorService.createContentData(this.content)
+        console.log (response)
         if (response.data.error != true && action != 'stay') {
           this.$router.push({
             name: 'previewLibrary',
