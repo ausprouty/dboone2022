@@ -9,6 +9,10 @@ export const authorizeMixin = {
   //computed: mapState(['user']),
   methods: {
     authorize(reason, route) {
+      console.log('this is the authorizeMixin speaking')
+      console.log(reason)
+      console.log(this.$store.state.user)
+      console.log(store.state.user)
       if (this.$route.path == '/login') {
         return true
       }

@@ -42,11 +42,8 @@ export const languageMixin = {
         console.log('route params')
         console.log(this.$route.params)
         var response = await ContentService.getLanguages(this.$route.params)
-        console.log('language response')
-        console.log(response)
-
         if (typeof response !== 'undefined') {
-          this.languages = response.languages
+          this.languages = response.text.languages
           // need to have id so we can delete them
           // now deal with legacy data
           var len = this.languages.length
@@ -62,8 +59,8 @@ export const languageMixin = {
               this.languages[i].read = null
             }
           }
-          this.choose_language = response.choose_language
-          this.more_languages = response.more_languages
+          this.choose_language = response.text.choose_language
+          this.more_languages = response.text.more_languages
         } else {
           this.languages = []
           this.choose_language = 'Choose Language'

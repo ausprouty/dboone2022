@@ -61,7 +61,7 @@ export default {
   components: {
     NavBar,
   },
-  computed: mapState(['bookmark', 'cssURL']),
+  computed: mapState(['bookmark', 'cssURL', 'user']),
   data() {
     return {
       style: 'unknown',

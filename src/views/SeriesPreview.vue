@@ -84,7 +84,6 @@
 <script>
 import { mapState } from 'vuex'
 import Chapter from '@/components/ChapterPreview.vue'
-import AuthorService from '@/services/AuthorService.js'
 import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
@@ -97,7 +96,7 @@ import { publishMixin } from '@/mixins/PublishMixin.js'
 export default {
   mixins: [seriesMixin, authorizeMixin, publishMixin],
   props: ['country_code', 'language_iso', 'library_code', 'folder_name'],
-  computed: mapState(['bookmark']),
+  computed: mapState(['bookmark', 'user']),
   components: {
     Chapter,
     NavBar,

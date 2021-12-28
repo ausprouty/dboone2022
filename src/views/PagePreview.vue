@@ -77,7 +77,7 @@ export default {
   components: {
     NavBar,
   },
-  computed: mapState(['bookmark', 'cssURL', 'standard']),
+  computed: mapState(['bookmark', 'cssURL', 'standard', 'user']),
   data() {
     return {
       prototype_text: 'Prototype',

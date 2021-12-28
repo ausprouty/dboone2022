@@ -69,6 +69,7 @@ import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
 import SDCardService from '@/services/SDCardService.js'
 import { mapState } from 'vuex'
+import store from '@/store/store.js'
 
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
@@ -76,7 +77,7 @@ import { publishMixin } from '@/mixins/PublishMixin.js'
 export default {
   mixins: [libraryMixin, authorizeMixin, publishMixin],
   props: ['country_code', 'language_iso', 'library_code'],
-  computed: mapState(['bookmark', 'cssURL', 'standard']),
+  computed: mapState(['bookmark', 'cssURL', 'standard', 'user']),
   components: {
     Book,
     NavBar,

@@ -5,7 +5,7 @@ myRequireOnce ('sql.php');
 myRequireOnce ('version2Text.php');
 myRequireOnce ('writeLog.php');
 
-/* return latest content
+/* return latest content (with all fi)
 */
 function getLatestContent($p){
 
@@ -100,21 +100,20 @@ function getLatestContent($p){
 
     // execute query
     if ($sql){
-        $result = sqlArray($sql);
-        if (isset($result['recnum'])){
-            //if ($text_file){
-                $out = version2Text($result['text']);
-           // }
-            $debug .='Recnum ' . $result['recnum'] ."\n";
+        $out = sqlArray($sql);
+        if (isset($out['recnum'])){
+                $out['text'] = version2Text($out['text']);
+
+            $debug .='Recnum ' . $out['recnum'] ."\n";
         }
         else{
             if ($p['scope'] == 'library'){
                 $debug .= 'NOTE: USING DEFAULT LIBRARY  FROM LIBRARY.json' ."\n";
-                $out =  myGetPrototypeFile('library.json');
+                $out['text'] =  myGetPrototypeFile('library.json');
             }
             else{
                 $debug .= 'No default ' ."\n";
-                $out =  null;
+                $out['text'] =  null;
             }
         }
 

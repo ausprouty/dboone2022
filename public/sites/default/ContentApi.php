@@ -38,10 +38,10 @@ else{
 // decode here so we can properly send it back in good form.
 //$debug .= $out['text'];
 if (isset($out)){
-    $out = version2Text($out);
-    $ok =  json_decode($out);
+    $out['text'] = version2Text($out['text']);
+    $ok =  json_decode($out['text']);
     if ($ok){
-        $out = $ok;
+        $out['text'] = $ok;
     }
 }
 // create log file

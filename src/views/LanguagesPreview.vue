@@ -66,7 +66,7 @@ import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
 import { mapState } from 'vuex'
-
+import store from '@/store/store.js'
 import { languageMixin } from '@/mixins/LanguageMixin.js'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
@@ -91,7 +91,7 @@ export default {
       choose_language: 'Choose Language',
     }
   },
-  computed: mapState(['bookmark']),
+  computed: mapState(['bookmark', 'user']),
   methods: {
     editLanguages() {
       this.$router.push({
