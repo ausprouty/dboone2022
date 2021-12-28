@@ -29,11 +29,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import LogService from '@/services/LogService.js'
 export default {
   computed: mapState(['bookmark', 'user']),
-  mixins: [authorMixin],
+  mixins: [authorizeMixin],
   data() {
     return {
       headerImage: process.env.VUE_APP_SITE_MENU_DIR + 'header-admin.png',

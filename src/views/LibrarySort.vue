@@ -59,9 +59,9 @@ import draggable from 'vuedraggable'
 import { mapState } from 'vuex'
 
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 export default {
-  mixins: [ libraryMixin, authorMixin],
+  mixins: [libraryMixin, authorizeMixin],
   props: ['country_code', 'language_iso', 'library_code'],
   computed: mapState(['bookmark', 'cssURL', 'standard']),
   components: {

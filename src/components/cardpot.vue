@@ -103,11 +103,11 @@ import '@/assets/css/vueSelect.css'
 import AuthorService from '@/services/AuthorService.js'
 import LogService from '@/services/LogService.js'
 
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 
 export default {
   props: {},
-  mixins: [ authorMixin],
+  mixins: [ authorizeMixin],
   components: {
     'v-select': vSelect,
   },

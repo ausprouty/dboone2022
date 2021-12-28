@@ -42,14 +42,14 @@
         Countries:
         <v-select
           multiple
-          :reduce="display => display.code"
+          :reduce="(display) => display.code"
           :options="this.country_options"
           label="display"
           v-model="$v.member.countries.$model"
         ></v-select>
         <v-select
           multiple
-          :reduce="display => display.code"
+          :reduce="(display) => display.code"
           :options="this.language_options"
           label="display"
           v-model="$v.member.languages.$model"
@@ -114,7 +114,7 @@ import AuthorService from '@/services/AuthorService.js'
 import LogService from '@/services/LogService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
 import vSelect from 'vue-select'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { userMixin } from '@/mixins/UserMixin.js'
 import { countriesMixin } from '@/mixins/CountriesMixin.js'
 import { languageMixin } from '@/mixins/LanguageMixin.js'
@@ -123,15 +123,15 @@ import store from '@/store/store.js'
 export default {
   components: {
     NavBar,
-    'v-select': vSelect
+    'v-select': vSelect,
   },
   props: ['uid'],
-  mixins: [authorMixin, countriesMixin, languageMixin, userMixin],
+  mixins: [authorizeMixin, countriesMixin, languageMixin, userMixin],
   data() {
     return {
       submitted: false,
       wrong: null,
-      registered: true
+      registered: true,
     }
   },
   computed: mapState(['user']),
@@ -190,7 +190,7 @@ export default {
         } else {
           this.registered = true
           this.$router.push({
-            name: 'farm'
+            name: 'farm',
           })
         }
       } catch (error) {
@@ -214,13 +214,13 @@ export default {
         } else {
           this.registered = true
           this.$router.push({
-            name: 'farm'
+            name: 'farm',
           })
         }
       } catch (error) {
         LogService.consoleLogError('Delete There was an error ', error)
       }
-    }
+    },
   },
   async created() {
     this.authorized = this.authorize('register', this.$route.params)
@@ -237,6 +237,6 @@ export default {
         LogService.consoleLogError('There was an error in User.vue:', error)
       }
     }
-  }
+  },
 }
 </script>

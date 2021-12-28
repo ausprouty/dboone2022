@@ -44,7 +44,7 @@
         Country Scope:
         <v-select
           multiple
-          :reduce="display => display.code"
+          :reduce="(display) => display.code"
           :options="this.scope_options"
           label="display"
           v-model="scope"
@@ -52,7 +52,7 @@
         Language Scope:
         <v-select
           multiple
-          :reduce="display => display.code"
+          :reduce="(display) => display.code"
           :options="this.language_options"
           label="display"
           v-model="$v.languages.$model"
@@ -120,7 +120,7 @@ import NavBar from '@/components/NavBarAdmin.vue'
 import vSelect from 'vue-select'
 import Users from '@/views/Users.vue'
 import { required } from 'vuelidate/lib/validators'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { countriesMixin } from '@/mixins/CountriesMixin.js'
 import store from '@/store/store.js'
 
@@ -128,9 +128,9 @@ export default {
   components: {
     NavBar,
     Users,
-    'v-select': vSelect
+    'v-select': vSelect,
   },
-  mixins: [authorMixin, countriesMixin],
+  mixins: [authorizeMixin, countriesMixin],
   data() {
     return {
       default_start_page: '/preview/languages/M2',
@@ -145,7 +145,7 @@ export default {
       wrong: null,
       registered: true,
       scope_options: [],
-      language_options: []
+      language_options: [],
     }
   },
   computed: mapState(['user']),
@@ -156,7 +156,7 @@ export default {
     languages: { required },
     start_page: { required },
     username: { required },
-    password: { required }
+    password: { required },
   },
 
   methods: {
@@ -217,7 +217,7 @@ export default {
         { display: 'Global', code: '|*|' },
         { display: 'English', code: '|eng|' },
         { display: 'French', code: '|fra|' },
-        { display: 'Simplifed Chinese', computed: '|cmn|' }
+        { display: 'Simplifed Chinese', computed: '|cmn|' },
       ]
       this.language_options = options
       return
@@ -245,7 +245,7 @@ export default {
       LogService.consoleLogMessage(options)
       this.scope_options = options
       return
-    }
+    },
   },
   async created() {
     //this.authorized = this.authorize('register', 'global')
@@ -253,6 +253,6 @@ export default {
     await this.scopeOptions()
     await this.languageOptions()
     this.startPageOptions()
-  }
+  },
 }
 </script>

@@ -78,9 +78,9 @@ import './ckeditor/index.js'
 import VueCkeditor from 'vue-ckeditor2'
 
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 export default {
-  mixins: [ libraryMixin, authorMixin],
+  mixins: [libraryMixin, authorizeMixin],
   props: ['country_code', 'language_iso'],
   components: {
     NavBar,

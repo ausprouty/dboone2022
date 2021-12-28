@@ -324,10 +324,10 @@ import { mapState } from 'vuex'
 
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
 import { libraryUploadMixin } from '@/mixins/library/LibraryUploadMixin.js'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { required } from 'vuelidate/lib/validators'
 export default {
-  mixins: [authorMixin, libraryMixin, libraryUploadMixin],
+  mixins: [authorizeMixin, libraryMixin, libraryUploadMixin],
   components: {
     NavBar,
     LibraryFormatTemplate,
@@ -614,7 +614,7 @@ export default {
         //this.$store.dispatch('newBookmark', 'clear')
 
         var response = await AuthorService.createContentData(this.content)
-        console.log (response)
+        console.log(response)
         if (response.data.error != true && action != 'stay') {
           this.$router.push({
             name: 'previewLibrary',

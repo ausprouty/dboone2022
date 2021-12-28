@@ -95,7 +95,7 @@ import '@/assets/css/vueSelect.css'
 import AuthorService from '@/services/AuthorService.js'
 import LogService from '@/services/LogService.js'
 
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
 
 export default {
@@ -103,7 +103,7 @@ export default {
     format: Object,
   },
   computed: mapState([]),
-  mixins: [authorMixin, libraryMixin],
+  mixins: [authorizeMixin, libraryMixin],
   components: {
     'v-select': vSelect,
   },

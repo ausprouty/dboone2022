@@ -54,9 +54,9 @@ import './ckeditor/index.js'
 import VueCkeditor from 'vue-ckeditor2'
 
 import { pageMixin } from '@/mixins/PageMixin.js'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 export default {
-  mixins: [ pageMixin, authorMixin],
+  mixins: [pageMixin, authorizeMixin],
   props: [
     'country_code',
     'language_iso',

@@ -174,9 +174,9 @@ import vSelect from 'vue-select'
 import '@/assets/css/vueSelect.css'
 
 import { pageMixin } from '@/mixins/PageMixin.js'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 export default {
-  mixins: [pageMixin, authorMixin],
+  mixins: [pageMixin, authorizeMixin],
   props: ['country_code', 'language_iso', 'folder_name', 'filename'],
   components: {
     NavBar,

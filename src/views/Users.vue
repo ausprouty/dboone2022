@@ -16,14 +16,14 @@
 import AuthorService from '@/services/AuthorService.js'
 import LogService from '@/services/LogService.js'
 import UserList from '@/components/UserList.vue'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 
 export default {
   components: {
-    UserList
+    UserList,
   },
 
-  mixins: [authorMixin],
+  mixins: [authorizeMixin],
   data() {
     return {
       authorized: false,
@@ -34,9 +34,9 @@ export default {
           countries: null,
           langauges: null,
           start_page: null,
-          uid: null
-        }
-      ]
+          uid: null,
+        },
+      ],
     }
   },
   async created() {
@@ -55,6 +55,6 @@ export default {
         )
       }
     }
-  }
+  },
 }
 </script>

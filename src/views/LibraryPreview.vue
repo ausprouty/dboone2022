@@ -71,10 +71,10 @@ import SDCardService from '@/services/SDCardService.js'
 import { mapState } from 'vuex'
 
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
 export default {
-  mixins: [libraryMixin, authorMixin, publishMixin],
+  mixins: [libraryMixin, authorizeMixin, publishMixin],
   props: ['country_code', 'language_iso', 'library_code'],
   computed: mapState(['bookmark', 'cssURL', 'standard']),
   components: {

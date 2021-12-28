@@ -213,9 +213,9 @@ import NavBar from '@/components/NavBarAdmin.vue'
 
 import { seriesMixin } from '@/mixins/SeriesMixin.js'
 import { required } from 'vuelidate/lib/validators'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 export default {
-  mixins: [ seriesMixin, authorMixin],
+  mixins: [seriesMixin, authorizeMixin],
   props: ['country_code', 'language_iso', 'library_code', 'folder_name'],
   computed: mapState(['bookmark']),
   components: {

@@ -50,11 +50,11 @@ import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
 import { countriesMixin } from '@/mixins/CountriesMixin.js'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
 
 export default {
-  mixins: [countriesMixin, authorMixin, publishMixin],
+  mixins: [countriesMixin, authorizeMixin, publishMixin],
   components: {
     Country,
     NavBar,
@@ -131,7 +131,7 @@ export default {
     async loadView() {
       try {
         await this.getCountries()
-       /* if (this.recnum) {
+        /* if (this.recnum) {
           this.localBookmark(this.recnum)
         }
         */

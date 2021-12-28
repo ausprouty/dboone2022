@@ -9,9 +9,9 @@
 
 import PrototypeService from '@/services/PrototypeService.js'
 import { mapState } from 'vuex'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 export default {
-  mixins: [authorMixin],
+  mixins: [authorizeMixin],
   computed: mapState(['bookmark', 'cssURL', 'standard']),
   data() {
     return {

@@ -53,10 +53,10 @@ import PublishService from '@/services/PublishService.js'
 import NavBar from '@/components/NavBarCountry.vue'
 
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
 export default {
-  mixins: [ libraryMixin, authorMixin, publishMixin],
+  mixins: [libraryMixin, authorizeMixin, publishMixin],
   props: ['country_code', 'language_iso'],
   components: {
     NavBar,
@@ -116,7 +116,7 @@ export default {
         this.error = response['message']
         this.loaded = false
       } else {
-      //  this.UnsetBookmarks()
+        //  this.UnsetBookmarks()
         this.recnum = null
         this.loaded = false
         this.loading = true

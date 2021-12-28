@@ -35,11 +35,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import LogService from '@/services/LogService.js'
 export default {
   computed: mapState(['bookmark']),
-  mixins: [authorMixin],
+  mixins: [authorizeMixin],
   created() {
     this.authorized = this.authorize('read', this.$route.params)
   },

@@ -69,10 +69,10 @@ import PublishService from '@/services/PublishService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
 
 import { pageMixin } from '@/mixins/PageMixin.js'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
 export default {
-  mixins: [ pageMixin, authorMixin, publishMixin],
+  mixins: [pageMixin, authorizeMixin, publishMixin],
   props: ['country_code', 'language_iso', 'folder_name', 'filename'],
   components: {
     NavBar,
@@ -84,7 +84,7 @@ export default {
       publish_text: 'Publish',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       rldir: 'ltr',
-      book_style:  process.env.VUE_APP_SITE_STYLE,
+      book_style: process.env.VUE_APP_SITE_STYLE,
     }
   },
   methods: {
@@ -186,7 +186,7 @@ export default {
         this.error = response['message']
         this.loaded = false
       } else {
-      //  this.UnsetBookmarks()
+        //  this.UnsetBookmarks()
         this.recnum = null
         this.loaded = false
         this.loading = true

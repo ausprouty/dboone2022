@@ -68,10 +68,10 @@ import PublishService from '@/services/PublishService.js'
 import { mapState } from 'vuex'
 
 import { languageMixin } from '@/mixins/LanguageMixin.js'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
 export default {
-  mixins: [languageMixin, authorMixin, publishMixin],
+  mixins: [languageMixin, authorizeMixin, publishMixin],
   props: ['country_code'],
   components: {
     Language,

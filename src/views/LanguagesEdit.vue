@@ -84,13 +84,12 @@ import AuthorService from '@/services/AuthorService.js'
 import LogService from '@/services/LogService.js'
 import { mapState } from 'vuex'
 
-
 import { languageMixin } from '@/mixins/LanguageMixin.js'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { required } from 'vuelidate/lib/validators'
 //import { validFoldername } from '@/validators/Validator.js'
 export default {
-  mixins: [ languageMixin, authorMixin],
+  mixins: [languageMixin, authorizeMixin],
   props: ['country_code'],
   components: {
     NavBar,

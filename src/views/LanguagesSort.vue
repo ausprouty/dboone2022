@@ -66,9 +66,9 @@ import draggable from 'vuedraggable'
 import { mapState } from 'vuex'
 
 import { languageMixin } from '@/mixins/LanguageMixin.js'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 export default {
-  mixins: [ languageMixin, authorMixin],
+  mixins: [languageMixin, authorizeMixin],
   props: ['country_code'],
   components: {
     NavBar,

@@ -5,7 +5,7 @@ myRequireOnce ('writeLog.php');
 myRequireOnce('modifyRevealVideo.php');
 myRequireOnceSD('videoReference.php');
 
-function videoMakeBatFileForSDCard($p, $width = 480){
+function videoMakeBatFileForSDCard($p){
    $output = '';
    $series_videos = [];
    $chapter_videos = [];
@@ -32,7 +32,7 @@ function videoMakeBatFileForSDCard($p, $width = 480){
             }
         }
     }
-    writeLog('videoMakeBatFileForSDCard-35-chapter_videos', $series_videos);
+   // writeLog('videoMakeBatFileForSDCard-35-chapter_videos', $series_videos);
     // create file
     $template_with_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start] -to [end]   -vf scale=[width]:-1  [width]/[new_name].mp4;' ;
     $template_without_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start]  -vf scale=[width]:-1    [width]/[new_name].mp4;';
@@ -49,7 +49,7 @@ function videoMakeBatFileForSDCard($p, $width = 480){
                     $video['download_name'],
                     $video['start_time'],
                     $video['end_time'],
-                    $width,
+                    VIDEO_WIDTH,
                     $video['new_name']
                 );
                 if ($video['end_time'] == NULL){

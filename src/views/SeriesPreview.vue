@@ -13,6 +13,9 @@
         <button class="button" @click="localPublish('prototype')">
           {{ this.prototype_text }}
         </button>
+        <button class="button" @click="sdCard('video_list')">
+          Create VideoList for SDCard
+        </button>
       </div>
       <div>
         <a
@@ -85,13 +88,14 @@ import AuthorService from '@/services/AuthorService.js'
 import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
+import SDCardService from '@/services/SDCardService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
 
 import { seriesMixin } from '@/mixins/SeriesMixin.js'
-import { authorMixin } from '@/mixins/AuthorMixin.js'
+import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
 export default {
-  mixins: [seriesMixin, authorMixin, publishMixin],
+  mixins: [seriesMixin, authorizeMixin, publishMixin],
   props: ['country_code', 'language_iso', 'library_code', 'folder_name'],
   computed: mapState(['bookmark']),
   components: {
@@ -161,6 +165,15 @@ export default {
           library_code: this.$route.params.library_code,
         },
       })
+    },
+    async sdCard(action) {
+      if (action == 'video_list') {
+        var response = await SDCardService.publish(
+          'videoMakeBatFileForSDCard',
+          this.$route.params
+        )
+        console.log(response)
+      }
     },
     async localPublish(location) {
       if (location == 'live') {

@@ -5,7 +5,7 @@ import store from '@/store/store.js'
 //import { timeout } from 'q'
 Vue.use(Vuex)
 
-export const authorMixin = {
+export const authorizeMixin = {
   //computed: mapState(['user']),
   methods: {
     authorize(reason, route) {
