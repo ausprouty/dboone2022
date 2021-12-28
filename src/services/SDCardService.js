@@ -64,6 +64,11 @@ export default {
       case 'page':
         action = 'AuthorApi.php?page=publishPage&action=publishPage'
         break
+      case 'videoMakeBatFileForSDCard':
+        action =
+          'AuthorApi.php?page=videoMakeBatFileForSDCard&action=videoMakeBatFileForSDCard'
+        break
+
       case 'default':
         action = null
     }

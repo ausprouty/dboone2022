@@ -67,7 +67,7 @@ import NavBar from '@/components/NavBarAdmin.vue'
 import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
-import UsbService from '@/services/UsbService.js'
+import SDCardService from '@/services/SDCardService.js'
 import { mapState } from 'vuex'
 
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
@@ -158,7 +158,7 @@ export default {
       } else if (location == 'live') {
         response = await PublishService.publish('libraryAndBooks', params)
       } else if (location == 'sdcard') {
-        response = await UsbService.publish('libraryAndBooks', params)
+        response = await SDCardService.publish('libraryAndBooks', params)
       }
       if (response['error']) {
         this.error = response['message']

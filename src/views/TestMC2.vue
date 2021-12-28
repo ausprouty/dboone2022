@@ -17,7 +17,7 @@ import BibleService from '@/services/BibleService.js'
 import ContentService from '@/services/ContentService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
-import UsbService from '@/services/UsbService.js'
+import SDCardService from '@/services/SDCardService.js'
 import LogService from '@/services/LogService.js'
 import store from '@/store/store.js'
 import { mapState } from 'vuex'
@@ -28,6 +28,7 @@ export default {
       test: '',
       result: '',
       test_options: [
+        'testVideoMakeBatFileForSDCard',
         'testPrototypePage',
         'testPublishPage',
         'testSDCardPage',
@@ -326,7 +327,18 @@ export default {
       params.scope = 'page'
       var content = await AuthorService.getPageOrTemplate(params)
       params.recnum = content.recnum
-      var response = await UsbService.publish('page', params)
+      var response = await SDCardService.publish('page', params)
+      return response
+    },
+    async testVideoMakeBatFileForSDCard() {
+      var params = this.setupParams()
+      params.country_code = 'M2'
+      params.language_iso = 'eng'
+      params.folder_name = 'multiply1'
+      var response = await SDCardService.publish(
+        'videoMakeBatFileForSDCard',
+        params
+      )
       return response
     },
   },

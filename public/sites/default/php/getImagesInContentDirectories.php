@@ -7,7 +7,7 @@ myRequireOnce ('writeLog.php');
 function getImagesInContentDirectories($p){
 
 	$results = [];
-	writeLog('getImagesInContentDirectories-9-dir',$p['image_dirs']);
+	//writeLog('getImagesInContentDirectories-9-dir',$p['image_dirs']);
 	$image_dirs= explode(',', $p['image_dirs']);
     foreach ($image_dirs as $directory){
 		if (strpos($directory, '/sites') == FALSE){
@@ -30,7 +30,7 @@ function getImagesInContentDirectories($p){
 		}
 	}
 	$out = $results;
-    writeLog('getImagesInContentDirectories-36-out',$out);
+   // writeLog('getImagesInContentDirectories-36-out',$out);
 	return $out;
 
 }

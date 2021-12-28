@@ -168,7 +168,7 @@ export default {
           break
         case 'admin':
           this.$router.push({
-            name: 'testMyfriends',
+            name: 'testmc2',
           })
           break
         default:

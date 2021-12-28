@@ -3,7 +3,7 @@
 require_once ('../../.env.api.remote.mc2.php');
 myRequireOnce ('.env.cors.php');
 
-$template = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start] -to [end]  -c copy [new_name].mp4' . "\n";;
+$template = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start] -to [end]  -c copy [new_name].mp4' . "\n";
 $source = file_get_contents( 'CutIsoSort.txt');
 
 $lines = explode("\n", $source);
@@ -30,7 +30,7 @@ foreach ($lines as $line){
         '[end]',
         '[new_name]'
     );
-    $replace = array( 
+    $replace = array(
         $old_name,
         $start,
         $end,
