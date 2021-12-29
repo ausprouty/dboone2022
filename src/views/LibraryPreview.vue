@@ -6,19 +6,22 @@
     <div class="error" v-if="error">There was an error... {{ this.error }}</div>
     <div class="content" v-if="loaded">
       <div v-if="this.publish">
-        <button class="button" @click="localPublish('live')">
+        <button class="button" @click="localPublish('website')">
           {{ this.publish_text }}
         </button>
       </div>
-      <div v-if="this.sdcard">
-        <button class="button" @click="localPublish('sdcard')">
-          {{ this.sdcard_text }}
-        </button>
-      </div>
+
       <div v-if="this.prototype">
-        <button class="button" @click="localPublish('prototype')">
-          {{ this.prototype_text }}
-        </button>
+        <div>
+          <button class="button" @click="localPublish('prototype')">
+            {{ this.prototype_text }}
+          </button>
+        </div>
+        <div>
+          <button class="button" @click="localPublish('sdcard')">
+            {{ this.sdcard_text }}
+          </button>
+        </div>
       </div>
       <a
         target="_blank"
@@ -69,7 +72,6 @@ import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
 import SDCardService from '@/services/SDCardService.js'
 import { mapState } from 'vuex'
-import store from '@/store/store.js'
 
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
@@ -91,6 +93,7 @@ export default {
       sdcard: false,
       prototype_text: 'Prototype Library and Books',
       publish_text: 'Publish Library and Books',
+      sdcard_text: 'Update SD Card',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       site_directory: process.env.VUE_APP_SITE_DIR,
       back: 'country',
@@ -141,30 +144,26 @@ export default {
     },
 
     async localPublish(location) {
-      if (location == 'live') {
-        this.publish_text = 'Publishing'
-      } else if (location == 'prototype') {
-        this.prototype_text = 'Prototyping'
-      } else {
-        this.sdcard_text = 'Creating SDCard'
-      }
       var response = null
-      var params = {}
+      var params = []
       params.recnum = this.recnum
-      //params.bookmark = JSON.stringify(this.bookmark)
       params.route = JSON.stringify(this.$route.params)
-
       if (location == 'prototype') {
-        response = await PrototypeService.publish('libraryAndBooks', params)
-      } else if (location == 'live') {
-        response = await PublishService.publish('libraryAndBooks', params)
-      } else if (location == 'sdcard') {
-        response = await SDCardService.publish('libraryAndBooks', params)
+        this.prototype_text = 'Prototyping'
+        response = await PrototypeService.publish('seriesAndChapters', params)
+      }
+      if (location == 'sdcard') {
+        this.sdcard_text = 'Updating SD Card Directory'
+        response = await SDCardService.publish('seriesAndChapters', params)
+      }
+      if (location == 'website') {
+        this.publish_text = 'Publishing'
+        response = await PublishService.publish('seriesAndChapters', params)
       }
       if (response['error']) {
         this.error = response['message']
         this.loaded = false
-        if (location == 'live') {
+        if (location == 'website') {
           this.publish_text = 'Error Publishing'
         } else if (location == 'prototype') {
           this.prototype_text = 'Error Prototyping'

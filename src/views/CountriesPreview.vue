@@ -3,14 +3,21 @@
     <NavBar />
 
     <div v-if="this.publish">
-      <button class="button" @click="localPublish('live')">
+      <button class="button" @click="localPublish('website')">
         {{ this.publish_text }}
       </button>
     </div>
     <div v-if="this.prototype">
-      <button class="button" @click="localPublish('prototype')">
-        {{ this.prototype_text }}
-      </button>
+      <div>
+        <button class="button" @click="localPublish('prototype')">
+          {{ this.prototype_text }}
+        </button>
+      </div>
+      <div>
+        <button class="button" @click="localPublish('sdcard')">
+          {{ this.sdcard_text }}
+        </button>
+      </div>
     </div>
     <h1>
       Select Country
@@ -49,6 +56,7 @@ import Country from '@/components/CountryPreview.vue'
 import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
+import SDCardService from '@/services/SDCardService.js'
 import { countriesMixin } from '@/mixins/CountriesMixin.js'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
@@ -65,6 +73,7 @@ export default {
       publish: false,
       prototype_text: 'Prototype Languages',
       publish_text: 'Publish Languages',
+      sdcard_text: 'Update SD Card',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
     }
   },
@@ -90,22 +99,22 @@ export default {
       window.history.back()
     },
     async localPublish(location) {
-      if (location == 'live') {
-        this.publish_text = 'Publishing'
-      } else {
-        this.prototype_text = 'Prototyping'
-      }
       var response = null
       var params = {}
       params.recnum = this.recnum
       params.route = JSON.stringify(this.$route.params)
       if (location == 'prototype') {
+        this.prototype_text = 'Prototyping'
         response = await PrototypeService.publish('countries', params)
-        // PrototypeService.publish('languagesAvailable', params)
-      } else {
+      }
+      if (location == 'sdcard') {
+        this.prototype_text = 'Publishing'
+        response = await SDCardService.publish('countries', params)
+      }
+      if (location == 'website') {
+        this.publish_text = 'Publishing'
         response = await PublishService.publish('countries', params)
       }
-
       if (response['error']) {
         this.error = response['message']
         this.loaded = false

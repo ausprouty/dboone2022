@@ -1,6 +1,6 @@
 <?php
 
-
+myRequireOnce ('dirMake.php');
 myRequireOnce ('writeLog.php');
 myRequireOnce('modifyRevealVideo.php');
 myRequireOnceSD('videoReference.php');
@@ -34,8 +34,8 @@ function videoMakeBatFileForSDCard($p){
     }
    // writeLog('videoMakeBatFileForSDCard-35-chapter_videos', $series_videos);
     // create file
-    $template_with_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start] -to [end]   -vf scale=[width]:-1  [width]/[new_name].mp4;' ;
-    $template_without_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start]  -vf scale=[width]:-1    [width]/[new_name].mp4;';
+    $template_with_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start] -to [end]   -vf scale=[width]:-1  [width]/[new_name].mp4' ;
+    $template_without_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start]  -vf scale=[width]:-1    [width]/[new_name].mp4';
     foreach ($series_videos as $video){
         if ($video['download_name']){
             $placeholders = array(
@@ -58,10 +58,23 @@ function videoMakeBatFileForSDCard($p){
                 else{
                     $template = $template_with_end;
                 }
-                $output .= str_replace($placeholders, $replace,  $template) ;
+                $output .= str_replace($placeholders, $replace,  $template) . "\n";
         }
     }
+    videoMakeBatFileForSDCardWrite($output, $p);
     return $output;
+}
+
+function videoMakeBatFileForSDCardWrite($text, $p){
+    //define("ROOT_EDIT", '/home/vx5ui10wb4ln/public_html/myfriends.edit/');
+     $dir = ROOT_EDIT  . 'sites/' . SITE_CODE  . '/sdcard/' . $p['country_code'] . '/' . $p['language_iso'] . '/';
+     dirMake($dir);
+     $filename=  $p['folder_name'] . '.bat';
+    $fh = fopen( $dir. $filename, 'w');
+	fwrite($fh, $text);
+    fclose($fh);
+    return;
+
 }
 /*Input is:
     <div class="reveal film">&nbsp;

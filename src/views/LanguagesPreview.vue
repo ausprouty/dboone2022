@@ -5,17 +5,21 @@
     <div class="error" v-if="error">There was an error... {{ this.error }}</div>
     <div class="content" v-if="loaded">
       <div v-if="this.publish">
-        <button class="button" @click="localPublish('live')">
+        <button class="button" @click="localPublish('website')">
           {{ this.publish_text }}
-        </button>
-        <button class="button" @click="makeSDCard()">
-          {{ this.sdcard_text }}
         </button>
       </div>
       <div v-if="this.prototype">
-        <button class="button" @click="localPublish('prototype')">
-          {{ this.prototype_text }}
-        </button>
+        <div>
+          <button class="button" @click="localPublish('prototype')">
+            {{ this.prototype_text }}
+          </button>
+        </div>
+        <div>
+          <button class="button" @click="localPublish('sdcard')">
+            {{ this.sdcard_text }}
+          </button>
+        </div>
       </div>
       <a href="preview/languages">
         <img src="/sites/default/images/languages.jpg" class="app-img-header" />
@@ -65,8 +69,8 @@ import NavBar from '@/components/NavBarAdmin.vue'
 import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
+import SDCardService from '@/services/SDCardService.js'
 import { mapState } from 'vuex'
-import store from '@/store/store.js'
 import { languageMixin } from '@/mixins/LanguageMixin.js'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
@@ -85,7 +89,7 @@ export default {
       publishable: false,
       prototype_text: 'Prototype',
       publish_text: 'Publish',
-      sdcard_text: 'Make SDCard',
+      sdcard_text: 'Update SD Card',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       more_languages: 'More Languages',
       choose_language: 'Choose Language',
@@ -128,21 +132,23 @@ export default {
       this.sdcard_text = 'Making SDCard'
     },
     async localPublish(location) {
-      if (location == 'live') {
-        this.publish_text = 'Publishing'
-      } else {
-        this.prototype_text = 'Prototyping'
-      }
       var response = null
-      var params = {}
+      var params = []
       params.recnum = this.recnum
-      // params.bookmark = JSON.stringify(this.bookmark)
       params.route = JSON.stringify(this.$route.params)
       if (location == 'prototype') {
+        this.prototype_text = 'Prototyping'
         response = await PrototypeService.publish('languages', params)
-      } else {
+      }
+      if (location == 'sdcard') {
+        this.prototype_text = 'Publishing'
+        response = await SDCardService.publish('languages', params)
+      }
+      if (location == 'website') {
+        this.publish_text = 'Publishing'
         response = await PublishService.publish('languages', params)
       }
+
       if (response['error']) {
         this.error = response['message']
         this.loaded = false

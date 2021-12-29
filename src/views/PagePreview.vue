@@ -5,14 +5,21 @@
     <div class="error" v-if="error">There was an error... {{ this.error }}</div>
     <div class="content" v-if="loaded">
       <div v-if="this.publish">
-        <button class="button" @click="localPublish('live')">
+        <button class="button" @click="localPublish('website')">
           {{ this.publish_text }}
         </button>
       </div>
       <div v-if="this.prototype">
-        <button class="button" @click="localPublish('prototype')">
-          {{ this.prototype_text }}
-        </button>
+        <div>
+          <button class="button" @click="localPublish('prototype')">
+            {{ this.prototype_text }}
+          </button>
+        </div>
+        <div>
+          <button class="button" @click="localPublish('sdcard')">
+            {{ this.sdcard_text }}
+          </button>
+        </div>
       </div>
       <div v-if="this.write">
         <button class="button" @click="editPage">Edit</button>
@@ -63,9 +70,10 @@
 
 <script>
 import { mapState } from 'vuex'
-import PrototypeService from '@/services/PrototypeService.js'
 import LogService from '@/services/LogService.js'
+import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
+import SDCardService from '@/services/SDCardService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
 
 import { pageMixin } from '@/mixins/PageMixin.js'
@@ -82,6 +90,7 @@ export default {
     return {
       prototype_text: 'Prototype',
       publish_text: 'Publish',
+      sdcard_text: 'Update SD Card',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       rldir: 'ltr',
       book_style: process.env.VUE_APP_SITE_STYLE,
@@ -167,20 +176,21 @@ export default {
       window.open(link, '_blank')
     },
     async localPublish(location) {
-      if (location == 'live') {
-        this.publish_text = 'Publishing'
-      } else {
-        this.prototype_text = 'Prototyping'
-      }
       var response = null
-      var params = {}
+      var params = []
       params.recnum = this.recnum
-      //params.bookmark = JSON.stringify(this.bookmark)
       params.route = JSON.stringify(this.$route.params)
       if (location == 'prototype') {
-        response = await PrototypeService.publish('page', params)
-      } else {
-        response = await PublishService.publish('page', params)
+        this.prototype_text = 'Prototyping'
+        response = await PrototypeService.publish('seriesAndChapters', params)
+      }
+      if (location == 'sdcard') {
+        this.prototype_text = 'Publishing'
+        response = await SDCardService.publish('seriesAndChapters', params)
+      }
+      if (location == 'website') {
+        this.publish_text = 'Publishing'
+        response = await PublishService.publish('seriesAndChapters', params)
       }
       if (response['error']) {
         this.error = response['message']

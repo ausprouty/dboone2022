@@ -5,7 +5,7 @@
     <div class="error" v-if="error">There was an error... {{ this.error }}</div>
     <div class="content" v-if="loaded">
       <div v-if="this.publish">
-        <button class="button" @click="localPublish('live')">
+        <button class="button" @click="localPublish('website')">
           {{ this.publish_text }}
         </button>
       </div>
@@ -97,7 +97,7 @@ export default {
       window.open(link, '_blank')
     },
     async localPublish(location) {
-      if (location == 'live') {
+      if (location == 'website') {
         this.publish_text = 'Publishing'
       } else {
         this.prototype_text = 'Prototyping'

@@ -8,7 +8,7 @@ myRequireOnce('publishDestination.php');
 myRequireOnce('writeLog.php');
 
 function  publishFilesInPage($text, $p){
-    writeLog ('publishFilesInPage-11-text', $text);
+    //writeLog ('publishFilesInPage-11-text', $text);
     $find_begin = 'src="';
     publishFilesInPageFind($find_begin, $text, $p);
     $find_begin = 'href="';
@@ -50,6 +50,6 @@ function publishFilesInPageFind($find_begin, $text, $p){
            // $debug .= ' copied ' . $from . ' to '. $to . "\n";
         }
     }
-    writeLog ('publishFilesInPageFind-54-'. $find_begin . 'copied', $debug);
-    writeLog ('publishFilesInPageFind-54-'. $find_begin . 'files', $files);
+    //writeLog ('publishFilesInPageFind-54-'. $find_begin . 'copied', $debug);
+    //writeLog ('publishFilesInPageFind-54-'. $find_begin . 'files', $files);
 }

@@ -5,17 +5,26 @@
     <div class="error" v-if="error">There was an error...{{ this.error }}</div>
     <div class="content" v-if="loaded">
       <div v-if="this.publish">
-        <button class="button" @click="localPublish('live')">
+        <button class="button" @click="localPublish('website')">
           {{ this.publish_text }}
         </button>
       </div>
       <div v-if="this.prototype">
-        <button class="button" @click="localPublish('prototype')">
-          {{ this.prototype_text }}
-        </button>
-        <button class="button" @click="sdCard('video_list')">
-          Create VideoList for SDCard
-        </button>
+        <div>
+          <button class="button" @click="localPublish('prototype')">
+            {{ this.prototype_text }}
+          </button>
+        </div>
+        <div>
+          <button class="button" @click="sdCard('video_list')">
+            {{ this.videolist_text }}
+          </button>
+        </div>
+        <div>
+          <button class="button" @click="localPublish('sdcard')">
+            {{ this.sdcard_text }}
+          </button>
+        </div>
       </div>
       <div>
         <a
@@ -109,6 +118,9 @@ export default {
       book_image: null,
       prototype_text: 'Prototype Series and Chapters',
       publish_text: 'Publish Series and Chapters',
+      sdcard_text: 'Update SD Card',
+      videolist_text: 'Create VideoList for SDCard',
+
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       download_ready: '',
       download_now: '',
@@ -167,30 +179,33 @@ export default {
     },
     async sdCard(action) {
       if (action == 'video_list') {
+        this.videolist_text = 'Creating VideoList for SDCard'
         var response = await SDCardService.publish(
           'videoMakeBatFileForSDCard',
           this.$route.params
         )
+        this.videolist_text = 'copy batfile from /sdcard'
         console.log(response)
       }
     },
     async localPublish(location) {
-      if (location == 'live') {
-        this.publish_text = 'Publishing'
-      } else {
-        this.prototype_text = 'Prototyping'
-      }
       var response = null
       var params = []
       params.recnum = this.recnum
-      //params.bookmark = JSON.stringify(this.bookmark)
       params.route = JSON.stringify(this.$route.params)
       if (location == 'prototype') {
+        this.prototype_text = 'Prototyping'
         response = await PrototypeService.publish('seriesAndChapters', params)
       }
-      if (location == 'live') {
+      if (location == 'sdcard') {
+        this.prototype_text = 'Publishing'
+        response = await SDCardService.publish('seriesAndChapters', params)
+      }
+      if (location == 'website') {
+        this.publish_text = 'Publishing'
         response = await PublishService.publish('seriesAndChapters', params)
       }
+
       if (response['error']) {
         this.error = response['message']
         this.loaded = false
