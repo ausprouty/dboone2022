@@ -103,7 +103,7 @@ function createSeries($p, $data){
     if (isset($text->chapters)){
         foreach ($text->chapters as $chapter){
             $status = false;
-            if ($p['status'] == 'publish'){
+            if ($p['destination'] == 'website'){
                 $status = $chapter->publish;
             }
             else{

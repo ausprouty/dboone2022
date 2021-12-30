@@ -1,5 +1,6 @@
 <?php
 myRequireOnce ('writeLog.php');
+myRequireOnce('videoFindForSDCardNewName.php');
 /*
 Input is:
     <div class="reveal film">&nbsp;
@@ -40,6 +41,8 @@ Data structure:
 
     Second set of numbers is language
 
+For Website Data:
+
 Output for Acts: where input is https://api.arclight.org/videoPlayerUrl?refId=2_529-Acts7302-0-0
     <button id="RevealButton0" type="button" class="external-movie acts">Watch  Acts 6:1-7 online</button>
         <div class="collapsed">[acts]-Acts7302-0-0</div>
@@ -64,16 +67,36 @@ Output for Lumo [Nerw] : where input is https://api.arclight.org/videoPlayerUrl?
         <button id="VimeoButton0" type="button" class="external-movie ">Watch  Luke 18:35-43 online</button>
         <div class="collapsed">[vimeo]162977296</div>
 
-
+For SD Card:
+    <button id="VimeoButton0" type="button" class="external-movie ">Watch  Luke 18:35-43 </button>
+    <div class="collapsed">
+        <video controls>
+            <source src="myVideo.mp4" type="video/mp4">
+            <p>Your browser doesn't support video. Here is a
+            <a href="myVideo.mp4">link to the video</a> instead.</p>
+        </video>
+    </div>
 
 */
-function modifyRevealVideo($text, $bookmark){
+function modifyRevealVideo($text, $bookmark, $p){
 
-    
-    $debug = 'In revealVideo' . "\n";;
-    $watch_phrase = $bookmark['language']->watch;
-    $template_link= '<button id="revealButton[id]" type="button" class="external-movie [video_type]">[title_phrase]</button>
-        <div class="collapsed">[video]</div>';
+    if ($p['destination'] == 'sdcard'){
+        $watch_phrase = $bookmark['language']->watch;
+        $template_link ='
+        <button id="VimeoButton0" type="button" class="external-movie ">[title_phrase]</button>
+        <div class="collapsed">
+            <video controls>
+                <source src="[video]" type="video/mp4">
+                <p>Your browser doesn\'t support video. Here is a
+                <a href="[video]">link to the video<\/a> instead.<\/p>
+            </video>
+        </div>';
+    }
+    else{
+        $watch_phrase = $bookmark['language']->watch;
+        $template_link = '<button id="revealButton[id]" type="button" class="external-movie [video_type]">[title_phrase]</button>
+                   <div class="collapsed">[video]</div>';
+    }
     $template_options = '<div id="ShowOptionsFor[video]"></div>';
     // [ChangeLanguage] is changed in local.js
     $find = '<div class="reveal film">';
@@ -91,57 +114,66 @@ function modifyRevealVideo($text, $bookmark){
         $title_phrase =  $word = str_replace('%', $title, $watch_phrase);
         //find url
         $url = modifyVideoRevealFindText($old, 4);
-        $debug .=  "url is | $url |\n";
-        // find type of video and trim url
-        if (strpos($url, 'api.arclight.org/videoPlayerUrl?') != FALSE){
-            $new .=  $template_options; // JESUS project videos are available in many languages
-            //https://api.arclight.org/videoPlayerUrl?refId=6_529-GOMatt2512
-            $url = str_ireplace('https://api.arclight.org/videoPlayerUrl?refId=', '', $url); //6_529-GOMatt2512
-            $video_type_string = substr($url, 0, 1); //6
-            switch ($video_type_string){
-                case 1:
-                    $video_type = 'jfilm';
-                    break;
-                case 2:
-                    $video_type = 'acts';
-                    break;
-                case 6:
-                    $video_type = 'lumo';
-                    break;
-                default:
-                 $video_type = $video_type_string;
+         if ($p['destination'] == 'sdcard'){
+             $filename = $bookmark['page']->filename;
+             $video = '/media/'. $p['country_code'] . '/'. $p['language_iso'] .'/'. videoFindForSDCardNewName($filename) ;
+             if ($i > 0){
+                $video .='-' .$i;
+             }
+             $video .='.mp4';
+             $video_type= 'file';
+         }
+        if ($p['destination'] != 'sdcard'){
+            // find type of video and trim url
+            if (strpos($url, 'api.arclight.org/videoPlayerUrl?') != FALSE){
+                $new .=  $template_options; // JESUS project videos are available in many languages
+                //https://api.arclight.org/videoPlayerUrl?refId=6_529-GOMatt2512
+                $url = str_ireplace('https://api.arclight.org/videoPlayerUrl?refId=', '', $url); //6_529-GOMatt2512
+                $video_type_string = substr($url, 0, 1); //6
+                switch ($video_type_string){
+                    case 1:
+                        $video_type = 'jfilm';
+                        break;
+                    case 2:
+                        $video_type = 'acts';
+                        break;
+                    case 6:
+                        $video_type = 'lumo';
+                        break;
+                    default:
+                    $video_type = $video_type_string;
+                }
+                if (strpos($url, '-') !== FALSE){
+                    $dash = strpos($url, '-');
+                    $url = substr($url, $dash);
+                }
+                // find start and end times
+                $start_time = modifyVideoRevealFindTime ($old, 7);
+                $debug .=  "start_time is | $start_time |\n";
+                $end_time = modifyVideoRevealFindTime ($old, 9);
+                $debug .=  "end time is | $end_time |\n";
+                if ($start_time || $end_time){
+                    $url .= '&start='. $start_time . '&end=' .$end_time;
+                }
             }
-            if (strpos($url, '-') !== FALSE){
-                $dash = strpos($url, '-');
-                $url = substr($url, $dash);
+            elseif (strpos($url, 'https://vimeo.com/') !== FALSE){  //https://vimeo.com/162977296
+                $video_type = 'vimeo';
+                $url = str_ireplace('https://vimeo.com/', '', $url); //162977296
             }
-            // find start and end times
-            $start_time = modifyVideoRevealFindTime ($old, 7);
-            $debug .=  "start_time is | $start_time |\n";
-            $end_time = modifyVideoRevealFindTime ($old, 9);
-            $debug .=  "end time is | $end_time |\n";
-            if ($start_time || $end_time){
-                $url .= '&start='. $start_time . '&end=' .$end_time;
+            elseif (strpos($url, 'https://www.youtube.com/watch?v=') !== FALSE){  //https://www.youtube.com/watch?v=I7ks0udfjOw
+                $video_type = 'youtube';
+                $url = str_ireplace('https://www.youtube.com/watch?v=', '', $url); //I7ks0udfjOw
             }
+            elseif (strpos($url, 'https://youtu.be/') !== FALSE){  //https://youtu.be/I7ks0udfjOw?t=732
+                $video_type = 'youtube';
+                $url = str_ireplace('https://youtu.be/', '', $url); //I7ks0udfjOwt=732
+            }
+            else{
+                $video_type = 'url';
+            }
+            // make replacements
+            $video = '['. $video_type . ']' . $url; //[lumo]-GOMatt2512
         }
-        elseif (strpos($url, 'https://vimeo.com/') !== FALSE){  //https://vimeo.com/162977296
-            $video_type = 'vimeo';
-            $url = str_ireplace('https://vimeo.com/', '', $url); //162977296
-        }
-        elseif (strpos($url, 'https://www.youtube.com/watch?v=') !== FALSE){  //https://www.youtube.com/watch?v=I7ks0udfjOw
-            $video_type = 'youtube';
-            $url = str_ireplace('https://www.youtube.com/watch?v=', '', $url); //I7ks0udfjOw
-        }
-        elseif (strpos($url, 'https://youtu.be/') !== FALSE){  //https://youtu.be/I7ks0udfjOw?t=732
-            $video_type = 'youtube';
-            $url = str_ireplace('https://youtu.be/', '', $url); //I7ks0udfjOwt=732
-        }
-        else{
-            $video_type = 'url';
-        }
-        // make replacements
-        $video = '['. $video_type . ']' . $url; //[lumo]-GOMatt2512
-
         $debug .=  "video is | $video |\n";
         $new = str_replace('[video]', $video, $new);
         $new = str_replace('[video_type]', $video_type, $new);

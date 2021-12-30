@@ -9,10 +9,10 @@ function publishDestination ($p){
     if($p['destination'] == 'staging'){
       return ROOT_STAGING;
   }
-  if($p['destination'] == 'publish'){
+  if($p['destination'] == 'website'){
       return ROOT_PUBLISH;
   }
-  if($p['destination'] == 'usb'){
+  if($p['destination'] == 'sdcard'){
       return ROOT_SDCARD;
   }
   $message= 'In publishDestination invalid destination:  ' . $p['destination'];

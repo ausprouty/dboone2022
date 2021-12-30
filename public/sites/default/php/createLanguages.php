@@ -32,7 +32,7 @@ function createLanguages($p, $data){
     $temp = '';
     foreach ($text->languages as $language){
         $status = false;
-        if ($p['status'] == 'publish'){
+        if ($p['destination'] == 'website'){
             $status = $language->publish;
         }
         else{

@@ -96,7 +96,7 @@ function createLibrary($p, $text) {
         foreach ($text->books as $book){
            // _write_library_log($p, $book);
             $status = false;
-            if ($p['status'] == 'publish'){
+            if ($p['destination'] == 'website'){
                 $status = $book->publish;
             }
             else{

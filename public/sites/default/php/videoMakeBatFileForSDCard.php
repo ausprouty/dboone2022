@@ -3,13 +3,15 @@
 myRequireOnce ('dirMake.php');
 myRequireOnce ('writeLog.php');
 myRequireOnce('modifyRevealVideo.php');
-myRequireOnceSD('videoReference.php');
+myRequireOnce('videoFindForSDCardNewName.php');
+
 
 function videoMakeBatFileForSDCard($p){
    $output = '';
    $series_videos = [];
    $chapter_videos = [];
-
+   // this allows me to include a different file for each language.
+   myRequireOnce('videoReference.php',  $p['language_iso']);
  //find series data that has been prototyped
     $sql = "SELECT * FROM content
         WHERE  country_code = '". $p['country_code'] ."'
@@ -108,6 +110,8 @@ function videoMakeBatFileForSDCardWrite($text, $p){
     <hr /></div>';
 */
 function videoFindForSDCard($p, $filename){
+    writeLog('videoFindForSDCard-113-p', $p);
+    writeLog('videoFindForSDCard-114-filename', $filename);
     // find chapter that has been prototyped
     $chapter_videos = [];
     $videoReference = videoReference();
@@ -178,21 +182,6 @@ function videoFindForSDCard($p, $filename){
         }
         $chapter_videos[] = $video;
     }
-    //writeLog('videoFindForSDCard-100-'. $filename, $chapter_videos);
+    writeLog('videoFindForSDCard-185-chaptervideos', $chapter_videos);
     return $chapter_videos;
 }
-
-function videoFindForSDCardNewName($filename){
-  $length = strlen($filename);
-  $numeric = FALSE;
-  $count= 0;
-  while(!$numeric && $count < $length){
-      $count++;
-      $character = substr($filename, $count, 1);
-      if (is_numeric($character )){
-        $numeric= TRUE;
-      }
-    }
-    $new_name = substr($filename, $count);
-    return $new_name ;
-  }

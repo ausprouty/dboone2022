@@ -82,7 +82,7 @@ function modifyPage($text, $p, $data, $bookmark){
     }
     // reveal_big is used by generations
     if (strpos($text, '<div class="reveal film') !== FALSE || strpos($text, '<div class="reveal_big film') !== FALSE){
-        $text =  modifyRevealVideo($text, $bookmark);
+        $text =  modifyRevealVideo($text, $bookmark, $p);
     }
 
     if (strpos($text, '<div class="reveal audio">')!== FALSE){

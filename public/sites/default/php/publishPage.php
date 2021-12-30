@@ -7,6 +7,8 @@ myRequireOnce ('publishFindFilesInPage.php');
 myRequireOnce ('writeLog.php');
 
 
+// needs to return files in Page so we can include these when downloading a series for offline use.
+// required by publishSeriesAndChapters.php on line 44
 
 function publishPage ($p){
 
@@ -29,8 +31,12 @@ function publishPage ($p){
     }
     //writeLog ('publishPage-30-debug', $debug);
     $text  = createPage($p, $data);
-    //writeLog ('publishPage-32', $text);
-    //writeLog ('publishPage-43-debug', $debug);
+    $result  = publishFindFilesInPage($text, $p['destination']);
+    if (isset($result['files_in_page'])){
+       $p['files_in_page'] = isset($result['files_in_page']) ? $result['files_in_page'] : [];
+       $p['files_in_page'] = array_merge($p['files_in_page'], $result['files_in_page']);
+
+    }
      // get bookmark for stylesheet
     $b['recnum'] =  $p['recnum'];
     $b['library_code'] = $p['library_code'];

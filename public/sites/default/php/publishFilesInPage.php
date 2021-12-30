@@ -8,17 +8,26 @@ myRequireOnce('publishDestination.php');
 myRequireOnce('writeLog.php');
 
 function  publishFilesInPage($text, $p){
+    $files_in_pages = [];
     //writeLog ('publishFilesInPage-11-text', $text);
     $find_begin = 'src="';
-    publishFilesInPageFind($find_begin, $text, $p);
+    $result= publishFilesInPageFind($find_begin, $text, $p);
+    if (is_array($result)){
+        $files_in_pages = array_merge($files_in_pages,$result);
+    }
     $find_begin = 'href="';
-    publishFilesInPageFind($find_begin, $text, $p);
-    return true;
+    $result= publishFilesInPageFind($find_begin, $text, $p);
+    if (is_array($result)){
+        $files_in_pages = array_merge($files_in_pages,$result);
+    }
+    return  $files_in_pages;
 
 }
 
 function publishFilesInPageFind($find_begin, $text, $p){
     $destination = publishDestination($p);
+    $files_in_pages = [];
+    $debug = '';
     $find_end = '"';
     if (strpos($text, $find_begin)!== false){
         $count = 0;
@@ -32,6 +41,7 @@ function publishFilesInPageFind($find_begin, $text, $p){
             $from = ROOT_EDIT . $filename;
             $debug .="from is $from\n";
             if (file_exists($from)){
+                 $files_in_pages[] = $from;
                 // I think I want to include html
                 if (!is_dir($from) && strpos ($from, '.html') === false){
                     $files[] = $filename;
@@ -52,4 +62,5 @@ function publishFilesInPageFind($find_begin, $text, $p){
     }
     //writeLog ('publishFilesInPageFind-54-'. $find_begin . 'copied', $debug);
     //writeLog ('publishFilesInPageFind-54-'. $find_begin . 'files', $files);
+    return $files_in_pages;
 }
