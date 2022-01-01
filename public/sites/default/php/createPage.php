@@ -25,10 +25,10 @@ function createPage($p, $content){
     if ($bookmark['book']->format == 'series'){
         $debug .= 'This is in a series for ' . $content['folder_name'] . "\n";
          writeLog('createPage-27-debug', $debug);
-        $this_template = myGetPrototypeFile('pageInSeries.html');
+        $this_template = myGetPrototypeFile('pageInSeries.html', $p['destination']);
         writeLog('createPage-29-template',$this_template);
         // insert nav bar and set ribbon value and link value
-        $nav = myGetPrototypeFile('navRibbon.html');
+        $nav = myGetPrototypeFile('navRibbon.html', $p['destination']);
         writeLog('createPage-31-nav', $nav);
         $this_template = str_replace('[[nav]]', $nav, $this_template);
         $ribbon = isset($bookmark['library']->format->back_button) ? $bookmark['library']->format->back_button->image : DEFAULT_BACK_RIBBON;
@@ -73,9 +73,9 @@ function createPage($p, $content){
     if ($bookmark['book']->format == 'page'){
         $debug .= 'This is a page' . "\n";
         writeLog('createPage-77-debug', $debug);
-        $this_template = myGetPrototypeFile('page.html');
+        $this_template = myGetPrototypeFile('page.html', $p['destination']);
          // insert nav bar
-         $nav = myGetPrototypeFile('navRibbon.html');
+         $nav = myGetPrototypeFile('navRibbon.html', $p['destination']);
          $this_template = str_replace('[[nav]]', $nav, $this_template);
          $ribbon = isset($bookmark['library']->format->back_button->image) ? $bookmark['library']->format->back_button->image : DEFAULT_BACK_RIBBON;
          $debug .= "ribbon is $ribbon\n";

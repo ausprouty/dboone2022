@@ -5,7 +5,7 @@
   >
     <div
       class="float-right"
-      style="cursor:pointer"
+      style="cursor: pointer"
       @click="deleteLanguageForm(language.id.$model)"
     >
       X
@@ -158,7 +158,14 @@
           placeholder
           class="field"
         />
-         <BaseInput
+        <BaseInput
+          v-model="language.watch_offline.$model"
+          label="Watch"
+          type="text"
+          placeholder
+          class="field"
+        />
+        <BaseInput
           v-model="language.listen.$model"
           label="Listen to % online"
           type="text"
@@ -189,8 +196,9 @@
               v-for="o in this.ot"
               v-bind:key="o.bid"
               v-bind:value="o.bid"
-              >{{ o.volume_name }}</option
             >
+              {{ o.volume_name }}
+            </option>
           </select>
         </div>
 
@@ -201,8 +209,9 @@
               v-for="n in this.nt"
               v-bind:key="n.bid"
               v-bind:value="n.bid"
-              >{{ n.volume_name }}</option
             >
+              {{ n.volume_name }}
+            </option>
           </select>
         </div>
         <br />
@@ -236,7 +245,7 @@ import { bibleMixin } from '@/mixins/BibleMixin.js'
 export default {
   mixins: [bibleMixin],
   props: {
-    language: Object
+    language: Object,
   },
 
   data() {
@@ -245,7 +254,7 @@ export default {
       content_folders: ['enter language first'],
       direction: ['rtl', 'ltr'],
       ot: [],
-      nt: []
+      nt: [],
     }
   },
   methods: {
@@ -291,7 +300,7 @@ export default {
       await AuthorService.setupLanguageFolder(params)
       var res = await AuthorService.getContentFoldersForLanguage(params)
       this.content_folders = res
-    }
+    },
   },
   async created() {
     // see https://stackoverflow.com/questions/35748162/how-to-get-the-text-of-the-selected-option-using-vuejs
@@ -320,6 +329,6 @@ export default {
         LogService.consoleLogMessage(this.nt)
       }
     }
-  }
+  },
 }
 </script>

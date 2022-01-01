@@ -22,7 +22,7 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     $debug = 'In publishFiles with: ' . $fname .  "\n";
     //writeLog('publishFiles-22-fname', $debug);
     // start with header
-    $output = myGetPrototypeFile('header.html');
+    $output = myGetPrototypeFile('header.html', $p['destination']);
     //$debug .= "\n". 'publishFiles' . "\n";
      //writeLog('publishFiles-26-header', $output);
     // add onload only if files are here
@@ -75,7 +75,7 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     $output = publishCSS($output, $p);
      //writeLog('publishFiles-75-text', $output);
     // append footer
-    $output .= myGetPrototypeFile('footer.html');
+    $output .= myGetPrototypeFile('footer.html', $p['destination']);
      //writeLog('publishFiles-78-myGetPrototypeFile-text', $output);
     // copy all images and styles to the publish directory
     //$response = publishCopyImagesAndStyles($output, $destination);

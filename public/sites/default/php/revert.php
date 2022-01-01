@@ -3,10 +3,10 @@
 myRequireOnce ('publishFiles.php');
 myRequireOnce ('sql.php');
 
-/* return latest content 
+/* return latest content
 */
 function revert($p){
-    
+
     $debug ='In Revert' . "\n";
     writeLog('revert12-'. time(), $debug);
     if (!isset($p['scope'])){
@@ -17,20 +17,20 @@ function revert($p){
         $debug .=  'No recnum set';
         return $out;
     }
-    
+
     switch($p['scope']){
         case "countries":
             $debug .='Case is countries' . "\n";
-            $sql = 'SELECT * FROM content 
+            $sql = 'SELECT * FROM content
                 WHERE filename = "countries"
                 AND recnum < '. $p['recnum'] .'
                 ORDER BY recnum DESC LIMIT 1';
             break;
         case "languages":
         $debug .='Case is languages' . "\n";
-            $sql = "SELECT * from content 
+            $sql = "SELECT * from content
                 WHERE country_code = '". $p['country_code'] . "'
-                AND filename = 'languages' 
+                AND filename = 'languages'
                 AND folder_name = ''
                 AND recnum < ". $p['recnum'] ."
                 ORDER BY recnum DESC LIMIT 1";
@@ -40,35 +40,35 @@ function revert($p){
             if (!isset($p['library_code'])){
                 $p['library_code'] = 'library';
             }
-            $sql = "SELECT * from content 
+            $sql = "SELECT * from content
                 WHERE country_code = '". $p['country_code'] . "'
                 AND language_iso = '" . $p['language_iso'] . "'
-                AND folder_name = '' 
+                AND folder_name = ''
                 AND filename = '" . $p['library_code'] . "'
                 AND recnum < ". $p['recnum'] ."
                 ORDER BY recnum DESC LIMIT 1";
             break;
         case "libraryNames":
             $debug .='Case is libraryNames' . "\n";
-            $sql = "SELECT DISTINCT filename FROM content 
+            $sql = "SELECT DISTINCT filename FROM content
                 WHERE country_code = '". $p['country_code'] . "'
                 AND language_iso = '" . $p['language_iso'] . "'
-                AND folder_name = '' 
+                AND folder_name = ''
                 ORDER BY recnum DESC";
             break;
         case "libraryIndex":
             $debug .='Case is libraryIndex' . "\n";
-            $sql = "SELECT * FROM content 
+            $sql = "SELECT * FROM content
                 WHERE country_code = '". $p['country_code'] . "'
                 AND language_iso = '" . $p['language_iso'] . "'
-                AND folder_name = '' 
-                AND filename = 'index' 
+                AND folder_name = ''
+                AND filename = 'index'
                 AND recnum < ". $p['recnum'] ."
                 ORDER BY recnum DESC LIMIT 1";
             break;
         case "series":
             $debug .='Case is series' . "\n";
-            $sql = "SELECT * from content 
+            $sql = "SELECT * from content
                 WHERE country_code = '". $p['country_code'] . "'
                 AND language_iso = '" . $p['language_iso'] . "'
                 AND folder_name  = '" . $p['folder_name'] . "'
@@ -78,7 +78,7 @@ function revert($p){
             break;
         case "page":
             $debug .='Case is page' . "\n";
-            $sql = "SELECT * from content 
+            $sql = "SELECT * from content
                 WHERE country_code = '". $p['country_code'] . "'
                 AND language_iso = '" . $p['language_iso'] . "'
                 AND folder_name = '" . $p['folder_name'] . "'
@@ -102,14 +102,14 @@ function revert($p){
         else{
             if ($p['scope'] == 'library'){
                 $debug .= 'NOTE: USING DEFAULT LIBRARY  FROM LIBRARY.json' ."\n";
-                $out['text'] =  myGetPrototypeFile('library.json');
+                $out['text'] =  myGetPrototypeFile('library.json', $p['destination']);
             }
             else{
                 $debug .= 'No default ' ."\n";
                 $out =  null;
             }
         }
-        
+
     }
     return $out;
 }

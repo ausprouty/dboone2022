@@ -11,7 +11,7 @@ function createLanguages($p, $data){
         return null;
     }
      // replace placeholders in template
-    $main_template = $book_template = myGetPrototypeFile('languages.html');
+    $main_template = $book_template = myGetPrototypeFile('languages.html', $p['destination']);
     $placeholders = array(
         '{{ choose_language }}',
         '{{ more_languages }}',
@@ -24,7 +24,7 @@ function createLanguages($p, $data){
     );
     $main_template = str_replace($placeholders, $replace, $main_template);
     // get chapter template
-    $sub_template = myGetPrototypeFile('language.html');
+    $sub_template = myGetPrototypeFile('language.html', $p['destination']);
     $placeholders = array(
         '{{ link }}',
         '{{ language.name }}',

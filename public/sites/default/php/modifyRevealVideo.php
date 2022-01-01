@@ -80,21 +80,30 @@ For SD Card:
 */
 function modifyRevealVideo($text, $bookmark, $p){
 
-    if ($p['destination'] == 'sdcard'){
-        $watch_phrase = $bookmark['language']->watch;
+    if ($p['destination'] == 'sideload'){
+        $watch_phrase = $bookmark['language']->watch_offline;
         $template_link ='
         <button id="VimeoButton0" type="button" class="external-movie ">[title_phrase]</button>
         <div class="collapsed">
             <video controls>
                 <source src="[video]" type="video/mp4">
                 <p>Your browser doesn\'t support video. Here is a
-                <a href="[video]">link to the video<\/a> instead.<\/p>
+                <a href="[video]">link to the video</a> instead.</p>
             </video>
+        </div>';
+    }
+    elseif ($p['destination'] == 'sdcard'){
+        $watch_phrase = $bookmark['language']->watch_offline;
+        $template_link ='
+        <button id="VimeoButton0" type="button" class="external-movie ">[title_phrase]</button>
+        <div class="collapsed">
+           <video id="plyr-video"  width = "100%" controls>
+            <source src="[video]" type="video/mp4">
         </div>';
     }
     else{
         $watch_phrase = $bookmark['language']->watch;
-        $template_link = '<button id="revealButton[id]" type="button" class="external-movie [video_type]">[title_phrase]</button>
+        $template_link = '<button id="revealButton[id]" type="button" class="internal-movie">[title_phrase]</button>
                    <div class="collapsed">[video]</div>';
     }
     $template_options = '<div id="ShowOptionsFor[video]"></div>';

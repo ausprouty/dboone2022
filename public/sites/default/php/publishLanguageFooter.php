@@ -36,7 +36,7 @@ function publishLanguageFooter($p){
     }
     if (!$footer ){
         $debug .= 'LanguageFooter Setfrom languageFooter.html'. "\n";
-        $footer  =  myGetPrototypeFile('languageFooter.html');
+        $footer  =  myGetPrototypeFile('languageFooter.html', $p['destination']);
     }
     $placeholders = array(
         '{{ url }}', '{{ website }}'

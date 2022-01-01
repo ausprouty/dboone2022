@@ -19,7 +19,7 @@ function createLibrary($p, $text) {
     //
     // get template for library and fill in library details
     //
-    $body = myGetPrototypeFile('library.html');
+    $body = myGetPrototypeFile('library.html', $p['destination']);
     //
     //  Format Navigation area;
     //
@@ -32,7 +32,7 @@ function createLibrary($p, $text) {
     }
     else{
         $debug .= 'Ribbon In prototypeLibrary '. "\n";
-        $nav = myGetPrototypeFile('navRibbon.html');
+        $nav = myGetPrototypeFile('navRibbon.html', $p['destination']);
         $ribbon = isset($text->format->back_button)?$text->format->back_button->image : DEFAULT_BACK_RIBBON ;
     }
      $debug .= "ribbon is $ribbon\n";
@@ -81,7 +81,7 @@ function createLibrary($p, $text) {
         $temp = 'bookImage.html';
         $debug .= 'Using template for bookImage '. "\n";
     }
-    $book_template = myGetPrototypeFile('' . $temp);
+    $book_template = myGetPrototypeFile('' . $temp, $p['destination']);
     //
     //  replace for values in book templage for each book
     //

@@ -109,7 +109,7 @@ function getLatestContent($p){
         else{
             if ($p['scope'] == 'library'){
                 $debug .= 'NOTE: USING DEFAULT LIBRARY  FROM LIBRARY.json' ."\n";
-                $out['text'] =  myGetPrototypeFile('library.json');
+                $out['text'] =  myGetPrototypeFile('library.json', $p['destination']);
             }
             else{
                 $debug .= 'No default ' ."\n";

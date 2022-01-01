@@ -18,11 +18,11 @@ function createSeries($p, $data){
     // replace placeholders in template
     // Note: Current  is unique in that only has one book in the series.
     if ($data['folder_name'] == 'current' || $data['folder_name'] == 'youth-basics'){
-        $this_template = myGetPrototypeFile('seriesCurrent.html');
+        $this_template = myGetPrototypeFile('seriesCurrent.html', $p['destination']);
     }else{
-        $this_template = myGetPrototypeFile('series.html');
+        $this_template = myGetPrototypeFile('series.html', $p['destination']);
         // insert nav bar
-        $nav = myGetPrototypeFile('navRibbon.html');
+        $nav = myGetPrototypeFile('navRibbon.html', $p['destination']);
         $this_template = str_replace('[[nav]]', $nav, $this_template);
     }
 
@@ -85,8 +85,8 @@ function createSeries($p, $data){
     //
     // get chapter template
     //
-    $chapterText_template = myGetPrototypeFile('chapterText.html');
-    $chapterImage_template = myGetPrototypeFile('chapterImage.html');
+    $chapterText_template = myGetPrototypeFile('chapterText.html', $p['destination']);
+    $chapterImage_template = myGetPrototypeFile('chapterImage.html', $p['destination']);
     $placeholders = array(
         '{{ link }}',
         '{{ language.rldir }}',
