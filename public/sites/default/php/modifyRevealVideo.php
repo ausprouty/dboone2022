@@ -79,7 +79,7 @@ For SD Card:
 
 */
 function modifyRevealVideo($text, $bookmark, $p){
-
+    $debug = '';
     if ($p['destination'] == 'sideload'){
         $watch_phrase = $bookmark['language']->watch_offline;
         $template_link ='

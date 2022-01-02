@@ -4,9 +4,12 @@ myRequireOnce ('writeLog.php');
 function createLibrary($p, $text) {
      /* Return a container for the books in this library.
     This will be used to prototype these books by prototypeLibraryandBooks.
+
     */
-    $p['books'] = [];
+
     $out=[];
+    // used by publishLibraryAndBooks
+    $out['books'] = [];
     $debug = "createLibrary\n";
     $filename =  $p['library_code'];
      //
@@ -35,7 +38,7 @@ function createLibrary($p, $text) {
         $nav = myGetPrototypeFile('navRibbon.html', $p['destination']);
         $ribbon = isset($text->format->back_button)?$text->format->back_button->image : DEFAULT_BACK_RIBBON ;
     }
-     $debug .= "ribbon is $ribbon\n";
+    $debug .= "ribbon is $ribbon\n";
     $body = str_replace('[[nav]]',$nav, $body);
     //
     //  Replace other variables for Library
@@ -119,7 +122,7 @@ function createLibrary($p, $text) {
                     // you will need library code in bookmark
                     $book->library_code =  $b['library_code'];
                     // deal with any duplicates
-                    $p['books'][$code] = $book;
+                    $out['books'][$code] = $book;
                     // create link for series, library or page
                     if ($book->format == 'series'){
                         $this_link =  $code . '/index.html';
@@ -148,7 +151,7 @@ function createLibrary($p, $text) {
             }
         }
     }
-    $out['p'] = $p;
+
     $out['body'] = str_replace('[[books]]',$books, $body);
     writeLog('createLibrary', $debug);
     return $out;

@@ -8,7 +8,7 @@ myRequireOnce ('writeLog.php');
 
 
 function publishSeriesAndChapters ($p){
-    writeLog('publishSeriesAndChapters-1-'. $p, $p);
+    writeLog('publishSeriesAndChapters-1-p', $p);
     $debug = '';
     // first prototype the Series Index
     $out = publishSeries ($p);
@@ -18,7 +18,7 @@ function publishSeriesAndChapters ($p){
 
     // find the list of chapters that are ready to publish
     $series = contentObjectFromRecnum($p['recnum']);
-    writeLog('publishSeriesAndChapters-20-'. $series, $series);
+    writeLog('publishSeriesAndChapters-20-series', $series);
     $series_dir = publishDestination($p) .  $series->country_code . '/'. $series->language_iso . '/'. $series->folder_name . '/';
     // make sure folder exists
     if (!file_exists( $series_dir)){

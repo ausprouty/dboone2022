@@ -28,7 +28,9 @@ function publishLibrary($p){
     else{
         $selected_css = '/sites/default/styles/cardGLOBAL.css';
     }
-    $body = createLibrary($p, $text);
+    $res = createLibrary($p, $text);
+    $body = $res['body'];
+    $p['books'] = $res['books'];
 
     //
     // write file
