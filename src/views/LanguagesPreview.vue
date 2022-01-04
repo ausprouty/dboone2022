@@ -121,16 +121,7 @@ export default {
       var link = root + this.$route.params.country_code + '/languages.html'
       window.open(link, '_blank')
     },
-    async makeSDCard() {
-      this.sdcard_text = 'Making SDCard'
-      var response = null
-      var params = {}
-      params.recnum = this.recnum
-      params.route = JSON.stringify(this.$route.params)
-      response = await PublishService.publish('sdcard', params)
-      console.log(response)
-      this.sdcard_text = 'Making SDCard'
-    },
+
     async localPublish(location) {
       var response = null
       var params = []
@@ -139,14 +130,17 @@ export default {
       if (location == 'prototype') {
         this.prototype_text = 'Prototyping'
         response = await PrototypeService.publish('languages', params)
+          this.prototype_text = 'Prototyped'
       }
       if (location == 'sdcard') {
-        this.prototype_text = 'Publishing'
+        this.sdcard_text = 'Publishing'
         response = await SDCardService.publish('languages', params)
+        this.sdcard_text = 'Published'
       }
       if (location == 'website') {
         this.publish_text = 'Publishing'
         response = await PublishService.publish('languages', params)
+        this.publish_text = 'Published'
       }
 
       if (response['error']) {

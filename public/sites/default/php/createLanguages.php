@@ -58,7 +58,7 @@ function createLanguages($p, $data){
 
     $text = str_replace('[[languages]]',$temp,  $main_template);
     writeLog('createLanguages', $debug);
-    return text;
+    return $text;
 
 
 }

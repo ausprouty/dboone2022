@@ -196,14 +196,17 @@ export default {
       if (location == 'prototype') {
         this.prototype_text = 'Prototyping'
         response = await PrototypeService.publish('seriesAndChapters', params)
+        this.prototype_text = 'Prototyped'
       }
       if (location == 'sdcard') {
-        this.prototype_text = 'Publishing'
+        this.sdcard_text = 'Publishing'
         response = await SDCardService.publish('seriesAndChapters', params)
+        this.sdcard_text = 'Published'
       }
       if (location == 'website') {
         this.publish_text = 'Publishing'
         response = await PublishService.publish('seriesAndChapters', params)
+         this.publish_text = 'Published'
       }
 
       if (response['error']) {

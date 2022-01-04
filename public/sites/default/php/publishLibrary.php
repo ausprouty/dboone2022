@@ -37,7 +37,7 @@ function publishLibrary($p){
     // if filename == 'library', switch to 'index' because it means there is no
     // LibraryIndex file
     //
-    $dir  = publishDestination($p). $p['country_code'] . '/'. $p['language_iso'] .'/';
+    $dir  = publishDestination($p). 'content/'. $p['country_code'] . '/'. $p['language_iso'] .'/';
     if ($filename == 'library'){
         $filename = 'index';
     }
