@@ -113,7 +113,9 @@ function createSeries($p, $data){
             }
             //_write_series_log($p, $chapter);
             if ($status  == true ){ // we only want to process those with this as true
-                $p['files_json'] .= '{"url":"'. $json_dir . $chapter->filename . '.html"},' ."\n";
+                $filename = $json_dir . $chapter->filename . '.html';
+                $filename = str_ireplace('//', '/', $filename);
+                $p['files_json'] .= '{"url":"'. $filename. '"},' ."\n";
                 $image = null;
                 if (isset($chapter->image)){
                     if ($chapter->image != ''){
@@ -153,12 +155,3 @@ function createSeries($p, $data){
     return $out;
 }
 
-function _write_series_log($p, $chapter){
-    $content = "p\n";
-    foreach ($p as $key=> $value){
-        $content .= "$key => $value \n";
-    }
-    $content .= "\n\nchapter\n";
-    $content .= json_encode($chapter, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
-    writeLog($filename, $content);
-}
