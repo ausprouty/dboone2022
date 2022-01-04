@@ -33,7 +33,7 @@ function publishSeries ($p){
 
               $selected_css = isset($bookmark['book']->style) ? $bookmark['book']->style :STANDARD_CSS ;
               //
-            $dir = publishDestination($p) .  $p['country_code'] .'/'. $p['language_iso'] .'/'. $p['folder_name'] .'/';
+            $dir = publishDestination($p) . 'content/' . $p['country_code'] .'/'. $p['language_iso'] .'/'. $p['folder_name'] .'/';
             // make sure folder exists
             if (!file_exists($dir)){
                 dirMake ($dir);

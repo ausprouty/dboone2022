@@ -4,8 +4,11 @@
     <link rel="stylesheet" href="/sites/default/styles/cardGLOBAL.css" />
 */
 myRequireOnce ('writeLog.php');
+myRequireOnce('version2Text.php');
 
 function publishCSS($text, $p){
+    // need to make sure it is clean because old CSS may be added from a data file.
+    $text = version2Text($text);
     //writeLog('publishCSS-9-text', $text);
     $debug = 'In publishCSS' . "\n";
     $count = substr_count($text, '<link rel="stylesheet');
@@ -71,7 +74,7 @@ function publishCSS($text, $p){
         }
         else{
             $message = "$from not found in publishCSS";
-            //writeLogError('publishCSS', $message);
+            writeLogError('publishCSS-74-text', $text);
             trigger_error( $message, E_USER_ERROR);
         }
     }

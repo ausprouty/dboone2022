@@ -8,8 +8,7 @@ function createLibrary($p, $text) {
     */
 
     $out=[];
-    // used by publishLibraryAndBooks
-    $out['books'] = [];
+    $out['books'] = [];// used by publishLibraryAndBooks
     $debug = "createLibrary\n";
     $filename =  $p['library_code'];
      //
@@ -97,7 +96,7 @@ function createLibrary($p, $text) {
     );
     if (isset($text->books)){
         foreach ($text->books as $book){
-           // _write_library_log($p, $book);
+
             $status = false;
             if ($p['destination'] == 'website'){
                 $status = $book->publish;
@@ -155,15 +154,4 @@ function createLibrary($p, $text) {
     $out['body'] = str_replace('[[books]]',$books, $body);
     writeLog('createLibrary', $debug);
     return $out;
-}
-function _write_library_log($p, $book){
-    $content = "p\n";
-    foreach ($p as $key=> $value){
-        $content .= "$key => $value \n";
-    }
-    $content = "\n\nbook\n";
-    foreach ($book as $key=> $value){
-        $content .= "$key => $value \n";
-    }
-    writeLog($filename, $content);
 }

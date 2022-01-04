@@ -41,7 +41,6 @@ function publishSeriesAndChapters ($p){
                 $p['recnum'] = $data['recnum'];
                 // need to find latest record for recnum
                 $result =  publishPage ($p);
-                $debug .= $result['debug'];
                 if (is_array($result)){
                     $files_in_pages = array_merge($files_in_pages,$result['files_in_page']);
                 }

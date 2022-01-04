@@ -150,15 +150,18 @@ export default {
       params.route = JSON.stringify(this.$route.params)
       if (location == 'prototype') {
         this.prototype_text = 'Prototyping'
-        response = await PrototypeService.publish('library', params)
+        response = await PrototypeService.publish('libraryAndBooks', params)
+        this.prototype_text = 'Finished Prototyping'
       }
       if (location == 'sdcard') {
         this.sdcard_text = 'Updating SD Card Directory'
-        response = await SDCardService.publish('library', params)
+        response = await SDCardService.publish('libraryAndBooks', params)
+        this.sdcard_text = 'Finished SD Card Update'
       }
       if (location == 'website') {
         this.publish_text = 'Publishing'
-        response = await PublishService.publish('library', params)
+        response = await PublishService.publish('libraryAndBooks', params)
+         this.prototype_text = 'Finished Publishing'
       }
       if (response['error']) {
         this.error = response['message']

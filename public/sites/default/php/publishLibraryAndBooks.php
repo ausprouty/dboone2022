@@ -4,18 +4,14 @@ myRequireOnce ('publishLibrary.php');
 myRequireOnce ('publishSeriesAndChapters.php');
 
 function publishLibraryAndBooks($p){
-
+    writeLog('publishLibraryAndBooks-7-p', $p);
     /* Puplish Library and receive an array of book objects
     */
-    $debug = "\n\n publishLibraryAndBooks\n";
-    $debug .= json_encode($p, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n";
     $p = publishLibrary($p);
-    $debug .= "\n\n Books Parameter AFTER publishLibrary\n";
-    $debug .= json_encode($p['books'], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n";
+    writeLog('publishLibraryAndBooks-15-books', $p['books']);
     $count = 0;
     foreach ($p['books'] as $book){
         $count++;
-        $debug .= "count is $count" . "\n";
         //deal with legacy dagta
         if (isset($book->code)){
             $code = $book->code;
@@ -24,7 +20,6 @@ function publishLibraryAndBooks($p){
             $code = $book->name;
         }
         if ($book->format == 'series'){
-
             $sql = "SELECT recnum FROM content
                 WHERE  country_code = '" . $p['country_code']. "'
                 AND language_iso = '". $p['language_iso'] ."'
@@ -35,6 +30,7 @@ function publishLibraryAndBooks($p){
              $p['recnum'] = isset($data['recnum']) ? $data['recnum'] : null;
              if ($p['recnum']){
                 $p['folder_name'] = $code;
+                 writeLog('publishLibraryAndBooks-34-book-'. $code, $code);
                 publishSeriesAndChapters($p);
              }
         }
@@ -50,6 +46,10 @@ function publishLibraryAndBooks($p){
              $p['library_code'] = $book->library_code;
              publishPage($p);
          }
+        }
+        if ($book->format == 'library'){
+            $message = 'How are you going to deal with libaries referenced by a library?';
+          writeLogError('publishLibraryAndBooks-7-51', $message);
         }
     }
     return true;
