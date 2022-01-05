@@ -4,9 +4,11 @@ myRequireOnce ('dirMake.php');
 myRequireOnce ('writeLog.php');
 myRequireOnce('modifyRevealVideo.php');
 myRequireOnce('videoFindForSDCardNewName.php');
+myRequireOnce('audioMakeRefFileForSDCard.php');
 
 
 function videoMakeBatFileForSDCard($p){
+   audioMakeRefFileForSDCard($p);
    $output = '';
    $series_videos = [];
    $chapter_videos = [];

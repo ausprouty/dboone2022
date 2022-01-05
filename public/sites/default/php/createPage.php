@@ -26,10 +26,10 @@ function createPage($p, $content){
         $debug .= 'This is in a series for ' . $content['folder_name'] . "\n";
          writeLog('createPage-27-debug', $debug);
         $this_template = myGetPrototypeFile('pageInSeries.html', $p['destination']);
-        writeLog('createPage-29-template',$this_template);
+        //writeLog('createPage-29-template',$this_template);
         // insert nav bar and set ribbon value and link value
         $nav = myGetPrototypeFile('navRibbon.html', $p['destination']);
-        writeLog('createPage-31-nav', $nav);
+        //writeLog('createPage-31-nav', $nav);
         $this_template = str_replace('[[nav]]', $nav, $this_template);
         $ribbon = isset($bookmark['library']->format->back_button) ? $bookmark['library']->format->back_button->image : DEFAULT_BACK_RIBBON;
         writeLog('createPage-36-ribbon', $ribbon);
@@ -68,7 +68,7 @@ function createPage($p, $content){
 
         }
     }
-    writeLog('createPage-72-debug', $debug);
+    //writeLog('createPage-72-debug', $debug);
     // values for page that is not part of a series
     if ($bookmark['book']->format == 'page'){
         $debug .= 'This is a page' . "\n";
@@ -99,14 +99,14 @@ function createPage($p, $content){
         $page_title_and_image_value  = '<img  src ="'. $img  .  '"/>';
         $page_title_and_image_value .= '<h1>'. $bookmark['book']->title . '</h1>';
     }
-   writeLog('createPage-103-debug', $debug);
+   //writeLog('createPage-103-debug', $debug);
     if (!isset($this_template)){
         $debug .= 'FATAL ERROR. No Page Template for recnum'. $p['recnum'] . "\n";
         writeLog('createPage-77-debug', $debug);
         writeLogError('createPage', $debug);
         return NULL;
     }
-    writeLog('createPage-109-debug', $debug);
+    //writeLog('createPage-109-debug', $debug);
     $local_js = '<script> This is my script </script>';
     $dir_value = $bookmark['language']->rldir;
     $card_style_value = '/sites/default/styles/cardGLOBAL.css';
@@ -121,13 +121,14 @@ function createPage($p, $content){
     $debug .= "Here is my template\n";
     $debug .= $this_template . "\n";
     $debug .= "That was my template\n";
-    writeLog('createPage-122-debug', $debug);
+    //writeLog('createPage-122-debug', $debug);
+    writeLog('createPage-125-navlink', $navlink);
      // define placeholders
     $placeholders = array(
         '{{ dir }}',
         '{{ card.style }}',
         '{{ book.style }}',
-        '{{ link }}',
+        '{{ navlink }}',
         '{{ ribbon }}',
         '{{ page.title_and_image }}',
         '{{ page.text }}',

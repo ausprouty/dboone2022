@@ -28,54 +28,78 @@ Input is:
 
 
  Output
-        <button id="AudioButton0" type="button" class="external-audio ">Listen to Title</button>
+        <button id="AudioButton0" type="button" class="external-audio ">Listen to Title online<</button>
         <div class="collapsed">
             <audio controls src="TC2.mp3"> </audio>
             <p>Text</p>
         </div>
     OR
-    <button id="AudioButton0" type="button" class="external-audio ">Listen to Title</button>
+    <button id="AudioButton0" type="button" class="external-audio ">Listen to Title online</button>
         <div class="collapsed">
             <iframe src="https://open.spotify.com/embed/track/26HTolgTkxItxPoqErHewB" width="100%" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media">
             </iframe>
             <p>Text</p>
         </div>
     OR   Output for Vimeo : where input is https://vimeo.com/162977296 AND you want the words LISTEN TO
-        <button id="VimeoButton0" type="button" class="external-movie ">Watch  Luke 18:35-43 online</button>
+        <button id="VimeoButton0" type="button" class="external-movie ">Listen to Title online</button>
         <div class="collapsed">[vimeo]162977296</div>
 
 
+        For SD Card:
+    <button id="AudioButton0" type="button" class="external-audio ">Listen to Title</button>
+    <div class="collapsed">
+        <audio controls>
+            <source src="myAudio.mp3" type="audio/mpeg">
+            <p>Your browser doesn't support audio. Here is a
+            <a href="myAudio.mp3">link to the audio</a> instead.</p>
+        </audio>
+    </div>
 
 */
-function modifyRevealAudio($text, $bookmark){
-    $debug = 'In revealaudio' . "\n";
-    writeLog('modifyRevealAudio-48', $debug);
-    $listen_phrase = $bookmark['language']->listen;
-    $local_template= '
-    <button id="AudioButton[id]" type="button" class="collapsible external-audio ">[title_phrase]</button>
-    <div class="collapsed" style="display:none;">
-        <audio controls src="[url]">Sorry, Your browser does not support our audio playback.  Try Chrome. </audio>
-        <p>[audio_text]</p>
-    </div>
-    ';
-    $spotify_template= '
-    <button id="AudioButton[id]" type="button" class="collapsible external-audio ">[title_phrase]</button>
-    <div class="collapsed" style="display:none;">
-        <iframe src="[url]" width="100%" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media">
-        </iframe>
-        <p>[audio_text]</p>
-    </div>
-    ';
-    $soundcloud_template = '
-    <button id="AudioButton[id]" type="button" class="collapsible external-audio ">[title_phrase]</button>
-    <div class="collapsed" style="display:none;"><iframe width="100%" height="166" scrolling="no" frameborder="no"
-         src="https://w.soundcloud.com/player/?url=[url]&color=%23f9b625&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false">
-         </iframe>
-         <p>[audio_text]</p>
-    </div>';
-     $youtube_template= '<p></p><a href="[url]" target="_blank">[title_phrase]</a></p>';
-    $vimeo_template ='<button id="VimeoButton[id]" type="button" class="external-movie ">[title_phrase]</button>
-        <div class="collapsed">[vimeo][url]</div>';
+function modifyRevealAudio($text, $bookmark, $p){
+    $debug ='';
+    writeLog('modifyRevealAudio-61-text', $text);
+    writeLog('modifyRevealAudio-61-p', $p);
+    if ($p['destination'] == 'sdcard'){
+        $listen_phrase = $bookmark['language']->listen_offline;
+        $local_template= '
+        <button id="AudioButton[id]" type="button" class="collapsible external-audio ">[title_phrase]</button>
+        <div class="collapsed" style="display:none;">
+            <audio controls src="[url]">Sorry, Your browser does not support our audio playback.  Try Chrome. </audio>
+            <p>[audio_text]</p>
+        </div>
+        ';
+
+    }
+    else{
+        $listen_phrase = $bookmark['language']->listen;
+        $local_template= '
+        <button id="AudioButton[id]" type="button" class="collapsible external-audio ">[title_phrase]</button>
+        <div class="collapsed" style="display:none;">
+            <audio controls src="[url]">Sorry, Your browser does not support our audio playback.  Try Chrome. </audio>
+            <p>[audio_text]</p>
+        </div>
+        ';
+        $spotify_template= '
+        <button id="AudioButton[id]" type="button" class="collapsible external-audio ">[title_phrase]</button>
+        <div class="collapsed" style="display:none;">
+            <iframe src="[url]" width="100%" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media">
+            </iframe>
+            <p>[audio_text]</p>
+        </div>
+        ';
+        $soundcloud_template = '
+        <button id="AudioButton[id]" type="button" class="collapsible external-audio ">[title_phrase]</button>
+        <div class="collapsed" style="display:none;"><iframe width="100%" height="166" scrolling="no" frameborder="no"
+            src="https://w.soundcloud.com/player/?url=[url]&color=%23f9b625&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false">
+            </iframe>
+            <p>[audio_text]</p>
+        </div>';
+        $youtube_template= '<p></p><a href="[url]" target="_blank">[title_phrase]</a></p>';
+        $vimeo_template ='<button id="VimeoButton[id]" type="button" class="external-movie ">[title_phrase]</button>
+            <div class="collapsed">[vimeo][url]</div>';
+    }
+
     // [ChangeLanguage] is changed in local.js
     $find = '<div class="reveal audio">';
     $count = substr_count($text, $find);
@@ -86,14 +110,18 @@ function modifyRevealAudio($text, $bookmark){
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $old = substr($text, $pos_start, $length);
         // find title_phrase
-        $title = '<i>'. modifyAudioRevealFindText($old, 2) . '</i>&nbsp;';
+        $title = '<i>'. modifyRevealAudioFindText($old, 2) . '</i>&nbsp;';
         $title_phrase =  $word = str_replace('%', $title, $listen_phrase);
         //find url
-        $url = modifyAudioRevealFindText($old, 4);
+        $url = modifyRevealAudioFindText($old, 4);
         $debug .=  "url is | $url |\n";
-        $audio_text = modifyAudioRevealFindText($old, 6);
+        $audio_text = modifyRevealAudioFindText($old, 6);
         $debug .=  "audio_text is | $audio_text |\n";
-        if (strpos ($url, 'open.spotify.com') !== false){
+        if ($p['destination'] == 'sdcard'){
+            $new = $local_template;
+            $url = modifyRevealAudioSDCardUrl($url);
+        }
+        else{if (strpos ($url, 'open.spotify.com') !== false){
             $new = $spotify_template;
         }
         else if (strpos ($url, 'api.soundcloud.com') !== false){
@@ -105,10 +133,9 @@ function modifyRevealAudio($text, $bookmark){
         else if (strpos ($url, 'vimeo.com') !== false){
             $new = $vimeo_template;
             $url= str_ireplace('https://vimeo.com/', '', $url);
-        }
-        else{
-             $new = $local_template;
-        }
+        }}
+
+
         // make replacements
         $new = str_replace('[id]', $i, $new);
         $new = str_replace('[title_phrase]', $title_phrase, $new);
@@ -120,11 +147,11 @@ function modifyRevealAudio($text, $bookmark){
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $text = substr_replace($text, $new, $pos_start, $length);
     }
-    writeLog('modifyaudioReveal', $debug);
+    writeLog('modifyaudioReveal-147-text', $text);
     return $text;
 }
 // return the text from the td_segment
-function modifyAudioRevealFindText($old, $td_number){
+function modifyRevealAudioFindText($old, $td_number){
     $pos_td = 0;
     for ($i = 1; $i<= $td_number; $i++){
         $pos_td = strpos($old, '<td', $pos_td + 1);
@@ -135,4 +162,26 @@ function modifyAudioRevealFindText($old, $td_number){
     $text = substr($old, $pos_start, $length);
     $text = strip_tags($text);
     return $text;
+}
+function modifyRevealAudioSDCardUrl($url){
+    writeLog('modifyRevealAudioSDCardUrl-167-url', $url);
+    myRequireOnce ('audioReference.php');
+    $url = trim($url);
+     writeLog('modifyRevealAudioSDCardUrl-170-url', $url);
+    $link = audioReference();
+    writeLog('modifyRevealAudioSDCardUrl-172-link', $link);
+    if (isset($link[$url])){
+        writeLog('modifyRevealAudioSDCardUrl-174-found', $link[$url]);
+       return $link[$url];
+    }
+    else{
+         writeLog('modifyRevealAudioSDCardUrl-178-NOTfound', $url);
+        if (strpos($url, 'https%3A')){
+            $url = str_ireplace('https%3A', 'https:', $url);
+            if (isset($link[$url])){
+                return $link[$url];
+            }
+        }
+        return 'unknown';
+    }
 }

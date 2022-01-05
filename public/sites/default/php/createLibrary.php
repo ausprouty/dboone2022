@@ -52,23 +52,23 @@ function createLibrary($p, $text) {
     $country_index = '/content/' . $p['country_code'] .'/'. $p['language_iso'];
     $root_index = '/content/index.html';
     if ($filename == 'library'){
-        $link = $root_index;
+        $navlink = $root_index;
     }
     else{
-        $link = $country_index;
+        $navlink = $country_index;
     }
     // get language footer in prototypeOEpublish.php
     $footer = publishLanguageFooter($p);
-
+    writeLog('createLibrary-62-navlink', $navlink);
     $placeholders = array(
-        '{{ link }}',
+        '{{ navlink }}',
         '{{ ribbon }}',
         '{{ version }}',
         '{{ footer }}',
         '{{ language.rldir }}'
     );
     $replace = array(
-        $link,
+        $navlink,
         $ribbon,
         $p['version'],
         $footer ,

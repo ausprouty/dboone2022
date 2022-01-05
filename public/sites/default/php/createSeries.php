@@ -1,6 +1,7 @@
 <?php
 myRequireOnce ('bookmark.php');
 myRequireOnce ('publishFiles.php');
+myRequireOnce ('writeLog.php');
 
 
 function createSeries($p, $data){
@@ -30,7 +31,7 @@ function createSeries($p, $data){
     $placeholders = array(
         '{{ language.rldir }}',
         '{{ book.style }}',
-        '{{ link }}',
+        '{{ navlink }}',
         '{{ ribbon }}',
         '{{ book.image }}',
         '{{ download_ready }}',
@@ -41,13 +42,13 @@ function createSeries($p, $data){
         '{{ version }}',
         '{{ footer }}'
     );
-    $link =   '/content/'. $bookmark['language']->folder .'/';
+    $navlink =  $bookmark['language']->folder .'/';
     // todo: I know this is bad code, but I need to return current to language because there is only one item in the library
     if ( $p['library_code'] !='library' && $data['folder_name'] != 'current' && $data['folder_name'] != 'youth-basics'){
-        $link .= $p['library_code'] . '.html';
+        $navlink .= $p['library_code'] . '.html';
     }
     else{
-        $link .= 'index.html';
+        $navlink .= 'index.html';
     }
     $download_ready = isset($bookmark['language']->download_ready )? $bookmark['language']->download_ready : 'Ready for Offline Use';
     $download_now = isset($bookmark['language']->download)? $bookmark['language']->download : 'Download for Offline Use';
@@ -67,10 +68,11 @@ function createSeries($p, $data){
      // get language footer in prototypeOEpublish.php
     $footer = publishLanguageFooter($p); // returns  $footer
     //
+    writeLog('createSeries-71-navlink', $navlink);
     $replace = array(
         $bookmark['language']->rldir,
         $bookmark['book']->style,
-        $link,
+        $navlink,
         $ribbon,
         $book_image,
         $download_ready,
@@ -154,4 +156,3 @@ function createSeries($p, $data){
     writeLog('creatSeries', $debug);
     return $out;
 }
-

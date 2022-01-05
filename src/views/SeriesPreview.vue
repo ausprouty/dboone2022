@@ -119,7 +119,7 @@ export default {
       prototype_text: 'Prototype Series and Chapters',
       publish_text: 'Publish Series and Chapters',
       sdcard_text: 'Update SD Card',
-      videolist_text: 'Create VideoList for SDCard',
+      videolist_text: 'Create Media List for SD Card',
 
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       download_ready: '',
@@ -179,12 +179,12 @@ export default {
     },
     async sdCard(action) {
       if (action == 'video_list') {
-        this.videolist_text = 'Creating VideoList for SDCard'
+        this.videolist_text = 'Creating Media List'
         var response = await SDCardService.publish(
           'videoMakeBatFileForSDCard',
           this.$route.params
         )
-        this.videolist_text = 'copy batfile from /sdcard'
+        this.videolist_text = 'Copy batfile from /sdcard'
         console.log(response)
       }
     },

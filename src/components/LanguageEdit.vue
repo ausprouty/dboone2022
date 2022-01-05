@@ -173,6 +173,13 @@
           class="field"
         />
         <BaseInput
+          v-model="language.listen_offline.$model"
+          label="Listen to % "
+          type="text"
+          placeholder
+          class="field"
+        />
+        <BaseInput
           v-model="language.notes.$model"
           label="Notes: (click outside box to save)"
           type="text"

@@ -86,7 +86,7 @@ function modifyPage($text, $p, $data, $bookmark){
     }
 
     if (strpos($text, '<div class="reveal audio">')!== FALSE){
-        $text = modifyRevealAudio($text, $bookmark);
+        $text = modifyRevealAudio($text, $bookmark, $p);
     }
     if (strpos($text, '<div class="javascript') !== false){
         $text  = modifyJavascript($text);
