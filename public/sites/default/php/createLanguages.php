@@ -42,14 +42,14 @@ function createLanguages($p, $data){
         }
         if ($status  == true ){
             $replace = array(
-                '/content/'. $language->folder,
+                '/content/'.$p['country_code']  . '/'. $language->folder. '/index.html',
                     $language->name
                 );
             $temp .= str_replace($placeholders, $replace, $sub_template);
             //
             // make sure Language directory exits? Do I need this????
             //
-            $p['language_dir'] = publishDestination($p) . '/'. $language->folder .'/';
+            $p['language_dir'] = ' /content/'. $p['country_code']  . '/'.  $language->folder .'/';
             if (!file_exists($p['language_dir'])){
                 dirMake($p['language_dir']);
             }
@@ -57,7 +57,7 @@ function createLanguages($p, $data){
     }
 
     $text = str_replace('[[languages]]',$temp,  $main_template);
-    writeLog('createLanguages', $debug);
+    writeLog('createLanguages-60-text', $text);
     return $text;
 
 

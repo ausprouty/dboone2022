@@ -145,12 +145,20 @@
           class="field"
         />
         <BaseInput
+          v-model="language.read_more_online.$model"
+          label="Read More Online"
+          type="text"
+          placeholder
+          class="field"
+        />
+        <BaseInput
           v-model="language.read.$model"
           label="Read %"
           type="text"
           placeholder
           class="field"
         />
+
         <BaseInput
           v-model="language.watch.$model"
           label="Watch % online"

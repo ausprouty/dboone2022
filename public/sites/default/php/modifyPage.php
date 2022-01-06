@@ -7,6 +7,7 @@ myRequireOnce ('modifyHeader.php');
 myRequireOnce ('modifyJavascript.php');
 myRequireOnce ('modifyLinks.php');
 myRequireOnce ('modifyNoteArea.php');
+myRequireOnce ('modifyReadMore.php');
 myRequireOnce ('modifyRevealAudio.php');
 myRequireOnce ('modifyRevealBible.php');
 myRequireOnce ('modifyRevealSummary.php');
@@ -79,6 +80,9 @@ function modifyPage($text, $p, $data, $bookmark){
     }
     if (strpos($text, '<div class="reveal bible">')!== FALSE){
         $text = modifyRevealBible($text, $bookmark);
+        if ($p['destination']  == 'sdcard'){
+           $text = modifyReadMore($text);
+        }
     }
     // reveal_big is used by generations
     if (strpos($text, '<div class="reveal film') !== FALSE || strpos($text, '<div class="reveal_big film') !== FALSE){
