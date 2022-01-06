@@ -67,7 +67,7 @@ Output for Lumo [Nerw] : where input is https://api.arclight.org/videoPlayerUrl?
         <button id="VimeoButton0" type="button" class="external-movie ">Watch  Luke 18:35-43 online</button>
         <div class="collapsed">[vimeo]162977296</div>
 
-For SD Card:
+OLD For SD Card:
     <button id="VimeoButton0" type="button" class="external-movie ">Watch  Luke 18:35-43 </button>
     <div class="collapsed">
         <video controls>
@@ -76,6 +76,14 @@ For SD Card:
             <a href="myVideo.mp4">link to the video</a> instead.</p>
         </video>
     </div>
+SD Card:
+    <button id="VimeoButton0" type="button" class="external-movie ">Watch  Luke 18:35-43 </button>
+    <div class="collapsed">
+      <video id="video[id]"  width = "100%" controls>
+      <source src="[video]" type="video/mp4">
+      <script>  plyr.setup("#video[id]");</script>
+    </div>
+
 
 */
 function modifyRevealVideo($text, $bookmark, $p){
@@ -97,8 +105,9 @@ function modifyRevealVideo($text, $bookmark, $p){
         $template_link ='
         <button id="VimeoButton0" type="button" class="external-movie ">[title_phrase]</button>
         <div class="collapsed">
-           <video id="plyr-video"  width = "100%" controls>
-            <source src="[video]" type="video/mp4">
+           <video id="video[id]"  width = "100%" controls>
+           <source src="[video]" type="video/mp4">
+           <script>plyr.setup("#video[id]");</script>
         </div>';
     }
     else{

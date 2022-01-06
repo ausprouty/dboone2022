@@ -81,7 +81,7 @@ function modifyPage($text, $p, $data, $bookmark){
     if (strpos($text, '<div class="reveal bible">')!== FALSE){
         $text = modifyRevealBible($text, $bookmark);
         if ($p['destination']  == 'sdcard'){
-           $text = modifyReadMore($text);
+           $text = modifyReadMore($text, $bookmark);
         }
     }
     // reveal_big is used by generations
