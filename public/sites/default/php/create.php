@@ -7,7 +7,7 @@ function createContent($p){
 	if (!$text){
 		$message = "in createContent $p[text] can not be null";
         trigger_error( $message, E_USER_ERROR);
-        die;
+
 	}
 	else{
 
@@ -31,42 +31,40 @@ function createContent($p){
 			'$country_code','$folder_name','$filetype','$title','$filename','$page','$text')";
 		$result = $conn->query($sql);
 		if(!$result){
-			$message = "Could not add Content ";
+			$message = "Could not add Content";
         	trigger_error( $message, E_USER_ERROR);
 
 		}
+		else{
+			$message = "Success";
+		}
 	}
-	return TRUE;
+	return $message;
 }
 
 // create directory
 function createContentFolder($p){
-	$debug = 'createContentFolder'. "\n";
-
 	$dir = ROOT_EDIT_CONTENT . $p['country_code']. '/'. $p['language_iso'] . '/'. $p['$folder_name'];
 	$debug .= 'dir: ' . $dir ."\n";
 	if (!file_exists($dir)){
 		dirMake ($dir);
 	}
-	return $out;
+	return "Success";
 }
 function createDirectoryLanguages($p){
-	$debug = 'createDirectoryLanguages'. "\n";
 	$dir_country = ROOT_EDIT_CONTENT . $p['country_code'] .'/';
 	$languages = json_decode ($p['text']);
 	foreach ($langauges as $language_iso){
 		$dir = $dir_country . $language_iso;
-		$debug .= 'dir: ' . $dir ."\n";
 		if (!file_exists($dir)){
 			dirMake ($dir);
 		}
 	}
-	return $out;
+	return "Success";
 }
 
 // create directory
 function createDir($p){
-	$debug = 'createDir'. "\n";
 	switch ($scope){
 		case 'country':
 			$dir = ROOT_EDIT_CONTENT . $p['country_code'];
@@ -77,11 +75,10 @@ function createDir($p){
 		case 'folder':
 			break;
 	}
-	$debug .= 'dir: ' . $dir ."\n";
 	if (!file_exists($dir)){
 		dirMake ($dir);
 	}
-	return $out;
+	return "Success";
 
 }
 // create series index; I can not see any reason to do this.
@@ -110,6 +107,7 @@ function createSeriesIndex($p){
 function createStyle($p){
 	if (!isset($p['country_code'] )){
 		$message =  "Country code not set in create Style";
+		writeLogError('createStyle', $message);
         trigger_error( $message, E_USER_ERROR);
 		return NULL;
 

@@ -6,7 +6,7 @@ myRequireOnce ('writeLog.php');
 // sometimes the data is damaged like this:string(58) "M2/eng/multiply1,/sites/mc2/content/M2/eng/images/standard"
 function getImagesInContentDirectories($p){
 
-	$results = [];
+	$out = [];
 	//writeLog('getImagesInContentDirectories-9-dir',$p['image_dirs']);
 	$image_dirs= explode(',', $p['image_dirs']);
     foreach ($image_dirs as $directory){
@@ -16,20 +16,19 @@ function getImagesInContentDirectories($p){
 		}
 		$dir = ROOT_EDIT . $directory;
 		$dir= str_ireplace('//', '/', $dir);
-		$debug .= 'dir:' .  $dir . "\n";
 		if (file_exists($dir)){
 			$handler = opendir ($dir);
 			while ($mfile = readdir ($handler)){
 				if ($mfile != '.' && $mfile != '..' ){
 					if(strpos($mfile, '.html') == FALSE && strpos($mfile, '.json' == FALSE)){
-						$results[] =  $directory . '/'.  $mfile ;
+						$out[] =  $directory . '/'.  $mfile ;
 				    }
 				}
 			}
 			closedir ($handler);
 		}
 	}
-	$out = $results;
+
    // writeLog('getImagesInContentDirectories-36-out',$out);
 	return $out;
 

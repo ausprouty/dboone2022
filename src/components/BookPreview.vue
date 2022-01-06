@@ -68,7 +68,7 @@ export default {
       }
       if (book.format == 'library') {
         this.$router.push({
-          name: 'previewLibrary',
+          name: 'previewLibrary2',
           params: {
             country_code: this.bookmark.country.code,
             language_iso: this.bookmark.language.iso,

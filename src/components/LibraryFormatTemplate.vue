@@ -170,20 +170,18 @@ export default {
       }
     },
     async showForm() {
-      //await AuthorService.bookmark(this.$route.params)
+      var bm = await AuthorService.bookmark(this.$route.params)
+      console.log(bm)
       var param = {}
       param.route = JSON.stringify(this.$route.params)
-      param.image_dir = this.bookmark.language.image_dir
+      param.image_dir = bm.language.image_dir
       this.image_permission = this.authorize('write', this.$route.params)
       // get styles, images and back_buttons
       var style = await AuthorService.getStyles(param)
       if (typeof style !== 'undefined') {
         this.styles = style
       }
-      this.images = await this.getImages(
-        'content',
-        this.bookmark.language.image_dir
-      )
+      this.images = await this.getImages('content', bm.language.image_dir)
       LogService.consoleLogMessage('this.images')
       LogService.consoleLogMessage(this.images)
       this.back_buttons = await this.getImages('site', 'images/ribbons')

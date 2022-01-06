@@ -159,7 +159,7 @@ function checkBookmarkLibrary($b){
         writeLogError('ERROR - checkBookmarkLibrary-parameters', $b);
         //writeLog('ERROR - checkBookmarkLibrary-debug', $debug);
          //writeLog('ERROR - checkBookmarkLibrary-res',  $res['content']);
-         $message = "No librarg in checkBookmarkLibrary for ". $b['library_code'];
+         $message = "No library in checkBookmarkLibrary for ". $b['library_code'];
         trigger_error( $message , E_USER_ERROR);
     }
     // legacy data does not have ['books'] so move data there

@@ -48,8 +48,8 @@ function publishLibraryAndBooks($p){
          }
         }
         if ($book->format == 'library'){
-            $message = 'How are you going to deal with libaries referenced by a library?';
-          writeLogError('publishLibraryAndBooks-7-51', $message);
+            $message = 'You will need to publish separately the libary that this library refers to';
+            writeLogError('publishLibraryAndBooks-7-51', $message);
         }
     }
     return true;

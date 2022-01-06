@@ -204,19 +204,11 @@ export default {
           this.$route.params.library_code = ''
         }
         if (this.$route.params.library_code != 'library') {
-          if (typeof this.bookmark.country.custom !== 'undefined') {
-            this.back =
-              '/preview/libraryIndex/' +
-              this.$route.params.country_code +
-              '/' +
-              this.$route.params.language_iso
-          } else {
-            this.back =
-              '/preview/library' +
-              this.$route.params.country_code +
-              '/' +
-              this.$route.params.language_iso
-          }
+          this.back =
+            '/preview/library' +
+            this.$route.params.country_code +
+            '/' +
+            this.$route.params.language_iso
         }
         if (typeof this.bookmark.library.format.image !== 'undefined') {
           this.back_image = this.bookmark.library.format.image.image

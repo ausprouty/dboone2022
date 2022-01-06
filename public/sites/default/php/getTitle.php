@@ -7,10 +7,13 @@ function getTitle($recnum){
             WHERE  recnum  = '. $recnum;
         $debug .= $sql. "\n";
         $data = sqlArray($sql);
+        writeLogError('getTitle-10-data', $data);
     }
     else{
-        $debug .= 'FATAL ERROR. No recnum in PrototypPage'. "\n";
-        return $out;
+        $message = "no renum in getTitle ";
+         writeLogError('getTitle-12', $message);
+        trigger_error( $message, E_USER_ERROR);
+        return FALSE;
     }
     // do we have a page?
     if ($data['filetype'] == 'html'){
@@ -33,13 +36,14 @@ function getTitle($recnum){
                 }
             }
         }
+         writeLogError('getTitle-35-data', $data);
         $message = "in getTitle No Title Found ";
         trigger_error( $message, E_USER_ERROR);
         return NULL;
 
     }
-    // do we have a series index?
-   if ($data['folder_name']){
+    // do we have a series index so we can give the book title?
+   if ($data['folder_name'] == '' || !$data['folder_name'] ){
         $sql = 'SELECT * FROM content
         WHERE  country_code  = "'. $data['country_code'] .'"
         AND language_iso = "' . $data['language_iso']   .'"
@@ -57,15 +61,15 @@ function getTitle($recnum){
                     return $out;
                 }
             }
-           $message = "in getTitle No Title Found ";
-           trigger_error( $message, E_USER_ERROR);
-           return NULL;
+             return $data['filename'];
         }
         else{
-           $message = "in getTitle No Title Found ";
-           trigger_error( $message, E_USER_ERROR);
-           return NULL;
+            return $data['filename'];
         }
+   }
+ // do we have a library?
+   if ($data['folder_name'] !== ''  ){
+       return 'Library';
    }
    // do we have a language index?
    if ($data['language_iso']){
@@ -85,6 +89,7 @@ function getTitle($recnum){
             }
         }
     $out = null;
+       writeLogError('getTitle-90-data', $data);
         $message = "in getTitle No Title Found ";
         trigger_error( $message, E_USER_ERROR);
         return NULL;

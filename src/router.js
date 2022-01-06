@@ -18,6 +18,7 @@ import LanguagesSort from './views/LanguagesSort.vue'
 import LibraryEdit from './views/LibraryEdit.vue'
 
 import LibraryPreview from './views/LibraryPreview.vue'
+import LibraryPreview2 from './views/LibraryPreview2.vue'
 import LibrarySort from './views/LibrarySort.vue'
 
 import SeriesEdit from './views/SeriesEdit.vue'
@@ -138,6 +139,12 @@ export default new Router({
       path: '/preview/library/:country_code/:language_iso/:library_code',
       name: 'previewLibrary',
       component: LibraryPreview,
+      props: true,
+    },
+    {
+      path: '/preview/library2/:country_code/:language_iso/:library_code',
+      name: 'previewLibrary2',
+      component: LibraryPreview2,
       props: true,
     },
     {

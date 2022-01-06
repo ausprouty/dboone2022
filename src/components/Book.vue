@@ -58,7 +58,8 @@ export default {
             folder_name: this.book.code,
           },
         })
-      } else if (book.format == 'series') {
+      } else if (book.format == 'page') {
+
         LogService.consoleLogMessage('BOOK - this is a NOT a series')
         this.$router.push({
           name: 'page',
@@ -71,9 +72,10 @@ export default {
           },
         })
       } else if (book.format == 'library') {
+
         LogService.consoleLogMessage('BOOK - this is a LIBRARY')
         this.$router.push({
-          name: 'previewLibrary',
+          name: 'previewLibrary2',
           params: {
             country_code: this.bookmark.country.code,
             language_iso: this.bookmark.language.iso,

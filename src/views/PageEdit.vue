@@ -292,8 +292,7 @@ export default {
         this.content.filetype = 'html'
         var response = await AuthorService.createContentData(this.content)
         console.log(response)
-        //this.$store.dispatch('newBookmark', 'clear')
-        if (response.data.message == 'Content Added Successfully') {
+        if (response.data == 'Success') {
           this.$router.push({
             name: 'previewPage',
             params: {
@@ -305,7 +304,7 @@ export default {
             },
           })
         } else {
-          alert('there is an error in push')
+          alert('there is an error in saving your edits')
           this.error = true
           this.loaded = false
           this.error_message = response.data.message
@@ -327,7 +326,7 @@ export default {
         await this.getPageorTemplate('either')
       } catch (error) {
         LogService.consoleLogError(
-          'There was an error in Page.vue  during showPage:',
+          'There was an error in Page.vue during showPage:',
           error
         )
       }

@@ -35,8 +35,8 @@ function createPage($p, $content){
         writeLog('createPage-36-ribbon', $ribbon);
         // this is always going back to the index; and we don't want that with Transferable Concepts
         // TODO: allow going back to previous study
-        $link_value =   $bookmark['language']->folder . '/'. $content['folder_name'].'/index.html';
-        writeLog('createPage-39-linkvalue',  $link_value);
+        $navlink =   $bookmark['language']->folder . '/'. $content['folder_name'].'/index.html';
+        writeLog('createPage-39-navlink',  $navlink);
         // compute $page_title_and_image for series
         if (isset($bookmark['page']->image)){
             if ($bookmark['page']->image){
@@ -84,7 +84,7 @@ function createPage($p, $content){
         if ($p['library_code'] != 'library'){
             $index = $p['library_code'] . '.html';
         }
-        $link_value =  '/content/'. $bookmark['language']->folder .  '/'.$index;
+        $navlink =  '/content/'. $bookmark['language']->folder .  '/'.$index;
         $page_text_value = $content['text'];
         // compute $page_title_and_image_value
         if (isset($bookmark['book']->image->image)){
@@ -139,7 +139,7 @@ function createPage($p, $content){
         $dir_value,
         $card_style_value,
         $book_style_value,
-        $link_value,
+        $navlink,
         $ribbon,
         $page_title_and_image_value,
         $page_text_value,
