@@ -32,7 +32,7 @@ function audioMakeRefFileForSDCard($p){
             }
         }
     }
-   // writeLog('audioMakeBatFileForSDCard-35-chapter_audios', $series_audios);
+   // //writeLog('audioMakeBatFileForSDCard-35-chapter_audios', $series_audios);
     // create file
     $template= '$link[\'[old_name]\'] = \'[new_name]\'';
     foreach ($series_audios as $audio){
@@ -95,8 +95,8 @@ function audioMakeBatFileForSDCardWrite($text, $p){
     <hr /></div>';
 */
 function audioFindForSDCard($p, $filename){
-    writeLog('audioFindForSDCard-113-p', $p);
-    writeLog('audioFindForSDCard-114-filename', $filename);
+    //writeLog('audioFindForSDCard-113-p', $p);
+    //writeLog('audioFindForSDCard-114-filename', $filename);
     // find chapter that has been prototyped
     $chapter_audios = [];
     $audio = [];
@@ -135,7 +135,7 @@ function audioFindForSDCard($p, $filename){
         }
         $chapter_audios[] = $audio;
     }
-    writeLog('audioFindForSDCard-185-chapteraudios', $chapter_audios);
+    //writeLog('audioFindForSDCard-185-chapteraudios', $chapter_audios);
     return $chapter_audios;
 }
 function  audioFindForSDCardNewName($filename){

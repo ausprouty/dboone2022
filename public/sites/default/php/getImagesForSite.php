@@ -35,7 +35,7 @@ function getImagesForSite($p){
 		return NULL;
 	}
 	$out = $results;
-    writeLog('getImagesForSite',$debug );
+    //writeLog('getImagesForSite',$debug );
 	return $out;
 
 }

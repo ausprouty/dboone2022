@@ -59,7 +59,7 @@ function createLibrary($p, $text) {
     }
     // get language footer in prototypeOEpublish.php
     $footer = publishLanguageFooter($p);
-    writeLog('createLibrary-62-navlink', $navlink);
+    //writeLog('createLibrary-62-navlink', $navlink);
     $placeholders = array(
         '{{ navlink }}',
         '{{ ribbon }}',
@@ -152,6 +152,6 @@ function createLibrary($p, $text) {
     }
 
     $out['body'] = str_replace('[[books]]',$books, $body);
-    writeLog('createLibrary', $debug);
+    //writeLog('createLibrary', $debug);
     return $out;
 }

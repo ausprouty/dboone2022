@@ -72,6 +72,6 @@ to:
         $debug .= "$text" ."\n";
     }
 
-    writeLog('modifyNoteArea', $debug);
+    //writeLog('modifyNoteArea', $debug);
     return $text;
   }

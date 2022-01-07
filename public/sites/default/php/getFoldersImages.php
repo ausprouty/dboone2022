@@ -82,7 +82,7 @@ function getFoldersImages($p){
         trigger_error( $message, E_USER_ERROR);
 		return NULL;
 	}
-    writeLog('getFoldersImages', $debug);
+    //writeLog('getFoldersImages', $debug);
 	return $out;
 
 }

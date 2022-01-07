@@ -5,7 +5,7 @@ function getLanguagesAvailable($p){
     $available = [];
 
     $debug = 'In getLanguagesAvailable '. "\n";
-    writeLog('getLanguagesAvailable-8' ,$debug );
+    //writeLog('getLanguagesAvailable-8' ,$debug );
     // flags
     $sql = "SELECT * FROM content
                 WHERE filename = 'countries'
@@ -27,7 +27,7 @@ function getLanguagesAvailable($p){
     }
 
     $query = sqlMany($sql);
-    writeLog('getLanguagesAvailable-22' ,$debug );
+    //writeLog('getLanguagesAvailable-22' ,$debug );
     while($country = $query->fetch_array()){
         // get prototyped languages from each prototyped country
          if ($p['destination']=='staging'){
@@ -58,7 +58,7 @@ function getLanguagesAvailable($p){
                 }
             }
             $debug .= "$flag is flag for " .  $country['country_code']. " \n";
-            writeLog('getLanguagesAvailable-44' , $text->languages );
+            //writeLog('getLanguagesAvailable-44' , $text->languages );
             foreach ($text->languages as $language){
                 if (isset($language->publish)){
                     if ($language->publish){
@@ -79,15 +79,15 @@ function getLanguagesAvailable($p){
                     }
                 }
             }
-            writeLog('getLanguagesAvailable-65' , $available );
+            //writeLog('getLanguagesAvailable-65' , $available );
             usort($available, '_sortByIso');
-            writeLog('getLanguagesAvailable-67' ,$available );
+            //writeLog('getLanguagesAvailable-67' ,$available );
 
         }
 
     }
     $out= $available;
-    writeLog('getLanguagesAvailable-71' , $out );
+    //writeLog('getLanguagesAvailable-71' , $out );
     return $out;
 
 

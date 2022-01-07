@@ -68,7 +68,7 @@ function createSeries($p, $data){
      // get language footer in prototypeOEpublish.php
     $footer = publishLanguageFooter($p); // returns  $footer
     //
-    writeLog('createSeries-71-navlink', $navlink);
+    //writeLog('createSeries-71-navlink', $navlink);
     $replace = array(
         $bookmark['language']->rldir,
         $bookmark['book']->style,
@@ -153,6 +153,6 @@ function createSeries($p, $data){
     }
     $out['text'] = str_replace('[[chapters]]', $chapters_text, $this_template);
     $out['p'] = $p;
-    writeLog('creatSeries', $debug);
+    //writeLog('creatSeries', $debug);
     return $out;
 }

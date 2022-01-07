@@ -4,11 +4,11 @@ myRequireOnce ('publishLibrary.php');
 myRequireOnce ('publishSeriesAndChapters.php');
 
 function publishLibraryAndBooks($p){
-    writeLog('publishLibraryAndBooks-7-p', $p);
+    //writeLog('publishLibraryAndBooks-7-p', $p);
     /* Puplish Library and receive an array of book objects
     */
     $p = publishLibrary($p);
-    writeLog('publishLibraryAndBooks-15-books', $p['books']);
+    //writeLog('publishLibraryAndBooks-15-books', $p['books']);
     $count = 0;
     foreach ($p['books'] as $book){
         $count++;
@@ -30,7 +30,7 @@ function publishLibraryAndBooks($p){
              $p['recnum'] = isset($data['recnum']) ? $data['recnum'] : null;
              if ($p['recnum']){
                 $p['folder_name'] = $code;
-                 writeLog('publishLibraryAndBooks-34-book-'. $code, $code);
+                 //writeLog('publishLibraryAndBooks-34-book-'. $code, $code);
                 publishSeriesAndChapters($p);
              }
         }

@@ -362,6 +362,6 @@ function revealVideoVimeo($text, $bookmark){
         $text = substr_replace($text, $new, $pos_start, $length);
     }
     $out = $text;
-    writeLog('revealVideoVimeo', $debug);
+    //writeLog('revealVideoVimeo', $debug);
     return $out;
 }

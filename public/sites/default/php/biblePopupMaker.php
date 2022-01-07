@@ -17,13 +17,13 @@ function biblePopupMaker($p){
     $debug = '';
     $debug .= 'in biblePopupMaker' . "\n";
     if (!isset($p['text'])){
-        writeLog('biblePopupMaker-20', 'No Text');
+        //writeLog('biblePopupMaker-20', 'No Text');
         trigger_error("p[text] is not set in biblePopupMaker", E_USER_ERROR);
         $debug .= 'p[text] is not set' . "\n\n\n";
         return $out;
     }
     if (!isset($p['bookmark'])){
-        writeLog('biblePopupMaker-26', 'No Bookmark');
+        //writeLog('biblePopupMaker-26', 'No Bookmark');
         trigger_error("p[bookmark] is not set in biblePopupMaker", E_USER_ERROR);
         $debug .= 'p[bookmark] is not set' . "\n\n\n";
         return $out;
@@ -32,7 +32,7 @@ function biblePopupMaker($p){
     $ot = $bookmark->language->bible_ot;
     $nt = $bookmark->language->bible_nt;
     $debug .= "nt and ot are $nt and $ot\n";
-    writeLog('biblePopupMaker-33', $debug);
+    //writeLog('biblePopupMaker-33', $debug);
     $template = '<a href="javascript:popUp(\'pop[id]\')">[reference]</a>
     <div class="popup" id="pop[id]">[text]</div>';
     $text = $p['text'];

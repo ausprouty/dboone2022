@@ -1,4 +1,6 @@
 <?php
+myRequireOnce('folderArray.php');
+
 function debugSeriesCrawlX ($p){
     return;
     $version = '1.0';
@@ -41,7 +43,7 @@ function debugSeriesCrawlX ($p){
         die("Connection has failed: " . $conn->connect_error);
     }
     $output = new stdClass();
-    
+
     $edit_root = ROOT_EDIT .  'content';
     $debug = 'in debugCrawl' . "\n";
     $countries = folderArray($edit_root);
@@ -101,7 +103,7 @@ function debugLibraryCrawl ($p){
         die("Connection has failed: " . $conn->connect_error);
     }
     $output = new stdClass();
-    
+
     $edit_root = ROOT_EDIT .  'content';
     $debug = 'in debugCrawl' . "\n";
     $countries = folderArray($edit_root);

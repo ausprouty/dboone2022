@@ -71,7 +71,7 @@ function publishLibraryIndex($p){
     if ($sql){
       sqlArray($sql, 'update');
     }
-    writeLog('publishLibraryIndex', $debug);
+    //writeLog('publishLibraryIndex', $debug);
     return true;
 }
 

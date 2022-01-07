@@ -28,15 +28,18 @@ function videoMakeBatFileForSDCard($p){
         foreach ($text->chapters as $chapter){
             if ($chapter->prototype){
                 $chapter_videos = videoFindForSDCard($p, $chapter->filename);
-                if (count($chapter_videos) > 0){
-                    foreach ($chapter_videos as $chapter_video){
-                      array_push($series_videos, $chapter_video);
+                if (is_array($chapter_videos)){
+                    if (count($chapter_videos) > 0){
+                        foreach ($chapter_videos as $chapter_video){
+                        array_push($series_videos, $chapter_video);
                    }
                 }
+                }
+
             }
         }
     }
-   // writeLog('videoMakeBatFileForSDCard-35-chapter_videos', $series_videos);
+   // //writeLog('videoMakeBatFileForSDCard-35-chapter_videos', $series_videos);
     // create file
     $template_with_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start] -to [end]   -vf scale=[width]:-1  [width]/[new_name].mp4' ;
     $template_without_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start]  -vf scale=[width]:-1    [width]/[new_name].mp4';
@@ -112,8 +115,11 @@ function videoMakeBatFileForSDCardWrite($text, $p){
     <hr /></div>';
 */
 function videoFindForSDCard($p, $filename){
-    writeLog('videoFindForSDCard-113-p', $p);
-    writeLog('videoFindForSDCard-114-filename', $filename);
+    //todo clean this
+    $chapter_videos = [];
+
+    //writeLog('videoFindForSDCard-113-p', $p);
+    //writeLog('videoFindForSDCard-114-filename', $filename);
     // find chapter that has been prototyped
     $chapter_videos = [];
     $videoReference = videoReference();
@@ -130,30 +136,31 @@ function videoFindForSDCard($p, $filename){
         ORDER BY recnum DESC LIMIT 1";
     $data = sqlArray($sql);
     $text= $data['text'];
-    //writeLog('videoFindForSDCard-76-'. $filename, $text);
+    ////writeLog('videoFindForSDCard-76-'. $filename, $text);
     $find = '<div class="reveal film">';
     $count = substr_count($text, $find);
+    //writeLog('videoFindForSDCard-140-count', $count);
     $offset = 0;
     for ($i = 0; $i < $count; $i++){
         // get old division
         $pos_start = strpos($text,$find, $offset);
         $pos_end = strpos($text, '</div>', $pos_start);
-        $offset = $pos_end + 1;
+        $offset = $pos_end ;
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $old = substr($text, $pos_start, $length);
         // find title_phrase
         $video['title'] = modifyVideoRevealFindText($old, 2);
         //find url
         $url = modifyVideoRevealFindText($old, 4);
-        $find = 'api.arclight.org';
-        //writeLog('videoFindForSDCard-95-'. $filename . $count, $url . "\n" . $find);
+        $arc = 'api.arclight.org';
+        ////writeLog('videoFindForSDCard-95-'. $filename . $count, $url . "\n" . $find);
 
-        if (strpos($url, $find)){
+        if (strpos($url, $arc)){
             $url = str_ireplace('https://api.arclight.org/videoPlayerUrl?refId=', '', $url);
-            //writeLog('videoFindForSDCard-99-'. $filename . $count, $url);
+            ////writeLog('videoFindForSDCard-99-'. $filename . $count, $url);
             $start = strpos($url, '-') +1;
             $url= substr($url, $start);
-            if ($videoReference[$url]){
+            if (isset($videoReference[$url])){
                  $video['download_name'] = $videoReference[$url];
                 if (strpos($video['download_name'], 'LUMO') !== FALSE){
                     $video['download_name'] ='lumo/'. $video['download_name'];
@@ -165,13 +172,13 @@ function videoFindForSDCard($p, $filename){
             else{
                 $video['download_name'] = NULL;
                 $message = 'Download name not found for ' . $url;
-                writeLogError('videoFindForSDCard-102-' . $url, $message );
+                writeLogError('videoFindForSDCard-102-' . $filename, $message );
             }
         }
         else{
             $video['download_name'] = NULL;
             $message = 'Download name not found for ' . $url;
-            writeLogError('videoFindForSDCard-102-' . $url, $message );
+            writeLogError('videoFindForSDCard-102-' . $filename, $message );
 
         }
         $video['url']= $url;
@@ -184,6 +191,6 @@ function videoFindForSDCard($p, $filename){
         }
         $chapter_videos[] = $video;
     }
-    writeLog('videoFindForSDCard-185-chaptervideos', $chapter_videos);
+    //writeLog('videoFindForSDCard-185-chaptervideos', $chapter_videos);
     return $chapter_videos;
 }

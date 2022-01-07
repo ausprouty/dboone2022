@@ -50,6 +50,6 @@ function publishLanguageFooter($p){
     $footer .= languageSpecificJavascripts($p);
 
     $debug .=  'Country Footer:' . "\n"  .$footer  . "\n";
-     writeLog('publishLanguageFooter', $debug);
+     //writeLog('publishLanguageFooter', $debug);
     return $footer;
 }

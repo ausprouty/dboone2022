@@ -13,6 +13,6 @@ function languageSpecificJavascripts($p){
             }
         }
     }
-    writeLog('languageSpecific', $out);
+    //writeLog('languageSpecific', $out);
     return $out;
 }

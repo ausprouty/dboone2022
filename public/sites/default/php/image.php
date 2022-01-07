@@ -1,6 +1,6 @@
 <?php
 function imageStore($p){
-	writeLog('image-3', ' I entered image Store');
+	//writeLog('image-3', ' I entered image Store');
 	if (!isset($p['directory'] )){
 		$message = "Directory not set in uploadImage ";
         trigger_error( $message, E_USER_ERROR);
@@ -44,6 +44,6 @@ function imageStore($p){
             trigger_error( $message, E_USER_ERROR);
 		}
 	}
-	writeLog('image-49', $debug);
+	//writeLog('image-49', $debug);
 	return $out;
 }

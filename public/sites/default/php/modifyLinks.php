@@ -62,7 +62,7 @@ function modifyEditLinks($text, $find){
         $new = '<a href="'. $new_link. '">';
         $text = str_replace($old, $new, $text);
     }
-    writeLog('ModifyEditLinks',$text );
+    //writeLog('ModifyEditLinks',$text );
     return $text;
 }
 /*  <a href="https://generations.prototype.myfriends.network/content/A2/eng/emc/mc201.html">
@@ -99,9 +99,9 @@ function modifyInternalLinks($text, $find){
         $new = str_replace('{id}', 'Return' . $i , $new );
         $text = substr_replace($text, $new, $pos_start, $link_length);
         $pos_start =
-        writeLog('modifyInternalLinks' . $i, $debug . $text);
+        //writeLog('modifyInternalLinks' . $i, $debug . $text);
     }
-   // writeLog('modifyInternalLinks', $text);
+   // //writeLog('modifyInternalLinks', $text);
     return $text;
 }
 
@@ -113,6 +113,6 @@ function modifyExternalLinks($text, $find){
     $debug = "\n\n\nIn modifyExternalLinks\n";
     $text = str_ireplace ('href="http', ' target = "_blank" href="http', $text);
 
-   // writeLog('modifyInternalLinks', $text);
+   // //writeLog('modifyInternalLinks', $text);
     return $text;
 }

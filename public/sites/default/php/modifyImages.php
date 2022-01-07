@@ -3,7 +3,6 @@
 Looking for all images and styles that are in the current file
 */
 myRequireOnce ('createDirectory.php');
-myRequireOnce ('dirList.php');
 myRequireOnce ('publishDestination.php');
 myRequireOnce ('writeLog.php');
 
@@ -80,9 +79,6 @@ function copySiteImages($text, $p){
     //writeLog('copySiteImages-2-text', $text);
     //define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
     $destination_dir = publishDestination($p);
-    $debug = 'In copySiteImages' . "\n";
-    $debug .= $p['destination'] . "\n";
-    $debug .= $text . "\n\n ============ End of Text ==============\n";
      //writeLog('copySiteImages-params', $debug);
     $sites = array(DIR_SITE, DIR_DEFAULT_SITE);
     foreach ($sites as $site){

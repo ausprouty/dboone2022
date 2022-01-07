@@ -58,14 +58,24 @@ Input is:
 */
 function modifyRevealAudio($text, $bookmark, $p){
     $debug ='';
-    writeLog('modifyRevealAudio-61-text', $text);
-    writeLog('modifyRevealAudio-61-p', $p);
+    //writeLog('modifyRevealAudio-61-text', $text);
+    //writeLog('modifyRevealAudio-61-p', $p);
     if ($p['destination'] == 'sdcard'){
         $listen_phrase = $bookmark['language']->listen_offline;
-        $local_template= '
+        $Xlocal_template= '
         <button id="AudioButton[id]" type="button" class="collapsible external-audio ">[title_phrase]</button>
         <div class="collapsed" style="display:none;">
             <audio controls src="[url]">Sorry, Your browser does not support our audio playback.  Try Chrome. </audio>
+            <p>[audio_text]</p>
+        </div>
+        ';
+        $local_template= '
+        <button id="AudioButton[id]" type="button" class="collapsible external-audio ">[title_phrase]</button>
+        <div class="collapsed" style="display:none;">
+            <audio id="plyr-audio[id]" controls>
+                <source src="[url]" type="audio/mp3">
+            </audio>
+            <script>plyr.setup("#plyr-audio[id]");</script>
             <p>[audio_text]</p>
         </div>
         ';
@@ -147,7 +157,7 @@ function modifyRevealAudio($text, $bookmark, $p){
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $text = substr_replace($text, $new, $pos_start, $length);
     }
-    writeLog('modifyaudioReveal-147-text', $text);
+    //writeLog('modifyaudioReveal-147-text', $text);
     return $text;
 }
 // return the text from the td_segment
@@ -164,18 +174,18 @@ function modifyRevealAudioFindText($old, $td_number){
     return $text;
 }
 function modifyRevealAudioSDCardUrl($url){
-    writeLog('modifyRevealAudioSDCardUrl-167-url', $url);
+    //writeLog('modifyRevealAudioSDCardUrl-167-url', $url);
     myRequireOnce ('audioReference.php');
     $url = trim($url);
-     writeLog('modifyRevealAudioSDCardUrl-170-url', $url);
+     //writeLog('modifyRevealAudioSDCardUrl-170-url', $url);
     $link = audioReference();
-    writeLog('modifyRevealAudioSDCardUrl-172-link', $link);
+    //writeLog('modifyRevealAudioSDCardUrl-172-link', $link);
     if (isset($link[$url])){
-        writeLog('modifyRevealAudioSDCardUrl-174-found', $link[$url]);
+        //writeLog('modifyRevealAudioSDCardUrl-174-found', $link[$url]);
        return $link[$url];
     }
     else{
-         writeLog('modifyRevealAudioSDCardUrl-178-NOTfound', $url);
+         //writeLog('modifyRevealAudioSDCardUrl-178-NOTfound', $url);
         if (strpos($url, 'https%3A')){
             $url = str_ireplace('https%3A', 'https:', $url);
             if (isset($link[$url])){

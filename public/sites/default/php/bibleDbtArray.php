@@ -21,7 +21,7 @@ function createBibleDbtArrayFromPassage($p){
     foreach ($passages as $passage){
         $p['passage']= trim($passage);
         $debug .= '$p[passage] is ' .  $p['passage'] . "\n";
-       // writeLog('createBibleDbtArrayFromPassage24-' . time(), $debug);
+       // //writeLog('createBibleDbtArrayFromPassage24-' . time(), $debug);
         $out = createBibleDbtArray($p);
     }
     return $out;
@@ -63,7 +63,7 @@ function createBibleDbtArray($p){
 
     if (isset($data['book_id'])){
         $debug .= $data['book_id'] . "\n";
-       // writeLog('createBibleDbtArray68-' . time(), $debug);
+       // //writeLog('createBibleDbtArray68-' . time(), $debug);
     }
     if (!isset($data['book_id'])){
         $debug .= 'trying to find in English' . "\n";
@@ -117,7 +117,7 @@ function createBibleDbtArray($p){
         $debug .= $key . ' => ' . $value . "\n";
     }
     $debug .= 'at the end of dbt' . "\n";
-    writeLog('createBibleDbtArray', $debug);
+    //writeLog('createBibleDbtArray', $debug);
     $out = $dbt_array;
     return $out;
 }

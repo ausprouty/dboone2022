@@ -42,7 +42,7 @@ function modifyPage($text, $p, $data, $bookmark){
     $debug .= 'read is ' . isset($bookmark['language']->read) ? $bookmark['language']->read : 'Not Set' . "\n";
 
     $text= version2Text($text);
-    writeLog('modifyPages-43-version2text', $text);
+    //writeLog('modifyPages-43-version2text', $text);
     //
     // modify note fields
     //
@@ -63,7 +63,7 @@ function modifyPage($text, $p, $data, $bookmark){
     $text = str_replace('<a  ' ,'<a ', $text);
     //$text = str_replace('href="http' ,' target="_blank" href="http', $text);
     //
-    writeLog('modify-page-65', $text);
+    //writeLog('modify-page-65', $text);
     //  change internal links for easy return:
     if (strpos($text, '<a href=') !== FALSE){
         $text = modifyLinks($text);

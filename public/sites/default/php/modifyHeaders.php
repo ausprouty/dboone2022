@@ -30,7 +30,7 @@ function modifyHeaders($text){
         }
     }
     $debug .= $headers;
-    writeLog('modifyHeaders', $debug);
+    //writeLog('modifyHeaders', $debug);
     $output['headers']= $headers;
     $output['text']= $text;
     $output['debug'] = $debug;

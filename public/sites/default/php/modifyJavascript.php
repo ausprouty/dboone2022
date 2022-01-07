@@ -30,7 +30,7 @@ function modifyJavascript($text){
         $text = substr_replace($text, $script, $pos_start, $length);
 
     }
-    writeLog('modifyJavascript-25', $debug);
+    //writeLog('modifyJavascript-25', $debug);
     return $text;
 
 }

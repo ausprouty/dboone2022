@@ -56,7 +56,7 @@ function videoLinksFind($text, $filename){
         // reset
         $pos_start = $pos_end_time_end;
         $debug .= $text;
-        writeLog('videoLinksFind-'  . '-'. $filename . '-'. $i, $debug);
+        //writeLog('videoLinksFind-'  . '-'. $filename . '-'. $i, $debug);
     }
    
     return $output;

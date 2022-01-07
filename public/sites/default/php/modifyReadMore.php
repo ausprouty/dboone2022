@@ -1,4 +1,3 @@
-
 <?php
 myRequireOnce('//writeLog.php');
 // removes readmore from text; used in SD Cards

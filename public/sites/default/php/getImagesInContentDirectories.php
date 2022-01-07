@@ -12,7 +12,7 @@ function getImagesInContentDirectories($p){
     foreach ($image_dirs as $directory){
 		if (strpos($directory, '/sites') == FALSE){
                $directory ='/sites/'. SITE_CODE .'/content/'. $directory;
-			   writeLog('getImagesInContentDirectories-15-dirfix',$directory);
+			   //writeLog('getImagesInContentDirectories-15-dirfix',$directory);
 		}
 		$dir = ROOT_EDIT . $directory;
 		$dir= str_ireplace('//', '/', $dir);
@@ -29,7 +29,7 @@ function getImagesInContentDirectories($p){
 		}
 	}
 
-   // writeLog('getImagesInContentDirectories-36-out',$out);
+   // //writeLog('getImagesInContentDirectories-36-out',$out);
 	return $out;
 
 }

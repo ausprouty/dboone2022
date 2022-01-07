@@ -28,6 +28,7 @@ export default {
       test: '',
       result: '',
       test_options: [
+        'testVideoConcatBat',
         'testVideoMakeBatFileForSDCard',
         'testPrototypePage',
         'testPublishPage',
@@ -339,6 +340,11 @@ export default {
         'videoMakeBatFileForSDCard',
         params
       )
+      return response
+    },
+    async testVideoConcatBat() {
+      var params = this.setupParams()
+      var response = await SDCardService.publish('videoConcatBat', params)
       return response
     },
   },

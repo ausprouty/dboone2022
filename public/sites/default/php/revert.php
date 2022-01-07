@@ -8,7 +8,7 @@ myRequireOnce ('sql.php');
 function revert($p){
 
     $debug ='In Revert' . "\n";
-    writeLog('revert12-'. time(), $debug);
+    //writeLog('revert12-'. time(), $debug);
     if (!isset($p['scope'])){
         $debug .=  'No scope was set';
         return $out;

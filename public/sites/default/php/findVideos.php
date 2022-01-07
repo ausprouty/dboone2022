@@ -63,7 +63,7 @@ while($data = $query->fetch_array()){
     }
 
 }
-writeLog('findVideo-66', $debug);
+//writeLog('findVideo-66', $debug);
 echo nl2br($debug);
 return;
 
@@ -125,5 +125,3 @@ function _revealBible($text, $filename){
     return $out;
 
 }
-
-

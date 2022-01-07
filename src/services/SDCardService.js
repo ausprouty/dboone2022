@@ -68,6 +68,9 @@ export default {
         action =
           'AuthorApi.php?page=videoMakeBatFileForSDCard&action=videoMakeBatFileForSDCard'
         break
+      case 'videoConcatBat':
+        action = 'AuthorApi.php?page=videoConcatBat&action=videoConcatBat'
+        break
 
       case 'default':
         action = null

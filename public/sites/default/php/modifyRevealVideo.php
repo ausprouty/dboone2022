@@ -203,7 +203,7 @@ function modifyRevealVideo($text, $bookmark, $p){
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $text = substr_replace($text, $new, $pos_start, $length);
     }
-    writeLog('modifyVideoReveal', $debug);
+    //writeLog('modifyVideoReveal', $debug);
     return $text;
 }
 // return the text from the td_segment

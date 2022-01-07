@@ -81,7 +81,7 @@ function checkBookmarkCountry($b){
     $out = null;
     $b['scope'] = 'countries';
     $content = getLatestContent($b);
-    writeLog('checkBookmarkCountry-84-content', $content);
+    //writeLog('checkBookmarkCountry-84-content', $content);
     $response = json_decode($content['text']);
     if (!$response){
         writeLogError('checkBookmarkCountry', $debug);
@@ -92,7 +92,7 @@ function checkBookmarkCountry($b){
             $out = $country;
         }
     }
-     writeLog('checkBookmarkCountry-95-content', $out);
+     //writeLog('checkBookmarkCountry-95-content', $out);
     return $out;
 }
 function checkBookmarkLanguage($b){

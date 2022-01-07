@@ -27,7 +27,7 @@ function publishLanguages($p){
     //
     $text = createLanguages($p, $data);
     if ($text){
-        $fname = publishDestination($p). 'content/'. $p['country_dir']. 'languages.html';
+        $fname =  '/content/'. SITE_CODE .'/'.  $p['country_dir']. 'languages.html';
         $debug .= 'Creating ' . $fname. "\n";
         $text =  $text . $creator;
         $debug .= $text. "\n";
@@ -59,7 +59,7 @@ function publishLanguages($p){
         $debug .= 'About to enter publishLanguagesAvailable' . "\n";
         // now update languages Available
         publishLanguagesAvailable($p);
-        writeLog('publishLanguages', $debug);
+        //writeLog('publishLanguages', $debug);
     }
     return TRUE;
 }
