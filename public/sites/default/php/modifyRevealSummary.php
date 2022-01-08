@@ -8,11 +8,15 @@
 <p>Louange</p>
 
 */
-function modifyRevealSummary($text){
-    
+function modifyRevealSummary($text, $p){
+
     $debug = "In _revealSummary Today\n";
     $template = '<div id="Summary[id]" class="summary">[TagOpen]+ [Word][TagClose]</div>'. "\n";
     $template .= '<div class="collapsed" id ="Text[id]">'. "\n";
+    if ($p['destination'] == 'nojs'){
+        $template = '<div class="summary">[TagOpen]+ [Word][TagClose]</div>'. "\n";
+        $template .= '<div>'. "\n";
+    }
     $count = substr_count($text,'<div class="reveal">' );
     $debug .= "I have  $count segments \n";
     $pos_start = 0;

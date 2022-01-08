@@ -60,7 +60,11 @@ function modifyRevealAudio($text, $bookmark, $p){
     $debug ='';
     //writeLog('modifyRevealAudio-61-text', $text);
     //writeLog('modifyRevealAudio-61-p', $p);
-    if ($p['destination'] == 'sdcard'){
+    if ($p['destination'] == 'nojs'){
+        $watch_phrase = $bookmark['language']->listen_offline;
+        $template_link ='<div> <a href src="[url]">[title_phrase]</a></div>';
+    }
+    elseif ($p['destination'] == 'sdcard'){
         $listen_phrase = $bookmark['language']->listen_offline;
         $Xlocal_template= '
         <button id="AudioButton[id]" type="button" class="collapsible external-audio ">[title_phrase]</button>

@@ -16,9 +16,11 @@ to:
     </form>
 </div>
 
+remove for nojs  (if $p['destination] == 'nojs')
+
   */
-  function modifyNoteArea($text,  $bookmark){
-    
+  function modifyNoteArea($text,  $bookmark, $p){
+
     $debug = "in modifyNoteArea\n";
     $standard_instruction = $bookmark['language']->notes;
     $template = '
@@ -28,6 +30,9 @@ to:
             <textarea  onchange= "addNote()"  id ="[id]" rows="[rows]"></textarea>
         </form>
     ';
+    if ($p['destination'] == 'nojs'){
+       $template ='<div class="note-removed">';
+    }
 
     $count = substr_count($text, '<div class="note-area"');
     $debug = "count is $count" ."\n";

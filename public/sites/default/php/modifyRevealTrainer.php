@@ -13,7 +13,7 @@ And append to text
 
 
 */
-function modifyRevealTrainer($text){
+function modifyRevealTrainer($text, $p){
     $template = '<div id="TrainerNote#" class="trainer-hide">';
     $count = substr_count($text, '<div class="trainer"');
     $debug = "count is $count" ."\n";

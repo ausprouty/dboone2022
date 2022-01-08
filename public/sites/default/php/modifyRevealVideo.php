@@ -84,21 +84,15 @@ SD Card:
       <script>  plyr.setup("#video[id]");</script>
     </div>
 
+NO JS:
+    <div> <a href src="[video]">Watch  Luke 18:35-43 </a></div>
 
 */
 function modifyRevealVideo($text, $bookmark, $p){
     $debug = '';
-    if ($p['destination'] == 'sideload'){
+    if ($p['destination'] == 'nojs'){
         $watch_phrase = $bookmark['language']->watch_offline;
-        $template_link ='
-        <button id="VimeoButton0" type="button" class="external-movie ">[title_phrase]</button>
-        <div class="collapsed">
-            <video controls>
-                <source src="[video]" type="video/mp4">
-                <p>Your browser doesn\'t support video. Here is a
-                <a href="[video]">link to the video</a> instead.</p>
-            </video>
-        </div>';
+        $template_link ='<div> <a href src="[video]">[title_phrase]</a></div>';
     }
     elseif ($p['destination'] == 'sdcard'){
         $watch_phrase = $bookmark['language']->watch_offline;

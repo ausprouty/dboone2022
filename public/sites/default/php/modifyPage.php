@@ -47,7 +47,7 @@ function modifyPage($text, $p, $data, $bookmark){
     // modify note fields
     //
     if (strpos($text, '"note-area"')  !== false){
-        $text =  modifyNoteArea($text, $bookmark);
+        $text =  modifyNoteArea($text, $bookmark, $p);
         //add markers used by javascript
         $page = $p['country_code'] . '-'. $p['language_iso'] . '-'. $p['folder_name'] . '-'. $data['filename'] .'.html';
         $note_form_begin = '<form>'. "\n";
@@ -76,7 +76,7 @@ function modifyPage($text, $p, $data, $bookmark){
         $text = modifyBibleLinks($text, $p);
     }
     if (strpos($text, '<div class="reveal">') !== FALSE ||  strpos($text, '<div class="reveal_big">') !== FALSE){
-        $text = modifyRevealSummary($text);
+        $text = modifyRevealSummary($text, $p);
     }
     if (strpos($text, '<div class="reveal bible">')!== FALSE){
         $text = modifyRevealBible($text, $bookmark, $p);
@@ -100,7 +100,7 @@ This needs to come later in the process
     }
     */
     if (strpos($text, '<div class="trainer">')!== FALSE){
-        $text = modifyRevealTrainer($text);
+        $text = modifyRevealTrainer($text, $p);
     }
     $bad = ['<div id="bible">','<div class="bible_container bible">' ];
     $text = str_replace($bad, '<div class="bible_container">', $text );
