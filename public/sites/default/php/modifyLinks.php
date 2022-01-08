@@ -37,7 +37,7 @@ function modifyLinks($text){
     if (strpos($text, $find) !== false){
         $text = modifyExternalLinks($text, $find);
     }
-    writeLog ('modifyLinks', $debug);
+   //writeLog('modifyLinks', $debug);
 
     return $text;
 }
@@ -98,7 +98,7 @@ function modifyInternalLinks($text, $find){
         $new = '<a id = "{id}" href="#" onclick="goToPageAndSetReturn(\'/content'. $link. '\', \'#{id}\');">';
         $new = str_replace('{id}', 'Return' . $i , $new );
         $text = substr_replace($text, $new, $pos_start, $link_length);
-        $pos_start =
+        $pos_start = $pos_end;
         //writeLog('modifyInternalLinks' . $i, $debug . $text);
     }
    // //writeLog('modifyInternalLinks', $text);

@@ -17,6 +17,7 @@ import BibleService from '@/services/BibleService.js'
 import ContentService from '@/services/ContentService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
+import NoJSService from '@/services/NoJSService.js'
 import SDCardService from '@/services/SDCardService.js'
 import LogService from '@/services/LogService.js'
 import store from '@/store/store.js'
@@ -28,6 +29,7 @@ export default {
       test: '',
       result: '',
       test_options: [
+        'testNoJSPage',
         'testVideoConcatBat',
         'testVideoMakeBatFileForSDCard',
         'testPrototypePage',
@@ -257,6 +259,20 @@ export default {
       params.username = 'bob'
       var response = await AuthorService.login(params)
       return response
+    },
+    async testNoJSPage(){
+      var params = this.setupParams()
+      params.country_code = 'M2'
+      params.language_iso = 'eng'
+      params.folder_name = 'multiply1'
+      params.filename = 'multiply105'
+      params.library_code = 'library'
+      params.scope = 'page'
+      var content = await AuthorService.getPageOrTemplate(params)
+      params.recnum = content.recnum
+      var response = await NoJSService.publish('page', params)
+      return response
+
     },
 
     async testSeries() {

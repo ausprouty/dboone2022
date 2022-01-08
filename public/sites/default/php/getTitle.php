@@ -7,10 +7,9 @@ function getTitle($recnum){
             WHERE  recnum  = '. $recnum;
         $debug .= $sql. "\n";
         $data = sqlArray($sql);
-        writeLogError('getTitle-10-data', $data);
     }
     else{
-        $message = "no renum in getTitle ";
+        $message = "no recnum in getTitle ";
          writeLogError('getTitle-12', $message);
         trigger_error( $message, E_USER_ERROR);
         return FALSE;

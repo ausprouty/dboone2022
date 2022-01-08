@@ -20,6 +20,11 @@
             {{ this.sdcard_text }}
           </button>
         </div>
+        <div>
+          <button class="button" @click="localPublish('nojs')">
+            {{ this.nojs_text }}
+          </button>
+        </div>
       </div>
       <a href="preview/languages">
         <img src="/sites/default/images/languages.jpg" class="app-img-header" />
@@ -70,6 +75,7 @@ import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
 import SDCardService from '@/services/SDCardService.js'
+import NoJSService from '@/services/NoJSService.js'
 import { mapState } from 'vuex'
 import { languageMixin } from '@/mixins/LanguageMixin.js'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
@@ -127,10 +133,15 @@ export default {
       var params = []
       params.recnum = this.recnum
       params.route = JSON.stringify(this.$route.params)
+      if (location == 'nojs') {
+        this.nojs_text = 'Publishing'
+        response = await NoJSService.publish('languages', params)
+        this.nojs_text = 'Published'
+      }
       if (location == 'prototype') {
         this.prototype_text = 'Prototyping'
         response = await PrototypeService.publish('languages', params)
-          this.prototype_text = 'Prototyped'
+        this.prototype_text = 'Prototyped'
       }
       if (location == 'sdcard') {
         this.sdcard_text = 'Publishing'

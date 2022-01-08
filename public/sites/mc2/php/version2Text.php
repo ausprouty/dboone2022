@@ -11,6 +11,8 @@ function version2Text($text){
      $text = str_ireplace('src="/content/M2/images/standard/mc2back.png"', 'src="/sites/mc2/images/standard/look-back.png"', $text);
     $text = str_ireplace('src="/content/M2/images/standard/mc2up.png"', 'src="/sites/mc2/images/standard/look-up.png"', $text);
     $text = str_ireplace('src="/content/M2/images/standard/mc2forward.png"', 'src="/sites/mc2/images/standard/look-forward.png"', $text);
-    writeLog('version2Text-9', $text);
+    //$text = str_ireplace('/content/M2/images/standard/Notes.png','/sites/mc2/images/standard/Notes.png' , $text);
+    $text = str_ireplace('"/content/M2/', '"/sites/mc2/content/M2/', $text);
+    //writeLog('version2Text-9', $text);
    return $text;
 }

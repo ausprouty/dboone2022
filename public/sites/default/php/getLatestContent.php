@@ -121,7 +121,7 @@ function getLatestContent($p){
         }
 
     }
-    writeLog ('getLatestContent-debug', $debug );
-    writeLog ('getLatestContent', $out );
+   //writeLog('getLatestContent-debug', $debug );
+   //writeLog('getLatestContent', $out );
     return $out;
 }

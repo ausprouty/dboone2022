@@ -21,7 +21,7 @@ function writeLogError($filename, $content){
     if (!file_exists(ROOT_LOG)){
 		mkdir(ROOT_LOG);
 	}
-	$fh = fopen(ROOT_LOG . $filename . '.txt', 'w');
+	$fh = fopen(ROOT_LOG . 'ERROR-'. $filename . '.txt', 'w');
 	fwrite($fh, $text);
     fclose($fh);
 }
@@ -33,6 +33,3 @@ function var_dump_ret($mixed = null) {
   ob_end_clean();
   return $content;
 }
-
-
-

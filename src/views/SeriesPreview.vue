@@ -25,6 +25,11 @@
             {{ this.sdcard_text }}
           </button>
         </div>
+        <div>
+          <button class="button" @click="localPublish('nojs')">
+            {{ this.nojs_text }}
+          </button>
+        </div>
       </div>
       <div>
         <a
@@ -96,6 +101,7 @@ import Chapter from '@/components/ChapterPreview.vue'
 import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
+import NoJSService from '@/services/NoJSService.js'
 import SDCardService from '@/services/SDCardService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
 
@@ -119,6 +125,7 @@ export default {
       prototype_text: 'Prototype Series and Chapters',
       publish_text: 'Publish Series and Chapters',
       sdcard_text: 'Update SD Card',
+      nojs_text: 'Update No Javascript',
       videolist_text: 'Create Media List for SD Card',
 
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
@@ -193,6 +200,11 @@ export default {
       var params = []
       params.recnum = this.recnum
       params.route = JSON.stringify(this.$route.params)
+      if (location == 'nojs') {
+        this.nojs_text = 'Publishing'
+        response = await NoJSService.publish('seriesAndChapters', params)
+        this.nojs_text = 'Published'
+      }
       if (location == 'prototype') {
         this.prototype_text = 'Prototyping'
         response = await PrototypeService.publish('seriesAndChapters', params)

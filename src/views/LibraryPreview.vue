@@ -22,6 +22,11 @@
             {{ this.sdcard_text }}
           </button>
         </div>
+        <div>
+          <button class="button" @click="localPublish('nojs')">
+            {{ this.nojs_text }}
+          </button>
+        </div>
       </div>
       <a
         target="_blank"
@@ -71,6 +76,7 @@ import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
 import SDCardService from '@/services/SDCardService.js'
+import NoJSService from '@/services/NoJSService.js'
 import { mapState } from 'vuex'
 
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
@@ -149,6 +155,11 @@ export default {
       params.recnum = this.recnum
       params.library_code = this.$route.params.library_code
       params.route = JSON.stringify(this.$route.params)
+      if (location == 'nojs') {
+        this.nojs_text = 'Publishing'
+        response = await NoJSService.publish('libraryAndBooks', params)
+        this.nojs_text = 'Finished Publishing'
+      }
       if (location == 'prototype') {
         this.prototype_text = 'Prototyping'
         response = await PrototypeService.publish('libraryAndBooks', params)

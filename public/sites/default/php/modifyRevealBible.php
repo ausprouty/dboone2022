@@ -12,7 +12,7 @@
 </div>
 <hr /></div>
 */
-function modifyRevealBible($text, $bookmark){
+function modifyRevealBible($text, $bookmark, $p){
     $debug = "In _revealBible\n";
     $read_phrase = trim($bookmark['language']->read);
     $debug .= "read phrase is $read_phrase\n";

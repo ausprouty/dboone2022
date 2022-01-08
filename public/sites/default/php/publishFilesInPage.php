@@ -6,9 +6,11 @@
 //define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
 myRequireOnce('publishDestination.php');
 myRequireOnce('writeLog.php');
+myRequireOnce('version2Text.php');
 
 function  publishFilesInPage($text, $p){
     $files_in_pages = [];
+    $text = version2Text($text);
     //writeLog ('publishFilesInPage-11-text', $text);
     $find_begin = 'src="';
     $result= publishFilesInPageFind($find_begin, $text, $p);
@@ -34,7 +36,7 @@ function publishFilesInPageFind($find_begin, $text, $p){
         while (strpos($text, $find_begin) !== false){
             $count++;
             $pos_begin = strpos($text, $find_begin);
-            $text = substr($text, $pos_begin + 5);
+            $text = substr($text, $pos_begin + strlen($find_begin));
             $pos_end = strpos($text, $find_end) -1;
             $filename = substr($text, 1, $pos_end);
             // filename = sites/mc2/images/standard/look-back.png
@@ -52,8 +54,13 @@ function publishFilesInPageFind($find_begin, $text, $p){
                 }
             }
             else{
-              $message = "$from not found in publishFilesInPage";
-              writeLogError('PublishFilesInPage-'. $count , $message );
+
+               $message ="  pos_begin is   $pos_begin\n";
+               $message .="  pos_end is   $pos_end\n";
+                $message .= "$from not found \n\n\n\n";
+               $message .="  text is   $text\n";
+
+              writeLogError('PublishFilesInPage-'. $count. '-' . $find_begin , $message );
 
             }
             $text = substr($text, $pos_end);

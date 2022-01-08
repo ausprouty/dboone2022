@@ -20,6 +20,11 @@
             {{ this.sdcard_text }}
           </button>
         </div>
+        div>
+          <button class="button" @click="localPublish('nojs')">
+            {{ this.nojs_text }}
+          </button>
+        </div>
       </div>
       <div v-if="this.write">
         <button class="button" @click="editPage">Edit</button>
@@ -73,6 +78,7 @@ import { mapState } from 'vuex'
 import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
+import NoJSService from '@/services/NoJSService.js'
 import SDCardService from '@/services/SDCardService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
 
@@ -91,6 +97,7 @@ export default {
       prototype_text: 'Prototype',
       publish_text: 'Publish',
       sdcard_text: 'Update SD Card',
+      nojs_text: 'Update No Javascript',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       rldir: 'ltr',
       book_style: process.env.VUE_APP_SITE_STYLE,
@@ -189,6 +196,11 @@ export default {
         this.sdcard_text = 'Publishing'
         response = await SDCardService.publish('page', params)
          this.sdcard_text = 'Published'
+      }
+       if (location == 'nojs') {
+        this.nojs_text = 'Publishing'
+        response = await NoJSService.publish('page', params)
+         this.nojs_text = 'Published'
       }
       if (location == 'website') {
         this.publish_text = 'Publishing'

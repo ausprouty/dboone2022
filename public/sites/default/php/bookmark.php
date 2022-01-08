@@ -15,7 +15,7 @@ myRequireOnce ('version2Text.php');
 function bookmark ($p){
     $debug = 'I entered Bookmark' . "\n";
     $b['bookmark'] = null;
-    writeLog ('bookmark-20-p', $p);
+   //writeLog('bookmark-20-p', $p);
 
 
     if (isset($p['recnum'])){
@@ -25,7 +25,7 @@ function bookmark ($p){
         // find other parameters for bookmark from recnum
         $debug .= 'recnum is ' . $p['recnum'] . "\n";
         $starting = contentObjectFromRecnum($p['recnum']);
-        writeLog ('bookmark-29-starting', $starting);
+       //writeLog('bookmark-29-starting', $starting);
         $b['country_code'] = $starting->country_code;
         $debug .= 'b[country_code] is ' . $b['country_code'] . "\n";
         $b['language_iso'] = $starting->language_iso;
@@ -46,7 +46,7 @@ function bookmark ($p){
         $b['filename'] = isset($p['filename'])?$p['filename']:null;
         if ($b['folder_name'] =='undefined') {$b['folder_name']  = null;}
     }
-    writeLog ('bookmark-48-b', $b);
+   //writeLog('bookmark-48-b', $b);
     if ($b['country_code']){
         $b['bookmark']['country'] = checkBookmarkCountry($b);
         if ($b['language_iso']){
