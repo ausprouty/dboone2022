@@ -1,5 +1,6 @@
 <?php
 myRequireOnce ('.env.api.mc2.remote.php');
+myRequireOnce ('dirMake.php');
 
 $files = dirlist('../');
 echo $files .'<br>';
@@ -48,15 +49,4 @@ function folders($path){
 		}
 	}
  return $results;
-}
-
-function dirMake($file){
-	$dir = '';
-	$parts = explode('/', $file);
-	foreach ($parts as $part){
-		$dir .= $part . '/';
-		if (!file_exists($dir)){
-			mkdir ($dir);
-		}
-	}
 }

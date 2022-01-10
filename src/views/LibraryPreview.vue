@@ -100,6 +100,7 @@ export default {
       prototype_text: 'Prototype Library and Books',
       publish_text: 'Publish Library and Books',
       sdcard_text: 'Update SD Card',
+      nojs_text:'Update No Javascript',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       site_directory: process.env.VUE_APP_SITE_DIR,
       back: 'country',

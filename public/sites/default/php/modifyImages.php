@@ -75,6 +75,7 @@ function modifyContentImages($text, $p){
 }
 // looking for  <img src="/sites/mc2/images and  <img src="/sites/images
 function copySiteImages($text, $p){
+    $debug = '';
     //writeLog('copySiteImages-26-p', $p);
     //writeLog('copySiteImages-2-text', $text);
     //define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');

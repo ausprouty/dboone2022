@@ -1,7 +1,9 @@
 <?php
 myRequireOnce ('copyGlobal.php');
+myRequireOnce('dirCreate.php');
 myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFiles.php');
+
 
 
 function publishCountry($p){
@@ -22,25 +24,18 @@ function publishCountry($p){
     }
     //
     // make sure Country directories are current
-    //
-    // publishDestination in form of  '/home/globa544/usb.mc2.online/');
-    $country_dir_source= ROOT_EDIT . DIR_SITE . 'content/' . $p['country_code'];
-    $country_dir_destination  = publishDestination() . 'content/' . $p['country_code'];
-    if (!file_exists($country_dir_destination)){
-        dirMake($country_dir_destination);
-    }
-	copyGlobal($country_dir_source . '/images/', $country_dir_destination . '/images/');
-    copyGlobal($country_dir_source .  '/styles/', $country_dir_destination . '/styles/');
+	copyGlobal(dirCreate('country', 'edit',  $p, 'images/'),
+               dirCreate('country', $p['destination'],  $p, 'images/'));
+    copyGlobal(dirCreate('country', 'edit',  $p, 'styles/'),
+               dirCreate('country', $p['destination'],  $p, 'styles/'));
+
     //
     // make sure Language directories are current
     //
-    $language_dir_source  =  $country_dir_source . '/'. $p['language_iso'] .'/';
-    $language_dir_destination  =  $country_dir_destination . '/'. $p['language_iso'] .'/';
-    if (!file_exists( $language_dir_destination)){
-        dirMake($language_dir_destination);
-    }
-    copyGlobal($language_dir_source . '/images/',$language_dir_destination . '/images/');
-    copyGlobal($language_dir_source .  '/styles/', $language_dir_destination . '/styles/');
+    copyGlobal(dirCreate('language', 'edit',  $p, 'images/'),
+               dirCreate('language', $p['destination'],  $p, 'images/'));
+    copyGlobal(dirCreate('language', 'edit',  $p, 'styles/'),
+               dirCreate('language', $p['destination'],  $p, 'styles/'));
 
     $text = json_decode($data['text']);
     $p['country_footer'] = isset($text->footer) ? $text->footer : null;

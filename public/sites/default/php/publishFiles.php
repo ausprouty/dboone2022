@@ -2,6 +2,7 @@
 
 myRequireOnce ('bookmark.php');
 myRequireOnce ('copyGlobal.php');
+myRequireOnce ('dirMake.php');
 myRequireOnce ('createDirectory.php');
 myRequireOnce ('getTitle.php');
 myRequireOnce ('languageSpecificJavascripts.php');
@@ -9,6 +10,7 @@ myRequireOnce ('makePathsRelative.php');
 myRequireOnce ('modifyHeaders.php');
 myRequireOnce ('modifyImages.php');
 myRequireOnce ('publishCopyImagesAndStyles.php');
+myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFilesInPage.php');
 myRequireOnce ('publishLanguageFooter.php');
 myRequireOnce ('publishCSS.php');
@@ -88,9 +90,10 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     $output = makePathsRelative($output, $fname);
     //writeLog('publishFiles-88-makePathsRelative-text', $output);
 
-
+    $fname = publishDestination($p) .$filename;
     // make sure we have all the necessary directories
-    dirMake($fname);
+     writeLogError('publishFiles-93-'. random_int(0, 99999), $fname);
+    $fname = dirMake($fname);
     // write the file
     $fh = fopen($fname, 'w');
     if ($fh){
@@ -100,6 +103,7 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     }
     else{
         $message = " 'NOT able to write' .  $fname";
+         writeLogError('publishFiles-104-'. random_int(0, 99999), $message);
         trigger_error( $message, E_USER_ERROR);
 
     }

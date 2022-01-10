@@ -1,6 +1,7 @@
 <?php
 
 myRequireOnce ('createSeries.php');
+myRequireOnce('dirCreate.php');
 myRequireOnce ('publishFiles.php');
 
 
@@ -33,11 +34,8 @@ function publishSeries ($p){
 
               $selected_css = isset($bookmark['book']->style) ? $bookmark['book']->style :STANDARD_CSS ;
               //
-            $dir = publishDestination($p) . 'content/' . $p['country_code'] .'/'. $p['language_iso'] .'/'. $p['folder_name'] .'/';
-            // make sure folder exists
-            if (!file_exists($dir)){
-                dirMake ($dir);
-            }
+
+            $dir = dirCreate($series, $p['destination'],  $p, $folders = null);
             $fname = $dir . 'index.html';
             $result['text'] .= '<!--- Created by publishSeries-->' . "\n";
             publishFiles( $p['destination'], $p, $fname, $result['text'],  STANDARD_CSS, $selected_css);

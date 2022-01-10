@@ -1,6 +1,7 @@
 <?php
 myRequireOnce ('create.php');
 myRequireOnce ('copyGlobal.php');
+myRequireOnce('dirCreate.php');
 
 
 function setupImageFolder($p){
@@ -9,15 +10,8 @@ function setupImageFolder($p){
 		$debug = 'language_iso not set'."\n";
 		return $out;
 	}
-	$source = ROOT_EDIT_CONTENT. $p['country_code'] .'/images/standard/' ;
-	$debug .= "source is $source\n";
-	$destination = ROOT_EDIT_CONTENT. $p['country_code'] .'/' .$p['language_iso'] .'/images/standard/' ;
-	$debug .= "destination is $destination\n";
-	if (!file_exists($destination)){
-		dirMake($destination);
-		$debug .= "making $destination\n";
-	}
-	copyGlobal($source, $destination);
+	copyGlobal(dirCreate('country', 'edit',  $p, $folders = 'images/standard/'),
+	           dirCreate('language', 'edit',  $p, $folders = 'images/standard/'));
 	$out = 'success';
 	return $out;
 }
@@ -31,28 +25,15 @@ function setupTemplatesLanguage($p){
 		$debug = 'language_iso not set'."\n";
 		return $out;
 	}
-	$setup_directory = ROOT_EDIT_CONTENT. $p['country_code'] .'/' ;
-	$language_directory = ROOT_EDIT_CONTENT. $p['country_code'] .'/'. $p['language_iso'] . '/' ;
-	$debug = 'setupTemplatesLanguage' . "\n";
-	if (!file_exists($language_directory . 'templates')){
-		dirMake($language_directory . 'templates');
-	}
-	$template_dir = $setup_directory . 'templates/';
+	$template_dir = dirCreate('country', 'edit',  $p, $folders = 'templates');
 	$p['folder_name'] = array();
 	$dir = new DirectoryIterator($template_dir);
 	foreach ($dir as $fileinfo) {
 		if ($fileinfo->isDir() && !$fileinfo->isDot()) {
-			$dir = $fileinfo->getFilename();
-			if (!file_exists($language_directory .'templates/'. $dir)){
-				dirMake($language_directory .'templates/'. $dir);
-			}
-			$source = $setup_directory .'templates/'. $dir . '/';
-			$debug .= 'Source is '. $source . "\n";
-			if (file_exists($source)){
-				$destination = $language_directory .'templates/'. $dir . '/';
-				$debug .= 'Destination is '. $destination . "\n";
-				copyGlobal($source, $destination);
-			}
+			$folders = 'templates/'.  $fileinfo->getFilename();
+			copyGlobal(dirCreate('country', 'edit',  $p, $folders),
+	                   dirCreate('language', 'edit',  $p, $folders));
+	        $out = 'success';
 		}
 	}
 	$out = 'success';

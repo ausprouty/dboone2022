@@ -50,7 +50,7 @@ function getTitle($recnum){
         ORDER BY recnum DESC LIMIT 1';
         $debug .= $sql. "\n";
         $result = sqlArray($sql);
-        if ($result['text']){
+        if (isset($result['text'])){
             $debug .= $result['text']. "\n";
             $index = json_decode($result['text']);
             foreach ($index->books as $book){

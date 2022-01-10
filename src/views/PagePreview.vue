@@ -20,7 +20,7 @@
             {{ this.sdcard_text }}
           </button>
         </div>
-        div>
+        <div>
           <button class="button" @click="localPublish('nojs')">
             {{ this.nojs_text }}
           </button>

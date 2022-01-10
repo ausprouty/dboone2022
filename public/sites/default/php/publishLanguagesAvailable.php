@@ -1,4 +1,5 @@
 <?php
+myRequireOnce('dirCreate.php');
 myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFiles.php');
 
@@ -9,7 +10,6 @@ function publishLanguagesAvailable($p){
 
     $debug = 'in  publishLanguagesAvailable '. "\n";
     $selected_css = 'sites/default/styles/cardGLOBAL.css';
-    $p['country_dir'] = publishDestination($p). $p['country_code'] . '/';
     $footer  = '';
     // flags
     $sql = "SELECT * FROM content
@@ -95,12 +95,11 @@ function publishLanguagesAvailable($p){
 
     }
 
-
     $body = str_replace('[[languages]]',$temp,  $main_template);
-
     // write file
     //
-    $fname = publishDestination($p). 'languages.html';
+    $fname =  '/content/'. SITE_CODE .'/'.  $p['country_code']. '/'. 'languages.html';
+     $fname =  dirCreate('country', $p['destination'], $p) . 'languages.html';
 
     $debug .= "Copied Languages available to $fname \n";
     $body .= '<!--- Created by publishLanguagesAvailable-->' . "\n";

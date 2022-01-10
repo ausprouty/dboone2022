@@ -1,4 +1,5 @@
 <?php
+myRequireOnce('dirCreate.php');
 
 // use country and language
 // this looks for template in the language/templates directory
@@ -21,27 +22,18 @@ function editTemplate($p){
 		$debug .= "book_format not set\n";
 		return $out;
     }
-    $template_dir = ROOT_EDIT_CONTENT . $p['country_code'] .'/'. $p['language_iso'] .'/templates/';
-    //if ($p['book_format'] == 'series'){
-    //    $template_dir.= $p['book_code'] .'/';
-    //}
-    // create any needed directories
-    if (!file_exists($template_dir )){
-        dirMake($template_dir);
-    }
+   // $template_dir = ROOT_EDIT_CONTENT . $p['country_code'] .'/'. $p['language_iso'] .'/templates/';
+    $template_dir= dirCreate('language', 'edit',  $p,  'templates/') ;
+
     // make sure this is an html file
     if (strpos($p['template'], '.html') === FALSE){
         $p['template'] .= '.html';
     }
     $destination = $template_dir . $p['template'];
-	$debug .=' destination is '. $destination. "\n";
-	//if (file_exists($destination)){
-  //      $newname = str_ireplace('.html', '.bak'. time(), $destination);
-//		rename ($destination, $newname);// already exists
-//	}
+
     $fh = fopen($destination , 'w');
     fwrite($fh, $p['text']);
     fclose($fh);
-	
+
 	return $out;
 }

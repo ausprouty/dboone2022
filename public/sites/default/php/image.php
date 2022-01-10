@@ -1,4 +1,7 @@
 <?php
+
+myRequireOnce('dirMake.php');
+
 function imageStore($p){
 	//writeLog('image-3', ' I entered image Store');
 	if (!isset($p['directory'] )){

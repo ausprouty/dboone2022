@@ -91,8 +91,12 @@ NO JS:
 function modifyRevealVideo($text, $bookmark, $p){
     $debug = '';
     if ($p['destination'] == 'nojs'){
-        $watch_phrase = $bookmark['language']->watch_offline;
-        $template_link ='<div> <a href src="[video]">[title_phrase]</a></div>';
+        $watch_phrase = '';
+        $template_link =
+        '<video width="100%"  controls>
+            <source src="[video]" type="video/mp4">
+            <a href="[video]"> Watch Here</a>
+        </video>';
     }
     elseif ($p['destination'] == 'sdcard'){
         $watch_phrase = $bookmark['language']->watch_offline;
@@ -114,7 +118,11 @@ function modifyRevealVideo($text, $bookmark, $p){
     $find = '<div class="reveal film">';
     $count = substr_count($text, $find);
     for ($i = 0; $i < $count; $i++){
+        // we only have one video link for each page on the sdcard
         $new = $template_link;
+        if ($i > 0 && ($p['destination'] == 'sdcard' || $p['destination'] == 'nojs')){
+          $new = '';
+        }
         // get old division
         $pos_start = strpos($text,$find);
         $pos_end = strpos($text, '</div>', $pos_start);
@@ -126,16 +134,13 @@ function modifyRevealVideo($text, $bookmark, $p){
         $title_phrase =  $word = str_replace('%', $title, $watch_phrase);
         //find url
         $url = modifyVideoRevealFindText($old, 4);
-         if ($p['destination'] == 'sdcard'){
+         if ($p['destination'] == 'sdcard' || $p['destination'] =='nojs'){
              $filename = $bookmark['page']->filename;
              $video = '/media/'. $p['country_code'] . '/'. $p['language_iso'] .'/video/'. videoFindForSDCardNewName($filename) ;
-             if ($i > 0){
-                $video .='-' .$i;
-             }
              $video .='.mp4';
              $video_type= 'file';
          }
-        if ($p['destination'] != 'sdcard'){
+        else {
             // find type of video and trim url
             if (strpos($url, 'api.arclight.org/videoPlayerUrl?') != FALSE){
                 $new .=  $template_options; // JESUS project videos are available in many languages

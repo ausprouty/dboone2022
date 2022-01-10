@@ -10,7 +10,7 @@ function publishLanguages($p){
     $debug = 'In publishLanguages with publishDestination '. $publishDestination . "\n";
     $creator =   "\n" .'&nbsp; <!--- Created by publishLanguages -->&nbsp; '.  "\n";
     $selected_css = 'sites/default/styles/cardGLOBAL.css';
-    $p['country_dir'] = $publishDestination . $p['country_code'] . '/';
+    $p['country_dir'] = '/content/' . SITE_CODE . '/'. $p['country_code'] . '/';
      // get language footer in publishOEpublish.php
     $footer = publishLanguageFooter($p);
     //
@@ -27,7 +27,9 @@ function publishLanguages($p){
     //
     $text = createLanguages($p, $data);
     if ($text){
-        $fname =  '/content/'. SITE_CODE .'/'.  $p['country_dir']. 'languages.html';
+        $fname =   $p['country_dir'] . 'languages.html';
+        writeLogError('publishLanguages-31-fname', $fname);
+        writeLogError('publishLanguages-31-country', $p['country_dir']);
         $debug .= 'Creating ' . $fname. "\n";
         $text =  $text . $creator;
         $debug .= $text. "\n";

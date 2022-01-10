@@ -1,7 +1,7 @@
 <?php
 
 function copyBook($p){
-    
+    //todo: I am not sure this is the rightuse of destination
     $debug= '';
     if (!$p['source'] || !$p['destination']){
         return;
@@ -15,24 +15,24 @@ function copyBook($p){
     $country_code = $source[0];
     $language_iso = $source[1];
     $folder_name = $source[2];
-    $sql = "SELECT DISTINCT  filename 
-        FROM  content 
-        WHERE country_code = '$country_code' 
-        AND language_iso = '$language_iso' 
+    $sql = "SELECT DISTINCT  filename
+        FROM  content
+        WHERE country_code = '$country_code'
+        AND language_iso = '$language_iso'
         AND folder_name = '$folder_name'";
     $query = sqlMany($sql);
     while($data = $query->fetch_array()){
         $filename = $data['filename'];
         $debug .= 'filename is ' . $filename ."\n";
-        $sql2 = "SELECT * 
-            FROM  content 
-            WHERE country_code = '$country_code' 
-            AND language_iso = '$language_iso' 
+        $sql2 = "SELECT *
+            FROM  content
+            WHERE country_code = '$country_code'
+            AND language_iso = '$language_iso'
             AND folder_name = '$folder_name'
             AND filename = '$filename'
             ORDER BY recnum DESC
             LIMIT 1";
-       
+
         $d = sqlArray($sql2);
         $filetype = $d['filetype'];
         $debug .=  $d['filename']  . '-- '. $d['recnum'] ."\n";

@@ -1,5 +1,6 @@
 <?php
 myRequireOnce ('create.php');
+myRequireOnce ('dirMake.php');
 myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFiles.php');
 myRequireOnce ('publishSeries.php');
@@ -19,7 +20,7 @@ function publishSeriesAndChapters ($p){
     // find the list of chapters that are ready to publish
     $series = contentObjectFromRecnum($p['recnum']);
     //writeLog('publishSeriesAndChapters-20-series', $series);
-    $series_dir = publishDestination($p) . 'content/' . $series->country_code . '/'. $series->language_iso . '/'. $series->folder_name . '/';
+    $series_dir = publishDestination($p) . 'content/' . SITE_CODE .'/'. $series->country_code . '/'. $series->language_iso . '/'. $series->folder_name . '/';
     // make sure folder exists
     if (!file_exists( $series_dir)){
         dirMake ($series_dir);

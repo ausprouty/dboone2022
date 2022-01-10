@@ -96,6 +96,7 @@ export default {
       prototype_text: 'Prototype',
       publish_text: 'Publish',
       sdcard_text: 'Update SD Card',
+      nojs_text:'Update No Javascript',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       more_languages: 'More Languages',
       choose_language: 'Choose Language',

@@ -1,4 +1,5 @@
 <?php
+myRequireOnce('dirCreate.php');
 
 //// add content to database
 function createContent($p){
@@ -44,43 +45,20 @@ function createContent($p){
 
 // create directory
 function createContentFolder($p){
-	$dir = ROOT_EDIT_CONTENT . $p['country_code']. '/'. $p['language_iso'] . '/'. $p['$folder_name'];
-	$debug .= 'dir: ' . $dir ."\n";
-	if (!file_exists($dir)){
-		dirMake ($dir);
-	}
+	//$dir = ROOT_EDIT_CONTENT . $p['country_code']. '/'. $p['language_iso'] . '/'. $p['$folder_name'];
+    $dir =dirCreate('series', 'edit',  $p);
+
 	return "Success";
 }
 function createDirectoryLanguages($p){
-	$dir_country = ROOT_EDIT_CONTENT . $p['country_code'] .'/';
 	$languages = json_decode ($p['text']);
 	foreach ($langauges as $language_iso){
-		$dir = $dir_country . $language_iso;
-		if (!file_exists($dir)){
-			dirMake ($dir);
-		}
+		$dir =dirCreate('language', 'edit',  $p);
 	}
 	return "Success";
 }
 
-// create directory
-function createDir($p){
-	switch ($scope){
-		case 'country':
-			$dir = ROOT_EDIT_CONTENT . $p['country_code'];
-			break;
-		case 'language':
-		$dir = ROOT_EDIT_CONTENT . $p['country_code'] . '/'. $p['language_iso'];
-			break;
-		case 'folder':
-			break;
-	}
-	if (!file_exists($dir)){
-		dirMake ($dir);
-	}
-	return "Success";
-
-}
+/
 // create series index; I can not see any reason to do this.
 // called by Library Edit
 function createSeriesIndex($p){
@@ -94,10 +72,9 @@ function createSeriesIndex($p){
 		return NULL;
 	}
 	$content = '[]';
-	$file_index = ROOT_EDIT_CONTENT . $p['country_code'] . '/'. $p['language_iso'] . '/'. $p['folder_name'] .'/index.html';
+	$file_index = dirCreate('series', 'edit',  $p) .'index.html';
 	$debug .= 'index: ' . $file_index  ."\n";
 	if (!file_exists($file_index )){
-		dirMake($file_index);
 		$fh = fopen($file_index , 'w');
 		fwrite($fh, $content);
 		fclose($fh);
@@ -122,11 +99,8 @@ function createStyle($p){
 			$valid = false;
     }
 	if ($valid){
-		$dir = ROOT_EDIT_CONTENT . $p['country_code'] . '/styles/';
-		$debug .= 'directory: '. $dir . "\n";
-		if (!file_exists($dir)){
-			dirMake ($dir);
-		}
+		$dir = dirCreate('country', 'edit',  $p) . 'styles/';
+
 		$fname = $dir. $_FILES["file"]["name"];
 		$debug .= 'fname: '. $fname . "\n";
 		if (move_uploaded_file($_FILES["file"]["tmp_name"], $fname)) {
@@ -153,10 +127,7 @@ function createTemplate ($p){
 	}
 	if ($valid){
 		if (isset($p['$folder_name'])){
-			$dir = ROOT_EDIT_CONTENT . $p['country_code'] . '/'.  $p['language_iso'] . '/templates/'. $p['$folder_name'] ;
-			if (!file_exists($dir)){
-				dirMake ($dir);
-			}
+			$dir = dirCreate('language', 'edit',  $p) . 'templates/'. $p['$folder_name'] ;
 			$fname = $dir . '/'. $_FILES["file"]["name"];
 
 			if (move_uploaded_file($_FILES["file"]["tmp_name"], $fname)) {
