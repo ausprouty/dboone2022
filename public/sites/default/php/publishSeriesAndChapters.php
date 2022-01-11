@@ -1,6 +1,7 @@
 <?php
 myRequireOnce ('create.php');
 myRequireOnce ('dirMake.php');
+myRequireOnce('fileWrite.php');
 myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFiles.php');
 myRequireOnce ('publishSeries.php');
@@ -18,21 +19,17 @@ function publishSeriesAndChapters ($p){
     //$debug .= 'In prototypeSeriesAndChapters '. "\n";
 
     // find the list of chapters that are ready to publish
-    $series = contentObjectFromRecnum($p['recnum']);
+    $series = contentArrayFromRecnum($p['recnum']);
     //writeLog('publishSeriesAndChapters-20-series', $series);
-    $series_dir = publishDestination($p) . 'content/' . SITE_CODE .'/'. $series->country_code . '/'. $series->language_iso . '/'. $series->folder_name . '/';
-    // make sure folder exists
-    if (!file_exists( $series_dir)){
-        dirMake ($series_dir);
-    }
-    $text = json_decode($series->text);
+    $series_dir = dirCreate('series', $p['destination'],  $p, $folders = null);// make sure folder exists
+    $text = json_decode($series['text']);
     $chapters = $text->chapters;
     foreach ($chapters as $chapter){
         if ($chapter->publish){
             $sql = "SELECT recnum FROM  content
-                WHERE  country_code = '" . $series->country_code ."'
-                AND language_iso = '" . $series->language_iso ."'
-                AND folder_name = '" . $series->folder_name ."'
+                WHERE  country_code = '" . $series['country_code'] ."'
+                AND language_iso = '" . $series['language_iso'] ."'
+                AND folder_name = '" . $series['folder_name'] ."'
                 AND filename = '" . $chapter->filename ."'
                 AND prototype_date IS NOT NULL
                 ORDER BY recnum DESC LIMIT 1";
@@ -48,7 +45,7 @@ function publishSeriesAndChapters ($p){
             }
             else{
                 // find file and add to database
-                $file =  ROOT_EDIT. $series_dir .  $chapter->filename . '.html';
+                $file =   $series_dir .  $chapter->filename . '.html';
                // $debug .= 'looking for ' . $file . "\n";
                 if (file_exists($file)){
                     $p['text'] = file_get_contents($file);
@@ -77,9 +74,7 @@ function publishSeriesAndChapters ($p){
         $files_json.= '{"url":"'. $json .'"},' ."\n";
     }
     $files_json = substr($files_json, 0, -2) . "\n" . ']' . "\n" ;
-    $fh = fopen( $series_dir . 'files.json', 'w');
-    fwrite($fh, $files_json);
-    fclose($fh);
-    //writeLog('publishSeriesAndChapters', $debug);
+    $filename =  $series_dir . 'files.json';
+    fileWrite($filename, $files_json, $p['destination']);
     return true;
 }

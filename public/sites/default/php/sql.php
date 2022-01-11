@@ -110,6 +110,26 @@ function jsonDecodedFromContentTextByRecnum($recnum){
     $text = json_decode($data['text']);
     return $text;
 }
+function contentArrayFromRecnum($recnum){
+    $output = null;
+    if ($recnum){
+        $sql = "SELECT * FROM content
+            WHERE  recnum = $recnum  LIMIT 1";
+        $conn = new mysqli(HOST, USER, PASS, DATABASE_CONTENT, DATABASE_PORT);
+        if ($conn->connect_error) {
+            die("Connection has failed: " . $conn->connect_error);
+        }
+        $query = $conn->query($sql);
+        if ($query){
+            $output =  $query->fetch_array();
+        }
+        else{
+            $output = null;
+        }
+        $conn->close();
+    }
+    return $output;
+}
 function contentObjectFromRecnum($recnum){
     $output = null;
     if ($recnum){

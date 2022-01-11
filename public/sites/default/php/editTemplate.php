@@ -1,5 +1,7 @@
 <?php
 myRequireOnce('dirCreate.php');
+myRequireOnce('fileWrite.php');
+myRequireOnce('writeLog.php');
 
 // use country and language
 // this looks for template in the language/templates directory
@@ -7,21 +9,25 @@ myRequireOnce('dirCreate.php');
 function editTemplate($p){
 	$debug = 'getTemplate'. "\n";
 	if (!$p['language_iso']){
-		$debug .= "language_iso not set\n";
-		return $out;
+		$message = "language_iso not set";
+    writeLogError('editTemplate-11', $message );
+		return false;
 	}
 	if (!$p['template']){
-		$debug .= "template not set\n";
-		return $out;
-    }
-    if (!$p['text']){
-		$debug .= "no text\n";
-		return $out;
-    }
-    if (!$p['book_format']){
-		$debug .= "book_format not set\n";
-		return $out;
-    }
+			$message = "template not set";
+      writeLogError('editTemplate-11', $message );
+      return false;
+  }
+  if (!$p['text']){
+    $message = "text not set";
+    writeLogError('editTemplate-11', $message );
+    return false;
+  }
+  if (!$p['book_format']){
+    $message = "book_format not set";
+    writeLogError('editTemplate-11', $message );
+    return false;
+  }
    // $template_dir = ROOT_EDIT_CONTENT . $p['country_code'] .'/'. $p['language_iso'] .'/templates/';
     $template_dir= dirCreate('language', 'edit',  $p,  'templates/') ;
 
@@ -29,11 +35,9 @@ function editTemplate($p){
     if (strpos($p['template'], '.html') === FALSE){
         $p['template'] .= '.html';
     }
-    $destination = $template_dir . $p['template'];
+    $filename = $template_dir . $p['template'];
+    fileWrite($filename, $p['text'], $p['destination']);
 
-    $fh = fopen($destination , 'w');
-    fwrite($fh, $p['text']);
-    fclose($fh);
 
 	return $out;
 }

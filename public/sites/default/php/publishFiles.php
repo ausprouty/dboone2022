@@ -4,6 +4,7 @@ myRequireOnce ('bookmark.php');
 myRequireOnce ('copyGlobal.php');
 myRequireOnce ('dirMake.php');
 myRequireOnce ('createDirectory.php');
+myRequireOnce('fileWrite.php');
 myRequireOnce ('getTitle.php');
 myRequireOnce ('languageSpecificJavascripts.php');
 myRequireOnce ('makePathsRelative.php');
@@ -88,25 +89,8 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     // make sure  all files are copied to destination directory
     publishFilesInPage($output, $d);
     $output = makePathsRelative($output, $fname);
-    //writeLog('publishFiles-88-makePathsRelative-text', $output);
+    fileWrite($fname, $output, $p['destination']);
 
-    $fname = publishDestination($p) .$filename;
-    // make sure we have all the necessary directories
-     writeLogError('publishFiles-93-'. random_int(0, 99999), $fname);
-    $fname = dirMake($fname);
-    // write the file
-    $fh = fopen($fname, 'w');
-    if ($fh){
-        $debug .= 'File Written to ' .  $fname . "\n";
-        fwrite($fh, $output);
-        fclose($fh);
-    }
-    else{
-        $message = " 'NOT able to write' .  $fname";
-         writeLogError('publishFiles-104-'. random_int(0, 99999), $message);
-        trigger_error( $message, E_USER_ERROR);
-
-    }
     //writeLog('publishFiles-100', $output);
     return $output;
 }
