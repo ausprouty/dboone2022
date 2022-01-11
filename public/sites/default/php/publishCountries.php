@@ -1,4 +1,6 @@
 <?php
+
+myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFiles.php');
 myRequireOnce ('publishReady.php');
 

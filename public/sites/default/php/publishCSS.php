@@ -3,6 +3,7 @@
    You want to remove duplicates
     <link rel="stylesheet" href="/sites/default/styles/cardGLOBAL.css" />
 */
+myRequireOnce ('publishDestination.php');
 myRequireOnce ('writeLog.php');
 myRequireOnce('version2Text.php');
 

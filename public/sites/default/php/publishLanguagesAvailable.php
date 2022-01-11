@@ -1,6 +1,6 @@
 <?php
 myRequireOnce('dirCreate.php');
-myRequireOnce ('publishDestination.php');
+
 myRequireOnce ('publishFiles.php');
 
 

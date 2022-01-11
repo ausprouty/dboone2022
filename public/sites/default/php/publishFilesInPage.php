@@ -53,15 +53,14 @@ function publishFilesInPageFind($find_begin, $text, $p){
                     $debug .="copied from $from to  $to\n";
                 }
             }
-            else{
-
-               $message ="  pos_begin is   $pos_begin\n";
-               $message .="  pos_end is   $pos_end\n";
-                $message .= "$from not found \n\n\n\n";
-               $message .="  text is   $text\n";
-
-              writeLogError('PublishFilesInPage-'. $count. '-' . $find_begin , $message );
-
+            else{// we do not need to copy html files; they may not have been rendered yet.
+                if (strpos($filename, '.html') == false){
+                    $message ="  pos_begin is   $pos_begin\n";
+                    $message .="  pos_end is   $pos_end\n";
+                    $message .= "$from not found \n\n\n\n";
+                    $message .="  text is   $text\n";
+                    writeLogError('PublishFilesInPage-'. $count. '-' . $find_begin , $message );
+                }
             }
             $text = substr($text, $pos_end);
            // $debug .= ' copied ' . $from . ' to '. $to . "\n";

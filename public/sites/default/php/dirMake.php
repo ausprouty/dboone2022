@@ -10,7 +10,7 @@ function dirMake($file){
 		if (strpos($part, '.html') == FALSE){
 			$dir .= $part . '/';
 			if (!file_exists($dir)){
-               writeLogError('dirMake-12-'.$file, $file);
+               writeLogError('dirMake-12-'. rand(0, 9999), $file);
 				mkdir ($dir);
 			}
 		}

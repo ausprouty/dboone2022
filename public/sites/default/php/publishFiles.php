@@ -11,7 +11,7 @@ myRequireOnce ('makePathsRelative.php');
 myRequireOnce ('modifyHeaders.php');
 myRequireOnce ('modifyImages.php');
 myRequireOnce ('publishCopyImagesAndStyles.php');
-myRequireOnce ('publishDestination.php');
+
 myRequireOnce ('publishFilesInPage.php');
 myRequireOnce ('publishLanguageFooter.php');
 myRequireOnce ('publishCSS.php');

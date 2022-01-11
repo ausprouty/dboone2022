@@ -6,6 +6,11 @@ define("ROOT_SDCARD", '/home/globa544/usb.mc2.online/');
 */
 
 function publishDestination ($p){
+  if (!isset($p['destination'])){
+    $message= 'In publishDestination  without  $p[destination]';
+     writeLogError('publishDestination', $message);
+     trigger_error($message, E_USER_ERROR);
+  }
   if($p['destination'] == 'staging'){
       return ROOT_STAGING;
   }

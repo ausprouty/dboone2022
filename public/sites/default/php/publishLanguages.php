@@ -7,10 +7,10 @@ myRequireOnce ('publishLanguagesAvailable.php');
 
 function publishLanguages($p){
     $publishDestination = publishDestination($p);
-    $debug = 'In publishLanguages with publishDestination '. $publishDestination . "\n";
+
     $creator =   "\n" .'&nbsp; <!--- Created by publishLanguages -->&nbsp; '.  "\n";
     $selected_css = 'sites/default/styles/cardGLOBAL.css';
-    $p['country_dir'] = '/content/' . SITE_CODE . '/'. $p['country_code'] . '/';
+    $p['country_dir'] = '/content/' . $p['country_code'] . '/';
      // get language footer in publishOEpublish.php
     $footer = publishLanguageFooter($p);
     //
@@ -20,19 +20,16 @@ function publishLanguages($p){
         WHERE  country_code = '". $p['country_code'] ."'
          AND filename = 'languages'
         ORDER BY recnum DESC LIMIT 1";
-    $debug .= $sql. "\n";
+
     $data = sqlArray($sql);
     //
     // create page
     //
     $text = createLanguages($p, $data);
     if ($text){
+        // "/content/M2/languages.html"
         $fname =   $p['country_dir'] . 'languages.html';
-        writeLogError('publishLanguages-31-fname', $fname);
-        writeLogError('publishLanguages-31-country', $p['country_dir']);
-        $debug .= 'Creating ' . $fname. "\n";
         $text =  $text . $creator;
-        $debug .= $text. "\n";
         publishFiles( $p['destination'], $p, $fname, $text, STANDARD_CSS, STANDARD_CARD_CSS);
         //
         // update records
@@ -56,12 +53,9 @@ function publishLanguages($p){
         if ($sql){
             sqlArray($sql,'update');
         }
-        //$debug .= $sql. "\n";
 
-        $debug .= 'About to enter publishLanguagesAvailable' . "\n";
-        // now update languages Available
         publishLanguagesAvailable($p);
-        //writeLog('publishLanguages', $debug);
+
     }
     return TRUE;
 }

@@ -1,5 +1,5 @@
 <?php
-myRequireOnce ('publishDestination.php');
+
 myRequireOnce('dirCreate.php');
 
 function createLanguages($p, $data){
