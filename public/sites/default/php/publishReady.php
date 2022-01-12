@@ -1,22 +1,28 @@
 <?php
+myRequireOnce('writeLog.php');
+// is this item authorized to be published?
 function publishReady($item, $destination){
+writeLogError('publishReady-5-item', $item);
+writeLogError('publishReady-5-destination', $destination);
+
 switch ($destination){
     case"prototype":
         if ($item->prototype){
             return true;
         }
         else{
-        return false;
+            return false;
         }
+    case "nojs":
     case "publish":
-    case "usb":
+    case "sdcard":
         if ($item->publish){
             return true;
         }
         else{
-        return false;
+          return false;
         }
+    default:
+        return false;
     }
-return false;
-
 }

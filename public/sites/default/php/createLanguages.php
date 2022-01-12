@@ -3,11 +3,10 @@
 myRequireOnce('dirCreate.php');
 
 function createLanguages($p, $data){
-    $debug = 'In createLanguages'. "\n";
-    $debug .= $data['text']. "\n";
     $text = json_decode($data['text']);
     if (!isset($text->languages)){
-         $message = "in createLanguages and  no value for text->languages ";
+        $message = "in createLanguages and  no value for text->languages ";
+        writeLogError('createLanguages-10-message', $message);
         trigger_error( $message, E_USER_ERROR);
         return null;
     }
@@ -37,9 +36,7 @@ function createLanguages($p, $data){
             $status = $language->publish;
         }
         else{
-            if (isset($book->prototype)){
-                $status = $language->prototype;
-            }
+            $status = $language->prototype;
         }
         if ($status  == true ){
             $replace = array(
@@ -52,12 +49,9 @@ function createLanguages($p, $data){
             //
             dirCreate('language', $p['destination'],  $p);
             //$p['language_dir'] = ' /content/'. $p['country_code']  . '/'.  $language->folder .'/';
-
         }
     }
-
     $text = str_replace('[[languages]]',$temp,  $main_template);
-    //writeLog('createLanguages-60-text', $text);
     return $text;
 
 

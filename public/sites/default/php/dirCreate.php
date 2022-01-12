@@ -13,7 +13,8 @@ define("ROOT_NOJS", '/home/globa544/sdcard.mc2.online/nojs/');
 function dirCreate($scope, $destination,  $p, $folders = null){
     switch($destination){
         case 'edit':
-            $dir = ROOT_EDIT;
+            //define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
+            $dir = ROOT_EDIT . '/sites/' . SITE_CODE . '/';
             break;
         case 'nojs':
             $dir = ROOT_NOJS;
@@ -21,11 +22,9 @@ function dirCreate($scope, $destination,  $p, $folders = null){
         case 'prototype':
             $dir = ROOT_PROTOTYPE;
             break;
+        case 'website':
         case 'publish':
             $dir = ROOT_PUBLISH;
-            break;
-        case 'website':
-            $dir = ROOT_WEBSITE;
             break;
         case 'sdcard':
             $dir = ROOT_SDCARD;
@@ -37,16 +36,16 @@ function dirCreate($scope, $destination,  $p, $folders = null){
     }
     switch ($scope){
         case ('country'):
-            $dir.='content/'. SITE_CODE .'/'.$p['country_code'] .'/';
+            $dir.='content/'. $p['country_code'] .'/';
             break;
         case('language'):
-            $dir.='content/'. SITE_CODE .'/'.$p['country_code']  .'/'.$p['language_iso'] .'/';
+            $dir.='content/'. $p['country_code']  .'/'.$p['language_iso'] .'/';
             break;
         case('library'):
-            $dir.='content/'. SITE_CODE .'/'.$p['country_code']  .'/'.$p['language_iso'] .'/'.$p['library_code'].'/';
+            $dir.='content/' . $p['country_code']  .'/'.$p['language_iso'] .'/'.$p['library_code'].'/';
             break;
         case ('series'):
-            $dir.='content/'. SITE_CODE .'/'.$p['country_code']  .'/'.$p['language_iso'] .'/'.$p['folder_name'].'/';
+            $dir.='content/'. $p['country_code']  .'/'.$p['language_iso'] .'/'.$p['folder_name'].'/';
             break;
     }
     $dir .= $folders;

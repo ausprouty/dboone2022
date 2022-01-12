@@ -27,16 +27,15 @@ function publishSeries ($p){
         $result = createSeries($p, $data);
         $p = $result['p'];
         if ($result['text']){
-              // find css
-              $b['recnum'] = $p['recnum'];
-              $b['library_code'] = $p['library_code'];
-              $bookmark  = bookmark($b);
-
-              $selected_css = isset($bookmark['book']->style) ? $bookmark['book']->style :STANDARD_CSS ;
-              //
-
-            $dir = dirCreate($series, $p['destination'],  $p, $folders = null);
+            // find css
+            $b['recnum'] = $p['recnum'];
+            $b['library_code'] = $p['library_code'];
+            $bookmark  = bookmark($b);
+            $selected_css = isset($bookmark['book']->style) ? $bookmark['book']->style :STANDARD_CSS ;
+            $dir = dirCreate('series', $p['destination'],  $p, $folders = null);
             $fname = $dir . 'index.html';
+            writeLogError('publishSeries-37-fname', $fname);
+            writeLogError('publishSeries-37-p', $p);
             $result['text'] .= '<!--- Created by publishSeries-->' . "\n";
             publishFiles( $p['destination'], $p, $fname, $result['text'],  STANDARD_CSS, $selected_css);
             $time = time();

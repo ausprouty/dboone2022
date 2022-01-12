@@ -1,19 +1,18 @@
 <?php
 // make directory if not found. No directory can have words .html
-function dirMake($file){
+function dirMake($filename){
 	$dir = '';
-	if (strpos($file, '//') !== FALSE){
-		$file = str_ireplace ('//', '/', $file);
+	if (strpos($filename, '//') !== FALSE){
+		$filename = str_ireplace ('//', '/', $filename);
 	}
-	$parts = explode('/', $file);
+	$parts = explode('/', $filename);
 	foreach ($parts as $part){
-		if (strpos($part, '.html') == FALSE){
+		if (strpos($part, '.html') === FALSE && strpos($part, '.json') === FALSE){
 			$dir .= $part . '/';
 			if (!file_exists($dir)){
-               writeLogError('dirMake-12-'. rand(0, 9999), $file);
 				mkdir ($dir);
 			}
 		}
 	}
-	return  $file;
+	return  $filename;
 }

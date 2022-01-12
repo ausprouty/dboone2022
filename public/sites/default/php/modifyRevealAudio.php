@@ -61,18 +61,13 @@ function modifyRevealAudio($text, $bookmark, $p){
     //writeLog('modifyRevealAudio-61-text', $text);
     //writeLog('modifyRevealAudio-61-p', $p);
     if ($p['destination'] == 'nojs'){
-        $watch_phrase = $bookmark['language']->listen_offline;
-        $template_link ='<div> <a href src="[url]">[title_phrase]</a></div>';
+        $listen_phrase = $bookmark['language']->listen_offline;
+       $local_template = '<div> <a href src="[url]">[title_phrase]</a></div>
+        <audio width="100%"  controls src="[url]">
+        </audio>';
     }
     elseif ($p['destination'] == 'sdcard'){
         $listen_phrase = $bookmark['language']->listen_offline;
-        $Xlocal_template= '
-        <button id="AudioButton[id]" type="button" class="collapsible external-audio ">[title_phrase]</button>
-        <div class="collapsed" style="display:none;">
-            <audio controls src="[url]">Sorry, Your browser does not support our audio playback.  Try Chrome. </audio>
-            <p>[audio_text]</p>
-        </div>
-        ';
         $local_template= '
         <button id="AudioButton[id]" type="button" class="collapsible external-audio ">[title_phrase]</button>
         <div class="collapsed" style="display:none;">
@@ -131,7 +126,7 @@ function modifyRevealAudio($text, $bookmark, $p){
         $debug .=  "url is | $url |\n";
         $audio_text = modifyRevealAudioFindText($old, 6);
         $debug .=  "audio_text is | $audio_text |\n";
-        if ($p['destination'] == 'sdcard'){
+        if ($p['destination'] == 'sdcard' || $p['destination'] == 'nojs'){
             $new = $local_template;
             $url = modifyRevealAudioSDCardUrl($url);
         }

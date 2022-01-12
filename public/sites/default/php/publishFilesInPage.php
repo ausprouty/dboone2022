@@ -10,6 +10,12 @@ myRequireOnce('version2Text.php');
 
 function  publishFilesInPage($text, $p){
     $files_in_pages = [];
+    // we do not copy files for nojs since they are copied by sdcard
+    if (isset($p['destination'])){
+        if($p['destination'] == 'nojs'){
+           return $files_in_pages;
+        }
+    }
     $text = version2Text($text);
     //writeLog ('publishFilesInPage-11-text', $text);
     $find_begin = 'src="';
@@ -31,6 +37,7 @@ function publishFilesInPageFind($find_begin, $text, $p){
     $files_in_pages = [];
     $debug = '';
     $find_end = '"';
+    $intial_text = $text;
     if (strpos($text, $find_begin)!== false){
         $count = 0;
         while (strpos($text, $find_begin) !== false){
@@ -58,7 +65,7 @@ function publishFilesInPageFind($find_begin, $text, $p){
                     $message ="  pos_begin is   $pos_begin\n";
                     $message .="  pos_end is   $pos_end\n";
                     $message .= "$from not found \n\n\n\n";
-                    $message .="  text is   $text\n";
+                    $message .="  text is   $intial_text\n";
                     writeLogError('PublishFilesInPage-'. $count. '-' . $find_begin , $message );
                 }
             }

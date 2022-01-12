@@ -58,7 +58,7 @@ function createDirectoryLanguages($p){
 	return "Success";
 }
 
-/
+//
 // create series index; I can not see any reason to do this.
 // called by Library Edit
 function createSeriesIndex($p){
