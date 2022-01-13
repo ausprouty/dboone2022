@@ -27,6 +27,11 @@
             {{ this.nojs_text }}
           </button>
         </div>
+         <div>
+          <button class="button" @click="localPublish('pdf')">
+            {{ this.pdf_text }}
+          </button>
+        </div>
       </div>
       <a
         target="_blank"
@@ -101,6 +106,7 @@ export default {
       publish_text: 'Publish Library and Books',
       sdcard_text: 'Update SD Card',
       nojs_text:'Update No Javascript',
+      pdf_text: 'Update PDF files',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       site_directory: process.env.VUE_APP_SITE_DIR,
       back: 'country',
@@ -160,6 +166,11 @@ export default {
         this.nojs_text = 'Publishing'
         response = await NoJSService.publish('libraryAndBooks', params)
         this.nojs_text = 'Finished Publishing'
+      }
+      if (location == 'pdf') {
+        this.pdf_text = 'Publishing'
+        response = await NoJSService.publish('libraryAndBooks', params)
+        this.pdf_text = 'Published'
       }
       if (location == 'prototype') {
         this.prototype_text = 'Prototyping'

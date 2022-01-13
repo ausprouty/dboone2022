@@ -51,12 +51,18 @@ function createLibrary($p, $text) {
 
     $country_index = '/content/' . $p['country_code'] .'/'. $p['language_iso'];
     $root_index = '/content/index.html';
-    if ($filename == 'library'){
-        $navlink = $root_index;
+    if ($p['destination'] !== 'nojs'){
+            if ($filename == 'library'){
+            $navlink = $root_index;
+        }
+        else{
+            $navlink = $country_index;
+        }
     }
     else{
-        $navlink = $country_index;
+        $navlink = '../index.html';
     }
+
     // get language footer in prototypeOEpublish.php
     $footer = publishLanguageFooter($p);
     //writeLog('createLibrary-62-navlink', $navlink);

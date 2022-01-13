@@ -25,6 +25,11 @@
             {{ this.nojs_text }}
           </button>
         </div>
+         <div>
+          <button class="button" @click="localPublish('pdf')">
+            {{ this.pdf_text }}
+          </button>
+        </div>
       </div>
       <a href="preview/languages">
         <img src="/sites/default/images/languages.jpg" class="app-img-header" />
@@ -97,6 +102,7 @@ export default {
       publish_text: 'Publish',
       sdcard_text: 'Update SD Card',
       nojs_text:'Update No Javascript',
+      pdf_text: 'Update PDF files',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       more_languages: 'More Languages',
       choose_language: 'Choose Language',
@@ -138,6 +144,11 @@ export default {
         this.nojs_text = 'Publishing'
         response = await NoJSService.publish('languages', params)
         this.nojs_text = 'Published'
+      }
+      if (location == 'pdf') {
+        this.pdf_text = 'Publishing'
+        response = await NoJSService.publish('languages', params)
+        this.pdf_text = 'Published'
       }
       if (location == 'prototype') {
         this.prototype_text = 'Prototyping'

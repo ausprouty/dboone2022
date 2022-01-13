@@ -34,8 +34,6 @@ function publishSeries ($p){
             $selected_css = isset($bookmark['book']->style) ? $bookmark['book']->style :STANDARD_CSS ;
             $dir = dirCreate('series', $p['destination'],  $p, $folders = null);
             $fname = $dir . 'index.html';
-            writeLogError('publishSeries-37-fname', $fname);
-            writeLogError('publishSeries-37-p', $p);
             $result['text'] .= '<!--- Created by publishSeries-->' . "\n";
             publishFiles( $p['destination'], $p, $fname, $result['text'],  STANDARD_CSS, $selected_css);
             $time = time();
