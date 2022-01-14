@@ -1,7 +1,7 @@
 <?php
 function dirListFiles ($directory){
+	$output = [];
 	if (file_exists($directory)){
-		$output = [];
 		$handler = opendir ($directory);
 		while ($mfile = readdir ($handler)){
 			if ($mfile != '.' && $mfile != '..' ){
@@ -10,5 +10,5 @@ function dirListFiles ($directory){
 		}
 		closedir ($handler);
 	}
-	 return $output;
+	return $output;
 }

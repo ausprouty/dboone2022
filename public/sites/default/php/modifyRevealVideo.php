@@ -90,6 +90,7 @@ NO JS:
 */
 function modifyRevealVideo($text, $bookmark, $p){
     $debug = '';
+
     if ($p['destination'] == 'nojs'){
         $watch_phrase = '';
         $template_link =
@@ -103,9 +104,12 @@ function modifyRevealVideo($text, $bookmark, $p){
         $template_link ='
         <button id="VimeoButton0" type="button" class="external-movie ">[title_phrase]</button>
         <div class="collapsed">
-           <video id="video[id]"  width = "100%" controls>
-           <source src="[video]" type="video/mp4">
-           <script>plyr.setup("#video[id]");</script>
+        <video id="video[id]"  width = "100%" controls>
+        <source src="[video]" type="video/mp4">
+        <script>plyr.setup("#video[id]");</script>
+            <a href="javascript:void(0);" onclick="shareVideo([video])">
+                <img class="social" src="/content/M2/images/standard/share_video.png" />
+            </a>
         </div>';
     }
     else{

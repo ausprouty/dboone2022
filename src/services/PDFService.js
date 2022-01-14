@@ -24,6 +24,9 @@ export default {
     params.token = store.state.user.token
     params.destination = 'pdf'
     switch (scope) {
+      case 'testPdf':
+        action = 'AuthorApi.php?page=testPdf&action=testPdf'
+        break
       case 'bookmark':
         action = 'AuthorApi.php?page=bookmark&action=bookmark'
         break
