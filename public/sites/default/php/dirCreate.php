@@ -11,6 +11,7 @@ define("ROOT_SDCARD", '/home/globa544/sdcard.mc2.online/folder/');
 define("ROOT_NOJS", '/home/globa544/sdcard.mc2.online/nojs/');
 */
 function dirCreate($scope, $destination,  $p, $folders = null){
+    $dir = '';
     switch($destination){
         case 'edit':
             //define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
