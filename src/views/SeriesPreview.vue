@@ -108,6 +108,7 @@ import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
 import NoJSService from '@/services/NoJSService.js'
 import SDCardService from '@/services/SDCardService.js'
+import PDFService from '@/services/PDFService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
 
 import { seriesMixin } from '@/mixins/SeriesMixin.js'
@@ -213,7 +214,7 @@ export default {
       }
       if (location == 'pdf') {
         this.pdf_text = 'Publishing'
-        response = await NoJSService.publish('series', params)
+        response = await PDFService.publish('series', params)
         this.pdf_text = 'Published'
       }
       if (location == 'prototype') {

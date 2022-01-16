@@ -13,7 +13,7 @@ function fileWrite($filename, $text, $destination){
        $filename = str_ireplace ($publishDestination, '', $filename);
     }
     if ($destination == 'nojs' || $destination == 'pdf'){
-       $filename= str_ireplace( $publishDestination . 'çontent/', $publishDestination);
+       $filename= str_ireplace( $publishDestination . 'çontent/', $publishDestination, $filename);
     }
     $filename = dirMake($filename);
     $fh = fopen($filename, 'w');

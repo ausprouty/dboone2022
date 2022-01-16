@@ -27,7 +27,7 @@
             {{ this.nojs_text }}
           </button>
         </div>
-         <div>
+        <div>
           <button class="button" @click="localPublish('pdf')">
             {{ this.pdf_text }}
           </button>
@@ -82,6 +82,7 @@ import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
 import SDCardService from '@/services/SDCardService.js'
 import NoJSService from '@/services/NoJSService.js'
+import PDFService from '@/services/PDFService.js'
 import { mapState } from 'vuex'
 
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
@@ -105,7 +106,7 @@ export default {
       prototype_text: 'Prototype Library and Books',
       publish_text: 'Publish Library and Books',
       sdcard_text: 'Update SD Card',
-      nojs_text:'Update No Javascript',
+      nojs_text: 'Update No Javascript',
       pdf_text: 'Update PDF files',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       site_directory: process.env.VUE_APP_SITE_DIR,
@@ -169,7 +170,7 @@ export default {
       }
       if (location == 'pdf') {
         this.pdf_text = 'Publishing'
-        response = await NoJSService.publish('libraryAndBooks', params)
+        response = await PDFService.publish('libraryAndBooks', params)
         this.pdf_text = 'Published'
       }
       if (location == 'prototype') {

@@ -81,6 +81,7 @@ import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
 import SDCardService from '@/services/SDCardService.js'
 import NoJSService from '@/services/NoJSService.js'
+import PDFService from '@/services/PDFService.js'
 import { mapState } from 'vuex'
 import { languageMixin } from '@/mixins/LanguageMixin.js'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
@@ -147,7 +148,7 @@ export default {
       }
       if (location == 'pdf') {
         this.pdf_text = 'Publishing'
-        response = await NoJSService.publish('languages', params)
+        response = await PDFService.publish('languages', params)
         this.pdf_text = 'Published'
       }
       if (location == 'prototype') {

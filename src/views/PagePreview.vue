@@ -85,6 +85,7 @@ import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
 import NoJSService from '@/services/NoJSService.js'
 import SDCardService from '@/services/SDCardService.js'
+import PDFService from '@/services/PDFService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
 
 import { pageMixin } from '@/mixins/PageMixin.js'
@@ -103,7 +104,7 @@ export default {
       publish_text: 'Publish',
       sdcard_text: 'Update SD Card',
       nojs_text: 'Update No Javascript',
-      pdf_text: 'Update PDF files',
+      pdf_text: 'Update PDF file',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       rldir: 'ltr',
       book_style: process.env.VUE_APP_SITE_STYLE,
@@ -210,7 +211,7 @@ export default {
       }
       if (location == 'pdf') {
         this.pdf_text = 'Publishing'
-        response = await NoJSService.publish('page', params)
+        response = await PDFService.publish('page', params)
         this.pdf_text = 'Published'
       }
       if (location == 'website') {
