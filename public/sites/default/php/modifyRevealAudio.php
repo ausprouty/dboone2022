@@ -59,7 +59,11 @@ Input is:
 function modifyRevealAudio($text, $bookmark, $p){
     $debug ='';
     //writeLog('modifyRevealAudio-61-text', $text);
-    //writeLog('modifyRevealAudio-61-p', $p);
+    //writeLog('modifyRevealAudio-61-p', $p);'
+    if ($p['destination'] == 'nojs'){
+        $listen_phrase ='';
+       $local_template = '';
+    }
     if ($p['destination'] == 'nojs'){
         $listen_phrase = $bookmark['language']->listen_offline;
        $local_template = '<div> <a href src="[url]">[title_phrase]</a></div>

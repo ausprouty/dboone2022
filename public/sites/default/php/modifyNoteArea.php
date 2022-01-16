@@ -30,7 +30,7 @@ remove for nojs  (if $p['destination] == 'nojs')
             <textarea  onchange= "addNote()"  id ="[id]" rows="[rows]"></textarea>
         </form>
     ';
-    if ($p['destination'] == 'nojs'){
+    if ($p['destination'] == 'nojs' || $p['destination'] == 'pdf'){
        $template ='<div class="note-removed">';
     }
 

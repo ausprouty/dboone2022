@@ -12,7 +12,7 @@ function  publishFilesInPage($text, $p){
     $files_in_pages = [];
     // we do not copy files for nojs since they are copied by sdcard
     if (isset($p['destination'])){
-        if($p['destination'] == 'nojs'){
+        if ($p['destination'] == 'nojs' || $p['destination'] == 'pdf'){
            return $files_in_pages;
         }
     }

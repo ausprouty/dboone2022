@@ -53,7 +53,7 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     }
     $title = WEBSITE_TITLE . getTitle($p['recnum']);
     $debug .= 'title is '. $title ."\n";
-    $local_js = '<script> This is my script</script>';
+
     $placeholders = array(
         '{{ title }}',
         '{{ standard.css }}',

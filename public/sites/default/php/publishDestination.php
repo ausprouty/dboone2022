@@ -14,14 +14,17 @@ function publishDestination ($p){
   if($p['destination'] == 'staging'){
       return ROOT_STAGING;
   }
-  if($p['destination'] == 'website'){
+  elseif($p['destination'] == 'website'){
       return ROOT_PUBLISH;
   }
-  if($p['destination'] == 'sdcard'){
+  elseif($p['destination'] == 'sdcard'){
       return ROOT_SDCARD;
   }
-  if($p['destination'] == 'nojs'){
+  elseif($p['destination'] == 'nojs'){
       return ROOT_NOJS;
+  }
+  elseif($p['destination'] == 'pdf'){
+      return ROOT_PDF;
   }
   $message= 'In publishDestination invalid destination:  ' . $p['destination'];
   writeLogError('publishDestination', $message);

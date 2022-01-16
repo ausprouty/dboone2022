@@ -13,7 +13,7 @@ function modifyRevealSummary($text, $p){
     $debug = "In _revealSummary Today\n";
     $template = '<div id="Summary[id]" class="summary">[TagOpen]+ [Word][TagClose]</div>'. "\n";
     $template .= '<div class="collapsed" id ="Text[id]">'. "\n";
-    if ($p['destination'] == 'nojs'){
+    if ($p['destination'] == 'nojs' || $p['destination'] == 'pdf'){
         $template = '<div class="summary">[TagOpen]+ [Word][TagClose]</div>'. "\n";
         $template .= '<div>'. "\n";
     }

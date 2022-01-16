@@ -18,7 +18,7 @@ function modifyRevealBible($text, $bookmark, $p){
     $debug .= "read phrase is $read_phrase\n";
     $template = '<button id="Button[id]" type="button" class="collapsible bible">[Show]</button>';
     $template .= '<div class="collapsed" id ="Text[id]">';
-    if($p['destination'] == 'nojs'){
+    if($p['destination'] == 'nojs' || $p['destination'] == 'pdf'){
         $template = '<div class="bible">[Show]</div>';
         $template .= '<div>';
     }
