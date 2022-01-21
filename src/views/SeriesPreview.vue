@@ -214,7 +214,7 @@ export default {
       }
       if (location == 'pdf') {
         this.pdf_text = 'Publishing'
-        response = await PDFService.publish('series', params)
+        response = await PDFService.publish('seriesAndChapters', params)
         this.pdf_text = 'Published'
       }
       if (location == 'prototype') {

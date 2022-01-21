@@ -18,7 +18,7 @@ export default {
   props: {
     user: Object,
   },
-  mixins: [ countriesMixin],
+  mixins: [countriesMixin],
   data: function () {
     return {
       scope: null,

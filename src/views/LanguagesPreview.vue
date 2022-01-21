@@ -1,6 +1,6 @@
 <template>
   <div class="preview">
-    <NavBar called_by ="language" />
+    <NavBar called_by="language" />
     <div class="loading" v-if="loading">Loading...</div>
     <div class="error" v-if="error">There was an error... {{ this.error }}</div>
     <div class="content" v-if="loaded">
@@ -23,11 +23,6 @@
         <div>
           <button class="button" @click="localPublish('nojs')">
             {{ this.nojs_text }}
-          </button>
-        </div>
-        <div>
-          <button class="button" @click="localPublish('pdf')">
-            {{ this.pdf_text }}
           </button>
         </div>
       </div>

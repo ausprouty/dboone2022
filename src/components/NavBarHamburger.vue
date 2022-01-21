@@ -34,7 +34,6 @@
 </template>
 
 <script>
-
 import { mapState } from 'vuex'
 import LogService from '@/services/LogService.js'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'

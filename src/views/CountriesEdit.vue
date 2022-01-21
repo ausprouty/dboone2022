@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar called_by ="country" />
+    <NavBar called_by="country" />
     <div class="loading" v-if="loading">Loading...</div>
     <div class="error" v-if="error">
       There was an error... {{ this.error_message }}

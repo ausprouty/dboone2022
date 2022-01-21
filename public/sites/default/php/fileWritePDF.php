@@ -13,5 +13,6 @@ function fileWritePDF($filename, $html){
 	$stylesheet = file_get_contents( __DIR__ . '/../styles/pdf.css');
 	$mpdf->WriteHTML($html);
 	$mpdf->Output($filename ,  \Mpdf\Output\Destination::FILE);
+	$mpdf = NULL;
 	return TRUE;
 }

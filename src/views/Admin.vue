@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar called_by ="admin" />
+    <NavBar called_by="admin" />
     <h2>Copy Books</h2>
     <form @submit.prevent="saveForm">
       <BaseSelect

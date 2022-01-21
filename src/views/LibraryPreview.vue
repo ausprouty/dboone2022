@@ -27,11 +27,7 @@
             {{ this.nojs_text }}
           </button>
         </div>
-        <div>
-          <button class="button" @click="localPublish('pdf')">
-            {{ this.pdf_text }}
-          </button>
-        </div>
+
       </div>
       <a
         target="_blank"

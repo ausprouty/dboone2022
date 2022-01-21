@@ -41,7 +41,7 @@ function modifyForPDFImagePath($text){
         $count = substr_count ($text, $find);
         $pos_begin = 0;
         for ($i = 1; $i<=$count; $i++){
-            $pos_begin = strpos($text, $find);
+            $pos_begin = strpos($text, $find, $pos_begin);
             $pos_end = strpos($text, '>', $pos_begin);
             $length = $pos_end- $pos_begin + 1;
             $old = substr($text, $pos_begin, $length);
