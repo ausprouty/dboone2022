@@ -1,12 +1,14 @@
 <template>
   <div>
-    <NavBar />
+    <NavBar called_by="language" />
     <div class="loading" v-if="loading">Loading...</div>
     <div class="error" v-if="error">There was an error... {{ this.error }}</div>
     <div class="content" v-if="loaded">
       <a v-bind:href="'/languages/' + this.bookmark.country.code">
         <img
-          v-bind:src="process.env.VUE_APP_SITE_CONTENT + this.image_dir + '/journey.jpg'"
+          v-bind:src="
+            process.env.VUE_APP_SITE_CONTENT + this.image_dir + '/journey.jpg'
+          "
           class="app-img-header"
         />
       </a>
@@ -33,7 +35,7 @@ import LogService from '@/services/LogService.js'
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
 
 export default {
-  mixins: [ libraryMixin],
+  mixins: [libraryMixin],
   props: ['country_code', 'language_iso', 'library_code'],
   computed: mapState(['bookmark', 'cssURL', 'standard']),
   components: {

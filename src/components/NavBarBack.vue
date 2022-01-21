@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  props: ['called_by'],
   data() {
     return {
       headerImage: process.env.VUE_APP_SITE_MENU_DIR + 'header-back.png',

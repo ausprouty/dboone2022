@@ -9,6 +9,7 @@
 
 <script>
 export default {
+  props: ['called_by'],
   data() {
     return {
       standardCSS: process.env.VUE_APP_SITE_STYLE,

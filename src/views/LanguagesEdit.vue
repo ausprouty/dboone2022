@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar />
+    <NavBar called_by ="language" />
 
     <div class="loading" v-if="loading">Loading...</div>
     <div class="error" v-if="error">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar />
+    <NavBar called_by="series" />
     <div class="loading" v-if="loading">Loading...</div>
     <div class="error" v-if="error">There was an error... {{ this.error }}</div>
     <div class="content" v-if="loaded">
@@ -49,7 +49,7 @@ import NavBar from '@/components/NavBarBack.vue'
 
 import { seriesMixin } from '@/mixins/SeriesMixin.js'
 export default {
-  mixins: [ seriesMixin],
+  mixins: [seriesMixin],
   props: ['country_code', 'language_iso', 'library_code', 'folder_name'],
   computed: mapState(['bookmark']),
   components: {

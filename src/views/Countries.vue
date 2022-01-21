@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar />
+    <NavBar called_by ="country" />
     <h1>Select Country</h1>
     <Country
       v-for="country in countries"

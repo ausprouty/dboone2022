@@ -38,6 +38,7 @@ import { mapState } from 'vuex'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import LogService from '@/services/LogService.js'
 export default {
+  props: ['called_by'],
   computed: mapState(['bookmark']),
   mixins: [authorizeMixin],
   created() {

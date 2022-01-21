@@ -1,6 +1,6 @@
 <template>
   <div class="preview" v-bind:class="this.rldir">
-    <NavBar />
+    <NavBar called_by=page" />
     <div class="loading" v-if="loading">Loading...</div>
     <div class="error" v-if="error">There was an error... {{ this.error }}</div>
     <div class="content" v-if="loaded">
@@ -25,7 +25,7 @@
             {{ this.nojs_text }}
           </button>
         </div>
-         <div>
+        <div>
           <button class="button" @click="localPublish('pdf')">
             {{ this.pdf_text }}
           </button>
@@ -202,12 +202,12 @@ export default {
       if (location == 'sdcard') {
         this.sdcard_text = 'Publishing'
         response = await SDCardService.publish('page', params)
-         this.sdcard_text = 'Published'
+        this.sdcard_text = 'Published'
       }
-       if (location == 'nojs') {
+      if (location == 'nojs') {
         this.nojs_text = 'Publishing'
         response = await NoJSService.publish('page', params)
-         this.nojs_text = 'Published'
+        this.nojs_text = 'Published'
       }
       if (location == 'pdf') {
         this.pdf_text = 'Publishing'
@@ -217,7 +217,7 @@ export default {
       if (location == 'website') {
         this.publish_text = 'Publishing'
         response = await PublishService.publish('page', params)
-         this.publish_text = 'Published'
+        this.publish_text = 'Published'
       }
       if (response['error']) {
         this.error = response['message']

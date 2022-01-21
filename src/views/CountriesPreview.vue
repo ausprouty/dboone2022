@@ -1,6 +1,6 @@
 <template>
   <div class="preview">
-    <NavBar />
+    <NavBar called_by ="country" />
 
     <div v-if="this.publish">
       <button class="button" @click="localPublish('website')">

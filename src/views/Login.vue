@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar />
+    <NavBar called_by="login" />
     <h2>Login</h2>
     <form @submit.prevent="saveForm">
       <BaseInput

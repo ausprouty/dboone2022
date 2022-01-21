@@ -33,6 +33,7 @@ import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import LogService from '@/services/LogService.js'
 export default {
   computed: mapState(['bookmark', 'user']),
+  props: ['called_by'],
   mixins: [authorizeMixin],
   data() {
     return {
@@ -97,10 +98,14 @@ export default {
     }
     if (this.authorized) {
       this.menu[1].show = true
-      if (typeof this.$route.params.country_code != 'undefined') {
+      if (
+        typeof this.$route.params.country_code != 'undefined' &&
+        this.called_by !== 'language'
+      ) {
         this.menu[2].show = true
       }
-      if (this.$route.params.language_iso && this.$route.params.country_code) {
+      // library
+      if (this.$route.params.language_iso && this.called_by !== 'library') {
         this.menu[3].show = true
       }
       this.menu[6].show = true

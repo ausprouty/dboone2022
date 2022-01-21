@@ -1,6 +1,6 @@
 <template>
   <div class="preview">
-    <NavBar />
+    <NavBar called_by="library" />
     <div class="loading" v-if="loading">Loading...</div>
     <div class="error" v-if="error">There was an error... {{ this.error }}</div>
     <div class="content" v-if="loaded">

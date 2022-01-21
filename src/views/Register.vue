@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar />
+    <NavBar called_by="register" />
     <div v-if="!this.authorized">
       <p>
         You have stumbled into a restricted page. Sorry I can not show it to you

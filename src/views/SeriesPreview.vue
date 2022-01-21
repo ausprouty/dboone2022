@@ -1,6 +1,6 @@
 <template>
   <div class="preview" v-bind:dir="this.rldir">
-    <NavBar />
+    <NavBar called_by="series" />
     <div class="loading" v-if="loading">Loading...</div>
     <div class="error" v-if="error">There was an error...{{ this.error }}</div>
     <div class="content" v-if="loaded">
@@ -230,7 +230,7 @@ export default {
       if (location == 'website') {
         this.publish_text = 'Publishing'
         response = await PublishService.publish('seriesAndChapters', params)
-         this.publish_text = 'Published'
+        this.publish_text = 'Published'
       }
 
       if (response['error']) {
