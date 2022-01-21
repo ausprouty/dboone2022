@@ -57,11 +57,17 @@ function createPage($p, $content){
               //writeLog('createPage-52-title', $title);
             if (isset($bookmark['page']->count)){
                 if ($bookmark['page']->count != ''){
-                    $page_title_and_image_value =
-                    '<div class="block {{ dir }}">
-                        <div class="chapter_number {{ dir }}"><h1>'. $bookmark['page']->count .'.'. '</h1></div>
-                        <div class="chapter_title {{ dir }}"><h1>'  . $title . '</h1></div>
-                    </div>';
+                    if ($p['destination'] != 'pdf'){
+                        $page_title_and_image_value =
+                            '<div class="block {{ dir }}">
+                                <div class="chapter_number {{ dir }}"><h1>'. $bookmark['page']->count .'.'. '</h1></div>
+                                <div class="chapter_title {{ dir }}"><h1>'  . $title . '</h1></div>
+                            </div>';
+                    }
+                    else{
+                        $page_title_and_image_value =
+                            '<h1>'. $bookmark['page']->count .'. '.  $title . '</h1>';
+                    }
                 }
                 else{
                     $page_title_and_image_value  = '<h1>' . $title . '</h1>';

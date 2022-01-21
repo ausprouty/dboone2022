@@ -25,7 +25,7 @@
             {{ this.nojs_text }}
           </button>
         </div>
-         <div>
+        <div>
           <button class="button" @click="localPublish('pdf')">
             {{ this.pdf_text }}
           </button>
@@ -102,7 +102,7 @@ export default {
       prototype_text: 'Prototype',
       publish_text: 'Publish',
       sdcard_text: 'Update SD Card',
-      nojs_text:'Update No Javascript',
+      nojs_text: 'Update No Javascript',
       pdf_text: 'Update PDF files',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       more_languages: 'More Languages',

@@ -1,5 +1,6 @@
 <?php
 myRequireOnce ('writeLog.php');
+myRequireOnce ('dirCreate.php');
 
 function createLibrary($p, $text) {
      /* Return a container for the books in this library.
@@ -37,19 +38,21 @@ function createLibrary($p, $text) {
         $nav = myGetPrototypeFile('navRibbon.html', $p['destination']);
         $ribbon = isset($text->format->back_button)?$text->format->back_button->image : DEFAULT_BACK_RIBBON ;
     }
-    $debug .= "ribbon is $ribbon\n";
     $body = str_replace('[[nav]]',$nav, $body);
     //
     //  Replace other variables for Library
     //
+    $library_image = '';
+    if (isset($text->format->image->image)){
+        $library_image =   '/sites/' . SITE_CODE .  $text->format->image->image;
+    }
+    writeLogError('createLibrary-41-image',  "$library_image");
+    $body = str_replace('{{ library.image }}', $library_image, $body);
 
-    $val = isset($text->format->image->image) ? $text->format->image->image : null;
-    $body = str_replace('{{ library.image }}',$val, $body);
+    $library_text= isset($text->text)? $text->text : null;
+    $body = str_replace('{{ library.text }}', $library_text, $body);
 
-    $val = isset($text->text)? $text->text : null;
-    $body = str_replace('{{ library.text }}',$val, $body);
-
-    $country_index = '/content/' . $p['country_code'] .'/'. $p['language_iso'];
+    $country_index =  dirCreate('country', $p['destination'], $p);
     $root_index = '/content/index.html';
     if ($p['destination'] !== 'nojs'){
             if ($filename == 'library'){
@@ -143,7 +146,7 @@ function createLibrary($p, $text) {
                         $book_image =  $book->image->image;
                     }
                     else{
-                        $book_image =  '/content/'. $bookmark['language']->image_dir .'/' .$book->image ;
+                        $book_image =   $country_index .  $bookmark['language']->image_dir .'/' . $book->image ;
                     }
                     $replace = array(
                         $this_link,
