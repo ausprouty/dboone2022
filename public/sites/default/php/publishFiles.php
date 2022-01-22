@@ -19,11 +19,11 @@ myRequireOnce ('publishCSS.php');
 myRequireOnce ('writeLog.php');
 
 
-// destination must be 'staging', 'publish', or 'sdcard'
+// destination must be 'staging', 'publish', 'pdf'  or 'sdcard'
 function publishFiles( $destination , $p, $fname, $text, $standard_css, $selected_css){
+    $debug = '';
 
-    $debug = 'In publishFiles with: ' . $fname .  "\n";
-    //writeLog('publishFiles-22-fname', $debug);
+    writeLogError('publishFiles-22-fname'. random_int(0, 99999), $fname);
     // start with header
     $output = myGetPrototypeFile('header.html', $p['destination']);
     //$debug .= "\n". 'publishFiles' . "\n";
