@@ -166,7 +166,7 @@ function _copyImagesAndStyles($text, $scope){
             $destination_dir = ROOT_STAGING;
             break;
         case 'publish':
-            $destination_dir = ROOT_PUBLISH;
+            $destination_dir = ROOT_WEBSITE;
             break;
         default:
             return;

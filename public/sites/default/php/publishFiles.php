@@ -19,7 +19,7 @@ myRequireOnce ('publishCSS.php');
 myRequireOnce ('writeLog.php');
 
 
-// destination must be 'staging', 'publish', 'pdf'  or 'sdcard'
+// destination must be 'staging', 'website', 'pdf'  or 'sdcard'
 function publishFiles( $destination , $p, $fname, $text, $standard_css, $selected_css){
     $debug = '';
 

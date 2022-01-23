@@ -22,7 +22,7 @@ export default {
     params.location = process.env.VUE_APP_SITE_LOCATION
     params.my_uid = store.state.user.uid
     params.token = store.state.user.token
-    params.destination = 'publish'
+    params.destination = 'website'
     // params.bookmark = JSON.stringify(store.state.bookmark)
 
     // LogService.consoleLogMessage('publish')

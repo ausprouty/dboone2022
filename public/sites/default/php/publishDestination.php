@@ -1,7 +1,7 @@
 <?php
 /*
 define("ROOT_STAGING", '/home/globa544/staging.mc2.online/');
-define("ROOT_PUBLISH", '/home/globa544/app.mc2.online/');
+define("ROOT_WEBSITE", '/home/globa544/app.mc2.online/');
 define("ROOT_SDCARD", '/home/globa544/usb.mc2.online/');
 */
 
@@ -15,7 +15,7 @@ function publishDestination ($p){
       return ROOT_STAGING;
   }
   elseif($p['destination'] == 'website'){
-      return ROOT_PUBLISH;
+      return ROOT_WEBSITE;
   }
   elseif($p['destination'] == 'sdcard'){
       return ROOT_SDCARD;

@@ -6,7 +6,7 @@ define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
 define("ROOT_EDIT_CONTENT", '/home/globa544/edit.mc2.online/sites/' . SITE_CODE . '/content/');
 define("ROOT_LOG", '/home/globa544/edit.mc2.online/sites/logs/');
 define("ROOT_STAGING", '/home/globa544/test_staging.mc2.online/');
-define("ROOT_PUBLISH", '/home/globa544/test_publish.mc2.online/');
+define("ROOT_WEBSITE", '/home/globa544/test_publish.mc2.online/');
 define("ROOT_SDCARD", '/home/globa544/sdcard.mc2.online/folder/');
 define("ROOT_NOJS", '/home/globa544/sdcard.mc2.online/nojs/');
 */
@@ -20,12 +20,11 @@ function dirCreate($scope, $destination,  $p, $folders = null){
         case 'nojs':
             $dir = ROOT_NOJS;
             break;
-        case 'prototype':
-            $dir = ROOT_PROTOTYPE;
+        case 'staging':
+            $dir = ROOT_STAGING;
             break;
         case 'website':
-        case 'publish':
-            $dir = ROOT_PUBLISH;
+            $dir = ROOT_WEBSITE;
             break;
         case 'sdcard':
             $dir = ROOT_SDCARD;

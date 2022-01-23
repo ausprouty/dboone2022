@@ -115,7 +115,7 @@ $pdf->AddPage();
 $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 
 $html = '<style>'. file_get_contents( __DIR__ . '/../styles/pdf.css').'</style>';
-//define("ROOT_PUBLISH", '/home/globa544/app.mc2.online/');
+//define("ROOT_WEBSITE", '/home/globa544/app.mc2.online/');
 
 $html .= file_get_contents( __DIR__ . '/../pdf/folder/nojs/M2/eng/multiply1/multiply101.html');
 

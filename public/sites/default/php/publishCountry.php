@@ -60,7 +60,7 @@ function publishCountry($p){
     //
     $time = time();
     $sql = null;
-    if ($p['destination'] == 'publish'){
+    if ($p['destination'] == 'website'){
         $sql = "UPDATE content
             SET publish_date = '$time', sublish_uid = '". $p['my_uid'] ."'
             WHERE  country_code = '" . $p['country_code'] ."'
