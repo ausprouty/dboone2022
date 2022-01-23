@@ -58,7 +58,7 @@ function publishLibraryIndex($p){
             SET prototype_date = '$time', prototype__uid = '". $p['my_uid'] ."'
             WHERE  country_code = '" . $p['country_code'] ."'
             AND folder_name = '' AND filename = 'index'
-            AND prototype_date IS NOT NULL";
+            AND prototype_date IS NULL";
     }
     if ($p['destination'] == 'website'){
         $sql = "UPDATE content

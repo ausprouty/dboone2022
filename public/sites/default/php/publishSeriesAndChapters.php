@@ -38,7 +38,9 @@ function publishSeriesAndChapters ($p){
                 // need to find latest record for recnum
                 $result =  publishPage ($p);
                 if (is_array($result)){
-                    $files_in_pages = array_merge($files_in_pages,$result['files_in_page']);
+                    if (isset($result['files_in_page'])){
+                        $files_in_pages = array_merge($files_in_pages,$result['files_in_page']);
+                    }
                 }
             }
             else{

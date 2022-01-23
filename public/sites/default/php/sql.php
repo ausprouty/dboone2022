@@ -151,7 +151,7 @@ function contentObjectFromRecnum($recnum){
     return $output;
 }
 
-function copyBook($p){
+function copyBookX($p){
     $conn = new mysqli(HOST, USER, PASS, DATABASE_CONTENT, DATABASE_PORT);
     if ($conn->connect_error) {
         die("Connection has failed: " . $conn->connect_error);
@@ -163,6 +163,7 @@ function copyBook($p){
     }
     $edit_date = time();
     $edit_uid = $p['my_uid'];
+    // this is not going to work because this variable is used where to publish
     $destination = explode('/', $p['destination']);
     $destination_country_code = $destination[0];
     $destination_language_iso = $destination[1];

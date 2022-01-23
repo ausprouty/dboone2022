@@ -6,28 +6,31 @@ define("ROOT_SDCARD", '/home/globa544/usb.mc2.online/');
 */
 
 function publishDestination ($p){
-  if (!isset($p['destination'])){
-    $message= 'In publishDestination  without  $p[destination]';
-     writeLogError('publishDestination', $message);
-     trigger_error($message, E_USER_ERROR);
+
+  if (is_array($p)){
+    $destination = $p['destination'];
   }
-  if($p['destination'] == 'staging'){
+  else{
+    $destination = $p;
+  }
+
+  if($destination == 'staging'){
       return ROOT_STAGING;
   }
-  elseif($p['destination'] == 'website'){
+  elseif($destination == 'website'){
       return ROOT_WEBSITE;
   }
-  elseif($p['destination'] == 'sdcard'){
+  elseif($destination == 'sdcard'){
       return ROOT_SDCARD;
   }
-  elseif($p['destination'] == 'nojs'){
+  elseif($destination == 'nojs'){
       return ROOT_NOJS;
   }
-  elseif($p['destination'] == 'pdf'){
+  elseif($destination == 'pdf'){
       return ROOT_PDF;
   }
-  $message= 'In publishDestination invalid destination:  ' . $p['destination'];
-  writeLogError('publishDestination', $message);
+  $message= 'In publishDestination invalid destination:  ' . $destination;
+  writeLogError('publishDestination-30', $p);
   trigger_error($message, E_USER_ERROR);
 }
 

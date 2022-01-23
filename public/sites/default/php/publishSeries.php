@@ -37,15 +37,27 @@ function publishSeries ($p){
             $result['text'] .= '<!--- Created by publishSeries-->' . "\n";
             publishFiles( $p['destination'], $p, $fname, $result['text'],  STANDARD_CSS, $selected_css);
             $time = time();
-            $sql = "UPDATE content
-                SET publish_date = '$time', publish_uid = '". $p['my_uid']. "'
-                WHERE  country_code = '". $p['country_code'] ."' AND
-                language_iso = '" . $p['language_iso'] ."'
-                AND folder_name = '" . $p['folder_name'] ."'  AND filename = 'index'
-                AND prototype_date IS NOT NULL
-                AND publish_date IS NULL";
-            //$debug .= $sql. "\n";
-            sqlArray($sql, 'update');
+            if ($p['destination'] == 'staging'){
+                $sql = "UPDATE content
+                    SET prototype_date = '$time', prototype_uid = '". $p['my_uid']. "'
+                    WHERE  country_code = '". $p['country_code'] ."' AND
+                    language_iso = '" . $p['language_iso'] ."'
+                    AND folder_name = '" . $p['folder_name'] ."'  AND filename = 'index'
+                    AND prototype_date IS NULL";
+                //$debug .= $sql. "\n";
+                sqlArray($sql, 'update');
+           }
+            if ($p['destination'] == 'website'){
+                $sql = "UPDATE content
+                    SET publish_date = '$time', publish_uid = '". $p['my_uid']. "'
+                    WHERE  country_code = '". $p['country_code'] ."' AND
+                    language_iso = '" . $p['language_iso'] ."'
+                    AND folder_name = '" . $p['folder_name'] ."'  AND filename = 'index'
+                    AND prototype_date IS NOT NULL
+                    AND publish_date IS NULL";
+                //$debug .= $sql. "\n";
+                sqlArray($sql, 'update');
+           }
         }
     }
     else{

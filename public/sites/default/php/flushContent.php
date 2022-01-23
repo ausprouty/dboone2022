@@ -2,7 +2,7 @@
 
 // this will transfer only latest data to content_current
 
-myRequireOnce('getLatestContent.php')
+myRequireOnce('getLatestContent.php');
 
 function flushContent(){
     flushContentCountries();
@@ -15,7 +15,7 @@ function flushContent(){
 }
 
 function flushContentCountries(){
-    $p = array;
+    $p = [];
     $p['scope'] = 'countries';
     $countries = getLatestContent($p);
     flushContentInsert($countries);

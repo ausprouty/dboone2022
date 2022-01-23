@@ -3,7 +3,7 @@ myRequireOnce ('createPage.php');
 myRequireOnce ('modifyPage.php');
 myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFiles.php');
-myRequireOnce ('publishFindFilesInPage.php');
+myRequireOnce ('publishFilesInPage.php');
 myRequireOnce ('writeLog.php');
 
 
@@ -31,7 +31,7 @@ function publishPage ($p){
     }
     //writeLog ('publishPage-30-debug', $debug);
     $text  = createPage($p, $data);
-    $result  = publishFindFilesInPage($text, $p['destination']);
+    $result  = publishFilesInPage($text, $p['destination']);
     if (isset($result['files_in_page'])){
        $p['files_in_page'] = isset($result['files_in_page']) ? $result['files_in_page'] : [];
        $p['files_in_page'] = array_merge($p['files_in_page'], $result['files_in_page']);

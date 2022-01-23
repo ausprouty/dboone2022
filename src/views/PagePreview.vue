@@ -1,6 +1,6 @@
 <template>
   <div class="preview" v-bind:class="this.rldir">
-    <NavBar called_by=page" />
+    <NavBar called_by="page" />
     <div class="loading" v-if="loading">Loading...</div>
     <div class="error" v-if="error">There was an error... {{ this.error }}</div>
     <div class="content" v-if="loaded">

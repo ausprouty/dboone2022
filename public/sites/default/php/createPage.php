@@ -35,7 +35,9 @@ function createPage($p, $content){
         //writeLog('createPage-36-ribbon', $ribbon);
         // this is always going back to the index; and we don't want that with Transferable Concepts
         // TODO: allow going back to previous study
+
         if($p['destination'] !== 'nojs'){
+           //  writeLogError('createPage-38-bookmark'. random_int(0,99999), $bookmark);
              $navlink =   $bookmark['language']->folder . '/'. $content['folder_name'].'/index.html';
         }
         else{
