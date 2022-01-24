@@ -116,7 +116,7 @@ function modifyRevealVideo($text, $bookmark, $p){
     }
     else{
         $watch_phrase = $bookmark['language']->watch;
-        $template_link = '<button id="revealButton[id]" type="button" class="internal-movie">[title_phrase]</button>
+        $template_link = '<button id="revealButton[id]" type="button" class="external-movie">[title_phrase]</button>
                    <div class="collapsed">[video]</div>';
     }
     $template_options = '<div id="ShowOptionsFor[video]"></div>';
