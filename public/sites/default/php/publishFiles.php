@@ -21,13 +21,8 @@ myRequireOnce ('writeLog.php');
 
 // destination must be 'staging', 'website', 'pdf'  or 'sdcard'
 function publishFiles( $destination , $p, $fname, $text, $standard_css, $selected_css){
-    $debug = '';
-
-    writeLogError('publishFiles-22-fname'. random_int(0, 99999), $fname);
     // start with header
     $output = myGetPrototypeFile('header.html', $p['destination']);
-    //$debug .= "\n". 'publishFiles' . "\n";
-     //writeLog('publishFiles-26-header', $output);
     // add onload only if files are here
     $onload_note_js = '';
     if (strpos($text, '<form') !== false){
@@ -36,8 +31,6 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
         $note_index = $p['country_code'] .'-'. $p['language_iso'] .'-'.$p['folder_name'] .'-'.$filename;
         $onload_note_js = ' onLoad= "showNotes(\'' . $note_index . '\')" ';
         $output .= '<!--- publishFiles added onLoad -->' ."\n";
-        $debug =   $onload_note_js  ."\n";
-        $debug =   $output  ."\n";
     }
     if (strpos($text, '<div class="header') !== false){
         $result = modifyHeaders($text);
@@ -52,8 +45,6 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
         $text = str_ireplace("nobreak", "nobreak-final", $text);
     }
     $title = WEBSITE_TITLE . getTitle($p['recnum']);
-    $debug .= 'title is '. $title ."\n";
-
     $placeholders = array(
         '{{ title }}',
         '{{ standard.css }}',
@@ -73,25 +64,18 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     $output = str_replace($placeholders, $replace,  $output);
     // insert text
     $output .= $text;
-     //writeLog('publishFiles-72-text', $output);
     // remove dupliate CSS
     $output = publishCSS($output, $p);
-     //writeLog('publishFiles-75-text', $output);
     // append footer
     $output .= myGetPrototypeFile('footer.html', $p['destination']);
-     //writeLog('publishFiles-78-myGetPrototypeFile-text', $output);
     // copy all images and styles to the publish directory
     //$response = publishCopyImagesAndStyles($output, $destination);
 
     $d['destination'] =$destination;
     $output = modifyImages($output, $d);
-    //writeLog('publishFiles-86-modifyImages-text', $output);
     // make sure  all files are copied to destination directory
     publishFilesInPage($output, $d);
     $output = makePathsRelative($output, $fname);
-
     fileWrite($fname, $output, $p['destination']);
-
-    //writeLog('publishFiles-100', $output);
     return $output;
 }

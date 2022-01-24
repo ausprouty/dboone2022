@@ -16,11 +16,8 @@ Becomes:
 myRequireOnce('writeLog.php');
 
 function modifyForPDF($text){
-    writeLogError('modifyForPDF-19', $text);
-
     $text= modifyForPDFLookSections($text);
     $text= modifyForPDFImagePath($text);
-     writeLogError('modifyForPDF-23', $text);
   return $text;
 }
 /* Note that all image references are for the site you are going to,

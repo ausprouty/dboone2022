@@ -6,7 +6,6 @@ myRequireOnce ('publishFiles.php');
 
 function publishLibraryIndex($p){
 
-    $debug = 'in prototypeLibraryIndex' . "\n";
     //$selected_css = '/content/AU/styles/AU-freeform.css';
      //
     //find country page from recnum
@@ -29,7 +28,6 @@ function publishLibraryIndex($p){
     $body = str_replace('/preview/library', '/content', $body);
     // see if anyone is bypassing the library (there is only one book in this language)
     if (strpos($body, '/preview/series/')){
-        $debug.= 'I bypassed library at least once' ."\n";
         $body = bypassLibrary($body);
     }
     $body = $body .  $footer  ;
@@ -43,10 +41,8 @@ function publishLibraryIndex($p){
     // Australia is the current owner of this site, so their file goes to root
     if ($fname  ==  publishDestination($p) .'AU/eng/index.html'){
         $fname = publishDestination($p). 'index.html';
-        $debug .= 'I am sending Australian index to  ' . $fname;
         publishFiles( $p['destination'], $p, $fname, $body,   STANDARD_CSS,  $selected_css);
         $fname = publishDestination($p). 'index.html';
-        $debug .= 'I am sending Australian index to  ' . $fname;
         publishFiles( $p['destination'], $p, $fname, $body,   STANDARD_CSS,  $selected_css);
     }
     // update records
@@ -71,7 +67,7 @@ function publishLibraryIndex($p){
     if ($sql){
       sqlArray($sql, 'update');
     }
-    //writeLog('publishLibraryIndex', $debug);
+
     return true;
 }
 
@@ -82,9 +78,7 @@ function publishLibraryIndex($p){
  'content/AU/eng/youth-basics/index.html'
 */
 function bypassLibrary ($body){
-    $debug = 'In _bypassLibrary' . "\n";
     $count = substr_count($body, '/preview/series/');
-    $debug .=   'Count is ' . $count  . "\n";
     for ($i = 1; $i <= $count; $i++){
         $start = strpos($body, '/preview/series/');
         $end = strpos($body, '"', $start);
@@ -92,7 +86,6 @@ function bypassLibrary ($body){
         $link1 = substr($body, $start,$len ); //preview/series/AU/eng/family/youth-basics
         $parts = explode('/',  $link1);
         $link2 =   '/content/' . $parts[3] .'/'. $parts[4] .'/' .$parts[6] ;
-        $res['debug'] .= $link1 . ' replaceD by '. $link2 . "\n";
         $body = str_replace($link1, $link2, $body);
     }
     return $body;

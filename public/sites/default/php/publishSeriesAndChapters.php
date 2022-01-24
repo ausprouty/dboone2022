@@ -9,17 +9,13 @@ myRequireOnce ('writeLog.php');
 
 
 function publishSeriesAndChapters ($p){
-    writeLogError('publishSeriesAndChapters-1-p', $p);
     $debug = '';
     // first prototype the Series Index
     $out = publishSeries ($p);
     $files_json = $out['files_json']; // this starts file for download of series
     $files_in_pages = [];
-    //$debug .= 'In prototypeSeriesAndChapters '. "\n";
-
     // find the list of chapters that are ready to publish
     $series = contentArrayFromRecnum($p['recnum']);
-    writeLogError('publishSeriesAndChapters-20-series', $series);
     $series_dir = dirCreate('series', $p['destination'],  $p, $folders = null);// make sure folder exists
     $text = json_decode($series['text']);
     $chapters = $text->chapters;
@@ -46,7 +42,6 @@ function publishSeriesAndChapters ($p){
             else{
                 // find file and add to database
                 $file =   $series_dir .  $chapter->filename . '.html';
-               // $debug .= 'looking for ' . $file . "\n";
                 if (file_exists($file)){
                     $p['text'] = file_get_contents($file);
                     $p['filename'] = $chapter->filename;
@@ -57,7 +52,6 @@ function publishSeriesAndChapters ($p){
                     if (is_array($result['files_in_page'])){
                         $files_in_pages = array_merge($files_in_pages,$result['files_in_page']);
                     }
-                    //$debug .= $result['debug'];
                 }
                 else{
                     $debug .= 'NO RESULT for ' . $file. "\n";

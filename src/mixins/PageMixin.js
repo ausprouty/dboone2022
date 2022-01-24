@@ -179,18 +179,11 @@ export const pageMixin = {
       //
       if (this.bookmark.book.format == 'page') {
         LogService.consoleLogMessage('I am looking at a page')
-
         // image
         this.image_navigation = process.env.VUE_APP_SITE_IMAGE
         if (typeof this.bookmark.library.format.image !== 'undefined') {
-          this.image_navigation =
-            '/sites/' +
-            process.env.VUE_APP_SITE +
-            this.bookmark.library.format.image.image
+          this.image_navigation = this.bookmark.library.format.image.image
         }
-        //directory
-
-        // class
         this.image_navigation_class = 'book'
         // show title
         this.show_navigation_title = false

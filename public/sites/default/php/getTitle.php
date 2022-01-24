@@ -1,11 +1,8 @@
 <?php
 function getTitle($recnum){
-
-    $debug = 'In getTitle' ."\n";
     if (isset($recnum)) {
         $sql = 'SELECT * FROM content
             WHERE  recnum  = '. $recnum;
-        $debug .= $sql. "\n";
         $data = sqlArray($sql);
     }
     else{
@@ -14,7 +11,7 @@ function getTitle($recnum){
         trigger_error( $message, E_USER_ERROR);
         return FALSE;
     }
-    // do we have a page?
+    // do we have a page in a series?
     if ($data['filetype'] == 'html'){
         $sql = 'SELECT * FROM content
              WHERE  country_code  = "'. $data['country_code'] .'"
@@ -22,9 +19,7 @@ function getTitle($recnum){
             AND folder_name  = "'. $data['folder_name'] .'"
             AND filename = "index"
             ORDER BY recnum DESC LIMIT 1';
-        $debug .= $sql. "\n";
         $result = sqlArray($sql);
-       // $debug .= $result['text']. "\n";
         $index = json_decode($result['text']);
         if (isset($index->chapters)){
             foreach ($index->chapters as $chapter){
@@ -37,7 +32,6 @@ function getTitle($recnum){
         }
          writeLogError('getTitle-35-data', $data);
         $message = "in getTitle No Title Found ";
-        trigger_error( $message, E_USER_ERROR);
         return NULL;
 
     }
@@ -48,10 +42,8 @@ function getTitle($recnum){
         AND language_iso = "' . $data['language_iso']   .'"
         AND filename = "library"
         ORDER BY recnum DESC LIMIT 1';
-        $debug .= $sql. "\n";
         $result = sqlArray($sql);
         if (isset($result['text'])){
-            $debug .= $result['text']. "\n";
             $index = json_decode($result['text']);
             foreach ($index->books as $book){
                 if ($book->code == $data['folder_name']){
@@ -76,9 +68,7 @@ function getTitle($recnum){
             WHERE  country_code  = "'. $data['country_code'] .'"
             AND filename = "languages"
             ORDER BY recnum DESC LIMIT 1';
-        $debug .= $sql. "\n";
-        $result = sqlArray($sql);
-        $debug .= $result['text']. "\n";
+        $result = sqlArray($sql);;
         $index = json_decode($result['text']);
         foreach ($index->languages as $language){
             if ($language->iso == $data['language_iso']){
@@ -87,7 +77,7 @@ function getTitle($recnum){
                 return $out;
             }
         }
-    $out = null;
+        $out = null;
        writeLogError('getTitle-90-data', $data);
         $message = "in getTitle No Title Found ";
         trigger_error( $message, E_USER_ERROR);

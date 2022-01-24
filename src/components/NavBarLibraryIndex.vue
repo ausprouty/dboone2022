@@ -43,7 +43,7 @@ export default {
   mixins: [authorizeMixin],
   created() {
     this.authorized = this.authorize('read', this.$route.params)
-    console.log (this.text)
+    console.log(this.text)
   },
   data() {
     return {
@@ -53,21 +53,46 @@ export default {
       standardCSS: process.env.VUE_APP_SITE_STYLE,
       menu: [
         {
-          value: 'Countries',
-          link: 'countries',
+          value: 'with Friends',
+          link: 'friends',
           index: 0,
+          show: true,
+        },
+        {
+          value: 'with Children',
+          link: 'children',
+          index: 1,
+          show: true,
+        },
+        {
+          value: 'Covid-19',
+          link: 'covid',
+          index: 2,
+          show: true,
+        },
+        {
+          value: 'Meet Jesus',
+          link: 'meet',
+          index: 3,
           show: true,
         },
         {
           value: 'Language Settings',
           link: 'language',
-          index: 1,
+          index: 4,
           show: true,
         },
         {
+          value: 'Countries',
+          link: 'countries',
+          index: 5,
+          show: true,
+        },
+
+        {
           value: 'Logout',
           link: 'logout',
-          index: 2,
+          index: 6,
           show: true,
         },
       ],
@@ -91,9 +116,46 @@ export default {
     setNewSelectedOption(selectedOption) {
       this.showMenu = false
       switch (selectedOption) {
-        case 'countries':
+        case 'friends':
           this.$router.push({
-            name: 'previewCountries',
+            name: 'previewLibrary',
+            params: {
+              country_code: this.$route.params.country_code,
+              language_iso: this.$route.params.language_iso,
+              library_code: 'friends.html',
+            },
+          })
+          break
+        case 'children':
+          this.$router.push({
+            name: 'previewSeries',
+            params: {
+              country_code: this.$route.params.country_code,
+              language_iso: this.$route.params.language_iso,
+              library_code: 'family',
+              folder_name: 'youth-basics',
+            },
+          })
+          break
+        case 'covid':
+          this.$router.push({
+            name: 'previewSeries',
+            params: {
+              country_code: this.$route.params.country_code,
+              language_iso: this.$route.params.language_iso,
+              library_code: 'current',
+              folder_name: 'current',
+            },
+          })
+          break
+        case 'meet':
+          this.$router.push({
+            name: 'previewLibrary',
+            params: {
+              country_code: this.$route.params.country_code,
+              language_iso: this.$route.params.language_iso,
+              library_code: 'meet.html',
+            },
           })
           break
         case 'language':
@@ -104,6 +166,12 @@ export default {
             },
           })
           break
+        case 'countries':
+          this.$router.push({
+            name: 'previewCountries',
+          })
+          break
+
         case 'logout':
           this.$store.dispatch('logoutUser')
           this.$router.push({
@@ -116,7 +184,6 @@ export default {
       }
     },
   },
-
 }
 </script>
 

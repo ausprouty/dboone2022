@@ -120,7 +120,7 @@ export const libraryMixin = {
     },
     async getImages(where, directory) {
       // get images for library formatted for dropdown
-      var options = []
+      var image_options = []
       var img = []
       if (where == 'content') {
         img = await AuthorService.getImagesInContentDirectory(directory)
@@ -138,13 +138,13 @@ export const libraryMixin = {
             pos = img[i].lastIndexOf('/') + 1
             formatted.title = img[i].substring(pos)
             formatted.image = img[i]
-            options.push(formatted)
+            image_options.push(formatted)
           }
         }
       }
       LogService.consoleLogMessage('from getImages for ' + directory)
-      LogService.consoleLogMessage(options)
-      return options
+      LogService.consoleLogMessage(image_options)
+      return image_options
     },
 
     async getLibraryIndex() {

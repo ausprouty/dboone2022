@@ -46,7 +46,7 @@
         <img v-bind:src="this.back_image" class="app-img-header" />
       </a>
       <div>
-        <span v-html="text"></span>
+        <span v-html="this.pageText"></span>
       </div>
 
       <Book

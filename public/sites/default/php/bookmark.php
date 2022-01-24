@@ -102,7 +102,7 @@ function checkBookmarkLanguage($b){
     $content = getLatestContent($b);
     $response = json_decode($content['text'] );
     if (!$response){
-        writeLogError('ERROR - checkBookmarkLanguage', $debug);
+        writeLogError('checkBookmarkLanguage', $debug);
         trigger_error("No response in checkBookmarkLanguage", E_USER_ERROR);
     }
     if (isset($response->languages)){
@@ -156,7 +156,7 @@ function checkBookmarkLibrary($b){
 
     $library = json_decode($content['text']);
     if (!$library){
-        writeLogError('ERROR - checkBookmarkLibrary-parameters', $b);
+        writeLogError('checkBookmarkLibrary-parameters', $b);
         //writeLog('ERROR - checkBookmarkLibrary-debug', $debug);
          //writeLog('ERROR - checkBookmarkLibrary-res',  $res['content']);
          $message = "No library in checkBookmarkLibrary for ". $b['library_code'];
@@ -200,14 +200,16 @@ function checkBookmarkBook($b){
     return $out;
 }
 function checkBookmarkSeries($b){
-
-    $debug = 'in checkBookmarkSeries'. "\n";
-     $out = null;
+    // pages have a folder name of 'pages' and are not part of a series
+    if ($b['folder_name'] == 'pages'){
+       return NULL;
+    }
+    $out = null;
     $b['scope'] = 'series';
     $content = getLatestContent($b);
     $response = json_decode($content['text']);
     if (!$response){
-        writeLogError('checkBookmarkSeries', $debug);
+        writeLogError('checkBookmarkSeries-p', $b);
         trigger_error("No response in checkBookmarkSeries", E_USER_ERROR);
     }
     $out = $response;

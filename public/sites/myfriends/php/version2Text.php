@@ -1,7 +1,5 @@
 <?php
 function version2Text($text){
-  writeLog('version2Text-3', $text);
-
   $text = str_ireplace('/sites/default/images/menu/header-hamburger.png',
                          '/sites/myfriends/images/menu/header-hamburger.png', $text);
 
@@ -12,16 +10,16 @@ function version2Text($text){
                      '/sites/default/images/country/world.jpg', $text);
   $text = str_ireplace('/images/country/YT.png',
                      '/sites/default/images/country/YT.png', $text);
-
-
   $text = str_ireplace('"/sites/myfriends/sites/mc2/', '"/sites/myfriends/', $text);
   $text = str_ireplace('/sites/mc2/', '/sites/myfriends/', $text);
   $text = str_ireplace('"/sites/myfriends/sites/myfriends/', '"/sites/myfriends/', $text);
-
   $text = str_ireplace('"/content/ZZ/styles/', '"/sites/myfriends/styles/', $text);
   $text = str_ireplace('"/images/', '"/sites/default/images/', $text);
-  // this line also makes a mess of navigation
   $text = str_ireplace('"/content/', '"/sites/myfriends/content/', $text);
-  writeLog('version2Text-15', $text);
+  $text= str_ireplace ('/sites/default/images/gospel','/sites/myfriends/images/gospel', $text);
+  $text= str_ireplace ('/sites/default/images/firststeps','/sites/myfriends/images/firststeps', $text);
+  $text= str_ireplace ('/sites/default/images/compass','/sites/myfriends/images/compass', $text);
+  $text= str_ireplace ('/sites/default/images/chip','/sites/myfriends/images/chip', $text);
+  $text= str_ireplace ('/sites/default/images/multiply','/sites/myfriends/images/multiply', $text);
    return $text;
 }

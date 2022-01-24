@@ -96,12 +96,10 @@ function copySiteImages($text, $p){
             $filename = substr($text, $pos_start, $length);
             $from = ROOT_EDIT . $filename;
             $from = str_ireplace('//', '/', $from);
-            $debug .= $from . "\n";
-            //writeLog('copySiteImages-103-from-'. $i, $from);
+
             if (file_exists($from)){
                 $to = $destination_dir.  $filename;
                 $to = str_ireplace('//', '/', $to);
-                //writeLog('copySiteImages-107-to-'. $i, $to);
                 createDirectory($to);
                 // do not copy html files or you will overwrite current index page
                 if (!is_dir($from) && strpos ($to, '.html') === false){
@@ -118,6 +116,5 @@ function copySiteImages($text, $p){
         }
 
     }
-    //writeLog('copySiteImages-125-text',  $text);
     return $text;
 }

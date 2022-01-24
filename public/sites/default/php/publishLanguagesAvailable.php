@@ -17,9 +17,6 @@ function publishLanguagesAvailable($p){
                 AND publish_date != ''
                 ORDER BY recnum DESC LIMIT 1";
     $data = sqlArray($sql);
-    $debug .= $sql . "\n";
-    $debug .= 'Data for Country Flags' . "\n";
-    $debug .= $data['text']. "\n\n";
     $countries_array = json_decode($data['text']);
    // $footer = publishLanguageFooter($p);
     // get main template
@@ -32,15 +29,12 @@ function publishLanguagesAvailable($p){
         AND country_code != '' ";
     $query = sqlMany($sql);
     while($country = $query->fetch_array()){
-        $debug .= ' Looking for published languages for: ' .$country['country_code']. "\n";
         // get published languages from each published country
         $sql = "SELECT * FROM content
             WHERE  country_code = '". $country['country_code'] ."'
             AND filename = 'languages'  AND publish_date != ''
             ORDER BY recnum DESC LIMIT 1";
-        $debug .= $sql. "\n";
         $data = sqlArray($sql);
-        $debug .= $data['text']. "\n";
         $text = json_decode($data['text']);
         if (!isset($text->languages)){
             $message ='$text->languages not found for ' . $country['country_code'];

@@ -46,7 +46,6 @@ function createLibrary($p, $text) {
     if (isset($text->format->image->image)){
         $library_image =   '/sites/' . SITE_CODE .  $text->format->image->image;
     }
-    writeLogError('createLibrary-41-image',  "$library_image");
     $body = str_replace('{{ library.image }}', $library_image, $body);
 
     $library_text= isset($text->text)? $text->text : null;
