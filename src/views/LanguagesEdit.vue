@@ -49,6 +49,7 @@
           <LanguageEdit
             v-for="language in $v.languages.$each.$iter"
             :language="language"
+            :key="language.iso"
             @clicked="onClickChild"
           />
 

@@ -38,11 +38,12 @@ import { mapState } from 'vuex'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import LogService from '@/services/LogService.js'
 export default {
-  props: ['called_by'],
+  props: ['text'],
   computed: mapState(['bookmark']),
   mixins: [authorizeMixin],
   created() {
     this.authorized = this.authorize('read', this.$route.params)
+    console.log (this.text)
   },
   data() {
     return {
@@ -115,6 +116,7 @@ export default {
       }
     },
   },
+
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="preview">
-    <NavBar called_by="library" />
+    <NavBar text="pageText" />
     <div class="loading" v-if="loading">Loading...</div>
     <div class="error" v-if="error">There was an error... {{ this.error }}</div>
     <div class="content" v-if="loaded">
@@ -50,7 +50,7 @@ import { mapState } from 'vuex'
 import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
-import NavBar from '@/components/NavBarCountry.vue'
+import NavBar from '@/components/NavBarLibraryIndex.vue'
 
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
@@ -80,6 +80,34 @@ export default {
           language_iso: this.$route.params.language_iso,
         },
       })
+    },
+    /// preview/library/AU/eng/friends.html
+    ///preview/series/AU/eng/family/youth-basics
+    //  /preview/library/AU/eng/meet.html
+    //  /preview/series/AU/eng/current/current
+    vueJSRouter(link) {
+      const linkArray = link.split('/')
+      if (linkArray[1] == 'library') {
+        this.$router.push({
+          name: 'previewLibrary',
+          params: {
+            country_code: linkArray[2],
+            language_iso: linkArray[3],
+            library_code: linkArray[4],
+          },
+        })
+      }
+      if (linkArray[1] == 'series') {
+        this.$router.push({
+          name: 'previewSeries',
+          params: {
+            country_code: linkArray[2],
+            language_iso: linkArray[3],
+            library_code: linkArray[4],
+            folder_name: linkArray[5],
+          },
+        })
+      }
     },
     goBack() {
       this.$router.push({

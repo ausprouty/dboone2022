@@ -42,12 +42,12 @@ function createSeries($p, $data){
         '{{ version }}',
         '{{ footer }}'
     );
-    if ( $p['destination'] != 'nojs'){
-        $navlink =  $bookmark['language']->folder .'/';
-    }
-    else{
-        $navlink = '';
-    }
+    //if ( $p['destination'] != 'nojs'){
+   //     $navlink =  $bookmark['language']->folder .'/';
+//}
+    //else{
+        $navlink = '../';
+    //}
     // todo: I know this is bad code, but I need to return current to language because there is only one item in the library
     if ( $p['library_code'] !='library' && $data['folder_name'] != 'current' && $data['folder_name'] != 'youth-basics'){
         $navlink .= $p['library_code'] . '.html';

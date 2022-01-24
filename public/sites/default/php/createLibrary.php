@@ -54,17 +54,17 @@ function createLibrary($p, $text) {
 
     $country_index =  dirCreate('country', $p['destination'], $p);
     $root_index = '/content/index.html';
-    if ($p['destination'] !== 'nojs'){
-            if ($filename == 'library'){
-            $navlink = $root_index;
-        }
-        else{
-            $navlink = $country_index;
-        }
-    }
-    else{
+   // if ($p['destination'] !== 'nojs'){
+    //        if ($filename == 'library'){
+    //        $navlink = $root_index;
+    //    }
+    //    else{
+    //        $navlink = $country_index;
+    //    }
+    //}
+    //else{
         $navlink = '../index.html';
-    }
+   // }
 
     // get language footer in prototypeOEpublish.php
     $footer = publishLanguageFooter($p);

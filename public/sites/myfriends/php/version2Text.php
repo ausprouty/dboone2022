@@ -20,6 +20,7 @@ function version2Text($text){
 
   $text = str_ireplace('"/content/ZZ/styles/', '"/sites/myfriends/styles/', $text);
   $text = str_ireplace('"/images/', '"/sites/default/images/', $text);
+  // this line also makes a mess of navigation
   $text = str_ireplace('"/content/', '"/sites/myfriends/content/', $text);
   writeLog('version2Text-15', $text);
    return $text;

@@ -36,13 +36,13 @@ function createPage($p, $content){
         // this is always going back to the index; and we don't want that with Transferable Concepts
         // TODO: allow going back to previous study
 
-        if($p['destination'] !== 'nojs'){
+       // if($p['destination'] !== 'nojs'){
            //  writeLogError('createPage-38-bookmark'. random_int(0,99999), $bookmark);
-             $navlink =   $bookmark['language']->folder . '/'. $content['folder_name'].'/index.html';
-        }
-        else{
-            $navlink ='../index.html';
-        }
+        //     $navlink =   $bookmark['language']->folder . '/'. $content['folder_name'].'/index.html';
+        //}
+       // else{
+            $navlink ='index.html';
+        //}
 
         //writeLog('createPage-39-navlink',  $navlink);
         // compute $page_title_and_image for series
@@ -92,18 +92,17 @@ function createPage($p, $content){
          $nav = myGetPrototypeFile('navRibbon.html', $p['destination']);
          $this_template = str_replace('[[nav]]', $nav, $this_template);
          $ribbon = isset($bookmark['library']->format->back_button->image) ? $bookmark['library']->format->back_button->image : DEFAULT_BACK_RIBBON;
-         $debug .= "ribbon is $ribbon\n";
         // this will work if there is no special library index.
         $index = 'index.html';
         if ($p['library_code'] != 'library'){
             $index = $p['library_code'] . '.html';
         }
-        if ($p['destination'] !== 'nojs'){
-             $navlink =  '/content/'. $bookmark['language']->folder .  '/'.$index;
-        }
-        else{
+        //if ($p['destination'] !== 'nojs'){
+        //     $navlink =  '/content/'. $bookmark['language']->folder .  '/'.$index;
+       // }
+       // else{
            $navlink = '../'. $index;
-        }
+        //}
         $page_text_value = $content['text'];
         // compute $page_title_and_image_value
         if (isset($bookmark['book']->image->image)){
