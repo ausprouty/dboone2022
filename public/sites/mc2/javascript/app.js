@@ -3,7 +3,7 @@ var DEFAULT_ENTRY = '/content/index.html'
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
-    .register('sw.js')
+    .register('/sw.js')
     .then(function () {
       console.log('Service worker registered!')
       localStorage.setItem('swWorking', 'TRUE')

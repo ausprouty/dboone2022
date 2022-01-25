@@ -23,7 +23,7 @@ function publishLibraryIndex($p){
      // get language footer in prototypeOEpublish.php
     $footer = publishLanguageFooter($p);
     // replace placeholders
-    $body = '<div class="content">'. "\n";
+    $body = '<div class="page_content">'. "\n";
     $body .= $text->page . "\n";
     $body = str_replace('/preview/library', '/content', $body);
     // see if anyone is bypassing the library (there is only one book in this language)

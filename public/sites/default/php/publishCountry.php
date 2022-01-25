@@ -39,7 +39,7 @@ function publishCountry($p){
     $text = json_decode($data['text']);
     $p['country_footer'] = isset($text->footer) ? $text->footer : null;
     // replace placeholders
-    $body = '<div class="content">'. "\n";
+    $body = '<div class="page_content">'. "\n";
     $body .= $text->page . "\n";
     $body = str_replace('/preview/library', '/content', $body);
     $body = $body .  $p['country_footer'] ;

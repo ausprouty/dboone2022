@@ -11,8 +11,7 @@ myRequireOnce ('writeLog.php');
 // required by publishSeriesAndChapters.php on line 44
 
 function publishPage ($p){
-
-
+    $debug = '';
     writeLogError ('publishPage-16-p', $p);
     if (!isset($p['recnum'])){
        $message = "in PublishPage no value for recnum ";
