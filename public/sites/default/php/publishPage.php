@@ -12,8 +12,8 @@ myRequireOnce ('writeLog.php');
 
 function publishPage ($p){
 
-    $debug = 'In publishPage' . "\n";
-    //writeLog ('publishPage-14-p', $p);
+
+    writeLogError ('publishPage-16-p', $p);
     if (!isset($p['recnum'])){
        $message = "in PublishPage no value for recnum ";
         trigger_error( $message, E_USER_ERROR);
@@ -29,7 +29,7 @@ function publishPage ($p){
     foreach ($data as $key=>$value){
         $debug .= $key . ' => '. $value . "\n";
     }
-    //writeLog ('publishPage-30-debug', $debug);
+    writeLogError ('publishPage-30-debug', $debug);
     $text  = createPage($p, $data);
     $result  = publishFilesInPage($text, $p['destination']);
     if (isset($result['files_in_page'])){
@@ -59,7 +59,7 @@ function publishPage ($p){
         $data['language_iso'] .'/'. $data['folder_name'] .'/';
     $fname = $series_dir . $data['filename'] .'.html';
     $text .= '<!--- Created by publishPage-->' . "\n";
-    //writeLog ('publishPage-69-text', $text);
+    writeLogError ('publishPage-62-fname', $fname);
     // go to publishFiles
     publishFiles( $p['destination'], $p, $fname, $text,  STANDARD_CSS, $selected_css);
 
@@ -84,7 +84,7 @@ function publishPage ($p){
         language_iso = '" . $data['language_iso'] ."'
         AND folder_name = '" . $data['folder_name'] ."'
         AND filename = '". $data['filename'] . "'
-        AND protype_date IS NULL";
+        AND prototype_date IS NULL";
     }
     if ($sql){
         sqlArray($sql, 'update');

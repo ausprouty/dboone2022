@@ -63,7 +63,9 @@ function modifyContentImages($text, $p){
         }
         else{
             $message = "$from not found in publishCopyImagesAndStyles";
-            writeLogError('modifyContentImages', $message);
+            writeLogError('modifyContentImages-66-message', $message);
+            writeLogError('modifyContentImages-66-text', $text);
+             writeLogError('modifyContentImages-66-p', $p);
             trigger_error( $message, E_USER_ERROR);
         }
     }

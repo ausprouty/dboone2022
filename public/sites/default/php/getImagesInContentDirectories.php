@@ -20,7 +20,7 @@ function getImagesInContentDirectories($p){
 			$handler = opendir ($dir);
 			while ($mfile = readdir ($handler)){
 				if ($mfile != '.' && $mfile != '..' ){
-					if(strpos($mfile, '.html') == FALSE && strpos($mfile, '.json' == FALSE)){
+					if(strpos($mfile, strval('.html')) == FALSE && strpos($mfile, strval('.json') == FALSE)){
 						$out[] =  $directory . '/'.  $mfile ;
 				    }
 				}
