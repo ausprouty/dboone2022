@@ -1,5 +1,5 @@
 CKEDITOR.addTemplates('default', {
-  imagesPath: CKEDITOR.getUrl('/sites/myfriends/ckeditor/templates/images/'),
+  imagesPath: CKEDITOR.getUrl('/sites/myfriends/ckeditor/templates/images/basics'),
   templates: [
     {
       title: 'Sharing Life',

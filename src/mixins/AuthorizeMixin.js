@@ -16,19 +16,26 @@ export const authorizeMixin = {
       if (this.$route.path == '/login') {
         return true
       }
+      // if you did not follow the router you can restore by using localStorage
+      if (typeof store.state.user.scope_countries == 'undefined') {
+        if (localStorage.getItem('user')) {
+          var user = JSON.parse(localStorage.getItem('user'))
+          this.$store.dispatch('loginUser', [user])
+        } else {
+          this.$router.push({ name: 'login' })
+        }
+      }
       if (typeof route == 'undefined') {
+        alert('no route')
         return false
       }
-      if (typeof store.state.user == 'undefined') {
+      // check if expired
+      var date = new Date()
+      var timestamp = date.getTime() / 1000
+      if (store.state.user.expires < timestamp) {
+        alert('You have been timed out. Please log in again')
         this.$router.push({ name: 'login' })
       }
-      // check if expired
-      //  var date = new Date()
-      //   var timestamp = date.getTime() / 1000
-      // if (store.state.user.expires < timestamp) {
-      //
-      //   this.$router.push({ name: 'login' })
-      //}
       // can edit anything
       if (
         store.state.user.scope_countries == '*' &&

@@ -24,7 +24,7 @@ body {
   font-size: 16px;
   line-height: 1.5;
 }
-/*  
+/*
 Content Reauired for CKEditor
 
 */
@@ -63,7 +63,7 @@ div.trainer {
   text-align: left;
   outline: none;
   font-size: 15px;
-  background: orange url(/images/trainer.png);
+  background: orange url('../images/css/trainer.png');
   background-position: 8px 2px;
   background-repeat: no-repeat;
 }
@@ -75,18 +75,18 @@ div.trainer-hide {
 }
 
 .reveal {
-  background: lightblue url(/images/reveal.png);
+  background: lightblue url('../images/css/reveal.png');
   background-position: 8px 2px;
   background-repeat: no-repeat;
 }
 .reveal.bible {
   color: black;
-  background: pink url(/images/bible.png);
+  background: pink url('../images/css/bible.png');
   background-position: 8px 2px;
   background-repeat: no-repeat;
 }
 .reveal.video {
-  background: lightgreen url(/images/video.png);
+  background: lightgreen url('../images/css/video.png');
   background-position: 8px 2px;
   background-repeat: no-repeat;
 }
@@ -125,22 +125,22 @@ li.nobreak {
   text-align: left;
   outline: none;
   font-size: 15px;
-  background: var(--color-red) url(/images/reveal.png);
+  background: var(--color-red) url('../images/css/reveal.png');
   background-position: 8px 8px;
   background-repeat: no-repeat;
 }
 .external-movie {
-  background: var(--color-red) url(/images/video.png);
+  background: var(--color-red) url('../images/css/video.png');
   background-position: 8px 8px;
   background-repeat: no-repeat;
 }
 .action {
-  background: var(--color-red) url(/images/action.png);
+  background: var(--color-red) url('../images/css/action.png');
   background-position: 8px 8px;
   background-repeat: no-repeat;
 }
 .collapsible.bible {
-  background: var(--color-red) url(/images/bible.png);
+  background: var(--color-red) url('../images/css/bible.png');
   background-position: 8px 8px;
   background-repeat: no-repeat;
 }
@@ -169,17 +169,17 @@ td.video {
   text-align: left;
   outline: none;
   font-size: 15px;
-  background: #777 url(/images/white_minus.png);
+  background: #777 url('../images/css/white_minus.png');
   background-position: 8px 8px;
   background-repeat: no-repeat;
 }
 .revealed.bible {
-  background: #777 url(/images/white_minus.png);
+  background: #777 url('../images/css/white_minus.png');
   background-position: 8px 8px;
   background-repeat: no-repeat;
 }
 .revealed.video {
-  background: #777 url(/images/white_minus.png);
+  background: #777 url('../images/css/white_minus.png');
   background-position: 8px 8px;
   background-repeat: no-repeat;
 }
@@ -519,7 +519,7 @@ p.bible {
   padding-top: 30px;
 }
 .gospel-prayer {
-  background-image: url('/images/quote_open.gif');
+  background-image: url('../images/css/quote_open.gif');
   background-position: 10px top;
   background-repeat: no-repeat;
   color: #085276;

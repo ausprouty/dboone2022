@@ -21,5 +21,7 @@ function version2Text($text){
   $text= str_ireplace ('/sites/default/images/compass','/sites/myfriends/images/compass', $text);
   $text= str_ireplace ('/sites/default/images/chip','/sites/myfriends/images/chip', $text);
   $text= str_ireplace ('/sites/default/images/multiply','/sites/myfriends/images/multiply', $text);
+
+  $text= str_ireplace ('https://edit.myfriends.network/images/arrowright3.png','/sites/default/images/arrowright3.png', $text);
    return $text;
 }
