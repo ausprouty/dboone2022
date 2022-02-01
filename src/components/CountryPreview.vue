@@ -6,7 +6,7 @@
     >
       <img
         v-bind:src="'/sites/default/images/country/' + country.image"
-        class="book"
+        class="flag"
       />
       <div class="card-names">
         <span class="card-name">{{ country.name }}</span>

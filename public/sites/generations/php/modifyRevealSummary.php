@@ -24,6 +24,7 @@ Some text
 */
 
 function modifyRevealSummary($text){
+    writeLogError('modifyRevealSummary-Generations-27', $text);
     if (strpos($text, '<div class="reveal">') !== false){
         $mark = '<div class="reveal">';
         $size ='small';
@@ -36,6 +37,7 @@ function modifyRevealSummary($text){
         $script = 'toggleSummaryBig';
         $text = modifyRevealSummaryMaker($text, $mark, $size, $script);
     }
+    writeLogError('modifyRevealSummary-Generations-40', $text);
     return $text;
 
 }
