@@ -24,30 +24,19 @@ Some text
 */
 
 function modifyRevealSummary($text){
-    $out = [];
-    $out['debug'] = "In _revealSummary Today\n";
     if (strpos($text, '<div class="reveal">') !== false){
         $mark = '<div class="reveal">';
         $size ='small';
         $script = 'toggleSummarySmall';
-        $response = modifyRevealSummaryMaker($text, $mark, $size, $script);
-        $text = $response['content'];
-        if ($response['debug']){
-            $out['debug'] .= $response['debug'];
-        }
+        $text = modifyRevealSummaryMaker($text, $mark, $size, $script);
     }
     if (strpos($text, '<div class="reveal_big">') !== false){
         $mark = '<div class="reveal_big">';
         $size ='big';
         $script = 'toggleSummaryBig';
-        $response = modifyRevealSummaryMaker($text, $mark, $size, $script);
-        $text = $response['content'];
-        if ($response['debug']){
-            $out['debug'] .= $response['debug'];
-        }
+        $text = modifyRevealSummaryMaker($text, $mark, $size, $script);
     }
-    $out = $text;
-    return $out;
+    return $text;
 
 }
 /*
@@ -65,8 +54,7 @@ function modifyRevealSummary($text){
 </div>
 */
 function modifyRevealSummaryMaker($text, $mark, $size, $script){
-    $out = [];
-    $out['debug'] = "modifyRevealSummaryMaker with $mark\n";
+    $debug = '';
     $template = '<div id="Summary[id]" class="summary-[size]">'. "\n"; // this div is matched by existing content.
     $template .= '<div onclick="'. $script . '(\'Summary[id]\')" class="summary-visible-[size]">'. "\n";
     $template .= '<img class = "generations-plus-[size]" src="/images/generations-plus-[size].png">'. "\n";
@@ -77,12 +65,12 @@ function modifyRevealSummaryMaker($text, $mark, $size, $script){
     $template .= '[HiddenText]</div>'. "\n";
     $template .= '</div>'. "\n";
     $count = substr_count($text, $mark );
-    $out['debug'] .= "I have  $count segments \n";
+    $debug .= "I have  $count segments \n";
     $pos_start = 0;
     for ($i = 0; $i < $count; $i++){
-        $out['debug'] .= "\n\n\nCount: $i \n\n";
+        $debug .= "\n\n\nCount: $i \n\n";
         $pos_start = strpos($text, $mark, $pos_start );
-        //$out['debug'] .= "\n\nPos Start: $pos_start \n";
+        //$debug .= "\n\nPos Start: $pos_start \n";
         // what is the opening tag? p or h
         $tag = [];
         if (strpos($text,'<p',$pos_start !== false)){
@@ -97,19 +85,19 @@ function modifyRevealSummaryMaker($text, $mark, $size, $script){
         if (strpos($text,'<ul',$pos_start ) !== false){
             $tag['ul'] =  strpos($text,'<ul',$pos_start );
         }
-        //$out['debug'] .= "---------------tag\n";
+        //$debug .= "---------------tag\n";
         //foreach ($tag as $key => $value){
-        //    $out['debug'] .= "$key  => $value \n";
+        //    $debug .= "$key  => $value \n";
         //}
-        //$out['debug'] .= "tag----------------\n";
+        //$debug .= "tag----------------\n";
         if (count($tag) <1){
-            $out['debug']  .= 'did not find p, h2, h3 or ul'. "\n";
+            $debug  .= 'did not find p, h2, h3 or ul'. "\n";
 
         }
         $pos_tag_start = min($tag);
-        //$out['debug'] .= "pos_tag_start: $pos_tag_start \n";
+        //$debug .= "pos_tag_start: $pos_tag_start \n";
         $smallest = array_search($pos_tag_start, $tag);
-        //$out['debug'] .= "Smallest: $smallest \n";
+        //$debug .= "Smallest: $smallest \n";
         switch ($smallest){
             case "h2": // can be h1 h2 or h3
                 $tag_type = 'h2';
@@ -126,40 +114,40 @@ function modifyRevealSummaryMaker($text, $mark, $size, $script){
                 break;
         }
         $tag_close = '</'.  $tag_type . '>';
-        
+
         $tag_end = strpos($text,'>', $pos_tag_start );
         $tag_length = $tag_end - $pos_tag_start + 1;
         $tag_open = substr($text, $pos_tag_start , $tag_length);
-        //$out['debug'] .= 'Tag Open: ' . $tag_open ."\n";
-        //$out['debug'] .= 'Tag Close: ' . $tag_close ."\n";
+        //$debug .= 'Tag Open: ' . $tag_open ."\n";
+        //$debug .= 'Tag Close: ' . $tag_close ."\n";
         // find  word
         $word_end_pos = strpos($text,$tag_close, $pos_tag_start );
         $word_length = $word_end_pos - $tag_end - 1;
         $word = substr($text, $tag_end +1 , $word_length);
-        //$out['debug'] .= 'Word: ' . $word ."\n";
+        //$debug .= 'Word: ' . $word ."\n";
         // do we have multiple tags?
         if (strpos($word, '<') !== false){
             $tag_indent = substr_count($word,'<' )/2;
-            $out['debug'] .= "Tag Indent:  $tag_indent\n";
+            $debug .= "Tag Indent:  $tag_indent\n";
             $end_first_indent_pos = 0;;
             for ($j = 0; $j < $tag_indent; $j++){
                 $end_first_indent_pos = strpos($word, '>', $end_first_indent_pos+1);
-                $out['debug'] .= "end_first_indent_pos:   $end_first_indent_pos \n";
+                $debug .= "end_first_indent_pos:   $end_first_indent_pos \n";
             }
             $begin_second_indent_pos = 0;
             for ($j = 0; $j < $tag_indent; $j++){
                 $begin_second_indent_pos = strpos($word, '<', $begin_second_indent_pos+1);
-                $out['debug'] .= "begin_second_indent_pos:   $begin_second_indent_pos \n";
+                $debug .= "begin_second_indent_pos:   $begin_second_indent_pos \n";
             }
             $real_word_length =  $begin_second_indent_pos - $end_first_indent_pos -1;
             $real_word = substr($word, $end_first_indent_pos + 1 , $real_word_length);
-            //$out['debug'] .= 'Real Word: ' . $real_word ."\n";
+            //$debug .= 'Real Word: ' . $real_word ."\n";
 
             $begin_indent_tag = substr($word, 0 , $end_first_indent_pos + 1);
-            //$out['debug'] .= 'Begin Indent Tag: ' . $begin_indent_tag ."\n";
+            //$debug .= 'Begin Indent Tag: ' . $begin_indent_tag ."\n";
 
             $end_indent_tag = substr($word, $begin_second_indent_pos);
-            //$out['debug'] .= 'End Indent Tag: ' . $end_indent_tag ."\n";
+            //$debug .= 'End Indent Tag: ' . $end_indent_tag ."\n";
 
             $word = $real_word;
             $tag_open .= $begin_indent_tag;
@@ -170,12 +158,12 @@ function modifyRevealSummaryMaker($text, $mark, $size, $script){
         $hidden_begin = strpos($text, '<', $hidden_begin); // we need the second one.
         $hidden_end = strpos($text, '<hr',  $hidden_begin);
         $hidden_length = $hidden_end - $hidden_begin;
-        $out['debug'] .= 'Tag End:'. $tag_end . "\n";
-        $out['debug'] .= 'HiddenBegin:'. $hidden_begin . "\n";
-        $out['debug'] .= 'HiddenEnd:'. $hidden_end . "\n";
-        $out['debug'] .= 'HiddenLength:'. $hidden_length . "\n";
+        $debug .= 'Tag End:'. $tag_end . "\n";
+        $debug .= 'HiddenBegin:'. $hidden_begin . "\n";
+        $debug .= 'HiddenEnd:'. $hidden_end . "\n";
+        $debug .= 'HiddenLength:'. $hidden_length . "\n";
         $hidden_text = substr($text, $hidden_begin, $hidden_length);
-        $out['debug'] .= 'HiddenText:'. $hidden_text . "\nend of Hidden\n";
+        $debug .= 'HiddenText:'. $hidden_text . "\nend of Hidden\n";
         $id = $script . $i;
         $old = array(
             '[id]',
@@ -194,18 +182,17 @@ function modifyRevealSummaryMaker($text, $mark, $size, $script){
             $hidden_text
         );
         $new = str_replace($old, $new, $template);
-        $out['debug'] .= 'New:'. $new . "\nend of New\n";
+        $debug .= 'New:'. $new . "\nend of New\n";
         //$pos_end = strpos($text, $tag_close, $pos_start);
         $pos_end =  $hidden_end + 6; // <hr /> is 6 characters
         $length = $pos_end - $pos_start + 7;
-        $out['debug'] .= 'Pos Start:'.$pos_start . "\n";
-        $out['debug'] .= 'Pos End:'.$pos_end . "\n";
-        $out['debug'] .= 'Length:'.$length . "\n";
+        $debug .= 'Pos Start:'.$pos_start . "\n";
+        $debug .= 'Pos End:'.$pos_end . "\n";
+        $debug .= 'Length:'.$length . "\n";
         $text = substr_replace($text, $new, $pos_start, $length);
-        $out['debug'] .= 'Text:'. $text . "\n";
+        $debug .= 'Text:'. $text . "\n";
         $pos_start = $pos_end;
-        $out['debug'] = null;
     }
-    $out = $text;
-    return $out;
+
+    return $text;
 }

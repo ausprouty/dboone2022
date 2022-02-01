@@ -1,4 +1,5 @@
 <?php
+myRequireOnce('writeLog.php');
 // see https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
 
 /* You should have something like this:
@@ -9,8 +10,8 @@
 
 */
 function modifyRevealSummary($text, $p){
+    writeLogError('modifyRevealSummary-12-text', $text);
 
-    $debug = "In _revealSummary Today\n";
     $template = '<div id="Summary[id]" class="summary">[TagOpen]+ [Word][TagClose]</div>'. "\n";
     $template .= '<div class="collapsed" id ="Text[id]">'. "\n";
     if ($p['destination'] == 'nojs' || $p['destination'] == 'pdf'){
@@ -129,5 +130,7 @@ function modifyRevealSummary($text, $p){
         $text = substr_replace($text, $new, $pos_start, $length);
         $pos_start = $pos_end;
     }
+    writeLogError('modifyRevealSummary-131-debug', $debug);
+    writeLogError('modifyRevealSummary-131-text', $text);
     return $text;
 }

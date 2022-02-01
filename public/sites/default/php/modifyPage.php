@@ -46,8 +46,10 @@ function modifyPage($text, $p, $data, $bookmark){
     //
     // modify note fields
     //
+    writeLogError('modifyPage-48', $text);
     if (strpos($text, '"note-area"')  !== false){
         $text =  modifyNoteArea($text, $bookmark, $p);
+
         //add markers used by javascript
         $page = $p['country_code'] . '-'. $p['language_iso'] . '-'. $p['folder_name'] . '-'. $data['filename'] .'.html';
         $note_form_begin = '<form>'. "\n";
@@ -68,6 +70,7 @@ function modifyPage($text, $p, $data, $bookmark){
     if (strpos($text, '<a href=') !== FALSE){
         $text = modifyLinks($text);
     }
+    writeLogError('modifyPage-73', $text);
     // popup text needs to be visible to editor but hidden in prototype and production
     if (strpos($text, 'class="popup"')!== FALSE){
         $text = str_ireplace('class="popup"', 'class="popup invisible"', $text);
@@ -75,15 +78,18 @@ function modifyPage($text, $p, $data, $bookmark){
     if (strpos($text, '<span class="bible-link">')!== FALSE){
         $text = modifyBibleLinks($text, $p);
     }
+     writeLogError('modifyPage-81', $text);
     if (strpos($text, '<div class="reveal">') !== FALSE ||  strpos($text, '<div class="reveal_big">') !== FALSE){
         $text = modifyRevealSummary($text, $p);
     }
+     writeLogError('modifyPage-85', $text);
     if (strpos($text, '<div class="reveal bible">')!== FALSE){
         $text = modifyRevealBible($text, $bookmark, $p);
         if ($p['destination']  == 'sdcard'){
            $text = modifyReadMore($text, $bookmark);
         }
     }
+    writeLogError('modifyPage-92', $text);
     // reveal_big is used by generations
     if (strpos($text, '<div class="reveal film') !== FALSE || strpos($text, '<div class="reveal_big film') !== FALSE){
         $text =  modifyRevealVideo($text, $bookmark, $p);
@@ -114,5 +120,6 @@ This needs to come later in the process
     $text = str_replace('<hr />', '', $text);
     $text = str_replace('<li>&nbsp;', '<li>', $text);
     $text = str_replace('</a> )', '</a>)', $text);
+     writeLogError('modifyPage-120', $text);
     return $text;
 }

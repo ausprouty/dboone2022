@@ -15,25 +15,29 @@
             {{ this.prototype_text }}
           </button>
         </div>
-        <div>
-          <button class="button" @click="sdCard('video_list')">
-            {{ this.videolist_text }}
-          </button>
+        <div v-if="this.sdcard">
+          <div>
+            <button class="button" @click="sdCard('video_list')">
+              {{ this.videolist_text }}
+            </button>
+          </div>
+          <div>
+            <button class="button" @click="localPublish('sdcard')">
+              {{ this.sdcard_text }}
+            </button>
+          </div>
+          <div>
+            <button class="button" @click="localPublish('nojs')">
+              {{ this.nojs_text }}
+            </button>
+          </div>
         </div>
-        <div>
-          <button class="button" @click="localPublish('sdcard')">
-            {{ this.sdcard_text }}
-          </button>
-        </div>
-        <div>
-          <button class="button" @click="localPublish('nojs')">
-            {{ this.nojs_text }}
-          </button>
-        </div>
-        <div>
-          <button class="button" @click="localPublish('pdf')">
-            {{ this.pdf_text }}
-          </button>
+        <div v-if="this.pdf">
+          <div>
+            <button class="button" @click="localPublish('pdf')">
+              {{ this.pdf_text }}
+            </button>
+          </div>
         </div>
       </div>
       <div>
@@ -286,7 +290,8 @@ export default {
             'this prototype date is ' + this.prototype_date
           )
           if (this.prototype_date) {
-            LogService.consoleLogMessage('I am checking for mayPublishSeries')
+            this.pdf = this.mayCreatePDFSeries()
+            this.sdcard = this.mayCreateSDCardSeries()
             this.publish = this.mayPublishSeries()
             if (this.publish) {
               if (this.publish_date) {

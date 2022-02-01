@@ -29,10 +29,10 @@ Input is:
                 </tr>
             </tbody>
         </table>
-        
+
     <hr /></div>';
 
-Data structure: 
+Data structure:
  video Types from ArcLight:  https://api.arclight.org/videoPlayerUrl?refId=1_529-jf6159-30-0
     1_ = jfilm
     2_ = acts
@@ -57,7 +57,7 @@ Output for Acts: where input is https://api.arclight.org/videoPlayerUrl?refId=2_
             </div>
         </div>
         <div class="collapsed" id ="VideoToggleVideo3">
-            [acts]-Acts7302-0-0</div>  
+            [acts]-Acts7302-0-0</div>
         </div>
         <div id="ShowOptionsFor[acts]-Acts7302-0-0"></div>
     </div>
@@ -66,9 +66,9 @@ Output for Acts: where input is https://api.arclight.org/videoPlayerUrl?refId=2_
 
 */
 function modifyRevealVideo($text, $bookmark){
-    
+
     $out = [];
-    $out['debug'] = 'In 4G revealVideo' . "\n";
+    $debug = 'In 4G revealVideo' . "\n";
     $watch_phrase = $bookmark['language']->watch;
     $standard_template_link= '<button id="revealButton[id]" type="button" class="external-movie [video_type]">[title_phrase]</button>
         <div class="collapsed">[video]</div>';
@@ -81,13 +81,13 @@ function modifyRevealVideo($text, $bookmark){
             </div>
         </div>
         <div class="collapsed" id ="VideoToggle[id]Video">
-            [video] 
+            [video]
         </div>';
     $template_options = '<div id="ShowOptionsFor[video]"></div>';
     // [ChangeLanguage] is changed in local.js
     $find = '<div class="reveal_big film">';
     $count = substr_count($text, $find);
-    $out['debug'] = "count is $count \n";;
+    $debug = "count is $count \n";;
     for ($i = 0; $i < $count; $i++){
         $new = $template_link;
         // get old division
@@ -101,7 +101,7 @@ function modifyRevealVideo($text, $bookmark){
         $title_phrase =  $word = str_replace('%', $title, $watch_phrase);
         //find url
         $url = modifyVideoRevealFindText($old, 4);
-        $out['debug'] .=  "url is | $url |\n";
+        $debug .=  "url is | $url |\n";
         // find type of video and trim url
         if (strpos($url, 'api.arclight.org/videoPlayerUrl?') != FALSE){
             $new .=  $template_options; // JESUS project videos are available in many languages
@@ -127,9 +127,9 @@ function modifyRevealVideo($text, $bookmark){
             }
             // find start and end times
             $start_time = modifyVideoRevealFindTime ($old, 7);
-            $out['debug'] .=  "start_time is | $start_time |\n";
+            $debug .=  "start_time is | $start_time |\n";
             $end_time = modifyVideoRevealFindTime ($old, 9);
-            $out['debug'] .=  "end time is | $end_time |\n";
+            $debug .=  "end time is | $end_time |\n";
             if ($start_time || $end_time){
                 $url .= '&start='. $start_time . '&end=' .$end_time;
             }
@@ -143,25 +143,24 @@ function modifyRevealVideo($text, $bookmark){
             $url = 'unknown';
 
         }
-        // make replacements   
+        // make replacements
         $video = '['. $video_type . ']' . $url; //[lumo]-GOMatt2512
-       
-        $out['debug'] .=  "video is | $video |\n";
-        $new = str_replace('[video]', $video, $new); 
-        $new = str_replace('[video_type]', $video_type, $new); 
+
+        $debug .=  "video is | $video |\n";
+        $new = str_replace('[video]', $video, $new);
+        $new = str_replace('[video_type]', $video_type, $new);
         $new = str_replace('[id]', $i, $new);
         $new = str_replace('[title_phrase]', $title_phrase, $new);
         $new .= '
     </div>';
-        $out['debug'] .=  "new is | $new |\n";
-        // replace old 
+        $debug .=  "new is | $new |\n";
+        // replace old
          // from https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $text = substr_replace($text, $new, $pos_start, $length);
     }
-    $out = $text;
-    writeLog('modifyVideoReveal', $out['debug']);
-    return $out;
+    writeLog('modifyVideoReveal', $debug);
+    return $text;
 }
 // return the text from the td_segment
 function modifyVideoRevealFindText($old, $td_number){

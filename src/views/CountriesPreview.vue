@@ -13,10 +13,12 @@
           {{ this.prototype_text }}
         </button>
       </div>
-      <div>
-        <button class="button" @click="localPublish('sdcard')">
-          {{ this.sdcard_text }}
-        </button>
+      <div v-if="this.sdcard">
+        <div>
+          <button class="button" @click="localPublish('sdcard')">
+            {{ this.sdcard_text }}
+          </button>
+        </div>
       </div>
     </div>
     <h1>
@@ -159,6 +161,8 @@ export default {
         }
         if (this.recnum && this.prototype_date) {
           LogService.consoleLogMessage('I am checking to see if I can publish')
+          this.pdf = this.mayCreatePDFCountries()
+          this.sdcard = this.mayCreateSDCardCountries()
           this.publish = this.mayPublishCountries
           if (this.publish) {
             LogService.consoleLogMessage('I can publish and prototype again')

@@ -1,6 +1,77 @@
 import LogService from '@/services/LogService.js'
 export const publishMixin = {
   methods: {
+    mayCreatePDFCountries() {
+      if (process.env.VUE_APP_MAKE_PDF == 'TRUE') {
+        return this.mayPublishCountries()
+      } else {
+        return false
+      }
+    },
+    mayCreatePDFLanguage() {
+      if (process.env.VUE_APP_MAKE_PDF == 'TRUE') {
+        return this.mayPublishLanguage()
+      } else {
+        return false
+      }
+    },
+    mayCreatePDFLibrary() {
+      if (process.env.VUE_APP_MAKE_PDF == 'TRUE') {
+        return this.mayPublishLibrary()
+      } else {
+        return false
+      }
+    },
+    mayCreatePDFSeries() {
+      if (process.env.VUE_APP_MAKE_PDF == 'TRUE') {
+        return this.mayPublishSeries()
+      } else {
+        return false
+      }
+    },
+    mayCreatePDFPage() {
+      if (process.env.VUE_APP_MAKE_PDF == 'TRUE') {
+        return this.mayPublishPage()
+      } else {
+        return false
+      }
+    },
+    mayCreateSDCardCountries() {
+      if (process.env.VUE_APP_MAKE_SDCARD == 'TRUE') {
+        return this.mayPublishCountries()
+      } else {
+        return false
+      }
+    },
+    mayCreateSDCardLanguage() {
+      if (process.env.VUE_APP_MAKE_SDCARD == 'TRUE') {
+        return this.mayPublishLanguage()
+      } else {
+        return false
+      }
+    },
+    mayCreateSDCardLibrary() {
+      if (process.env.VUE_APP_MAKE_SDCARD == 'TRUE') {
+        return this.mayPublishLibrary()
+      } else {
+        return false
+      }
+    },
+    mayCreateSDCardSeries() {
+      if (process.env.VUE_APP_MAKE_SDCARD == 'TRUE') {
+        return this.mayPublishSeries()
+      } else {
+        return false
+      }
+    },
+    mayCreateSDCardPage() {
+      if (process.env.VUE_APP_MAKE_SDCARD == 'TRUE') {
+        return this.mayPublishPage()
+      } else {
+        return false
+      }
+    },
+
     mayPrototypeCountries() {
       if (!this.authorize('prototype', this.$route.params)) {
         return false

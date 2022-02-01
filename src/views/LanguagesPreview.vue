@@ -15,15 +15,17 @@
             {{ this.prototype_text }}
           </button>
         </div>
-        <div>
-          <button class="button" @click="localPublish('sdcard')">
-            {{ this.sdcard_text }}
-          </button>
-        </div>
-        <div>
-          <button class="button" @click="localPublish('nojs')">
-            {{ this.nojs_text }}
-          </button>
+        <div v-if="this.sdcard">
+          <div>
+            <button class="button" @click="localPublish('sdcard')">
+              {{ this.sdcard_text }}
+            </button>
+          </div>
+          <div>
+            <button class="button" @click="localPublish('nojs')">
+              {{ this.nojs_text }}
+            </button>
+          </div>
         </div>
       </div>
       <a href="preview/languages">
@@ -203,6 +205,8 @@ export default {
             }
           }
           if (this.prototype_date) {
+            this.pdf = this.mayCreatePDFLanguages()
+            this.sdcard = this.mayCreateSDCardLanguages()
             this.publish = this.mayPublishLanguages()
             if (this.publish) {
               if (this.publish_date) {

@@ -17,10 +17,12 @@
             {{ this.prototype_text }}
           </button>
         </div>
-        <div>
-          <button class="button" @click="localPublish('sdcard')">
-            {{ this.sdcard_text }}
-          </button>
+        <div v-if="this.sdcard">
+          <div>
+            <button class="button" @click="localPublish('sdcard')">
+              {{ this.sdcard_text }}
+            </button>
+          </div>
         </div>
       </div>
       <a
@@ -229,6 +231,8 @@ export default {
             }
           }
           if (this.prototype_date) {
+            this.pdf = this.mayCreatePDFLibrary()
+            this.sdcard= this.mayCreateSDCardLibrary()
             this.publish = this.mayPublishLibrary()
             if (this.publish) {
               if (this.publish_date) {

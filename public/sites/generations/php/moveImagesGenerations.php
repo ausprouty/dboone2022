@@ -15,7 +15,7 @@ function moveImagesGenerations($text){
     $text = str_ireplace ('/images/Add-to-homepage-Portrait.png','/sites/generations/images/Add-to-homepage-Portrait.png', $text);
     $text = str_ireplace ('/images/Add-to-homepage-Landscape.png','/sites/generations/images/Add-to-homepage-Landscape.png', $text);
 
-$text = str_ireplace ('src="/content/A2/images/','src="/sites/generations/content/A2/images', $text);
+    $text = str_ireplace ('src="/content/A2/images/','src="/sites/generations/content/A2/images', $text);
 
     return $text;
 }
