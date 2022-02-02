@@ -12,14 +12,11 @@
   --color-bible-link: red;
   --color-trainer-notes: #fbe0c6;
 }
-div.content,
-#nav {
-  max-width: 620px;
-}
+
 
 div.app-series-header,
 div.Xapp-link {
-  max-width: 600px;
+  max-width: 620px;
 }
 #offline-ready {
   color: var(--color-main-title);
@@ -36,7 +33,7 @@ body {
   font-size: 16px;
   line-height: 1.5;
 }
-div.content {
+div.page_content {
   background-color: var(--color-main-background);
 }
 #app {

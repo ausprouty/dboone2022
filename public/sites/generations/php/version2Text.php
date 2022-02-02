@@ -15,6 +15,8 @@ function version2Text($text){
                          '"/sites/generations/images/ribbons/back-ribbon-4G.png', $text);
     $text = str_ireplace('"/images/action.png',
                            '"/sites/generations/images/css/action.png', $text);
+    $text = str_ireplace('"/images/bible.png',
+                           '"/sites/generations/images/css/bible.png', $text);
     $text = str_ireplace('"/images/generations-minus.png',
                            '"/sites/generations/images/css/generations-minus.png', $text);
     $text = str_ireplace('"/images/generations-minus-big.png',
@@ -29,6 +31,10 @@ function version2Text($text){
                            '"/sites/generations/images/css/generations-plus-small.png', $text);
     $text = str_ireplace('"/images/reveal_big.png',
                            '"/sites/generations/images/css/reveal_big.png', $text);
+    $text = str_ireplace('"/images/trainer.png',
+                           '"/sites/generations/images/css/trainer.png', $text);
+    $text = str_ireplace('"/images/video.png',
+                           '"/sites/generations/images/css/video.png', $text);
 
 
 
