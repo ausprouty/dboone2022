@@ -4,7 +4,7 @@ STructural Elements
 
 #app {
   box-sizing: border-box;
-  width: 90%;
+  max-width: 620px;
   background-color: #f2ede6;
   padding: 0px 0px 0px 0px;
   margin: 0 auto;
