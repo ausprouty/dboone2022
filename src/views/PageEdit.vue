@@ -282,8 +282,9 @@ export default {
       params.route = JSON.stringify(this.$route.params)
       params.scope = 'page'
       var res = await AuthorService.revert(params)
-      this.pageText = res.content.text
-      this.recnum = res.content.recnum
+      console.log(res)
+      this.pageText = res.text
+      this.recnum = res.recnum
     },
     async saveForm() {
       try {

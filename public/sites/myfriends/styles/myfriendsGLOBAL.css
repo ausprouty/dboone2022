@@ -7,6 +7,7 @@
   --color-back: #de1e25;
   --color-up: #f38832;
   --color-forward: #1ca0a6;
+  --color-bible-link: orange;
 }
 
 #offline-ready {
@@ -386,6 +387,9 @@ div.bible {
   text-align: left;
   color: #333130;
 }
+.bible-link {
+  color: var(--color-bible-link);
+}
 
 img {
   border-style: none;
@@ -520,7 +524,7 @@ p.bible {
 }
 .gospel-prayer {
   background-image: url('../images/css/quote_open.gif');
-  background-position: 10px top;
+  background-position: 5px top;
   background-repeat: no-repeat;
   color: #085276;
   font-style: italic;

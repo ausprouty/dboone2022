@@ -1,6 +1,7 @@
 :root {
     --color-black:black;
     --color-red:#de1e25;
+    --color-bible-link:orange;
     --color-orange:orange;
     --color-blue:#1ca0a6;
     --color-background:#efefef;
@@ -24,6 +25,9 @@ p.bible {
     padding-bottom: 0px;
     padding-top: 0px;
 }
+.bible-link {
+  color: var(--color-bible-link);
+}
 a {
     background: transparent;
     color: var(--color-red);
@@ -32,7 +36,7 @@ a:active,
 a:hover {
     outline: 0;
 }
-    
+
 a.bible-readmore{
     background-color:var(--color-red);
     border-color: var(--color-red);
@@ -85,7 +89,7 @@ div.lesson.rtl {
     text-align: right;
 }
 h1{
-    color: var(--color-red); 
+    color: var(--color-red);
 }
 
 p.reference {

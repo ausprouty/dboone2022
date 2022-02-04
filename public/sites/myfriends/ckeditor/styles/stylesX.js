@@ -97,16 +97,50 @@ window.CKEDITOR.stylesSet.add('myfriends', [
 
 window.CKEDITOR.stylesSet.add('multiply', [
   {
-    name: 'bible link',
-    element: 'span',
-    attributes: { class: 'bible-link' },
+    name: 'heading-back',
+    element: 'h2',
+    attributes: { class: 'back' },
   },
   {
-    name: 'Enrichment Div',
-    element: 'div',
-    attributes: { class: 'for-enrichment' },
+    name: 'heading-up',
+    element: 'h2',
+    attributes: { class: 'up' },
   },
-
+  {
+    name: 'heading-forward',
+    element: 'h2',
+    attributes: { class: 'forward' },
+  },
+  {
+    name: 'list-back',
+    element: 'ol',
+    attributes: { class: 'back' },
+  },
+  {
+    name: 'list-up',
+    element: 'ol',
+    attributes: { class: 'up' },
+  },
+  {
+    name: 'list-forward',
+    element: 'ol',
+    attributes: { class: 'forward' },
+  },
+  {
+    name: 'paragraph-back',
+    element: 'p',
+    attributes: { class: 'back' },
+  },
+  {
+    name: 'paragraph-up',
+    element: 'p',
+    attributes: { class: 'up' },
+  },
+  {
+    name: 'paragraph-forward',
+    element: 'p',
+    attributes: { class: 'forward' },
+  },
   { name: 'background', element: 'div', attributes: { class: 'background' } },
   { name: 'bible', element: 'div', attributes: { class: 'bible' } },
   { name: 'note-area', element: 'div', attributes: { class: 'note-area' } },
