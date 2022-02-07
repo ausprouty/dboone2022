@@ -2,6 +2,7 @@
 
 myRequireOnce ('create.php');
 myRequireOnce ('getLatestContent.php');
+myRequireOnce('writeLog.php');
 
 function bibleLinkMaker($p){
 
@@ -12,11 +13,14 @@ function bibleLinkMaker($p){
         return $out;
     }
     $text = $p['text'];
+    writeLogError('bibleLinkMaker-16-text', $text);
     // patterns - what is a valid item to appear just before a book name
-    $patterns = array (' ', '(', '-', '&mdash;',';', '<td>', '<li>');
+    $patterns = array (' ', '(', '-', '&mdash;',';', '<td>', '<li>', '>');
     // get booknames
     $sql = "SELECT distinct name  FROM dbm_bible_book_names WHERE language_iso= '" . $p['language_iso'] . "'  ORDER BY name";
+
     $result = sqlBibleMany($sql);
+    $debug_count = 0;
     while($data = $result->fetch_array()){
         $book = $data['name'];
         $spaces_in_bookname = mb_substr_count($book, ' ');
@@ -70,15 +74,20 @@ function bibleLinkMaker($p){
                         $new = $pattern. '<span class="bible-link">' . $reference_text . '</span>';
                         $text = substr_replace($text, $new, $book_start, $real_length);
                     }
-                    $start = $letter_check;
+                    $start = $book_start + mb_strlen($new);
+                    $debug= "bookstart was $book_start and the new start is $start for $find";
+
+                    $debug_count++;
                 }
             }
         }
     }
+
     $p['text'] = $text;
     createContent($p);
     $p['scope'] = 'page';
     unset($p['recnum']);
     $out = getLatestContent($p);
+     writeLogError('bibleLinkMaker-86-out', $out);
     return $out;
 }

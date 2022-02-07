@@ -12,17 +12,15 @@
          'collection_code' => 'OT' ,
      );
  */
-function createBibleDbtArrayFromPassage($p){
+myRequireOnce('writeLog.php');
 
-    $debug= 'I am in createBibleDbtArrayFromPassage'. "\n";
-    $debug .= '$p[entry] is ' . $p['entry'] . "\n";
-    //writeLog('createBibleDbtArrayFromPassage19-' . time(), $debug);
+function createBibleDbtArrayFromPassage($p){
+    $out = [];
     $passages = explode(';',$p['entry'] );
     foreach ($passages as $passage){
         $p['passage']= trim($passage);
         $debug .= '$p[passage] is ' .  $p['passage'] . "\n";
-       // //writeLog('createBibleDbtArrayFromPassage24-' . time(), $debug);
-        $out = createBibleDbtArray($p);
+        $out[] = createBibleDbtArray($p);
     }
     return $out;
 }
@@ -73,10 +71,9 @@ function createBibleDbtArray($p){
         WHERE  eng  = '$book_lookup' LIMIT 1";
         $data = sqlBibleArray($sql);
         if (!isset($data['book_id'])){
-            $debug .=  'Book ID not found' . "\n";
+           writeLogError('createBibleDbtArray-78-sql', $sql );
             $message = "in createBibleDbtArray Book ID not found ";
-            trigger_error( $message, E_USER_ERROR);
-            die;
+            return FALSE;
         }
     }
     //writeLog('createBibleDbtArray78-' . time(), $debug);

@@ -11,7 +11,7 @@ myRequireOnce('writeLog.php');
 */
 function modifyRevealSummary($text, $p){
     writeLogError('modifyRevealSummary-12-text', $text);
-
+    $debug = '';
     $template = '<div id="Summary[id]" class="summary">[TagOpen]+ [Word][TagClose]</div>'. "\n";
     $template .= '<div class="collapsed" id ="Text[id]">'. "\n";
     if ($p['destination'] == 'nojs' || $p['destination'] == 'pdf'){

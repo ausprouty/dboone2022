@@ -13,20 +13,17 @@ myRequireOnce ('writeLog.php');
 */
 
 function biblePopupMaker($p){
-
+    $out='';
     $debug = '';
-    $debug .= 'in biblePopupMaker' . "\n";
     if (!isset($p['text'])){
-        //writeLog('biblePopupMaker-20', 'No Text');
+        writeLogError('biblePopupMaker-20', 'No Text');
         trigger_error("p[text] is not set in biblePopupMaker", E_USER_ERROR);
-        $debug .= 'p[text] is not set' . "\n\n\n";
-        return $out;
+        return FALSE;
     }
     if (!isset($p['bookmark'])){
-        //writeLog('biblePopupMaker-26', 'No Bookmark');
+        writeLogError('biblePopupMaker-26', 'No Bookmark');
         trigger_error("p[bookmark] is not set in biblePopupMaker", E_USER_ERROR);
-        $debug .= 'p[bookmark] is not set' . "\n\n\n";
-        return $out;
+        return FALSE;
     }
     $bookmark = json_decode ($p['bookmark']);
     $ot = $bookmark->language->bible_ot;
@@ -54,16 +51,19 @@ function biblePopupMaker($p){
             $debug .= $reference . "\n";
             $debug .= $span . "\n";
             // create dbtArray
+            writeLogError('biblePopupMaker-54-p-'. $count, $p);
             $res = createBibleDbtArrayFromPassage($p);
-            if (isset($res['content'])){
-                $dbtArray = $res['content'];
+            writeLogError('biblePopupMaker-56-res'.$count , $res);
+            if (isset($res)){
+                $dbtArray = $res;
                 $bible_text = '';
                 // find text
                 foreach ($dbtArray as $dbt){
                     $dbt['version_ot'] = $ot;
                     $dbt['version_nt'] = $nt;
                     $bible = bibleGetPassage($dbt);
-                    $bible_text .= $bible['content']['text'];
+                    writeLogError('biblePopupMaker-65-bible'.$count , $bible);
+                    $bible_text .= $bible['text'];
                 }
                 // remove any headers
                 if (strpos ($bible_text, '<h3>') !== FALSE){

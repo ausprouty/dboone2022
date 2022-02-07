@@ -663,6 +663,11 @@ p.footer {
 div.float left {
   float: left;
 }
+.for-enrichment {
+  background-color: #e6ecf2;
+  padding: 10px;
+  line-height: 2em;
+}
 @media only screen and (max-width: 500px) {
   p.footer {
     letter-spacing: 0.1em;

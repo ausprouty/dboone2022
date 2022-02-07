@@ -65,25 +65,23 @@ function getPageOrTemplate ($p){
                 $debug .= $p['entry']. "\n";
                 // ok to here
                 $dbt = createBibleDbtArrayFromPassage($p);
-                $debug .= $dbt['debug']. "\n";
-                $debug .= json_encode($dbt['content'],
-                JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n";
+                $debug .= json_encode($dbt,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n";
                 $out ['text'] = 'please write routine to add ' . $ref . '</br>';
-                if ($dbt['content']){ // but this may be an array
-                    $debug .= '$dbt[content] found'. "\n";
-                    if ($dbt['content']['collection_code'] == 'NT'){
-                        $dbt['content']['bid'] = $ot;
+                if ($dbt){ // but this may be an array
+                    $debug .= '$dbt found'. "\n";
+                    if ($dbt['collection_code'] == 'NT'){
+                        $dbt['bid'] = $ot;
                     }
                     else{
-                        $dbt['content']['bid'] = $nt;
+                        $dbt['bid'] = $nt;
                     }
                 }
-                foreach ($dbt['content'] as $key=>$value){
+                foreach ($dbt as $key=>$value){
                     $debug .= $key . ' -- '. $value . "\n";
                 }
                 // OK to here
                 // get Bible passage
-                $passage = bibleGetPassage($dbt['content']);
+                $passage = bibleGetPassage($dbt);
                 $debug .= $passage['debug'];
                 // OK to here
                 if (isset($passage['content'])){

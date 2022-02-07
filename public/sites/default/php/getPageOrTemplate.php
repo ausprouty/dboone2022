@@ -8,21 +8,21 @@ function getPageOrTemplate ($p){
 
     $debug = 'In getPageOrTemplate'. "\n";
     $ok = true;
-    if (!$p['filename']){
+    if (!isset($p['filename'])){
         $debug .= "No filename\n";
         $ok = false;
     }
-    if (!$p['folder_name']){
+    if (!isset($p['folder_name'])){
         $debug .= "No folder name\n";
         $ok = false;
     }
-    if (!$p['language_iso']){
+    if (!isset($p['language_iso'])){
         $debug .= "No Language\n";
         $ok = false;
     }
     if (!$ok){
         $message = "Missing filename, foldername or language in  getPageOrTemplate ";
-        writeLogError('getPageOrTemplate', $message);
+        writeLogError('getPageOrTemplate', $p);
         trigger_error( 'getPageOrTemplate', E_USER_ERROR);
         return NULL;
     }
@@ -94,12 +94,11 @@ function getPageOrTemplate ($p){
                 $debug = 'Entry is ' . $p['entry']. "\n";
                 // ok to here
                 $dbt_study = createBibleDbtArrayFromPassage($p);
-                $debug .= $dbt_study['debug']. "\n";
-                $debug .= json_encode($dbt_study['content'], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) ."\n";
+                $debug .= json_encode($dbt_study, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) ."\n";
                 $debug .= "\n" .'I am about to enter _bible_block driver with '. "\n";
                 $debug .= "nt of $nt, and ot of $ot and read_more of $read_more\n";
                 // get Bible Block
-                $bible_block = _bible_block_driver($dbt_study['content'], $nt, $ot, $read_more);
+                $bible_block = _bible_block_driver($dbt_study, $nt, $ot, $read_more);
                 $debug .= $bible_block['debug'];
                 $template = mb_ereg_replace("\[BiblePassage\]", $bible_block['content'], $template);
                 if (strpos($template, '[Reference]') !== false){
