@@ -26,7 +26,7 @@ function createPage($p, $content){
         $debug .= 'This is in a series for ' . $content['folder_name'] . "\n";
          //writeLog('createPage-27-debug', $debug);
         $this_template = myGetPrototypeFile('pageInSeries.html', $p['destination']);
-        writeLogError('createPage-29-template', $this_template);
+        writeLog('createPage-29-template', $this_template);
         //writeLog('createPage-29-template',$this_template);
         // insert nav bar and set ribbon value and link value
         $nav = myGetPrototypeFile('navRibbon.html', $p['destination']);

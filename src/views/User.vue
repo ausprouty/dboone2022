@@ -45,14 +45,14 @@
           :reduce="(display) => display.code"
           :options="this.country_options"
           label="display"
-          v-model="$v.member.countries.$model"
+          v-model="$v.member.scope_countries.$model"
         ></v-select>
         <v-select
           multiple
           :reduce="(display) => display.code"
           :options="this.language_options"
           label="display"
-          v-model="$v.member.languages.$model"
+          v-model="$v.member.scope_languages.$model"
         ></v-select>
         <BaseInput
           v-model="$v.member.start_page.$model"
@@ -137,22 +137,23 @@ export default {
   computed: mapState(['user']),
   methods: {
     formatCountryArray() {
-      var length = this.$v.member.countries.$model.length
+      var length = this.$v.member.scope_countries.$model.length
       var countries_formatted = ''
       var temp = ''
       for (var i = 0; i < length; i++) {
-        temp = countries_formatted + this.$v.member.countries.$model[i].code
+        temp =
+          countries_formatted + this.$v.member.scope_countries.$model[i].code
         countries_formatted = temp
       }
       temp = countries_formatted.replace(/\|\|/g, '|')
       return temp
     },
     formatLanguageArray() {
-      var length = this.$v.member.languages.$model.length
+      var length = this.$v.member.scope_languages.$model.length
       var formatted = ''
       var temp = ''
       for (var i = 0; i < length; i++) {
-        temp = formatted + this.$v.member.languages.$model[i].code
+        temp = formatted + this.$v.member.scope_languages.$model[i].code
         formatted = temp
       }
       temp = formatted.replace(/\|\|/g, '|')
@@ -163,17 +164,17 @@ export default {
         var params = this.member
         LogService.consoleLogMessage('Save Form')
         LogService.consoleLogMessage(this.member)
-        LogService.consoleLogMessage(this.$v.member.countries.$model)
+        LogService.consoleLogMessage(this.$v.member.scope_countries.$model)
         // for some strange reason it shows up as an array sometimes and other times as a string
-        if (Array.isArray(this.$v.member.countries.$model)) {
-          params.countries = this.formatCountryArray()
+        if (Array.isArray(this.$v.member.scope_countries.$model)) {
+          params.scope_countries = this.formatCountryArray()
         } else {
-          params.countries = this.$v.member.countries.$model
+          params.scope_countries = this.$v.member.scope_countries.$model
         }
-        if (Array.isArray(this.$v.member.languages.$model)) {
-          params.languages = this.formatLanguageArray()
+        if (Array.isArray(this.$v.member.scope_languages.$model)) {
+          params.scope_languages = this.formatLanguageArray()
         } else {
-          params.languages = this.$v.member.languages.$model
+          params.scope_languages = this.$v.member.scope_languages.$model
         }
         params.start_page = this.$v.member.start_page.$model
         params.member_uid = this.member.uid

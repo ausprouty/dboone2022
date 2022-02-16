@@ -8,8 +8,8 @@ export const userMixin = {
       member: {
         firstname: null,
         lastname: null,
-        countries: null,
-        languages: null,
+        scope_countries: null,
+        scope_languages: null,
         start_page: null,
         username: null,
         password: null,
@@ -24,8 +24,8 @@ export const userMixin = {
     member: {
       firstname: { required },
       lastname: { required },
-      countries: { required },
-      languages: { required },
+      scope_countries: { required },
+      scope_languages: { required },
       start_page: { required },
       username: { required },
       password: {},
@@ -48,10 +48,10 @@ export const userMixin = {
       var option = {}
       var present = {}
       // get countries of Current User
-      if (typeof this.member.languages == 'undefined') {
-        this.member.languages = {}
+      if (typeof this.member.scope_languages == 'undefined') {
+        this.member.scope_languages = {}
       }
-      present = this.member.languages.split('|')
+      present = this.member.scope_languages.split('|')
       if (present.length > 0) {
         present.shift()
         present.pop()
@@ -88,13 +88,13 @@ export const userMixin = {
           this.languages_present.push(option)
         }
       }
-      this.$v.member.languages.$model = this.languages_present
+      this.$v.member.scope_languages.$model = this.languages_present
       return
     },
     async countryOptions() {
       await this.getCountries()
       // get countries of Current User
-      var present = this.member.countries.split('|')
+      var present = this.member.scope_countries.split('|')
       if (present.length > 0) {
         present.shift()
         present.pop()
@@ -132,7 +132,7 @@ export const userMixin = {
         }
       }
       this.country_options = options
-      this.$v.member.countries.$model = this.countries_present
+      this.$v.member.scope_countries.$model = this.countries_present
       return
     },
   },

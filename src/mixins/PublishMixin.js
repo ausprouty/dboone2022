@@ -10,7 +10,7 @@ export const publishMixin = {
     },
     mayCreatePDFLanguages() {
       if (process.env.VUE_APP_MAKE_PDF == 'TRUE') {
-        return this.mayPublishLanguage()
+        return this.mayPublishLanguages()
       } else {
         return false
       }
@@ -45,7 +45,7 @@ export const publishMixin = {
     },
     mayCreateSDCardLanguages() {
       if (process.env.VUE_APP_MAKE_SDCARD == 'TRUE') {
-        return this.mayPublishLanguage()
+        return this.mayPublishLanguages()
       } else {
         return false
       }
