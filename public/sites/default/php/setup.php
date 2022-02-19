@@ -2,6 +2,7 @@
 myRequireOnce ('create.php');
 myRequireOnce ('copyGlobal.php');
 myRequireOnce('dirCreate.php');
+myRequireOnce('writeLog.php');
 
 
 function setupImageFolder($p){
@@ -21,6 +22,7 @@ function setupImageFolder($p){
 // encouarage people to use the ZZ folder
 
 function setupTemplatesLanguage($p){
+	$count = 0;
 	if (!isset($p['language_iso'])){
 		$debug = 'language_iso not set'."\n";
 		return $out;
@@ -30,7 +32,9 @@ function setupTemplatesLanguage($p){
 	$dir = new DirectoryIterator($template_dir);
 	foreach ($dir as $fileinfo) {
 		if ($fileinfo->isDir() && !$fileinfo->isDot()) {
-			$folders = 'templates/'.  $fileinfo->getFilename();
+			$folders = 'templates/'.  $fileinfo->getFilename() . '/';
+			writeLogError('setupTemplatesLanguage-'. $count, $folders);
+			$count++;
 			copyGlobal(dirCreate('country', 'edit',  $p, $folders),
 	                   dirCreate('language', 'edit',  $p, $folders));
 	        $out = 'success';

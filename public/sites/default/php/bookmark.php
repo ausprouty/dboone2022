@@ -13,27 +13,18 @@ myRequireOnce ('version2Text.php');
 
 */
 function bookmark ($p){
-    $debug = 'I entered Bookmark' . "\n";
+    $rand=  random_int(0, 99999);
     $b['bookmark'] = null;
-   //writeLog('bookmark-20-p', $p);
-
-
     if (isset($p['recnum'])){
          // be sure to add this in for library since you can not yet derive it.
         $b['library_code'] = isset($p['library_code'])?$p['library_code']:null;
-        $debug .= 'library_code ' . $b['library_code'] . "\n\n";
         // find other parameters for bookmark from recnum
-        $debug .= 'recnum is ' . $p['recnum'] . "\n";
         $starting = contentObjectFromRecnum($p['recnum']);
        //writeLog('bookmark-29-starting', $starting);
         $b['country_code'] = $starting->country_code;
-        $debug .= 'b[country_code] is ' . $b['country_code'] . "\n";
         $b['language_iso'] = $starting->language_iso;
-        $debug .= 'b[language_iso] is ' . $b['language_iso'] . "\n";
         $b['folder_name'] = $starting->folder_name;
-        $debug .= 'b[folder_name] is ' . $b['folder_name'] . "\n";
         $b['filename'] = $starting->filename;
-        $debug .= 'b[filename] ' . $b['filename'] . "\n\n";
     }
     else{
         $b['country_code'] = isset($p['country_code'])?$p['country_code']:null;
@@ -46,6 +37,8 @@ function bookmark ($p){
         $b['filename'] = isset($p['filename'])?$p['filename']:null;
         if ($b['folder_name'] =='undefined') {$b['folder_name']  = null;}
     }
+   // writeLogError('bookmark-40-p' . $rand, $p);
+   // writeLogError('bookmark-40-b' . $rand, $b);
    //writeLog('bookmark-48-b', $b);
     if ($b['country_code']){
         $b['bookmark']['country'] = checkBookmarkCountry($b);
@@ -63,16 +56,12 @@ function bookmark ($p){
             }
         }
     }
+   // writeLogError('bookmark-59-bookmark' . $rand, $b['bookmark']);
     $out = $b['bookmark'];
 
-    if (isset($p['scope'])){
-      //writeLog( 'bookmark-'.$p['scope'] , $b['bookmark']);
 
-    }
-    else{
-        //writeLog( 'bookmark', $b['bookmark']);
-    }
     $out=version2Text($out);
+    //writeLogError('bookmark-64-out' . $rand, $out);
     return $out;
 }
 function checkBookmarkCountry($b){
@@ -209,8 +198,8 @@ function checkBookmarkSeries($b){
     $content = getLatestContent($b);
     $response = json_decode($content['text']);
     if (!$response){
-        writeLogError('checkBookmarkSeries-p', $b);
-        trigger_error("No response in checkBookmarkSeries", E_USER_ERROR);
+        writeLogError('checkBookmarkSeries-201-b', $b);
+        trigger_error("Unable to decode content text in checkBookMarkSeries", E_USER_ERROR);
     }
     $out = $response;
     return $out;

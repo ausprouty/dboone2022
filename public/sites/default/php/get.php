@@ -1,14 +1,14 @@
 <?php
+myRequireOnce('writeLog.php');
 
 function getFoldersContent($p){
 	$debug = 'getFoldersContent'. "\n";
 	if (!$p['language_iso']){
-		$debug .= "language_iso not set\n";
-		return $out;
+		writeLogError('getFoldersContent', 'language_iso not set' );
+		return false;
 	}
 	$exclude = array('images', 'styles', 'templates');
-	$path = ROOT_EDIT_CONTENT. $p['country_code'] .'/'. $p['language_iso'] ;
-	$out ['debug'] = $path . "\n";
+	$path = ROOT_EDIT_CONTENT. $p['country_code'] .'/'. $p['language_iso'] .'/' ;
 	$results = null;
 	if (file_exists($path)){
 		$results = '[';
@@ -25,11 +25,31 @@ function getFoldersContent($p){
 			$results = substr($results,0, -1) . ']';
 		}
 		else{
-			$results = null;
+			$results = makeFoldersContent($path);
 		}
 	}
-	$out = $results;
-	return $out;
+	return $results;
+}
+
+function makeFoldersContent($path){
+    if (STANDARD_SERIES == NULL){
+		writeLogError('getFoldersContent', 'STANDARD_SERIES not set' );
+		return null;
+	}
+	$results = '[';
+    $folders = explode(',', STANDARD_SERIES );
+	foreach($folders as $folder){
+		dirMake($path . $folder);
+		$results .= '"'. $folder .'",';
+	}
+	if (strlen($results) > 1){
+			$results = substr($results,0, -1) . ']';
+	}
+	else{
+        $results = null;
+		writeLogError('getFoldersContent', 'STANDARD_SERIES has no items' );
+	}
+	return $results;
 }
 
 
@@ -79,9 +99,7 @@ function getTemplates($p){
         $include = 'setup.php';
 		myRequireOnce ('setup.php');
 		$debug .= ' template directory does not exist so going to Setup Templates' . "\n";
-		$out2 = setupTemplatesCountry ($p);
-		$out3 = setupTemplatesLanguage ($p);
-		$debug .= $out2 ['debug'] . $out3 ['debug'];
+		setupTemplatesLanguage ($p);
     }
 	if (file_exists($template_directory)){
         $results = '[';
@@ -113,8 +131,7 @@ function getTemplates($p){
 		else{
 			$debug .= ' No templates so going to Setup Templates' . "\n";
 			myRequireOnce ('setup.php');
-			setupTemplatesCountry ($p);
-			etupTemplatesLanguage($p);
+			setupTemplatesLanguage($p);
 			$handler = opendir ($template_directory);
 			while ($mfile = readdir ($handler)){
 				if ($mfile != '.' && $mfile != '..' ){

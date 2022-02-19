@@ -3,7 +3,9 @@
 function getLanguagesForAuthorization($p){
     $available = [];
 
-    $debug = 'In getLanguagesForAuthorization '. "\n";
+    if(!isset($p['destination'])){
+        $p['destination']= 'staging';
+    }
     // flags
     $sql = "SELECT * FROM content
                 WHERE filename = 'countries'
