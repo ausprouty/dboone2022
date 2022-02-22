@@ -35,8 +35,13 @@ function publishLanguageFooter($p){
         $footer  = isset($text->footer) ? $text->footer : null;
     }
     if (!$footer ){
+        $language_footer = 'languageFooter.html';
+        if($p['destination'] == 'nojs' || $p['destination'] == 'sdcard'){
+            $language_footer = SDCARD_LANGUAGE_FOOTER;
+
+        }
         $debug .= 'LanguageFooter Setfrom languageFooter.html'. "\n";
-        $footer  =  myGetPrototypeFile('languageFooter.html', $p['destination']);
+        $footer  =  myGetPrototypeFile( $language_footer, $p['destination']);
     }
     $placeholders = array(
         '{{ url }}', '{{ website }}'

@@ -124,9 +124,9 @@ function audioFindForSDCard($p, $filename){
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
         $old = substr($text, $pos_start, $length);
         // find title_phrase
-        $audio['title'] = modifyAudioRevealFindText($old, 2);
+        $audio['title'] =modifyRevealAudioFindText($old, 2);
         //find url
-        $url = modifyAudioRevealFindText($old, 4);
+        $url = modifyRevealAudioFindText($old, 4);
         //writeLog('audioFindForSDCard-95-'. $filename . $count, $url . "\n" . $find);
         $audio['url']= $url;
         //if more than one audio in this chapter

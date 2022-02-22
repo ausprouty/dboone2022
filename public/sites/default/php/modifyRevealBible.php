@@ -13,41 +13,33 @@
 <hr /></div>
 */
 function modifyRevealBible($text, $bookmark, $p){
-    $debug = "In _revealBible\n";
     $read_phrase = trim($bookmark['language']->read);
-    $debug .= "read phrase is $read_phrase\n";
     $template = '<button id="Button[id]" type="button" class="collapsible bible">[Show]</button>';
     $template .= '<div class="collapsed" id ="Text[id]">';
     if($p['destination'] == 'nojs' || $p['destination'] == 'pdf'){
-        $template = '<div class="bible">[Show]</div>';
+        $template = '<h3>[Reference]</h3>';
         $template .= '<div>';
     }
     $count = substr_count($text,'<div class="reveal bible">' );
-    $debug .=  "count is $count\n";
     for ($i = 0; $i < $count; $i++){
         $pos_start = mb_strpos($text,'<div class="reveal bible"');
-        $debug .=  "pos_start is $pos_start\n"; // old is correct
         $pos_end = mb_strpos($text, '</p>', $pos_start);
         $length = $pos_end - $pos_start + 4;
         $old = mb_substr($text, $pos_start, $length);
-        $debug .=  "old is $old\n"; // old is correct
         $word = trim(strip_tags($old));
         $word = str_replace('&nbsp;', '', $word);
         $word = str_replace("\n", '', $word);
-        $word = str_replace('  ', ' ', $word);
-        $word = str_replace('%', $word, $read_phrase);
+        $reference = str_replace('  ', ' ', $word);
+        $show = str_replace('%', $reference, $read_phrase);
         $new = str_replace('[id]', $i, $template);
-        $new = str_replace('[Show]', $word, $new);
-        $debug .=  "length is $length\n";
-        $debug .=  "word is $word\n";
-        $debug .=  "new is $new\n";
+        $new = str_replace('[Show]', $show, $new);
+        $new = str_replace('[Reference]', $reference, $new);
          // from https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
          // recalculate because not using multibyte function
         $pos_start = strpos($text,'<div class="reveal bible"');
         $pos_end = strpos($text, '</p>', $pos_start);
         $length = $pos_end - $pos_start + 4;
         $text = substr_replace($text, $new, $pos_start, $length);
-        $debug .=  "\n\n$text\n";
     }
 
     return $text;

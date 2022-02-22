@@ -39,7 +39,7 @@ function getPageOrTemplate ($p){
     if (isset($bookmark->book->template)){
          $p['template'] = $bookmark->book->template;
     }
-    $debug .= 'template is '.  $p['template'] . "\n";
+
     //
     $sql = "SELECT * from content
             WHERE country_code = '". $p['country_code'] . "'
@@ -47,22 +47,14 @@ function getPageOrTemplate ($p){
             AND folder_name = '" . $p['folder_name'] . "'
             AND  filename = '" . $p['filename'] . "'
             ORDER BY recnum DESC LIMIT 1";
-    $debug .= $sql . "\n";
+
     $result = sqlArray($sql);
-    $result['text']= version2Text($result['text']);
-    $out= $result;
-    // show values for debug
-    if (is_array($result)){
-        foreach($result as $key=> $value){
-        $debug .= $key . ' -- ' . $value . "\n";
-        }
-    }
-    // return latest page (if it exists)
-    if (isset($result['recnum'])){
-        $debug .='Recnum ' . $result['recnum'] ."\n";
+    if ($result['recnum']){
+        $result['text']= version2Text($result['text']);
+        $out= $result;
         return $out;
     }
-    // is there a template?
+    // if no content is there a template?
     if ($p['template']){
         $template_file = ROOT_EDIT_CONTENT .  $p['country_code'] . '/'. $p['language_iso']  .'/templates/'. $p['template'];
         $debug .=  $template_file  ."\n";

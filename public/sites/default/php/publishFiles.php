@@ -4,8 +4,9 @@ myRequireOnce ('bookmark.php');
 myRequireOnce ('copyGlobal.php');
 myRequireOnce ('dirMake.php');
 myRequireOnce ('createDirectory.php');
-myRequireOnce('fileWrite.php');
+myRequireOnce ('fileWrite.php');
 myRequireOnce ('getTitle.php');
+myRequireOnce ('languageHtml.php');
 myRequireOnce ('languageSpecificJavascripts.php');
 myRequireOnce ('makePathsRelative.php');
 myRequireOnce ('modifyHeaders.php');
@@ -42,7 +43,9 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
         $text = str_ireplace("nobreak", "nobreak-final", $text);
     }
     $title = WEBSITE_TITLE . getTitle($p['recnum']);
+    $language_google = languageHtml($p['language_iso']);
     $placeholders = array(
+        '{{ language.google }}',
         '{{ title }}',
         '{{ standard.css }}',
         '{{ selected.css }}',
@@ -51,6 +54,7 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
         '</html>',
         '</body>');
     $replace = array(
+        $language_google,
         $title,
         $standard_css,
         $selected_css,

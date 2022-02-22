@@ -85,7 +85,7 @@ function modifyPage($text, $p, $data, $bookmark){
      writeLog('modifyPage-85', $text);
     if (strpos($text, '<div class="reveal bible">')!== FALSE){
         $text = modifyRevealBible($text, $bookmark, $p);
-        if ($p['destination']  == 'sdcard'){
+        if ($p['destination']  == 'sdcard' || $p['destination']  == 'nojs'){
            $text = modifyReadMore($text, $bookmark);
         }
     }
