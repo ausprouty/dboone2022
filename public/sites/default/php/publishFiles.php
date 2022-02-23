@@ -23,13 +23,16 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     $output = myGetPrototypeFile('header.html', $p['destination']);
     // add onload only if files are here
     $onload_note_js = '';
-    if (strpos($text, '<form') !== false){
-        $pos = strrpos($fname, '/') +1;
-        $filename = substr($fname, $pos);
-        $note_index = $p['country_code'] .'-'. $p['language_iso'] .'-'.$p['folder_name'] .'-'.$filename;
-        $onload_note_js = ' onLoad= "showNotes(\'' . $note_index . '\')" ';
-        $output .= '<!--- publishFiles added onLoad -->' ."\n";
+    if ($destination !='nojs' && $destination !='pdf'){
+        if (strpos($text, '<form') !== false){
+            $pos = strrpos($fname, '/') +1;
+            $filename = substr($fname, $pos);
+            $note_index = $p['country_code'] .'-'. $p['language_iso'] .'-'.$p['folder_name'] .'-'.$filename;
+            $onload_note_js = ' onLoad= "showNotes(\'' . $note_index . '\')" ';
+            $output .= '<!--- publishFiles added onLoad -->' ."\n";
+        }
     }
+
     if (strpos($text, '<div class="header') !== false){
         $result = modifyHeaders($text);
         $text = $result['text'];

@@ -8,5 +8,5 @@ function languageHtml($language_iso){
         'cmn'=> 'zh-Hans',
         'spa'=>'es'
     );
-    return $google['$language_iso'];
+    return $google[$language_iso];
 }

@@ -68,7 +68,7 @@ function modifyPage($text, $p, $data, $bookmark){
     //writeLog('modify-page-65', $text);
     //  change internal links for easy return:
     if (strpos($text, '<a href=') !== FALSE){
-        $text = modifyLinks($text);
+        $text = modifyLinks($text, $p);
     }
     writeLog('modifyPage-73', $text);
     // popup text needs to be visible to editor but hidden in prototype and production
