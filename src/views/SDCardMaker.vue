@@ -41,7 +41,7 @@
 <script>
 import { mapState } from 'vuex'
 
-import SDCardService from '@/services/ContentService.js'
+import SDCardService from '@/services/SDCardService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
 
 import { required } from 'vuelidate/lib/validators'
@@ -82,12 +82,13 @@ export default {
     },
   },
   methods: {
-    takeAction() {},
-
+    takeAction() {
+      console.log('take action')
+    },
   },
   async created() {
-    this.permission = this.authorize('write', this.$route.params)
-    if (this.permission) {
+    this.authorized = this.authorize('write', this.$route.params)
+    if (this.authorized) {
       this.languages = await SDCardService.getLanguages(this.$route.params)
       this.footers = await SDCardService.getFooters(this.$route.params)
     }

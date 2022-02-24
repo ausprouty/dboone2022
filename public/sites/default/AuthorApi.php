@@ -9,7 +9,7 @@
 
   Writes $debug to file if LOG_MODE == 'write_log'
 */
-
+$debug= '';
 $backend = '../'. $_GET['site'] . '/.env.api.'.  $_GET['location'] . '.php';
 if (file_exists($backend)){
 	require_once ($backend);
@@ -22,7 +22,6 @@ myRequireOnce('writeLog.php');
 myHeaders(); // send cors headers
 // assign variables
 $out = array();
-$debug = "in AuthorApi.php\n";
 $p = setParameters($_POST);
 if (isset($p['my_uid'])){
 	myRequireOnceSetup($p['my_uid']);
@@ -34,56 +33,36 @@ if (isset($_GET['page'])){
 if (isset($_GET['action'])){
 	$p['action'] = $_GET['action'];
 }
-if (isset($p['debug'])){
-	$debug .= $p['debug'];
-	unset($p['debug']);
-}
+
 if (isset($p['page'])){
 	$p['page'] = _clean($p['page']);
-	$debug .=  'Page: ' . $p['page']. "\n";
-	$debug .= 'MyPage: ' . myFile($p['page'] . '.php') . "\n";
 }
-$debug .= $p['action'] .  " is action\n";
-writeLog ($p['action'] . '-parameters', $p);
 if (isset($p['action'])){
 	// login routine
 	if ($p['action'] == 'login'){
 		$out = myApiLogin($p);
 	}
 	else{
-		$debug .=  $p['token'] . " is token\n";
 		// take action if authorized user
 		if (!isset($p['token'])){
 			$message = "Token is not set";
 			$debug .= $message;
-			// TODO: remove this
-            //trigger_error( $message, E_USER_ERROR);
-			//die;
-			$p['token'] = LOCAL_TOKEN;
+            trigger_error( $message, E_USER_ERROR);
+			die;
 		}
 		$ok = myApiAuthorize($p['token']);
 		unset($p['token']);  // so it will not be sent back
 		if($ok){
-			writeLog($p['action'] . '-authorized',   $debug);
 			myRequireOnce ('dirMake.php');
-			$debug .= " we are OK \n";
 			if (isset($p['page'])){
-				$p['page'] = myFile($p['page'] . '.php');
-				if (file_exists($p['page'])){
-					writeLog($p['action'] . '-required',   $debug);
-					$debug .= 'I am adding page ' . $p['page']  . "\n";
-					require_once ($p['page'] );
-					$action = $p['action'];
-					$debug .= 'action is '  . $action ."\n";
-					$out = $action ($p);
-					writeLog($p['action'] . '-completed',   $debug);
+				$subdirectory = null;
+				if (isset($p['subdirectory'])){
+      			 	$subdirectory  = $p['subdirectory'];
 				}
-				else{
-					$message = $p['page']  . " does not exist";
-					writeLog($p['action'] . 'error',  $message);
-					$debug .= $message;
-                    trigger_error( $message, E_USER_ERROR);
-				}
+				writeLogError('AuthorApi-62-p', $p);
+				myRequireOnce($p['page'] , $subdirectory);
+				$action = $p['action'];
+				$out = $action ($p);
 			}
 			else{
 				$message = $p['page']  . "is not set";
@@ -157,9 +136,6 @@ function setParameters($post){
 function _clean($page){
 	$bad = array('.', '$', '/');
 	$page = str_replace($bad, '', $page);
-	$debug = UNIQUE_API_FILE_DIRECTORY . $page . ".php\n";
-	$debug .= STANDARD_API_FILE_DIRECTORY . $page . ".php\n";
-	$debug .=  $page . ".php\n";
-	writeLog('page', $debug);
+	$page .= '.php';
 	return $page;
 }

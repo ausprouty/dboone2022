@@ -12,7 +12,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import SDCardService from '@/services/LogService.js'
+import SDCardService from '@/services/SDCardService.js'
 export default {
   props: {
     language: Object,

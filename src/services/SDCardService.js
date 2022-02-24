@@ -30,14 +30,15 @@ export default {
     return AuthorService.aReturnContent(params)
   },
   getLanguages(params) {
+    params.destination = 'sdcard'
     params.page = 'getLanguagesAvailable'
     params.action = 'getLanguagesAvailable'
     return AuthorService.aReturnContent(params)
   },
   initialize(params) {
     params.site = process.env.VUE_APP_SITE
-    params.location = process.env.VUE_APP_LOCATION
     params.my_uid = store.state.user.uid
+    params.subdirectory = 'sdcard'
     params.token = store.state.user.token
     params.destination = 'sdcard'
     return params
