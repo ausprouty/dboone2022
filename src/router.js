@@ -178,6 +178,15 @@ export default new Router({
       props: true,
     },
     {
+      path: '/sdcard/:country_code',
+      name: 'sdCardMaker',
+      component: function () {
+        return import(
+          /* webpackChunkName: "sortCountries" */ './views/SDCardMaker.vue'
+        )
+      },
+    },
+    {
       path: '/sort/countries',
       name: 'sortCountries',
       component: function () {

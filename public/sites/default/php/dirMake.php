@@ -1,5 +1,5 @@
 <?php
-// make directory if not found. No directory can have words .html
+// make directory if not found. No directory can have words .html or .json
 function dirMake($filename){
 	$dir = '';
 	if (strpos($filename, '//') !== FALSE){

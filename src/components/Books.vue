@@ -1,7 +1,7 @@
-<template>
+
+  <div><template>
 <div>
   <h2>Books</h2>
-  <div>
     <button class="button" @click="prototypeAll">
       Select ALL to prototype
     </button>

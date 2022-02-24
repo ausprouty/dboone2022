@@ -80,9 +80,15 @@ export default {
           show: false,
         },
         {
+          value: 'SD Card',
+          link: 'sdcard',
+          index: 6,
+          show: false,
+        },
+        {
           value: 'Logout',
           link: 'logout',
-          index: 6,
+          index: 7,
           show: false,
         },
       ],
@@ -108,11 +114,12 @@ export default {
       if (this.$route.params.language_iso && this.called_by !== 'library') {
         this.menu[3].show = true
       }
-      this.menu[6].show = true
+      this.menu[7].show = true
     }
     if (this.administrator) {
       this.menu[4].show = true
       this.menu[5].show = true
+      this.menu[6].show = true
     }
     if (!this.authorized) {
       this.menu[0].show = true
@@ -169,6 +176,14 @@ export default {
         case 'register':
           this.$router.push({
             name: 'farm',
+          })
+          break
+        case 'sdcard':
+          this.$router.push({
+            name: 'sdCardMaker',
+            params: {
+              country_code: this.$route.params.country_code,
+            },
           })
           break
         case 'admin':

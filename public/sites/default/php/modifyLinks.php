@@ -2,6 +2,7 @@
 myRequireOnce ('writeLog.php');
 
 function modifyLinks($text, $p){
+    writeLogError('modifyLinks-5-p', $p);
     // take these out so we can put in proper links later.  The editors like the URL so they can follow links in the editor.
     $text=str_ireplace ('target="_self"', '', $text);
     $out=[];
@@ -33,10 +34,13 @@ function modifyLinks($text, $p){
         $text = str_ireplace('" >', '">', $text);
         $text  = _modifyInternalLinks($text, $find, $p);
     }
+     writeLogError('modifyLinks-36-p', $p);
     if (($p['destination'] == 'nojs' || $p['destination'] == 'sdcard') && ALLOW_EXTERNAL_LINKS_IN_SDCARD == FALSE){
+        writeLogError('modifyLinks-37', 'I am about the check for remove readmore Links');
          $find = '<a class="readmore"';
          if (strpos($text, $find) !== false){
-            $text = _removeReadmoreLinks($text, $find);
+             writeLogError('modifyLinks-40', 'I am going to remove readmore Links');
+            $text = _removeReadmoreLinks($text);
         }
     }
     if (strpos($text, $find) !== false){
@@ -168,6 +172,7 @@ function _modifyExternalLinks($text, $find, $p){
  // <a class="readmore"  href="https://biblegateway.com/passage/?search=John%2010:22-30&amp;version=NIV">Read More </a>
 // these need to come out in sensetive countries
 function _removeReadmoreLinks($text){
+    writeLogError('_removeReadmoreLinks-173', $text);
     $find = '<a class="readmore"';
     $length_find = strlen($find);
     $count = substr_count($text, $find);
@@ -179,7 +184,7 @@ function _removeReadmoreLinks($text){
         $text = substr_replace($text, '', $pos_start, $length);
         $pos_start = $pos_end;
     }
-
+    writeLogError('_removeReadmoreLinks-185', $text);
     return $text;
 }
 

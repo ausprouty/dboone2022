@@ -67,7 +67,8 @@ function modifyPage($text, $p, $data, $bookmark){
     //
     //writeLog('modify-page-65', $text);
     //  change internal links for easy return:
-    if (strpos($text, '<a href=') !== FALSE){
+    // for SDCard we may need to remove all external references; esp those to Bible sites
+    if (strpos($text, '<a href=') !== FALSE || strpos($text, '<a class="readmore"') !== FALSE){
         $text = modifyLinks($text, $p);
     }
     writeLog('modifyPage-73', $text);

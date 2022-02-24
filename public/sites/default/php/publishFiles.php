@@ -71,7 +71,8 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     // remove dupliate CSS
     $output = publishCSS($output, $p);
     // append footer
-    $output .= myGetPrototypeFile('footer.html', $p['destination']);
+    $footer= 'footer.html';
+    $output .= myGetPrototypeFile($footer, $p['destination']);
     // copy all images and styles to the publish directory
     //$response = publishCopyImagesAndStyles($output, $destination);
 

@@ -13,35 +13,45 @@ const apiSECURE = axios.create({
 })
 import axios from 'axios'
 import store from '@/store/store.js'
+import AuthorService from '@/services/AuthorService.js'
 
 // I want to export a JSON.stringified of response.data.text
 export default {
-  async publish(scope, params) {
-    var action = null
+  getBooks(params) {
+    params = this.initialize(params)
+    params.page = 'getBooksForLanguage'
+    params.action = 'getBooksForLanguage'
+    return AuthorService.aReturnContent(params)
+  },
+  getFooters(params) {
+    params = this.initialize(params)
+    params.page = 'getFooters'
+    params.action = 'getFooters'
+    return AuthorService.aReturnContent(params)
+  },
+  getLanguages(params) {
+    params.page = 'getLanguagesAvailable'
+    params.action = 'getLanguagesAvailable'
+    return AuthorService.aReturnContent(params)
+  },
+  initialize(params) {
     params.site = process.env.VUE_APP_SITE
     params.location = process.env.VUE_APP_LOCATION
     params.my_uid = store.state.user.uid
     params.token = store.state.user.token
     params.destination = 'sdcard'
+    return params
+  },
+
+  async publish(scope, params) {
+    var action = null
+    params = this.initialize(params)
     switch (scope) {
-      case 'bookmark':
-        action = 'AuthorApi.php?page=bookmark&action=bookmark'
-        break
-      case 'countries':
-        action = 'AuthorApi.php?page=publishCountries&action=publishCountries'
-        break
       case 'country':
         action = 'AuthorApi.php?page=publishCountry&action=publishCountry'
         break
       case 'language':
         action = 'AuthorApi.php?page=publish&action=publishLanguage'
-        break
-      case 'languages':
-        action = 'AuthorApi.php?page=publishLanguages&action=publishLanguages'
-        break
-      case 'languagesAvailable':
-        action =
-          'AuthorApi.php?page=publishLanguagesAvailable&action=publishLanguagesAvailable'
         break
       case 'library':
         action = 'AuthorApi.php?page=publishLibrary&action=publishLibrary'
@@ -87,11 +97,6 @@ export default {
     for (var key in obj) {
       form_data.append(key, obj[key])
     }
-    // Display the key/value pairs
-    // for (var pair of form_data.entries()) {
-    //  LogService.consoleLogMessage(pair[0] + ', ' + pair[1])
-    //}
-    //   LogService.consoleLogMessage(form_data)
     return form_data
   },
 }
