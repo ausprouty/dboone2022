@@ -19,14 +19,12 @@ function createBibleDbtArrayFromPassage($p){
     $passages = explode(';',$p['entry'] );
     foreach ($passages as $passage){
         $p['passage']= trim($passage);
-        $debug .= '$p[passage] is ' .  $p['passage'] . "\n";
         $out[] = createBibleDbtArray($p);
     }
     return $out;
 }
 function createBibleDbtArray($p){
 
-    $debug= "\n\n" .'I am in createBibleDbtArray'. "\n";
     //OK to here
     $language_iso = $p['language_iso'];
     $passage = $p['passage'];
@@ -48,24 +46,15 @@ function createBibleDbtArray($p){
     //writeLog('createBibleDbtArray57-' . time(), $sql);
 
     $data = sqlBibleArray($sql);
-    if (is_array($data)){
-        foreach ($data as $key => $value){
-            $debug .= $key . '=>' . $value . "\n";
-        }
-    }
-    else{
-        $debug .= "No valid data from Bible Array\n";
-    }
-
-    //writeLog('createBibleDbtArray64-' . time(), $debug);
+    //writeLog('createBibleDbtArray64-' . time(), //$debug);
 
     if (isset($data['book_id'])){
-        $debug .= $data['book_id'] . "\n";
-       // //writeLog('createBibleDbtArray68-' . time(), $debug);
+        //$debug .= $data['book_id'] . "\n";
+       // //writeLog('createBibleDbtArray68-' . time(), //$debug);
     }
     if (!isset($data['book_id'])){
-        $debug .= 'trying to find in English' . "\n";
-        //writeLog('createBibleDbtArray72-' . time(), $debug);
+        //$debug .= 'trying to find in English' . "\n";
+        //writeLog('createBibleDbtArray72-' . time(), //$debug);
         // try English if language_iso does not work
         $sql = "SELECT book_id, testament FROM hl_online_bible_book
         WHERE  eng  = '$book_lookup' LIMIT 1";
@@ -76,14 +65,11 @@ function createBibleDbtArray($p){
             return FALSE;
         }
     }
-    //writeLog('createBibleDbtArray78-' . time(), $debug);
+    //writeLog('createBibleDbtArray78-' . time(), //$debug);
     // pull apart chapter
     $pass = str_replace($book, '', $passage);
-    $debug .= 'pass is ' . "$pass\n";
     $pass = str_replace(' ' , '', $pass);
-    $debug .= 'pass is ' . "$pass\n";
     $i = strpos($pass, ':');
-    $debug .= 'i ' . "$i\n";
     if ($i !== FALSE){
         $chapterId = substr($pass, 0, $i);
         $verses = substr($pass, $i+1);
@@ -111,10 +97,10 @@ function createBibleDbtArray($p){
         'collection_code' => $data['testament'],
     );
     foreach ($dbt_array as $key => $value){
-        $debug .= $key . ' => ' . $value . "\n";
+        //$debug .= $key . ' => ' . $value . "\n";
     }
-    $debug .= 'at the end of dbt' . "\n";
-    //writeLog('createBibleDbtArray', $debug);
+    //$debug .= 'at the end of dbt' . "\n";
+    //writeLog('createBibleDbtArray', //$debug);
     $out = $dbt_array;
     return $out;
 }

@@ -14,7 +14,6 @@ myRequireOnce ('writeLog.php');
 
 function biblePopupMaker($p){
     $out='';
-    $debug = '';
     if (!isset($p['text'])){
         writeLogError('biblePopupMaker-20', 'No Text');
         trigger_error("p[text] is not set in biblePopupMaker", E_USER_ERROR);
@@ -28,8 +27,6 @@ function biblePopupMaker($p){
     $bookmark = json_decode ($p['bookmark']);
     $ot = $bookmark->language->bible_ot;
     $nt = $bookmark->language->bible_nt;
-    $debug .= "nt and ot are $nt and $ot\n";
-    //writeLog('biblePopupMaker-33', $debug);
     $template = '<a href="javascript:popUp(\'pop[id]\')">[reference]</a>
     <div class="popup" id="pop[id]">[text]</div>';
     $text = $p['text'];
@@ -48,8 +45,7 @@ function biblePopupMaker($p){
             $span_length = $pos_end - $pos_start + 7;
             $span = substr($text, $pos_start, $span_length); //<span class="bible-link">Matthew 5:14</span>
             $p['entry'] = $reference;
-            $debug .= $reference . "\n";
-            $debug .= $span . "\n";
+
             // create dbtArray
             writeLogError('biblePopupMaker-54-p-'. $count, $p);
             $res = createBibleDbtArrayFromPassage($p);

@@ -25,22 +25,23 @@ function router() {
   }
   // which page should we go to?
   var currentPage = window.location.pathname
+  var lastpage = ''
   // go to last page visited if you are visiting root page again
   if (localStorage.getItem('lastpage') && currentPage == '/') {
-    var lastpage = localStorage.getItem('lastpage')
+    lastpage = localStorage.getItem('lastpage')
     localStorage.removeItem('lastpage')
     window.location.replace(lastpage)
   } else {
     // stay here if you entered into any other page than the root,
     if (currentPage !== '/') {
-      var lastpage = localStorage.getItem('lastpage')
+      lastpage = localStorage.getItem('lastpage')
       localStorage.setItem('previouspage', lastpage)
       localStorage.setItem('lastpage', window.location.href)
     }
     // otherwise guess the best language for this browser,
     else {
       if ('bob' != 'genious') {
-        home = DEFAULT_ENTRY
+        var home = DEFAULT_ENTRY
         window.location.replace(home)
         return
       }
@@ -73,7 +74,7 @@ document.addEventListener('DOMContentLoaded', router)
 function restoreDynamic() {
   if (typeof localStorage.offline != 'undefined' && localStorage.offline) {
     console.log('restoreDynamic')
-    offline = JSON.parse(localStorage.offline) //get existing values
+    var offline = JSON.parse(localStorage.offline) //get existing values
     offline.forEach(function (series) {
       var ajaxPromise = fetch(series)
         .then(function (response) {
@@ -107,7 +108,7 @@ window.onload = function () {
   findSummaries()
   if (localStorage.getItem('mc2Trainer')) {
     // unhide all trainer notes
-    elements = document.getElementsByClassName('trainer-hide')
+    var elements = document.getElementsByClassName('trainer-hide')
     for (var i = 0; i < elements.length; i++) {
       elements[i].className = 'trainer'
     }
@@ -134,10 +135,11 @@ function findSummaries() {
     coll[i].addEventListener('click', function () {
       this.classList.toggle('active')
       var text = this.innerHTML
+      var new_text = ''
       if (text.includes('+')) {
-        var new_text = text.replace('+', '-')
+        new_text = text.replace('+', '-')
       } else {
-        var new_text = text.replace('-', '+')
+        new_text = text.replace('-', '+')
       }
       this.innerHTML = new_text
       // get nextElementSibling
@@ -215,7 +217,7 @@ function hideWhenOffline() {
       readmore[i].style.display = 'none'
     }
   }
-  var readmore = document.getElementsByClassName('bible_readmore')
+  readmore = document.getElementsByClassName('bible_readmore')
   if (readmore.length > 0) {
     console.log('I found bible_readmore')
     for (var i = 0; i < readmore.length; i++) {
@@ -231,7 +233,7 @@ function hideWhenOffline() {
     }
   }
   // hide external-movie
-  var links = document.getElementsByClassName('external-movie')
+  links = document.getElementsByClassName('external-movie')
   if (links.length > 0) {
     console.log('I found external-link')
     for (var i = 0; i < links.length; i++) {
@@ -270,12 +272,13 @@ function checkOfflineSeries(series) {
       console.log('I have a service worker')
       inLocalStorage('offline', series).then(function (result) {
         console.log(result + ' is value')
+        var link = ''
         if (result == '') {
           console.log(series + ' not offline')
-          var link = document.getElementById('offline-request')
+          link = document.getElementById('offline-request')
           link.style.visibility = 'visible'
         } else {
-          var link = document.getElementById('offline-ready')
+          link = document.getElementById('offline-ready')
           link.style.visibility = 'visible'
         }
       })
@@ -355,7 +358,7 @@ function inLocalStorage(key, id) {
   var deferred = $.Deferred()
   var result = ''
   console.log('looking offline for local storage')
-  key_value = localStorage.getItem(key)
+  var key_value = localStorage.getItem(key)
   if (typeof key_value != 'undefined' && key_value) {
     key_value = JSON.parse(key_value)
     console.log(key_value)
@@ -369,7 +372,7 @@ function inLocalStorage(key, id) {
     })
     console.log(result)
   } else {
-    var result = ''
+    result = ''
     console.log('not stored locally')
   }
   deferred.resolve(result)
@@ -401,8 +404,16 @@ function needsToSeePrompt() {
   let today = new Date()
   let lastPrompt = localStorage.lastSeenPrompt
   let days = datediff(lastPrompt, today)
-  let isApple = ['iPhone', 'iPad', 'iPod'].includes(navigator.platform)
+  let isApple = isIOS
   return (isNaN(days) || days > 14) && isApple
+}
+// https://dev.to/konyu/using-javascript-to-determine-whether-the-client-is-ios-or-android-4i1j
+const isIOS = () => {
+  const ua = navigator.userAgent
+  if (/iPad|iPhone|iPod/.test(ua))){
+    return true
+  }
+  return false
 }
 
 function datediff(first, second) {

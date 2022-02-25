@@ -1,7 +1,7 @@
 <?php
 function myRequireOnce($filename, $subdirectory = null){
 
-     _appendMyRequireOnce('myRequireOnce', "\n\n$subdirectory/$filename\n");
+
 
     $new_name = 'not found';
     $filename =_cleanMyRequireOnce($filename);
@@ -9,6 +9,7 @@ function myRequireOnce($filename, $subdirectory = null){
         $subdirectory =_cleanMyRequireOnce($subdirectory);
         $filename =$subdirectory . '/'.$filename;
     }
+
     if (file_exists(UNIQUE_API_FILE_DIRECTORY . $filename)){
         $new_name = UNIQUE_API_FILE_DIRECTORY . $filename;
     }
@@ -21,8 +22,12 @@ function myRequireOnce($filename, $subdirectory = null){
         }
     }
     if ($new_name != 'not found'){
-        _appendMyRequireOnce('myRequireOnce', "$new_name\n");
+
         require_once ($new_name);
+    }
+    else{
+        _appendMyRequireOnce('myRequireOnce', "\n\n$filename\n");
+         _appendMyRequireOnce('myRequireOnce', "NOT FOUND\n");
     }
     return;
 }
@@ -31,18 +36,19 @@ function myRequireOnceSetup($user){
     $_SESSION['user'] = $user;
     return;
 }
-
+// in posting we do not have .php, so we need to add it for items posted
+// our goal here is to make sure we only work within the specified directories.
 function _cleanMyRequireOnce($page){
-	$bad = array('.', '$', '/');
+	$bad = array('.php', '$', '/');
 	$page = str_replace($bad, '', $page);
+    $bad ='.';
+    $page = str_replace($bad, '', $page);
 	$page .= '.php';
 	return $page;
 }
 
 function _appendMyRequireOnce($filename, $content){
-    if (LOG_MODE !== 'write_log'){
-      return;
-    }
+
     $root_log = ROOT_LOG;
     if (!is_array($content)){
         $text = $content;

@@ -8,6 +8,9 @@ if (file_exists($backend)){
 else{
 	trigger_error("No backend for  Content Api: $backend", E_USER_ERROR);
 }
+require_once('php/myRequireOnce.php');
+myRequireOnce ('sql.php');
+myRequireOnce ('writeLog.php');
 $p = array();
 $out = null;
 $p = getParameters();
@@ -15,7 +18,6 @@ if (isset($p['my_uid'])){
     myRequireOnceSetup($p['my_uid']);
 }
 myHeaders(); // send cors headers
-myRequireOnce ('writeLog.php');
 myRequireOnce ('getLatestContent.php');
 myRequireOnce ('getContentByRecnum.php');
 myRequireOnce ('version2Text.php');

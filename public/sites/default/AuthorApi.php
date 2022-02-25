@@ -17,6 +17,7 @@ if (file_exists($backend)){
 else{
 	trigger_error("No backend for AuthorApi. Looking for $backend", E_USER_ERROR);
 }
+require_once('php/myRequireOnce.php');
 myRequireOnce ('sql.php');
 myRequireOnce ('writeLog.php');
 myHeaders(); // send cors headers
@@ -33,10 +34,6 @@ if (isset($_GET['page'])){
 if (isset($_GET['action'])){
 	$p['action'] = $_GET['action'];
 }
-
-if (isset($p['page'])){
-	$p['page'] = _clean($p['page']);
-}
 if (isset($p['action'])){
 	// login routine
 	if ($p['action'] == 'login'){
@@ -46,7 +43,6 @@ if (isset($p['action'])){
 		// take action if authorized user
 		if (!isset($p['token'])){
 			$message = "Token is not set";
-			$debug .= $message;
             trigger_error( $message, E_USER_ERROR);
 			die;
 		}
@@ -66,7 +62,6 @@ if (isset($p['action'])){
 			}
 			else{
 				$message = $p['page']  . "is not set";
-				$debug .= $message;
                 trigger_error( $message, E_USER_ERROR);
 			}
 		}
