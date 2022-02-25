@@ -1,6 +1,6 @@
 <?php
 
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 //define("ROOT_EDIT", ROOT . 'edit.mc2.online/');
 function getFooters($p){
     $output= [];

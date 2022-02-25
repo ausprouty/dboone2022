@@ -1,7 +1,7 @@
 <?php
 
 myRequireOnce ('createSeries.php');
-myRequireOnce('dirCreate.php');
+myRequireOnce ('dirCreate.php');
 myRequireOnce ('publishFiles.php');
 
 

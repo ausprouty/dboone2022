@@ -2,7 +2,7 @@
 
 myRequireOnce ('prototypeORpublish.php');
 myRequireOnce ('sql.php');
-myRequireOnce('moveImagesGenerations.php');
+myRequireOnce ('moveImagesGenerations.php');
 
 /* return latest content
    This varies from default in that we are changing the location of images.

@@ -1,5 +1,6 @@
 <?php
 myRequireOnce ('writeLog.php');
+myRequireOnce ('myGetPrototypeFile.php');
 
 // requires $p['recnum'] and $p['library_code']
 function publishLanguageFooter($p){

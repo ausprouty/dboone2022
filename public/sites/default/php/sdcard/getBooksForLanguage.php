@@ -1,7 +1,7 @@
 <?php
-myRequireOnce('findLibraries.php');
-myRequireOnce('getLatestContent.php');
-myRequireOnce('writeLog.php');
+myRequireOnce ('findLibraries.php');
+myRequireOnce ('getLatestContent.php');
+myRequireOnce ('writeLog.php');
 // MC2 and other clients have multiple libraries
 function getBooksForLangauge($p){
     $books =[];

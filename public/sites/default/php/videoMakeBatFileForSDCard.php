@@ -2,9 +2,9 @@
 
 myRequireOnce ('dirMake.php');
 myRequireOnce ('writeLog.php');
-myRequireOnce('modifyRevealVideo.php');
-myRequireOnce('videoFindForSDCardNewName.php');
-myRequireOnce('audioMakeRefFileForSDCard.php');
+myRequireOnce ('modifyRevealVideo.php');
+myRequireOnce ('videoFindForSDCardNewName.php');
+myRequireOnce ('audioMakeRefFileForSDCard.php');
 
 
 function videoMakeBatFileForSDCard($p){
@@ -13,7 +13,7 @@ function videoMakeBatFileForSDCard($p){
    $series_videos = [];
    $chapter_videos = [];
    // this allows me to include a different file for each language.
-   myRequireOnce('videoReference.php',  $p['language_iso']);
+   myRequireOnce ('videoReference.php',  $p['language_iso']);
  //find series data that has been prototyped
     $sql = "SELECT * FROM content
         WHERE  country_code = '". $p['country_code'] ."'

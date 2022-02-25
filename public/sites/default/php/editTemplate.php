@@ -1,7 +1,7 @@
 <?php
-myRequireOnce('dirCreate.php');
-myRequireOnce('fileWrite.php');
-myRequireOnce('writeLog.php');
+myRequireOnce ('dirCreate.php');
+myRequireOnce ('fileWrite.php');
+myRequireOnce ('writeLog.php');
 
 // use country and language
 // this looks for template in the language/templates directory

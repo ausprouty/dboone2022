@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 
 function getFoldersContent($p){
 	$debug = 'getFoldersContent'. "\n";

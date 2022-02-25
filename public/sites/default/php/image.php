@@ -1,6 +1,6 @@
 <?php
 
-myRequireOnce('dirMake.php');
+myRequireOnce ('dirMake.php');
 
 function imageStore($p){
 	//writeLog('image-3', ' I entered image Store');

@@ -2,6 +2,7 @@
 myRequireOnce ('bookmark.php');
 myRequireOnce ('publishFiles.php');
 myRequireOnce ('writeLog.php');
+myRequireOnce ('myGetPrototypeFile.php');
 
 
 function createSeries($p, $data){

@@ -5,7 +5,7 @@ myRequireOnceSetup(11);
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
 myRequireOnce ('getLatestContent.php');
-myRequireOnce('create.php');
+myRequireOnce ('create.php');
 
 $debug = "In Fix Develop1\n";
 $sql = 'SELECT DISTINCT filename FROM content 

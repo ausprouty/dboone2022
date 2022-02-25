@@ -5,8 +5,8 @@ myRequireOnceSetup(11);
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
 myRequireOnce ('getLatestContent.php');
-myRequireOnce('create.php');
-myRequireOnce('bibleGetPassageBiblegateway.php');
+myRequireOnce ('create.php');
+myRequireOnce ('bibleGetPassageBiblegateway.php');
 
 $fixing = 'multiply1';
 $debug = "In Fix Bible Reference<br>\n";

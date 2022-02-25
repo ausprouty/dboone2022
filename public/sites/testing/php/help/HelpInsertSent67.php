@@ -3,7 +3,7 @@ echo 'HelpInsertSent67';
 require_once ('../.env.api.remote.sent67.php');
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
-myRequireOnce('create.php');
+myRequireOnce ('create.php');
 
 $sql = 'SELECT * from help_content';
 $query  = sqlMany($sql);

@@ -1,9 +1,9 @@
 <?php
 
-myRequireOnce('bookmark.php');
-myRequireOnce('getTitle.php');
-myRequireOnce('languageSpecificJavascripts.php');
-myRequireOnce('copyGlobal.php');
+myRequireOnce ('bookmark.php');
+myRequireOnce ('getTitle.php');
+myRequireOnce ('languageSpecificJavascripts.php');
+myRequireOnce ('copyGlobal.php');
 
     
 function _addHeader($p){

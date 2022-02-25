@@ -2,7 +2,7 @@
 
 // This differs from standard in that we allow both Big and Small Markers for reveals
 
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 // see https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
 
 /* You should have something like this:

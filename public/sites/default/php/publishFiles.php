@@ -16,6 +16,7 @@ myRequireOnce ('publishFilesInPage.php');
 myRequireOnce ('publishLanguageFooter.php');
 myRequireOnce ('publishCSS.php');
 myRequireOnce ('writeLog.php');
+myRequireOnce ('myGetPrototypeFile.php');
 
 // destination must be 'staging', 'website', 'pdf'  or 'sdcard'
 function publishFiles( $destination , $p, $fname, $text, $standard_css, $selected_css){

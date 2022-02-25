@@ -260,20 +260,20 @@ export default new Router({
     },
     {
       path: '/test/generations',
-      name: 'testGenerations',
+      name: 'testgenerations',
       component: function () {
         return import(
-          /* webpackChunkName: "testGenerations" */ './views/TestGenerations.vue'
+          /* webpackChunkName: "testGenerations" */ './tests/generations.vue'
         )
       },
       props: false,
     },
     {
       path: '/test/myfriends',
-      name: 'testMyfriends',
+      name: 'testmyfriends',
       component: function () {
         return import(
-          /* webpackChunkName: "testMyfriends" */ './views/TestMyFriends.vue'
+          /* webpackChunkName: "testMyfriends" */ './tests/myfriends.vue'
         )
       },
       props: false,
@@ -282,7 +282,17 @@ export default new Router({
       path: '/test/mc2',
       name: 'testmc2',
       component: function () {
-        return import(/* webpackChunkName: "testmc2" */ './views/TestMC2.vue')
+        return import(/* webpackChunkName: "testmc2" */ './tests/mc2.vue')
+      },
+      props: false,
+    },
+     {
+      path: '/test/sent67',
+      name: 'testsent67',
+      component: function () {
+        return import(
+          /* webpackChunkName: "testMyfriends" */ './tests/sent67.vue'
+        )
       },
       props: false,
     },

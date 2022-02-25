@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('dirCreate.php');
+myRequireOnce ('dirCreate.php');
 
 
 

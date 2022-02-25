@@ -3,7 +3,7 @@ require_once ('../../.env.api.remote.mc2.php');
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
 myRequireOnce ('getLatestContent.php');
-myRequireOnce('create.php');
+myRequireOnce ('create.php');
 
 $fixing = 'multiply1';
 

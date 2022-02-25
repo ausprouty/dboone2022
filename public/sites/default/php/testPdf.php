@@ -1,7 +1,7 @@
 <?php
 
-myRequireOnce('writeLog.php');
-myRequireOnce('dirListFiles.php');
+myRequireOnce ('writeLog.php');
+myRequireOnce ('dirListFiles.php');
 
 function testPdf(){
 	$title = 'pdf/multiply103.pdf';
@@ -16,7 +16,3 @@ function testPdf(){
     $mpdf->Output($title,  \Mpdf\Output\Destination::FILE);
 	return 'check Somewhere';
 }
-
-
-
-

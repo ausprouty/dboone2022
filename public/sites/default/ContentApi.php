@@ -15,7 +15,7 @@ if (isset($p['my_uid'])){
     myRequireOnceSetup($p['my_uid']);
 }
 myHeaders(); // send cors headers
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 myRequireOnce ('getLatestContent.php');
 myRequireOnce ('getContentByRecnum.php');
 myRequireOnce ('version2Text.php');

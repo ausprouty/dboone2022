@@ -1,6 +1,6 @@
 <?php
 myRequireOnce ('writeLog.php');
-myRequireOnce('videoFindForSDCardNewName.php');
+myRequireOnce ('videoFindForSDCardNewName.php');
 /*
 Input is:
     <div class="reveal film">&nbsp;

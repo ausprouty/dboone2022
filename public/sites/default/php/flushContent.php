@@ -2,7 +2,7 @@
 
 // this will transfer only latest data to content_current
 
-myRequireOnce('getLatestContent.php');
+myRequireOnce ('getLatestContent.php');
 
 function flushContent(){
     flushContentCountries();

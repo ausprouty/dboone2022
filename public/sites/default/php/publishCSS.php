@@ -5,7 +5,7 @@
 */
 myRequireOnce ('publishDestination.php');
 myRequireOnce ('writeLog.php');
-myRequireOnce('version2Text.php');
+myRequireOnce ('version2Text.php');
 
 function publishCSS($text, $p){
     // need to make sure it is clean because old CSS may be added from a data file.

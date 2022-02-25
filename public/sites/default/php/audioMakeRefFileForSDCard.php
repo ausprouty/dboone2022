@@ -2,7 +2,7 @@
 
 myRequireOnce ('dirMake.php');
 myRequireOnce ('writeLog.php');
-myRequireOnce('modifyRevealAudio.php');
+myRequireOnce ('modifyRevealAudio.php');
 
 
 

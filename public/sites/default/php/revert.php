@@ -2,6 +2,7 @@
 
 myRequireOnce ('publishFiles.php');
 myRequireOnce ('sql.php');
+myRequireOnce ('myGetPrototypeFile.php');
 
 /* return latest content
 */

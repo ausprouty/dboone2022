@@ -7,7 +7,7 @@ myRequireOnceSetup(11);
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
 myRequireOnce ('getLatestContent.php');
-myRequireOnce('create.php');
+myRequireOnce ('create.php');
 echo '<br>after use';
 
 $fixing = 'tot2';

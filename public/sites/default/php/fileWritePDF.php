@@ -1,6 +1,6 @@
 <?php
-myRequireOnce('writeLog.php');
-myRequireOnce('modifyForPDF.php');
+myRequireOnce ('writeLog.php');
+myRequireOnce ('modifyForPDF.php');
 
 
 function fileWritePDF($filename, $html){

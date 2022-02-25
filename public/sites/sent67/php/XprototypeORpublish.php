@@ -1,11 +1,11 @@
 <?php
 
-myRequireOnce('bookmark.php');
-myRequireOnce('getTitle.php');
-myRequireOnce('languageSpecificJavascripts.php');
-myRequireOnce('copyGlobal.php');
-myRequireOnce('modifyHeaders.php');
-myRequireOnce('writeLog.php');
+myRequireOnce ('bookmark.php');
+myRequireOnce ('getTitle.php');
+myRequireOnce ('languageSpecificJavascripts.php');
+myRequireOnce ('copyGlobal.php');
+myRequireOnce ('modifyHeaders.php');
+myRequireOnce ('writeLog.php');
 
 
 function _addHeader($p){

@@ -74,8 +74,8 @@ export default {
           show: false,
         },
         {
-          value: 'Admin',
-          link: 'admin',
+          value: 'Tests',
+          link: 'test',
           index: 5,
           show: false,
         },
@@ -186,11 +186,13 @@ export default {
             },
           })
           break
-        case 'admin':
+        case 'test':
+          var route = 'test' + process.env.VUE_APP_SITE
           this.$router.push({
-            name: 'testmc2',
+            name: route,
           })
           break
+
         default:
           LogService.consoleLogMessage('Can not find route in NavBarAdmin')
         // code block

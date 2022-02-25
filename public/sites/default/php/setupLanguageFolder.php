@@ -4,7 +4,7 @@
 //myRequireOnce ('setup.php');
 //myRequireOnce ('copyGlobal.php');
 
-myRequireOnce('dirCreate.php');
+myRequireOnce ('dirCreate.php');
 
 function setupLanguageFolder($p){
 

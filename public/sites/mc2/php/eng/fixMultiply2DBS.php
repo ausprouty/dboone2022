@@ -4,7 +4,7 @@ require_once ('../.env.api.remote.mc2.php');
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
 myRequireOnce ('getLatestContent.php');
-myRequireOnce('create.php');
+myRequireOnce ('create.php');
 
 $debug = "In Fix Multiply Praise<br>\n";
 $sql = 'SELECT DISTINCT filename FROM content 

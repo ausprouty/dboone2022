@@ -1,6 +1,7 @@
 <?php
 
-myRequireOnce('dirCreate.php');
+myRequireOnce ('dirCreate.php');
+myRequireOnce ('myGetPrototypeFile.php');
 
 function createLanguages($p, $data){
     $text = json_decode($data['text']);

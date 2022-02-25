@@ -3,10 +3,10 @@ require_once ('../.env.api.remote.mc2.php');
 myRequireOnce ('sql.php');
 
 myRequireOnce ('.env.cors.php');
-myRequireOnce('bookmark.php');
-myRequireOnce('bibleDbtArray.php');
-myRequireOnce('bibleGetPassage.php');
-myRequireOnce('create.php');
+myRequireOnce ('bookmark.php');
+myRequireOnce ('bibleDbtArray.php');
+myRequireOnce ('bibleGetPassage.php');
+myRequireOnce ('create.php');
 
 // print titles and see that read-more == read-referencec
 

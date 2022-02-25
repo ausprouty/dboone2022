@@ -18,7 +18,7 @@ else{
 	trigger_error("No backend for AuthorApi. Looking for $backend", E_USER_ERROR);
 }
 myRequireOnce ('sql.php');
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 myHeaders(); // send cors headers
 // assign variables
 $out = array();
@@ -132,10 +132,4 @@ function setParameters($post){
 	$p['debug'] = $debug;
 	return $p;
 
-}
-function _clean($page){
-	$bad = array('.', '$', '/');
-	$page = str_replace($bad, '', $page);
-	$page .= '.php';
-	return $page;
 }

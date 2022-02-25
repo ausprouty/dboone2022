@@ -1,7 +1,7 @@
 <?php
 
 myRequireOnce ('prototypeORpublish.php');
-myRequireOnce('modifyPage.php');
+myRequireOnce ('modifyPage.php');
 
 function prototypePage ($p){
     if (!isset($p['debug'])){

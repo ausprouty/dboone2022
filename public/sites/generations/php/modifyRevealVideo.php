@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 /*
 Input is:
     <div class="reveal film">&nbsp;

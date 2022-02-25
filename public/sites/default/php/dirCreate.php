@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('dirMake.php');
+myRequireOnce ('dirMake.php');
 
 /*
 define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');

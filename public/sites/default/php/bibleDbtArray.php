@@ -12,7 +12,7 @@
          'collection_code' => 'OT' ,
      );
  */
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 
 function createBibleDbtArrayFromPassage($p){
     $out = [];

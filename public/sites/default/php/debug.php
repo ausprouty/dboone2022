@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('folderArray.php');
+myRequireOnce ('folderArray.php');
 
 function debugSeriesCrawlX ($p){
     return;

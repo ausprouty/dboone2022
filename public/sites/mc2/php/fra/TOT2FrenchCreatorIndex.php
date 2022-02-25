@@ -3,10 +3,10 @@ return;
 echo 'in  Index';
 require_once ('../.env.api.remote.mc2.php');
 myRequireOnceSetup(11);
-myRequireOnce('sql.php');
-myRequireOnce('.env.cors.php');
-myRequireOnce('getLatestContent.php');
-myRequireOnce('create.php');
+myRequireOnce ('sql.php');
+myRequireOnce ('.env.cors.php');
+myRequireOnce ('getLatestContent.php');
+myRequireOnce ('create.php');
 
 echo 'after use';
 

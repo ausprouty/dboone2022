@@ -13,7 +13,7 @@ Becomes:
 
 */
 
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 
 function modifyForPDF($text){
     $text= modifyForPDFLookSections($text);

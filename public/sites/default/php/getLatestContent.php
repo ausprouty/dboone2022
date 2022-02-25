@@ -4,6 +4,7 @@ myRequireOnce ('publishFiles.php');
 myRequireOnce ('sql.php');
 myRequireOnce ('version2Text.php');
 myRequireOnce ('writeLog.php');
+myRequireOnce ('myGetPrototypeFile.php');
 
 /* return latest content (with all fi)
 */

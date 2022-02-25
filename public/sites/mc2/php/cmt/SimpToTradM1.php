@@ -5,7 +5,7 @@ echo ROOT_LOG;
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
 myRequireOnce ('getLatestContent.php');
-myRequireOnce('create.php');
+myRequireOnce ('create.php');
 require_once  '../../vendor/autoload.php';
 use Rny\ZhConverter\ZhConverter;
 echo 'after use';

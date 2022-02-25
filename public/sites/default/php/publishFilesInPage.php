@@ -4,9 +4,9 @@
 */
 
 //define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
-myRequireOnce('publishDestination.php');
-myRequireOnce('writeLog.php');
-myRequireOnce('version2Text.php');
+myRequireOnce ('publishDestination.php');
+myRequireOnce ('writeLog.php');
+myRequireOnce ('version2Text.php');
 
 function  publishFilesInPage($text, $p){
     $files_in_pages = [];

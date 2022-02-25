@@ -4,7 +4,7 @@ require_once ('../.env.api.remote.4G.php');
 echo ROOT_LOG;
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
-myRequireOnce('create.php');
+myRequireOnce ('create.php');
 
 $sql = 'SELECT * from help_content';
 $query  = sqlMany($sql);

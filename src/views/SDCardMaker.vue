@@ -8,27 +8,13 @@
       </p>
     </div>
     <div v-if="this.authorized">
-      <BaseSelect
-        label="Languages"
-        :options="languages"
-        v-model="sdcard.languages.$model"
-        class="field"
-      />
-      <BaseSelect
-        label="Footer"
-        :options="footers"
-        v-model="sdcard.footers.$model"
-        class="field"
-      />
+      <BaseSelect label="Languages" :options="languages" class="field" />
+      <BaseSelect label="Footer" :options="footers" class="field" />
       <label for="external_links">
         <h2>Remove External Links</h2>
       </label>
       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-      <input
-        type="checkbox"
-        id="external_links"
-        v-model="sdcard.external_links.$model"
-      />
+      <input type="checkbox" id="external_links" />
 
       <SDCardActions
         v-for="language in languages_selected"
@@ -43,8 +29,6 @@ import { mapState } from 'vuex'
 
 import SDCardService from '@/services/SDCardService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
-
-import { required } from 'vuelidate/lib/validators'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 export default {
   mixins: [authorizeMixin],
@@ -67,20 +51,6 @@ export default {
       languages_selected: [],
     }
   },
-  validations: {
-    chapters: {
-      required,
-      $each: {
-        title: { required },
-        description: {},
-        count: '',
-        filename: { required },
-        image: '',
-        prototype: '',
-        publish: '',
-      },
-    },
-  },
   methods: {
     takeAction() {
       console.log('take action')
@@ -90,7 +60,9 @@ export default {
     this.authorized = this.authorize('write', this.$route.params)
     if (this.authorized) {
       this.languages = await SDCardService.getLanguages(this.$route.params)
+      console.log (this.languages)
       this.footers = await SDCardService.getFooters(this.$route.params)
+      console.log (this.footers)
     }
   },
 }

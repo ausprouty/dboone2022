@@ -5,7 +5,7 @@ echo ROOT_LOG;
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
 myRequireOnce ('getLatestMc2Content.php');
-myRequireOnce('create.php');
+myRequireOnce ('create.php');
 
 
 $fixing = 'multiply3';

@@ -3,8 +3,8 @@ require_once ('../../.env.api.remote.mc2.php');
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
 myRequireOnce ('getLatestContent.php');
-myRequireOnce('create.php');
-myRequireOnce('bibleGetPassageBiblegateway.php');
+myRequireOnce ('create.php');
+myRequireOnce ('bibleGetPassageBiblegateway.php');
 
 $fixing = 'multiply1';
 $debug = "In Fix Bible Reference<br>\n";

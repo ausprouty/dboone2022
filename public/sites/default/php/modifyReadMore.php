@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('//writeLog.php');
+myRequireOnce ('//writeLog.php');
 // removes readmore from text; used in SD Cards
 function modifyReadMore($text, $bookmark){
     //writeLog('modifyReadMore-6-text', $text);

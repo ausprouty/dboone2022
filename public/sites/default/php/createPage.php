@@ -1,6 +1,7 @@
 <?php
 myRequireOnce ('bookmark.php');
 myRequireOnce ('writeLog.php');
+myRequireOnce ('myGetPrototypeFile.php');
 
 //content is an array of one record content data
 

@@ -1,6 +1,6 @@
 <?php
 myRequireOnce ('copyGlobal.php');
-myRequireOnce('dirCreate.php');
+myRequireOnce ('dirCreate.php');
 myRequireOnce ('publishFiles.php');
 
 

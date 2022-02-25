@@ -5,7 +5,7 @@ require_once ('../.env.api.remote.myfriends.php');
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
 myRequireOnce ('getLatestContent.php');
-myRequireOnce('createHelpContent.php');
+myRequireOnce ('createHelpContent.php');
 
 // get library
 

@@ -1,5 +1,5 @@
 <?php
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 // is this item authorized to be published?
 function publishReady($item, $destination){
 

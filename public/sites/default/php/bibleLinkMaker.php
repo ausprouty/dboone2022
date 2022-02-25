@@ -2,7 +2,7 @@
 
 myRequireOnce ('create.php');
 myRequireOnce ('getLatestContent.php');
-myRequireOnce('writeLog.php');
+myRequireOnce ('writeLog.php');
 
 function bibleLinkMaker($p){
 

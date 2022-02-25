@@ -1,6 +1,7 @@
 <?php
 myRequireOnce ('writeLog.php');
 myRequireOnce ('dirCreate.php');
+myRequireOnce ('myGetPrototypeFile.php');
 
 function createLibrary($p, $text) {
      /* Return a container for the books in this library.
