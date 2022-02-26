@@ -13,7 +13,7 @@ function getMailtoUrl(to, subject, body) {
   return url
 }
 
-function facebook(account) {
+function facebook(account= 339218283324109) {
   var link = 'https://facebook.com/' + account
   let isApple = ['iPhone', 'iPad', 'iPod'].includes(navigator.platform)
   if (isApple) {

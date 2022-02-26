@@ -410,7 +410,7 @@ function needsToSeePrompt() {
 // https://dev.to/konyu/using-javascript-to-determine-whether-the-client-is-ios-or-android-4i1j
 const isIOS = () => {
   const ua = navigator.userAgent
-  if (/iPad|iPhone|iPod/.test(ua))){
+  if (/iPad|iPhone|iPod/.test(ua)){
     return true
   }
   return false
