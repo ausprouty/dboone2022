@@ -13,7 +13,7 @@ function getMailtoUrl(to, subject, body) {
   return url
 }
 
-function facebook(account= 339218283324109) {
+function facebook(account = 339218283324109) {
   var link = 'https://facebook.com/' + account
   let isApple = ['iPhone', 'iPad', 'iPod'].includes(navigator.platform)
   if (isApple) {
@@ -25,7 +25,9 @@ function facebook(account= 339218283324109) {
   }
   window.open(link)
 }
-
+function languages() {
+  location.href = '/content/languages.html'
+}
 function share() {
   var subject = 'MyFriends Discussion'
   var message = 'Here is the link to our discussion: '

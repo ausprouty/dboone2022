@@ -123,6 +123,8 @@ function _modifyPrototypeAndFinalLinks($text, $replace){
     $find = '<a href="/content'
 */
 function _modifyInternalLinks($text, $find, $p){
+    $rand= random_int(0, 9999);
+    writeLogError('_modifyInternalLinks-'. $rand . '-127', $text);
     $length_find = strlen($find);
     $count = substr_count($text, $find);
     $pos_start = 1;
@@ -143,10 +145,12 @@ function _modifyInternalLinks($text, $find, $p){
             $new = '<a  href="'. $link .'">';
         }
         $new = str_replace('{id}', 'Return' . $i , $new );
+        writeLogError('_modifyInternalLinks-'. $rand . '-148', $new);
         $text = substr_replace($text, $new, $pos_start, $link_length);
         $pos_start = $pos_end;
         //writeLog('_modifyInternalLinks' . $i, $debug . $text);
     }
+     writeLogError('_modifyInternalLinks-'. $rand . '-152', $text);
    // //writeLog('_modifyInternalLinks', $text);
     return $text;
 }

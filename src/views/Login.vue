@@ -78,14 +78,19 @@ export default {
           params.password = this.password
           let res = await AuthorService.login(params)
           console.log(res)
-          this.$store.dispatch('loginUser', [res])
-          localStorage.setItem('user', JSON.stringify(res))
-          var start_page = process.env.VUE_APP_SITE_START_PAGE
-          if (typeof res.start_page !== 'undefined') {
-            start_page = res.start_page
+          var stringified = JSON.stringify(res)
+          if (stringified != 'error') {
+            this.$store.dispatch('loginUser', [res])
+            localStorage.setItem('user', stringified)
+            var start_page = process.env.VUE_APP_SITE_START_PAGE
+            if (typeof res.start_page !== 'undefined') {
+              start_page = res.start_page
+            }
+            console.log(start_page)
+            this.$router.push(start_page)
+          } else {
+            alert('Login was not successful. Try again') //
           }
-          console.log(start_page)
-          this.$router.push(start_page)
         } catch (error) {
           LogService.consoleLogError('Login There was an error ', error) //
         }

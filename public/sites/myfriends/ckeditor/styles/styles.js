@@ -47,6 +47,11 @@ window.CKEDITOR.stylesSet.add('firststeps', [
     element: 'ol',
     attributes: { class: 'ol-forward' },
   },
+  {
+    name: 'popup paragraph',
+    element: ['li', 'ul', 'ol', 'p'],
+    attributes: { class: 'nobreak' },
+  },
   { name: 'readmore', element: 'a', attributes: { class: 'readmore' } },
 ])
 
@@ -55,6 +60,11 @@ window.CKEDITOR.stylesSet.add('myfriends', [
     name: 'enrichment',
     element: 'span',
     attributes: { class: 'for-enrichment' },
+  },
+  {
+    name: 'popup paragraph',
+    element: ['li', 'ul', 'ol', 'p'],
+    attributes: { class: 'nobreak' },
   },
   {
     name: 'indent-1',
@@ -100,6 +110,11 @@ window.CKEDITOR.stylesSet.add('multiply', [
     name: 'bible link',
     element: 'span',
     attributes: { class: 'bible-link' },
+  },
+  {
+    name: 'popup paragraph',
+    element: ['li', 'ul', 'ol', 'p'],
+    attributes: { class: 'nobreak' },
   },
   {
     name: 'Enrichment Div',

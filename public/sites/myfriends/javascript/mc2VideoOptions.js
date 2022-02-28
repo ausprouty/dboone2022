@@ -150,8 +150,9 @@ function mc2SaveAlternateVideoOption() {
 }
 function mc2CreateIframe(video) {
   if (video.match(/vimeo/g)) {
-    var iframe = mc2CreateIframeVimeo(video)
-    return iframe
+    return mc2CreateIframeVimeo(video)
+  } else if (video.match(/youtube/g)) {
+    return mc2CreateIframeYouTube(video)
   } else {
     return mc2CreateIframeArclight(video)
   }
@@ -172,7 +173,7 @@ function mc2CreateIframeArclight(video) {
     mc2MoreThanOneLanguage(video)
   ) {
     var change_language = data.change_language[language]
-    var temp = `<div class="changeLanguage" onClick="mc2ChangeVideoLanguage('ShowOptionsFor[video]')"> [ChangeLanguage] </div>`
+    temp = `<div class="changeLanguage" onClick="mc2ChangeVideoLanguage('ShowOptionsFor[video]')"> [ChangeLanguage] </div>`
     var temp2 = temp.replace('[ChangeLanguage]', change_language)
     temp = temp2.replaceAll('[video]', video)
     temp2 = iframe
@@ -186,6 +187,16 @@ function mc2CreateIframeVimeo(video) {
 	<iframe src="https://player.vimeo.com/video/[my_video]" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 	<style>.arc-cont{position:relative;display:block;margin:10px auto;width:100%}.arc-cont:after{padding-top:59%;display:block;content:""}.arc-cont>iframe{position:absolute;top:0;bottom:0;right:0;left:0;width:98%;height:98%;border:0}</style>
     </div>`
+  var iframe = template.replaceAll('[my_video]', my_video)
+  return iframe
+}
+function mc2CreateIframeYouTube(video) {
+  var my_video = video.replace('[youtube]', '')
+  var template = `<div class="arc-cont">
+	<iframe  src="https://www.youtube.com/embed/[my_video]" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<style>.arc-cont{position:relative;display:block;margin:10px auto;width:100%}.arc-cont:after{padding-top:59%;display:block;content:""}.arc-cont>iframe{position:absolute;top:0;bottom:0;right:0;left:0;width:98%;height:98%;border:0}</style>
+    </div>`
+
   var iframe = template.replaceAll('[my_video]', my_video)
   return iframe
 }
@@ -240,6 +251,13 @@ function mc2FindLanguageCodeForVideo(video) {
   }
   if (video.match(/\[vimeo\]/g)) {
     languageCode = mc2GetLanguageCodeForVideo('vimeo')
+    if (languageCode) {
+      yourVideo = video
+    }
+    return yourVideo
+  }
+  if (video.match(/\[youtube\]/g)) {
+    languageCode = mc2GetLanguageCodeForVideo('youtube')
     if (languageCode) {
       yourVideo = video
     }

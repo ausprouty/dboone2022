@@ -20,7 +20,11 @@ export const authorizeMixin = {
       if (typeof store.state.user.scope_countries == 'undefined') {
         if (localStorage.getItem('user')) {
           var user = JSON.parse(localStorage.getItem('user'))
-          this.$store.dispatch('loginUser', [user])
+          if (user != 'error') {
+            this.$store.dispatch('loginUser', [user])
+          } else {
+            this.$router.push({ name: 'login' })
+          }
         } else {
           this.$router.push({ name: 'login' })
         }

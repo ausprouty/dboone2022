@@ -668,6 +668,22 @@ div.float left {
   padding: 10px;
   line-height: 2em;
 }
+div.ios-notice-image {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: yellow;
+  text-align: center;
+}
+img.ios-notice-icon {
+  width: 25%;
+}
+p.ios-notice {
+  text-align: center;
+  font-weight: bold;
+}
+img.ios-notice-homescreen {
+  width: 90%;
+}
 @media only screen and (max-width: 500px) {
   p.footer {
     letter-spacing: 0.1em;

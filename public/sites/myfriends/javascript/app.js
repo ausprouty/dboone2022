@@ -92,6 +92,7 @@ function restoreDynamic() {
   }
 }
 // check to see if this is an index file for a series and get value index.json
+//if a SERIES it will see if it should show the IOS prompt to add to homescreen
 window.onload = function () {
   var series = document.getElementById('offline-request')
   if (series !== null) {
@@ -398,19 +399,22 @@ function showDialog(message) {
 }
 
 function needsToSeePrompt() {
+  //todo: romove this line
+
   if (navigator.standalone) {
     return false
   }
   let today = new Date()
   let lastPrompt = localStorage.lastSeenPrompt
   let days = datediff(lastPrompt, today)
-  let isApple = isIOS
+  let isApple = isIOS()
+
   return (isNaN(days) || days > 14) && isApple
 }
 // https://dev.to/konyu/using-javascript-to-determine-whether-the-client-is-ios-or-android-4i1j
-const isIOS = () => {
+function isIOS() {
   const ua = navigator.userAgent
-  if (/iPad|iPhone|iPod/.test(ua)){
+  if (/iPad|iPhone|iPod/.test(ua)) {
     return true
   }
   return false
