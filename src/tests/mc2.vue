@@ -30,6 +30,9 @@ export default {
       test: '',
       result: '',
       test_options: [
+        'testGetBooks',
+        'testGetFooters',
+        'testGetLanguages',
         'testPdf',
         'testNoJSPage',
         'testVideoConcatBat',
@@ -81,6 +84,7 @@ export default {
       params.my_uid = store.state.user.uid
       return params
     },
+
     async testBibleABSUpdate() {
       var params = this.setupParams()
       var response = await AuthorService.bibleUpdateABS(params)
@@ -202,6 +206,26 @@ export default {
         }
       }
       return output
+    },
+    async testGetBooks() {
+      var params = this.setupParams()
+      params.country_code = 'M2'
+      params.language_iso = 'eng'
+      var response = await SDCardService.getBooks(params)
+      return response
+    },
+    async testGetFooters() {
+      var params = this.setupParams()
+      params.country_code = 'M2'
+      params.language_iso = 'eng'
+      var response = await SDCardService.getFooters(params)
+      return response
+    },
+    async testGetLanguages() {
+      var params = this.setupParams()
+      params.country_code = 'M2'
+      var response = await SDCardService.getLanguages(params)
+      return response
     },
     async testGetPage() {
       var params = this.setupParams()

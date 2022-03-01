@@ -3,7 +3,7 @@ myRequireOnce ('findLibraries.php');
 myRequireOnce ('getLatestContent.php');
 myRequireOnce ('writeLog.php');
 // MC2 and other clients have multiple libraries
-function getBooksForLangauge($p){
+function getBooksForLanguage($p){
     $books =[];
     $p['scope'] = 'library';
     $libraries=findLibraries($p);
@@ -16,7 +16,6 @@ function getBooksForLangauge($p){
             foreach ($book_list as $book){
                 $books[]= $book;
             }
-
         }
     }
     return $books;

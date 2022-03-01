@@ -45,7 +45,7 @@ function router() {
         window.location.replace(home)
         return
       }
-      var ajaxPromise = fetch('/browserlanguage.php')
+      fetch('/browserlanguage.php')
         .then(function (response) {
           console.log(response.json)
           return response.json()
@@ -76,7 +76,7 @@ function restoreDynamic() {
     console.log('restoreDynamic')
     var offline = JSON.parse(localStorage.offline) //get existing values
     offline.forEach(function (series) {
-      var ajaxPromise = fetch(series)
+      fetch(series)
         .then(function (response) {
           return response.json()
         })
@@ -96,7 +96,7 @@ function restoreDynamic() {
 window.onload = function () {
   var series = document.getElementById('offline-request')
   if (series !== null) {
-    checkOfflineSeries(series.dataset.json)
+    checkOfflineSeries(seriesClean(series.dataset.json))
   }
   var notes_page = document.getElementById('notes_page')
   if (notes_page !== null) {
@@ -307,9 +307,9 @@ if (el) {
       console.log('button pressed')
       var id = this.dataset.json
       console.log(id)
-      var cleanID = id.replace(/..\//g, 'c')
-      console.log(cleanID)
-      fetch(cleanID)
+      var clean_id = seriesClean(id)
+      console.log(clean_id)
+      fetch(clean_id)
         .then(function (response) {
           //get-series-urls returns a JSON-encoded array of
           // resource URLs that a given series depends on
@@ -327,7 +327,7 @@ if (el) {
           // store that series is available for offline use
           console.log(id + ' Series ready for offline use')
           var offline = []
-          var already
+          var already = null
           if (
             typeof localStorage.offline != 'undefined' &&
             localStorage.offline
@@ -335,14 +335,14 @@ if (el) {
             offline = JSON.parse(localStorage.offline) //get existing values
           }
           offline.forEach(function (array_value) {
-            if (array_value == id) {
+            if (array_value == clean_id) {
               console.log('stored locally')
               already = 'Y'
             }
           })
           console.log(already + ' is already')
           if (already != 'Y') {
-            offline.push(id)
+            offline.push(clean_id)
             console.log(offline)
           }
           localStorage.setItem('offline', JSON.stringify(offline)) //put the object back
@@ -356,6 +356,9 @@ if (el) {
         })
     })
 }
+function seriesClean(id) {
+  return id.replace('../../../..', '')
+}
 
 // get value of variable in array
 // is id in key?
@@ -366,10 +369,10 @@ function inLocalStorage(key, id) {
   var key_value = localStorage.getItem(key)
   if (typeof key_value != 'undefined' && key_value) {
     key_value = JSON.parse(key_value)
-    console.log(key_value)
+    //console.log(key_value)
     key_value.forEach(function (array_value) {
-      console.log(array_value + '  array value')
-      console.log(id + '  id')
+      // console.log(array_value + '  array value')
+      //console.log(id + '  id')
       if (array_value == id) {
         console.log('stored locally')
         result = id

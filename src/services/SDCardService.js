@@ -21,6 +21,7 @@ export default {
     params = this.initialize(params)
     params.page = 'getBooksForLanguage'
     params.action = 'getBooksForLanguage'
+
     return AuthorService.aReturnContent(params)
   },
   getFooters(params) {

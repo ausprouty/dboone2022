@@ -1,15 +1,28 @@
 <?php
 function myRequireOnce($filename, $subdirectory = null){
-
-
-
-    $new_name = 'not found';
-    $filename =_cleanMyRequireOnce($filename);
+    _appendMyRequireOnce('myRequireOnce', "\n\n$subdirectory/$filename\n");
+    $new_name = null;
+    $filename =_cleanMyRequireOnceFile($filename);
     if ($subdirectory){
-        $subdirectory =_cleanMyRequireOnce($subdirectory);
-        $filename =$subdirectory . '/'.$filename;
+        $subdirectory =_cleanMyRequireOnceSubdirectory($subdirectory);
+        $new_name = myRequireOnceDirectories($subdirectory . '/'.$filename);
     }
+    if (!$new_name){
+        $new_name = myRequireOnceDirectories($filename);
+    }
+    if ($new_name){
+        _appendMyRequireOnce('myRequireOnce', "$new_name\n");
+      require_once($new_name);
+    }
+    else{
+        _appendMyRequireOnce('myRequireOnce', "\n\n$subdirectory/$filename\n");
+        _appendMyRequireOnce('myRequireOnce', "NOT FOUND\n");
+    }
+    return;
+}
 
+function myRequireOnceDirectories($filename){
+    $new_name = null;
     if (file_exists(UNIQUE_API_FILE_DIRECTORY . $filename)){
         $new_name = UNIQUE_API_FILE_DIRECTORY . $filename;
     }
@@ -21,15 +34,7 @@ function myRequireOnce($filename, $subdirectory = null){
             $new_name = TESTING_API_FILE_DIRECTORY . $filename;
         }
     }
-    if ($new_name != 'not found'){
-
-        require_once ($new_name);
-    }
-    else{
-        _appendMyRequireOnce('myRequireOnce', "\n\n$filename\n");
-         _appendMyRequireOnce('myRequireOnce', "NOT FOUND\n");
-    }
-    return;
+    return $new_name;
 }
 
 function myRequireOnceSetup($user){
@@ -38,7 +43,7 @@ function myRequireOnceSetup($user){
 }
 // in posting we do not have .php, so we need to add it for items posted
 // our goal here is to make sure we only work within the specified directories.
-function _cleanMyRequireOnce($page){
+function _cleanMyRequireOnceFile($page){
 	$bad = array('.php', '$', '/');
 	$page = str_replace($bad, '', $page);
     $bad ='.';
@@ -46,9 +51,13 @@ function _cleanMyRequireOnce($page){
 	$page .= '.php';
 	return $page;
 }
+function _cleanMyRequireOnceSubdirectory($page){
+	$bad = array('.', '$', '/');
+	$page = str_replace($bad, '', $page);
+	return $page;
+}
 
 function _appendMyRequireOnce($filename, $content){
-
     $root_log = ROOT_LOG;
     if (!is_array($content)){
         $text = $content;
