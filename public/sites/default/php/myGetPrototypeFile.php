@@ -4,25 +4,25 @@
 function myGetPrototypeFile($filename, $subdirectory = null){
      //define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
     // define("SITE_CODE", 'mc2');
-    _appendMyGetPrototypeFile('myGetPrototypeFile', "\n\n$subdirectory/$filename\n");
+    //_appendMyGetPrototypeFile('myGetPrototypeFile', "\n\n$subdirectory/$filename\n");
     $filename =_cleanMyGetPrototypeFile($filename);
     if ($subdirectory){
         $subdirectory =_cleanMyGetPrototypeSubdirectory($subdirectory);
         $my_prototype = ROOT_EDIT . 'sites/' . SITE_CODE . '/prototype/' . $subdirectory .'/'. $filename;
         if (file_exists($my_prototype)){
-            _appendMyGetPrototypeFile('myGetPrototypeFile', 'Used ' . $my_prototype . "\n");
+            //_appendMyGetPrototypeFile('myGetPrototypeFile', 'Used ' . $my_prototype . "\n");
             return file_get_contents($my_prototype);
         }
     }
 
    $my_prototype = ROOT_EDIT . 'sites/' . SITE_CODE . '/prototype/' . $filename;
    if (file_exists($my_prototype)){
-       _appendMyGetPrototypeFile('myGetPrototypeFile', 'Used ' . $my_prototype . "\n");
+      // _appendMyGetPrototypeFile('myGetPrototypeFile', 'Used ' . $my_prototype . "\n");
        return file_get_contents($my_prototype);
    }
    $prototype =  ROOT_EDIT . 'sites/default/prototype/' . $filename;
    if (file_exists($prototype)){
-        _appendMyGetPrototypeFile('myGetPrototypeFile', 'Used ' . $prototype . "\n");
+        //('myGetPrototypeFile', 'Used ' . $prototype . "\n");
        return file_get_contents($prototype);
    }
    return null;

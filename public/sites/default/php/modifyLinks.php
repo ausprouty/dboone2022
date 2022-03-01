@@ -2,7 +2,6 @@
 myRequireOnce ('writeLog.php');
 
 function modifyLinks($text, $p){
-    writeLogError('modifyLinks-5-p', $p);
     // take these out so we can put in proper links later.  The editors like the URL so they can follow links in the editor.
     $text=str_ireplace ('target="_self"', '', $text);
     $out=[];
@@ -34,7 +33,6 @@ function modifyLinks($text, $p){
         $text = str_ireplace('" >', '">', $text);
         $text  = _modifyInternalLinks($text, $find, $p);
     }
-     writeLogError('modifyLinks-36-p', $p);
     if (($p['destination'] == 'nojs' || $p['destination'] == 'sdcard') && ALLOW_EXTERNAL_LINKS_IN_SDCARD == FALSE){
         writeLogError('modifyLinks-37', 'I am about the check for remove readmore Links');
          $find = '<a class="readmore"';
@@ -123,8 +121,7 @@ function _modifyPrototypeAndFinalLinks($text, $replace){
     $find = '<a href="/content'
 */
 function _modifyInternalLinks($text, $find, $p){
-    $rand= random_int(0, 9999);
-    writeLogError('_modifyInternalLinks-'. $rand . '-127', $text);
+   // $rand= random_int(0, 9999);
     $length_find = strlen($find);
     $count = substr_count($text, $find);
     $pos_start = 1;
@@ -145,12 +142,10 @@ function _modifyInternalLinks($text, $find, $p){
             $new = '<a  href="'. $link .'">';
         }
         $new = str_replace('{id}', 'Return' . $i , $new );
-        writeLogError('_modifyInternalLinks-'. $rand . '-148', $new);
         $text = substr_replace($text, $new, $pos_start, $link_length);
         $pos_start = $pos_end;
         //writeLog('_modifyInternalLinks' . $i, $debug . $text);
     }
-     writeLogError('_modifyInternalLinks-'. $rand . '-152', $text);
    // //writeLog('_modifyInternalLinks', $text);
     return $text;
 }
@@ -169,14 +164,14 @@ function _modifyExternalLinks($text, $find, $p){
         return $text;
     }
     $message = 'external link found.  How do you want to process?';
-    writeLogError('_modifyExternalLinks', "$message\n$text");
+    //writeLogError('_modifyExternalLinks', "$message\n$text");
     trigger_error( $message, E_USER_ERROR);
     return $text;
 }
  // <a class="readmore"  href="https://biblegateway.com/passage/?search=John%2010:22-30&amp;version=NIV">Read More </a>
 // these need to come out in sensetive countries
 function _removeReadmoreLinks($text){
-    writeLogError('_removeReadmoreLinks-173', $text);
+    //writeLogError('_removeReadmoreLinks-173', $text);
     $find = '<a class="readmore"';
     $length_find = strlen($find);
     $count = substr_count($text, $find);
@@ -188,7 +183,7 @@ function _removeReadmoreLinks($text){
         $text = substr_replace($text, '', $pos_start, $length);
         $pos_start = $pos_end;
     }
-    writeLogError('_removeReadmoreLinks-185', $text);
+    //writeLogError('_removeReadmoreLinks-185', $text);
     return $text;
 }
 

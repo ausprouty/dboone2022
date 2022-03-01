@@ -33,6 +33,7 @@ function publishSeriesAndChapters ($p){
                 $p['recnum'] = $data['recnum'];
                 // need to find latest record for recnum
                 $result =  publishPage ($p);
+                writeLogError('publishSeriesAndChapters-36-result', $result);
                 if (is_array($result)){
                     if (isset($result['files_in_page'])){
                         $files_in_pages = array_merge($files_in_pages,$result['files_in_page']);
@@ -63,12 +64,17 @@ function publishSeriesAndChapters ($p){
 
     //
     // Create files.json with list of files to download of offline use.
-    //
-    foreach ($files_in_pages as $json){
+    //list of html files is created in createSeries near line 125
+    $clean_files_in_pages = [];
+    foreach ($files_in_pages as $f){
+         $clean_files_in_pages[$f] = $f;
+    }
+    foreach ($clean_files_in_pages as $json){
         $files_json.= '{"url":"'. $json .'"},' ."\n";
     }
     $files_json = substr($files_json, 0, -2) . "\n" . ']' . "\n" ;
     $filename =  $series_dir . 'files.json';
+
     fileWrite($filename, $files_json, $p['destination']);
     return true;
 }

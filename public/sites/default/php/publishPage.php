@@ -11,8 +11,9 @@ myRequireOnce ('writeLog.php');
 // required by publishSeriesAndChapters.php on line 44
 
 function publishPage ($p){
+    $p['files_in_page'] =isset($p['files_in_page'])? $p['files_in_page']:[];
+    $rand=random_int(0,9999);
     $debug = '';
-    writeLogError ('publishPage-16-p', $p);
     if (!isset($p['recnum'])){
        $message = "in PublishPage no value for recnum ";
         trigger_error( $message, E_USER_ERROR);
@@ -28,14 +29,10 @@ function publishPage ($p){
     foreach ($data as $key=>$value){
         $debug .= $key . ' => '. $value . "\n";
     }
-    writeLogError ('publishPage-30-debug', $debug);
+    //writeLogError ('publishPage-30-debug', $debug);
     $text  = createPage($p, $data);
-    $result  = publishFilesInPage($text, $p['destination']);
-    if (isset($result['files_in_page'])){
-       $p['files_in_page'] = isset($result['files_in_page']) ? $result['files_in_page'] : [];
-       $p['files_in_page'] = array_merge($p['files_in_page'], $result['files_in_page']);
-
-    }
+    $files_in_page  = publishFilesInPage($text, $p['destination']);
+    $p['files_in_page'] = array_merge($p['files_in_page'], $files_in_page);
      // get bookmark for stylesheet
     $b['recnum'] =  $p['recnum'];
     $b['library_code'] = $p['library_code'];
@@ -90,6 +87,5 @@ function publishPage ($p){
     }
     $p['url'] = publishPageContentURL($p);
     //writeLog ('publishPage-98-debug', $debug);
-    //writeLog ('publishPage-99-p', $p);
     return($p);
 }

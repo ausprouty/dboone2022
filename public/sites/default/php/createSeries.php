@@ -15,8 +15,7 @@ function createSeries($p, $data){
     $b['library_code'] = $p['library_code'];
     $bookmark  = bookmark($b);
     $selected_css = isset($bookmark['book']->style) ? $bookmark['book']->style :STANDARD_CSS ;
-    $json_dir =  '/content/'. $bookmark['language']->folder .'/'.$p['folder_name'] .'/'; // for files.json
-
+    $json_dir =   $bookmark['language']->folder .'/'.$p['folder_name'] .'/'; // for files.json
     // replace placeholders in template
     // Note: Current  is unique in that only has one book in the series.
     if ($data['folder_name'] == 'current' || $data['folder_name'] == 'youth-basics'){
@@ -122,7 +121,8 @@ function createSeries($p, $data){
             //_write_series_log($p, $chapter);
             if ($status  == true ){ // we only want to process those with this as true
                 $filename = $json_dir . $chapter->filename . '.html';
-                $filename = str_ireplace('//', '/', $filename);
+                $filename = str_ireplace('/sites/myfriends', '', $filename);
+                //writeLogAppend('createSeries-125-filename', $filename ."\n");
                 $p['files_json'] .= '{"url":"'. $filename. '"},' ."\n";
                 $image = null;
                 if (isset($chapter->image)){

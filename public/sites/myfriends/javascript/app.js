@@ -297,6 +297,7 @@ function checkOfflineSeries(series) {
 }
 // this stores series for offline use
 // https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker
+// this is the event listener for Offline Request
 var el = document.getElementById('offline-request')
 if (el) {
   document
@@ -305,7 +306,10 @@ if (el) {
       event.preventDefault()
       console.log('button pressed')
       var id = this.dataset.json
-      var ajaxPromise = fetch(id)
+      console.log(id)
+      var cleanID = id.replace(/..\//g, 'c')
+      console.log(cleanID)
+      fetch(cleanID)
         .then(function (response) {
           //get-series-urls returns a JSON-encoded array of
           // resource URLs that a given series depends on

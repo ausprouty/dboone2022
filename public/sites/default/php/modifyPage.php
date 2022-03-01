@@ -16,13 +16,11 @@ myRequireOnce ('modifyRevealVideo.php');
 myRequireOnce ('modifySendAction.php');
 myRequireOnce ('prototypeFindFilesInPage.php');
 myRequireOnce ('version2Text.php');
-myRequireOnce ('writeLog.php');
+myRequireOnce ('//writeLog.php');
 
 
 function modifyPage($text, $p, $data, $bookmark){
-
-    $debug = "\n\nIn modifyPage\n\n";
-    $debug .= 'Begin bookmark'. "\n";// what is bookmark?
+    $debug = 'Begin bookmark'. "\n";// what is bookmark?
     foreach ($bookmark as $key => $value){
         $debug .= $key . "\n";
         if (is_array($value)){
@@ -42,11 +40,10 @@ function modifyPage($text, $p, $data, $bookmark){
     $debug .= 'read is ' . isset($bookmark['language']->read) ? $bookmark['language']->read : 'Not Set' . "\n";
 
     $text= version2Text($text);
-    //writeLog('modifyPages-43-version2text', $text);
+    ////writeLog('modifyPages-43-version2text', $text);
     //
     // modify note fields
     //
-    writeLog('modifyPage-48', $text);
     if (strpos($text, '"note-area"')  !== false){
         $text =  modifyNoteArea($text, $bookmark, $p);
 
@@ -65,13 +62,13 @@ function modifyPage($text, $p, $data, $bookmark){
     $text = str_replace('<a  ' ,'<a ', $text);
     //$text = str_replace('href="http' ,' target="_blank" href="http', $text);
     //
-    //writeLog('modify-page-65', $text);
+    ////writeLog('modify-page-65', $text);
     //  change internal links for easy return:
     // for SDCard we may need to remove all external references; esp those to Bible sites
     if (strpos($text, '<a href=') !== FALSE || strpos($text, '<a class="readmore"') !== FALSE){
         $text = modifyLinks($text, $p);
     }
-    writeLog('modifyPage-73', $text);
+    //writeLog('modifyPage-73', $text);
     // popup text needs to be visible to editor but hidden in prototype and production
     if (strpos($text, 'class="popup"')!== FALSE){
         $text = str_ireplace('class="popup"', 'class="popup invisible"', $text);
@@ -79,18 +76,18 @@ function modifyPage($text, $p, $data, $bookmark){
     if (strpos($text, '<span class="bible-link">')!== FALSE){
         $text = modifyBibleLinks($text, $p);
     }
-     writeLog('modifyPage-81', $text);
+     //writeLog('modifyPage-81', $text);
     if (strpos($text, '<div class="reveal">') !== FALSE ||  strpos($text, '<div class="reveal_big">') !== FALSE){
         $text = modifyRevealSummary($text, $p);
     }
-     writeLog('modifyPage-85', $text);
+     //writeLog('modifyPage-85', $text);
     if (strpos($text, '<div class="reveal bible">')!== FALSE){
         $text = modifyRevealBible($text, $bookmark, $p);
         if ($p['destination']  == 'sdcard' || $p['destination']  == 'nojs'){
            $text = modifyReadMore($text, $bookmark);
         }
     }
-    writeLog('modifyPage-92', $text);
+    //writeLog('modifyPage-92', $text);
     // reveal_big is used by generations
     if (strpos($text, '<div class="reveal film') !== FALSE || strpos($text, '<div class="reveal_big film') !== FALSE){
         $text =  modifyRevealVideo($text, $bookmark, $p);
@@ -121,6 +118,6 @@ This needs to come later in the process
     $text = str_replace('<hr />', '', $text);
     $text = str_replace('<li>&nbsp;', '<li>', $text);
     $text = str_replace('</a> )', '</a>)', $text);
-     writeLog('modifyPage-120', $text);
+     //writeLog('modifyPage-120', $text);
     return $text;
 }

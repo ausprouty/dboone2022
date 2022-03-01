@@ -14,7 +14,15 @@ function writeLog($filename, $content){
 	$fh = fopen(ROOT_LOG . $filename . '.txt', 'w');
 	fwrite($fh, $text);
     fclose($fh);
-
+}
+function writeLogAppend($filename, $content){
+	$text = var_dump_ret($content);
+    if (!file_exists(ROOT_LOG)){
+		mkdir(ROOT_LOG);
+	}
+	$fh = ROOT_LOG .  'APPEND-'. $filename . '.txt';
+    file_put_contents($fh, $text,  FILE_APPEND | LOCK_EX );
+    fclose($fh);
 }
 function writeLogError($filename, $content){
 	$text = var_dump_ret($content);
@@ -23,9 +31,7 @@ function writeLogError($filename, $content){
 	}
 	$fh = fopen(ROOT_LOG . 'ERROR-'. $filename . '.txt', 'w');
 	fwrite($fh, $text);
-    fclose($fh);
 }
-
 function var_dump_ret($mixed = null) {
   ob_start();
   var_dump($mixed);
