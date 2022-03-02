@@ -1,6 +1,6 @@
 <?php
 function myRequireOnce($filename, $subdirectory = null){
-    _appendMyRequireOnce('myRequireOnce', "\n\n$subdirectory/$filename\n");
+    //_appendMyRequireOnce('myRequireOnce', "\n\n$subdirectory/$filename\n");
     $new_name = null;
     $filename =_cleanMyRequireOnceFile($filename);
     if ($subdirectory){
@@ -11,7 +11,7 @@ function myRequireOnce($filename, $subdirectory = null){
         $new_name = myRequireOnceDirectories($filename);
     }
     if ($new_name){
-        _appendMyRequireOnce('myRequireOnce', "$new_name\n");
+      //  _appendMyRequireOnce('myRequireOnce', "$new_name\n");
       require_once($new_name);
     }
     else{

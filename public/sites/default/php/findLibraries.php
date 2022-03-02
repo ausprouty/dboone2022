@@ -16,5 +16,6 @@ function findLibraries($p){
     while($data = $query->fetch_array()){
         $library_codes[] = $data['filename'];
     }
+
     return $library_codes;
 }

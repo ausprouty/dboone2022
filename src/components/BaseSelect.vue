@@ -12,8 +12,9 @@
         :value="option"
         :key="option"
         :selected="option === value"
-        >{{ option }}</option
       >
+        {{ option }}
+      </option>
     </select>
   </div>
 </template>
@@ -24,15 +25,15 @@ export default {
   props: {
     options: {
       type: Array,
-      required: true
+      required: true,
     },
     value: [String, Number],
-    label: String
+    label: String,
   },
   methods: {
     updateValue(event) {
       this.$emit('input', event.target.value)
-    }
-  }
+    },
+  },
 }
 </script>

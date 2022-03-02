@@ -62,8 +62,12 @@ export default new Vuex.Store({
       filename: null,
       text: null,
     },
+    languages: [],
   },
   mutations: {
+    SET_LANGUAGES(state, value) {
+      state.languages = value[0]
+    },
     LOGIN_USER(state, value) {
       state.user = value[0]
     },
@@ -195,6 +199,9 @@ export default new Vuex.Store({
     },
     loginUser({ commit }, [mark]) {
       commit('LOGIN_USER', [mark])
+    },
+    setLanguages({ commit }, [value]) {
+      commit('SET_LANGUAGES', [value])
     },
     logoutUser({ commit }) {
       commit('LOGOUT_USER')

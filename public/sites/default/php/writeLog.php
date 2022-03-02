@@ -24,6 +24,14 @@ function writeLogAppend($filename, $content){
     file_put_contents($fh, $text,  FILE_APPEND | LOCK_EX );
     fclose($fh);
 }
+function writeLogDebug($filename, $content){
+	$text = var_dump_ret($content);
+    if (!file_exists(ROOT_LOG)){
+		mkdir(ROOT_LOG);
+	}
+	$fh = fopen(ROOT_LOG . 'DEBUG-'. $filename . '.txt', 'w');
+	fwrite($fh, $text);
+}
 function writeLogError($filename, $content){
 	$text = var_dump_ret($content);
     if (!file_exists(ROOT_LOG)){
