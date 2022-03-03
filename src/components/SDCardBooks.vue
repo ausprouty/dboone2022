@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Books</h2>
+    <h2>{{ language.language_name }}</h2>
 
     <div v-for="(book, id) in books" :key="id" :book="book">
       <div>

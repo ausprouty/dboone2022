@@ -27,6 +27,15 @@
         {{ pdf_text }}
       </button>
     </div>
+    <div class="column">
+      <button
+        class="button"
+        v-bind:class="videolist_class"
+        @click="localPublish('videolist')"
+      >
+        {{ videolist_text }}
+      </button>
+    </div>
   </div>
 </template>
 
@@ -34,9 +43,10 @@
 import NoJSService from '@/services/NoJSService.js'
 import SDCardService from '@/services/SDCardService.js'
 import PDFService from '@/services/PDFService.js'
+import store from '@/store/store.js'
 export default {
   props: {
-    book: Object,
+    book: Object
   },
 
   /*
@@ -62,15 +72,18 @@ export default {
       sdcard_text: 'SD Card',
       nojs_text: 'No JS',
       pdf_text: 'PDF',
+      videolist_text: 'Video List',
       sdcard_class: 'ready',
       nojs_class: 'ready',
       pdf_class: 'ready',
+      videolist_class: 'ready',
     }
   },
   methods: {
     async localPublish(location) {
       var response = null
       var params = this.book
+      params.sdSubDir = store.state.sdSubDir
       console.log(params)
       if (location == 'nojs') {
         this.nojs_text = 'Publishing'
@@ -90,8 +103,17 @@ export default {
         this.sdcard_text = 'SD Card'
         this.sdcard_class = 'done'
       }
-      if (response == 'error'){
-         alert('There was an error')
+      if (location == 'videolist') {
+        this.videolist_text = 'Publishing'
+        response = await SDCardService.publish(
+          'videoMakeBatFileForSDCard',
+          params
+        )
+        this.sdcard_text = 'Video List'
+        this.sdcard_class = 'done'
+      }
+      if (response == 'error') {
+        alert('There was an error')
       }
     },
     async loadView() {},

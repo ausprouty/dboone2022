@@ -17,6 +17,7 @@ export default new Vuex.Store({
       uid: null,
       expires: 0,
     },
+    sdSubDir: null,
     revision: '2.0',
     baseURL: './',
     cssURL: './content/',
@@ -67,6 +68,9 @@ export default new Vuex.Store({
   mutations: {
     SET_LANGUAGES(state, value) {
       state.languages = value[0]
+    },
+    SET_SD_SUB_DIR(state, value) {
+      state.sdSubDir = value
     },
     LOGIN_USER(state, value) {
       state.user = value[0]
@@ -202,6 +206,9 @@ export default new Vuex.Store({
     },
     setLanguages({ commit }, [value]) {
       commit('SET_LANGUAGES', [value])
+    },
+    setSDSubDir({ commit }, value) {
+      commit('SET_SD_SUB_DIR', value)
     },
     logoutUser({ commit }) {
       commit('LOGOUT_USER')

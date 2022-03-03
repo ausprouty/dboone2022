@@ -62,6 +62,8 @@
         <button class="button" @click="editLanguages">Edit</button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button class="button" @click="sortLanguages">Sort</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="button" @click="makeSDCard">Make SDCard</button>
       </div>
       <div v-if="this.readonly">
         <button class="button" @click="editLanguages">View Details</button>
@@ -94,6 +96,7 @@ export default {
     return {
       readonly: false,
       write: false,
+      prototype:false,
       publish: false,
       publishable: false,
       prototype_text: 'Prototype',
@@ -115,6 +118,15 @@ export default {
           country_code: this.country_code,
         },
       })
+    },
+    makeSDCard(){
+      this.$router.push({
+        name: 'sdCardMaker',
+        params: {
+          country_code: this.country_code,
+        },
+      })
+
     },
     sortLanguages() {
       this.$router.push({
