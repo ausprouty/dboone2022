@@ -21,7 +21,7 @@ function flushContentCountries(){
     flushContentInsert($countries);
 }
 function flushContentInsert($data){
-    '$edit_date', '$edit_uid', '$destination_language_iso', '$destination_country_code', '$folder_name', '$filetype', '$title', '$filename', '$text'
+
     $sql = "INSERT INTO content_current (version, edit_date, edit_uid, language_iso, country_code, folder_name, filetype, title, filename, text)
      VALUES
           (1, '$edit_date', '$edit_uid', '$destination_language_iso', '$destination_country_code', '$folder_name', '$filetype', '$title', '$filename', '$text')";

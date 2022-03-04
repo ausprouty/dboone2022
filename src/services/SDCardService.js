@@ -17,11 +17,16 @@ import AuthorService from '@/services/AuthorService.js'
 
 // I want to export a JSON.stringified of response.data.text
 export default {
+   checkStatusBook(params) {
+    params = this.initialize(params)
+    params.page = 'checkStatusBook'
+    params.action = 'checkStatusBook'
+    return AuthorService.aReturnContent(params)
+  },
   getBooks(params) {
     params = this.initialize(params)
     params.page = 'getBooksForLanguage'
     params.action = 'getBooksForLanguage'
-
     return AuthorService.aReturnContent(params)
   },
   getFooters(params) {
