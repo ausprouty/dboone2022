@@ -74,10 +74,10 @@ export default {
       pdf_text: 'PDF',
       videolist_text: 'Video List',
       progress: {
-        sdcard: 'ready',
-        nojs: 'ready',
-        pdf: 'ready',
-        videolist: 'ready',
+        sdcard: '',
+        nojs: '',
+        pdf: '',
+        videolist: '',
       },
     }
   },
@@ -121,11 +121,12 @@ export default {
     async loadView() {},
   },
   async created() {
-    console.log(this.book)
     var params = this.book
-    params.sdSubDir = this.$store.sdSubDir
-    params.progress = this.progress
-    this.progress = SDCardService.checkStatusBook(params)
+    params.sdSubDir = this.$store.state.sdSubDir
+    params.progress = JSON.stringify(this.progress)
+    console.log(params)
+    this.progress = await SDCardService.checkStatusBook(params)
+    console.log(this.progress)
   },
 }
 </script>
@@ -147,6 +148,11 @@ div.parent {
 .column {
   display: table-cell;
 }
+.undone {
+  background-color: red;
+  padding: 10px;
+  color: white;
+}
 
 .ready {
   background-color: yellow;
@@ -155,7 +161,7 @@ div.parent {
 }
 
 .done {
-  background-color: green;
+  background-color: purple;
   padding: 10px;
 }
 </style>

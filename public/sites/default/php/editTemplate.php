@@ -36,7 +36,7 @@ function editTemplate($p){
         $p['template'] .= '.html';
     }
     $filename = $template_dir . $p['template'];
-    fileWrite($filename, $p['text'], $p['destination']);
+    fileWrite($filename, $p['text'], $p);
 
 
 	return $out;

@@ -85,7 +85,7 @@ function publishPage ($p){
     if ($sql){
         sqlArray($sql, 'update');
     }
-    $p['url'] = publishPageContentURL($p);
+    //$p['url'] = publishPageContentURL($p);
     //writeLog ('publishPage-98-debug', $debug);
     return($p);
 }

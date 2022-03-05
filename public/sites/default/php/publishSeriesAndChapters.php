@@ -75,6 +75,6 @@ function publishSeriesAndChapters ($p){
     $files_json = substr($files_json, 0, -2) . "\n" . ']' . "\n" ;
     $filename =  $series_dir . 'files.json';
 
-    fileWrite($filename, $files_json, $p['destination']);
+    fileWrite($filename, $files_json, $p);
     return true;
 }

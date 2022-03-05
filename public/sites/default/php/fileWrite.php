@@ -2,10 +2,10 @@
 myRequireOnce ('publishDestination.php');
 myRequireOnce ('fileWritePDF.php');
 
-function fileWrite($filename, $text, $destination){
+function fileWrite($filename, $text, $p){
     //make sure publishDestination is in $filename exactly once.
-    $d['destination']= $destination;
-    $publishDestination =  publishDestination($d);
+
+    $publishDestination =  publishDestination($p);
     if (strpos($filename,  $publishDestination) === false){
         $filename =$publishDestination . $filename;
     }

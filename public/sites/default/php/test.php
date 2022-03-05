@@ -1,5 +1,5 @@
 <?php
-myRequireOnce ('.env.api.mc2.remote.php');
+myRequireOnce ('.env.api.remote.php');
 myRequireOnce ('dirMake.php');
 
 $files = dirlist('../');
