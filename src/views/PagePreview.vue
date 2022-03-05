@@ -87,9 +87,6 @@ import { mapState } from 'vuex'
 import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
-import NoJSService from '@/services/NoJSService.js'
-import SDCardService from '@/services/SDCardService.js'
-import PDFService from '@/services/PDFService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
 
 import { pageMixin } from '@/mixins/PageMixin.js'
@@ -106,9 +103,6 @@ export default {
     return {
       prototype_text: 'Prototype',
       publish_text: 'Publish',
-      sdcard_text: 'Update SD Card',
-      nojs_text: 'Update No Javascript',
-      pdf_text: 'Update PDF file',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       rldir: 'ltr',
       book_style: process.env.VUE_APP_SITE_STYLE,
@@ -203,21 +197,6 @@ export default {
         response = await PrototypeService.publish('page', params)
         this.prototype_text = 'Prototyped'
       }
-      if (location == 'sdcard') {
-        this.sdcard_text = 'Publishing'
-        response = await SDCardService.publish('page', params)
-        this.sdcard_text = 'Published'
-      }
-      if (location == 'nojs') {
-        this.nojs_text = 'Publishing'
-        response = await NoJSService.publish('page', params)
-        this.nojs_text = 'Published'
-      }
-      if (location == 'pdf') {
-        this.pdf_text = 'Publishing'
-        response = await PDFService.publish('page', params)
-        this.pdf_text = 'Published'
-      }
       if (location == 'website') {
         this.publish_text = 'Publishing'
         response = await PublishService.publish('page', params)
@@ -267,8 +246,6 @@ export default {
             }
           }
           if (this.prototype_date) {
-            this.pdf = this.mayCreatePDFPage()
-            this.sdcard = this.mayCreateSDCardPage()
             this.publish = this.mayPublishPage()
             if (this.publish) {
               if (this.publish_date) {

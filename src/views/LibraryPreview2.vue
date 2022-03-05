@@ -72,7 +72,7 @@ import NavBar from '@/components/NavBarAdmin.vue'
 import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
-import SDCardService from '@/services/SDCardService.js'
+
 import { mapState } from 'vuex'
 
 import { libraryMixin } from '@/mixins/LibraryMixin.js'
@@ -95,7 +95,6 @@ export default {
       sdcard: false,
       prototype_text: 'Prototype Library and Books',
       publish_text: 'Publish Library and Books',
-      sdcard_text: 'Update SD Card',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       site_directory: process.env.VUE_APP_SITE_DIR,
       back: 'country',
@@ -156,11 +155,7 @@ export default {
         response = await PrototypeService.publish('libraryAndBooks', params)
         this.prototype_text = 'Finished Prototyping'
       }
-      if (location == 'sdcard') {
-        this.sdcard_text = 'Updating SD Card Directory'
-        response = await SDCardService.publish('libraryAndBooks', params)
-        this.sdcard_text = 'Finished SD Card Update'
-      }
+
       if (location == 'website') {
         this.publish_text = 'Publishing'
         response = await PublishService.publish('libraryAndBooks', params)
@@ -173,8 +168,6 @@ export default {
           this.publish_text = 'Error Publishing'
         } else if (location == 'prototype') {
           this.prototype_text = 'Error Prototyping'
-        } else {
-          this.sdcard_text = 'Error Creating SDCard'
         }
       } else {
         //  this.UnsetBookmarks()
@@ -231,8 +224,6 @@ export default {
             }
           }
           if (this.prototype_date) {
-            this.pdf = this.mayCreatePDFLibrary()
-            this.sdcard= this.mayCreateSDCardLibrary()
             this.publish = this.mayPublishLibrary()
             if (this.publish) {
               if (this.publish_date) {

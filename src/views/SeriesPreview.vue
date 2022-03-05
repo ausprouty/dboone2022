@@ -110,9 +110,6 @@ import Chapter from '@/components/ChapterPreview.vue'
 import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
-import NoJSService from '@/services/NoJSService.js'
-import SDCardService from '@/services/SDCardService.js'
-import PDFService from '@/services/PDFService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
 
 import { seriesMixin } from '@/mixins/SeriesMixin.js'
@@ -134,11 +131,6 @@ export default {
       book_image: null,
       prototype_text: 'Prototype Series and Chapters',
       publish_text: 'Publish Series and Chapters',
-      sdcard_text: 'Update SD Card',
-      nojs_text: 'Update No Javascript',
-      pdf_text: 'Update PDF files',
-      videolist_text: 'Create Media List for SD Card',
-
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       download_ready: '',
       download_now: '',
@@ -195,41 +187,15 @@ export default {
         },
       })
     },
-    async sdCard(action) {
-      if (action == 'video_list') {
-        this.videolist_text = 'Creating Media List'
-        var response = await SDCardService.publish(
-          'videoMakeBatFileForSDCard',
-          this.$route.params
-        )
-        this.videolist_text = 'Copy batfile from /sdcard'
-        console.log(response)
-      }
-    },
     async localPublish(location) {
       var response = null
       var params = []
       params.recnum = this.recnum
       params.route = JSON.stringify(this.$route.params)
-      if (location == 'nojs') {
-        this.nojs_text = 'Publishing'
-        response = await NoJSService.publish('seriesAndChapters', params)
-        this.nojs_text = 'Published'
-      }
-      if (location == 'pdf') {
-        this.pdf_text = 'Publishing'
-        response = await PDFService.publish('seriesAndChapters', params)
-        this.pdf_text = 'Published'
-      }
       if (location == 'prototype') {
         this.prototype_text = 'Prototyping'
         response = await PrototypeService.publish('seriesAndChapters', params)
         this.prototype_text = 'Prototyped'
-      }
-      if (location == 'sdcard') {
-        this.sdcard_text = 'Publishing'
-        response = await SDCardService.publish('seriesAndChapters', params)
-        this.sdcard_text = 'Published'
       }
       if (location == 'website') {
         this.publish_text = 'Publishing'
@@ -290,8 +256,6 @@ export default {
             'this prototype date is ' + this.prototype_date
           )
           if (this.prototype_date) {
-            this.pdf = this.mayCreatePDFSeries()
-            this.sdcard = this.mayCreateSDCardSeries()
             this.publish = this.mayPublishSeries()
             if (this.publish) {
               if (this.publish_date) {

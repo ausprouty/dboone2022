@@ -62,7 +62,7 @@
         <button class="button" @click="editLanguages">Edit</button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button class="button" @click="sortLanguages">Sort</button>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button class="button" @click="makeSDCard">Make SDCard</button>
       </div>
       <div v-if="this.readonly">
@@ -78,9 +78,6 @@ import NavBar from '@/components/NavBarAdmin.vue'
 import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
-import SDCardService from '@/services/SDCardService.js'
-import NoJSService from '@/services/NoJSService.js'
-import PDFService from '@/services/PDFService.js'
 import { mapState } from 'vuex'
 import { languageMixin } from '@/mixins/LanguageMixin.js'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
@@ -96,14 +93,11 @@ export default {
     return {
       readonly: false,
       write: false,
-      prototype:false,
+      prototype: false,
       publish: false,
       publishable: false,
       prototype_text: 'Prototype',
       publish_text: 'Publish',
-      sdcard_text: 'Update SD Card',
-      nojs_text: 'Update No Javascript',
-      pdf_text: 'Update PDF files',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
       more_languages: 'More Languages',
       choose_language: 'Choose Language',
@@ -119,14 +113,13 @@ export default {
         },
       })
     },
-    makeSDCard(){
+    makeSDCard() {
       this.$router.push({
         name: 'sdCardMaker',
         params: {
           country_code: this.country_code,
         },
       })
-
     },
     sortLanguages() {
       this.$router.push({
@@ -150,25 +143,10 @@ export default {
       var params = []
       params.recnum = this.recnum
       params.route = JSON.stringify(this.$route.params)
-      if (location == 'nojs') {
-        this.nojs_text = 'Publishing'
-        response = await NoJSService.publish('languages', params)
-        this.nojs_text = 'Published'
-      }
-      if (location == 'pdf') {
-        this.pdf_text = 'Publishing'
-        response = await PDFService.publish('languages', params)
-        this.pdf_text = 'Published'
-      }
       if (location == 'prototype') {
         this.prototype_text = 'Prototyping'
         response = await PrototypeService.publish('languages', params)
         this.prototype_text = 'Prototyped'
-      }
-      if (location == 'sdcard') {
-        this.sdcard_text = 'Publishing'
-        response = await SDCardService.publish('languages', params)
-        this.sdcard_text = 'Published'
       }
       if (location == 'website') {
         this.publish_text = 'Publishing'
@@ -217,8 +195,6 @@ export default {
             }
           }
           if (this.prototype_date) {
-            this.pdf = this.mayCreatePDFLanguages()
-            this.sdcard = this.mayCreateSDCardLanguages()
             this.publish = this.mayPublishLanguages()
             if (this.publish) {
               if (this.publish_date) {
@@ -230,10 +206,6 @@ export default {
           }
         }
         // end authorization for prototype and publish
-        this.ZZ = false
-        if (this.$route.params.country_code == 'ZZ') {
-          this.ZZ = true
-        }
         this.loaded = true
         this.loading = false
       } catch (error) {

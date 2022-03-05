@@ -58,7 +58,6 @@ import Country from '@/components/CountryPreview.vue'
 import LogService from '@/services/LogService.js'
 import PrototypeService from '@/services/PrototypeService.js'
 import PublishService from '@/services/PublishService.js'
-import SDCardService from '@/services/SDCardService.js'
 import { countriesMixin } from '@/mixins/CountriesMixin.js'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { publishMixin } from '@/mixins/PublishMixin.js'
@@ -75,7 +74,6 @@ export default {
       publish: false,
       prototype_text: 'Prototype Languages',
       publish_text: 'Publish Languages',
-      sdcard_text: 'Update SD Card',
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
     }
   },
@@ -110,11 +108,7 @@ export default {
         response = await PrototypeService.publish('countries', params)
         this.prototype_text = 'Prototyped'
       }
-      if (location == 'sdcard') {
-        this.sdcard_text = 'Publishing'
-        response = await SDCardService.publish('countries', params)
-        this.sdcard_text = 'Published'
-      }
+
       if (location == 'website') {
         this.publish_text = 'Publishing'
         response = await PublishService.publish('countries', params)
@@ -161,8 +155,6 @@ export default {
         }
         if (this.recnum && this.prototype_date) {
           LogService.consoleLogMessage('I am checking to see if I can publish')
-          this.pdf = this.mayCreatePDFCountries()
-          this.sdcard = this.mayCreateSDCardCountries()
           this.publish = this.mayPublishCountries
           if (this.publish) {
             LogService.consoleLogMessage('I can publish and prototype again')
