@@ -89,30 +89,30 @@ export default {
       console.log(params)
       if (location == 'nojs') {
         this.nojs_text = 'Publishing'
-        response = await NoJSService.publish('seriesAndChapters', params)
+        await NoJSService.publish('seriesAndChapters', params)
+
+        this.progress.nojs = await SDCardService.verifySeriesNoJS(params)
         this.nojs_text = 'No JS'
-        this.progress.nojs = 'done'
       }
       if (location == 'pdf') {
         this.pdf_text = 'Publishing'
-        response = await PDFService.publish('seriesAndChapters', params)
+        await PDFService.publish('seriesAndChapters', params)
+        this.progress.pdf = await SDCardService.verifySeriesPDF(params)
         this.pdf_text = 'PDF'
-        this.progress.pdf = 'done'
       }
       if (location == 'sdcard') {
         this.sdcard_text = 'Publishing'
-        response = await SDCardService.publish('seriesAndChapters', params)
+        await SDCardService.publish('seriesAndChapters', params)
+        this.progress.sdcard = await SDCardService.verifySeriesSDCard(params)
         this.sdcard_text = 'SD Card'
-        this.progress.sdcard = 'done'
       }
       if (location == 'videolist') {
         this.videolist_text = 'Publishing'
-        response = await SDCardService.publish(
-          'videoMakeBatFileForSDCard',
+        await SDCardService.publish('videoMakeBatFileForSDCard', params)
+        this.progress.videolist = await SDCardService.verifySeriesVideoList(
           params
         )
         this.videolist_text = 'Video List'
-        this.progress.videolist = 'done'
       }
       if (response == 'error') {
         alert('There was an error')

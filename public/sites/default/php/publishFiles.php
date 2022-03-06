@@ -82,6 +82,7 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     // make sure  all files are copied to destination directory
     publishFilesInPage($output, $d);
     $output = makePathsRelative($output, $fname);
+    writeLogAppend('publishFiles', $fname);
     fileWrite($fname, $output, $p);
     return $output;
 }

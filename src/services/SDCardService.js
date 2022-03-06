@@ -14,28 +14,51 @@ const apiSECURE = axios.create({
 import axios from 'axios'
 import store from '@/store/store.js'
 import AuthorService from '@/services/AuthorService.js'
+import { parseXML } from 'jquery'
 
 // I want to export a JSON.stringified of response.data.text
 export default {
-   checkStatusBook(params) {
+  async checkStatusBook(params) {
     params = this.initialize(params)
     params.page = 'checkStatusBook'
     params.action = 'checkStatusBook'
-    return AuthorService.aReturnContent(params)
+    await AuthorService.aReturnContent(params)
   },
-  getBooks(params) {
+   async verifySeriesNoJS(params) {
+    params = this.initialize(params)
+    params.page = 'verifySeries'
+    params.action = 'verifySeriesNoJS'
+  },
+
+  async verifySeriesPDF(params) {
+    params = this.initialize(params)
+    params.page = 'verifySeries'
+    params.action = 'verifySeriesPDF'
+  },
+  async verifySeriesSDCard(params) {
+    params = this.initialize(params)
+    params.page = 'verifySeries'
+    params.action = 'verifySeriesSDCard'
+  },
+
+   async verifySeriesVideoList(params) {
+    params = this.initialize(params)
+    params.page = 'verifySeries'
+    params.action = 'verifySeriesVideoList'
+  },
+  async getBooks(params) {
     params = this.initialize(params)
     params.page = 'getBooksForLanguage'
     params.action = 'getBooksForLanguage'
     return AuthorService.aReturnContent(params)
   },
-  getFooters(params) {
+  async getFooters(params) {
     params = this.initialize(params)
     params.page = 'getFooters'
     params.action = 'getFooters'
     return AuthorService.aReturnContent(params)
   },
-  getLanguages(params) {
+  async getLanguages(params) {
     params.destination = 'sdcard'
     params.page = 'getLanguagesAvailable'
     params.action = 'getLanguagesAvailable'
@@ -46,7 +69,9 @@ export default {
     params.my_uid = store.state.user.uid
     params.subdirectory = 'sdcard'
     params.token = store.state.user.token
-    params.destination = 'sdcard'
+    if (typeof params.destination == undefined) {
+      params.destination = 'sdcard'
+    }
     return params
   },
 
