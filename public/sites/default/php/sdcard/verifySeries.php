@@ -1,4 +1,5 @@
 <?php
+myRequireOnce('getLatestContent.php');
 myRequireOnce('writeLog.php');
 myRequireOnce('dirMake.php');
 
@@ -21,6 +22,9 @@ function _verifySeriesClean($dir_sdcard){
     $p['dir_series'] =  $p['country_code'] .'/'. $p['language_iso'] . '/'. $p[code];
 */
 function verifySeriesSDCard($p){
+    $p['scope'] = 'series';
+    $content = getLatestContent($p);
+    $text = json_decode($content['text']);
     if (!file_exists($p['dir_sdcard'] . '/folder/content/'. $p['dir_series'] )){
        return 'ready';
     }

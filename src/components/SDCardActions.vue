@@ -85,12 +85,10 @@ export default {
     async localPublish(location) {
       var response = null
       var params = this.book
-      params.sdSubDir = store.state.sdSubDir
       console.log(params)
       if (location == 'nojs') {
         this.nojs_text = 'Publishing'
         await NoJSService.publish('seriesAndChapters', params)
-
         this.progress.nojs = await SDCardService.verifySeriesNoJS(params)
         this.nojs_text = 'No JS'
       }

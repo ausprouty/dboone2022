@@ -34,7 +34,9 @@ function publishPage ($p){
     $files_in_page  = publishFilesInPage($text, $p['destination']);
     $p['files_in_page'] = array_merge($p['files_in_page'], $files_in_page);
      // get bookmark for stylesheet
-    $b['recnum'] =  $p['recnum'];
+    if (isset($p['recnum'])){
+        $b['recnum'] = $p['recnum'];
+    }
     $b['library_code'] = $p['library_code'];
     $bookmark = bookmark($b);
     //writeLog ('publishPage-52-bookmark', $bookmark);

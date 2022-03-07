@@ -17,7 +17,14 @@ export default new Vuex.Store({
       uid: null,
       expires: 0,
     },
-    sdSubDir: null,
+    sdCardSettings: {
+      languages: [],
+      footer: null,
+      external_links: false,
+      action: 'sdcard',
+      series: null,
+      subDirectory: null,
+    },
     revision: '2.0',
     baseURL: './',
     cssURL: './content/',
@@ -69,8 +76,8 @@ export default new Vuex.Store({
     SET_LANGUAGES(state, value) {
       state.languages = value[0]
     },
-    SET_SD_SUB_DIR(state, value) {
-      state.sdSubDir = value
+    SET_SDCARD_SETTINGS(state, value) {
+      state.sdCardSettings = value
     },
     LOGIN_USER(state, value) {
       state.user = value[0]
@@ -207,8 +214,8 @@ export default new Vuex.Store({
     setLanguages({ commit }, [value]) {
       commit('SET_LANGUAGES', [value])
     },
-    setSDSubDir({ commit }, value) {
-      commit('SET_SD_SUB_DIR', value)
+    setSDCardSettings({ commit }, value) {
+      commit('SET_SDCARD_SETTINGS', value)
     },
     logoutUser({ commit }) {
       commit('LOGOUT_USER')

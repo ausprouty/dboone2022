@@ -4,7 +4,7 @@
 
     <div v-for="(book, id) in books" :key="id" :book="book">
       <div>
-        <h3>{{ book.title }} ({{ book.library }})</h3>
+        <h3>{{ book.title }} ({{ book.library_code }})</h3>
       </div>
       <div><SDCardActions v-bind:book="book" /></div>
     </div>

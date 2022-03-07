@@ -16,7 +16,9 @@ function createLibrary($p, $text) {
      //
     // get bookmark
     //
-    $b['recnum'] = $p['recnum'];
+    if (isset($p['recnum'])){
+        $b['recnum'] = $p['recnum'];
+    }
     $b['library_code'] = $p['library_code'];
     $bookmark = bookmark($b);
 

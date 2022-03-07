@@ -6,11 +6,12 @@ myRequireOnce ('myGetPrototypeFile.php');
 function publishLanguageFooter($p){
     $debug = 'In publishLanguageFooter' . "\n";
     // get bookmark
-    $b['recnum'] = $p['recnum'];
+    if (isset($p['recnum'])){
+       $b['recnum'] = $p['recnum'];
+    }
     $b['library_code'] = isset($p['library_code'])?$p['library_code']:'library';
     $bookmark  = bookmark($b);
     //
-    $bookmark['country'] = $bookmark['country'];
     $url = isset($bookmark['country']->url) ?  $bookmark['country']->url: 'https://myfriends.life';
     $website = isset($bookmark['country']->website) ? $bookmark['country']->website : 'www.myfriends.life';
     if (!isset($debug)){
@@ -38,7 +39,7 @@ function publishLanguageFooter($p){
     if (!$footer ){
         $language_footer = 'languageFooter.html';
         if($p['destination'] == 'nojs' || $p['destination'] == 'sdcard'){
-            $language_footer = SDCARD_LANGUAGE_FOOTER;
+            $language_footer = $p['sdcard_language_footer'];
 
         }
         $debug .= 'LanguageFooter Setfrom languageFooter.html'. "\n";

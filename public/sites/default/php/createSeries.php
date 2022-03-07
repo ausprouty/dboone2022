@@ -11,7 +11,9 @@ function createSeries($p, $data){
     // $debug .= "\n\n In prototypeSeries\n";
      // get language footer in prototypeOEpublish.php
     $footer = publishLanguageFooter($p); // returns $footer
-    $b['recnum'] = $p['recnum'];
+    if (isset($p['recnum'])){
+        $b['recnum'] = $p['recnum'];
+    }
     $b['library_code'] = $p['library_code'];
     $bookmark  = bookmark($b);
     $selected_css = isset($bookmark['book']->style) ? $bookmark['book']->style :STANDARD_CSS ;

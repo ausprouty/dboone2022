@@ -22,54 +22,58 @@ export default {
     params = this.initialize(params)
     params.page = 'checkStatusBook'
     params.action = 'checkStatusBook'
-    await AuthorService.aReturnContent(params)
+    return await AuthorService.aReturnContent(params)
   },
-   async verifySeriesNoJS(params) {
+  async verifySeriesNoJS(params) {
     params = this.initialize(params)
     params.page = 'verifySeries'
     params.action = 'verifySeriesNoJS'
+    return await AuthorService.aReturnContent(params)
   },
 
   async verifySeriesPDF(params) {
     params = this.initialize(params)
     params.page = 'verifySeries'
     params.action = 'verifySeriesPDF'
+    return await AuthorService.aReturnContent(params)
   },
   async verifySeriesSDCard(params) {
     params = this.initialize(params)
     params.page = 'verifySeries'
     params.action = 'verifySeriesSDCard'
+    return await AuthorService.aReturnContent(params)
   },
 
-   async verifySeriesVideoList(params) {
+  async verifySeriesVideoList(params) {
     params = this.initialize(params)
     params.page = 'verifySeries'
     params.action = 'verifySeriesVideoList'
+    return await AuthorService.aReturnContent(params)
   },
   async getBooks(params) {
     params = this.initialize(params)
     params.page = 'getBooksForLanguage'
     params.action = 'getBooksForLanguage'
-    return AuthorService.aReturnContent(params)
+    return await AuthorService.aReturnContent(params)
   },
   async getFooters(params) {
     params = this.initialize(params)
     params.page = 'getFooters'
     params.action = 'getFooters'
-    return AuthorService.aReturnContent(params)
+    return await AuthorService.aReturnContent(params)
   },
   async getLanguages(params) {
-    params.destination = 'sdcard'
     params.page = 'getLanguagesAvailable'
     params.action = 'getLanguagesAvailable'
-    return AuthorService.aReturnContent(params)
+    return await AuthorService.aReturnContent(params)
   },
   initialize(params) {
     params.site = process.env.VUE_APP_SITE
     params.my_uid = store.state.user.uid
+    params.sdcard = JSON.stringify(store.state.sdCardSettings)
     params.subdirectory = 'sdcard'
     params.token = store.state.user.token
-    if (typeof params.destination == undefined) {
+    if (typeof params.destination == 'undefined') {
       params.destination = 'sdcard'
     }
     return params

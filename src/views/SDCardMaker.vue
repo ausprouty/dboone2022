@@ -9,7 +9,7 @@
     </div>
     <div v-if="this.authorized">
       <div>
-        <h1>SD Card Maker for {{ this.bookmark.country.name }}</h1>
+        <h1>SD Card Maker for {{ this.country_name }}</h1>
         <p>
           This page allows you to create an SD Card which will have all the
           content and videos.
@@ -89,17 +89,18 @@ export default {
       authorized: false,
       videolist_text: 'Create Media List for SD Card',
       languages: [],
+      country_name: null,
       sdSubDirVal: null,
-      subDirectory: null,
       dir_scard: null,
       language_data: [],
       footers: [],
       sdcard: {
         languages: [],
-        footers: null,
+        footer: null,
         external_links: false,
         action: 'sdcard',
         series: null,
+        subDirectory: null,
       },
     }
   },
@@ -113,10 +114,11 @@ export default {
       required,
       $each: {
         languages: { required },
-        footers: { required },
+        footer: { required },
         external_links: { required },
         actions: { required },
         series: { required },
+        subDirectory: {},
       },
     },
   },
@@ -129,8 +131,8 @@ export default {
         temp = sub.concat('.', this.sdcard.languages[i].language_iso)
         sub = temp
       }
-      this.sdSubDirVal = sub
-      this.$store.dispatch('setSDSubDir', sub)
+      this.sdcard.subDirectory = sub
+      this.$store.dispatch('setSDCardSettings', this.sdcard)
       return sub
     },
   },
@@ -138,6 +140,7 @@ export default {
     this.authorized = this.authorize('write', this.$route.params)
     if (this.authorized) {
       await AuthorService.bookmark(this.$route.params)
+      this.country_name = this.bookmark.country.name
       this.language_data = await SDCardService.getLanguages(this.$route.params)
       this.$store.dispatch('setLanguages', [this.language_data])
       var len = this.language_data.length

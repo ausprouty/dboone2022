@@ -12,7 +12,9 @@ function createPage($p, $content){
     //writeLog('createPage-9-data', $content);
 
     // get bookmark
-    $b['recnum'] =  $p['recnum'];
+    if (isset($p['recnum'])){
+        $b['recnum'] = $p['recnum'];
+    }
     $b['library_code'] = $p['library_code'];
     $bookmark = bookmark($b);
     //writeLog('createPage-18-bookmark', $bookmark);

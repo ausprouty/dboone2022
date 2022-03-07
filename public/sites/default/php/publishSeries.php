@@ -7,8 +7,13 @@ myRequireOnce ('publishFiles.php');
 
 // returns $p[files_json] for use by prototypeSeriesandChapters
 function publishSeries ($p){
-
+    // when coming in with only book information the folder_name is not yet set
     $debug = "In publishSeries\n";
+    if (!isset($p['folder_name'])){
+        if (isset($p['code'])){
+            $p['folder_name'] = $p['code'];
+        }
+    }
     //
     //find series data
     //
@@ -22,13 +27,17 @@ function publishSeries ($p){
     $data = sqlArray($sql);
     //$debug .= $data['text'] . "\n";
     $text = json_decode($data['text']);
+    writeLogDebug('publishSeries-30-text', $text);
+     writeLogDebug('publishSeries-31-p', $p);
     if ($text){
         // create Series
         $result = createSeries($p, $data);
         $p = $result['p'];
         if ($result['text']){
             // find css
-            $b['recnum'] = $p['recnum'];
+            if (isset($p['recnum'])){
+                $b['recnum'] = $p['recnum'];
+            }
             $b['library_code'] = $p['library_code'];
             $bookmark  = bookmark($b);
             $selected_css = isset($bookmark['book']->style) ? $bookmark['book']->style :STANDARD_CSS ;
