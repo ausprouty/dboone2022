@@ -15,17 +15,17 @@ function getLanguagesAvailable($p){
     $countries_array = json_decode($data['text']);
     //find prototype countries data
     //
-    if ($p['destination']=='staging'){
-        $sql = "SELECT distinct country_code FROM content
-        WHERE  prototype_date != ''
-        AND country_code != '' ";
-    }
-    else{
-         $sql = "SELECT distinct country_code FROM content
+    $sql = "SELECT distinct country_code FROM content
         WHERE  prototype_date != '' AND publish_date != ''
         AND country_code != '' ";
-    }
 
+    if (isset($p['destination'])){
+        if ($p['destination']=='staging'){
+                $sql = "SELECT distinct country_code FROM content
+                WHERE  prototype_date != ''
+                AND country_code != '' ";
+            }
+    }
     $query = sqlMany($sql);
     //writeLog('getLanguagesAvailable-22' ,$debug );
     while($country = $query->fetch_array()){

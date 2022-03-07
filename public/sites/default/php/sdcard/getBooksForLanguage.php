@@ -20,7 +20,9 @@ function getBooksForLanguage($p){
                     $book->library_code = $p['library_code'];
                     $book->language_iso = $p['language_iso'];
                     $book->country_code = $p['country_code'];
-                    $book->folder= $book->code;
+                    $book->folder_name = $book->code;
+                    $book->recnum= _getBooksForLanguageRecnum ($book);
+
                     $books[]= $book;
                 }
             }
@@ -29,4 +31,16 @@ function getBooksForLanguage($p){
     }
     usort($books, function($a, $b) {return strcmp($a->title, $b->title);});
     return $books;
+}
+
+function _getBooksForLanguageRecnum ($book){
+  $params = array(
+     'country_code'=> $book->country_code,
+     'language_iso' => $book->language_iso,
+     'folder_name' => $book->code,
+     'scope' => 'series'
+  );
+  $content =getLatestContent($params);
+  writeLogDebug('_getBooksForLanguageRecnum', $content);
+  return $content['recnum'];
 }

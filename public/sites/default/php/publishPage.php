@@ -36,9 +36,13 @@ function publishPage ($p){
      // get bookmark for stylesheet
     if (isset($p['recnum'])){
         $b['recnum'] = $p['recnum'];
+        $b['library_code'] = $p['library_code'];
     }
-    $b['library_code'] = $p['library_code'];
-    $bookmark = bookmark($b);
+    else{
+        $b = $p;
+    }
+    $bookmark  = bookmark($b);
+
     //writeLog ('publishPage-52-bookmark', $bookmark);
 
     $selected_css = isset($bookmark['book']->style)? $bookmark['book']->style: STANDARD_CSS;

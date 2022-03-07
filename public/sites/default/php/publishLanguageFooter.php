@@ -5,13 +5,14 @@ myRequireOnce ('myGetPrototypeFile.php');
 // requires $p['recnum'] and $p['library_code']
 function publishLanguageFooter($p){
     $debug = 'In publishLanguageFooter' . "\n";
-    // get bookmark
     if (isset($p['recnum'])){
-       $b['recnum'] = $p['recnum'];
+        $b['recnum'] = $p['recnum'];
+        $b['library_code'] =isset($p['library_code'])?$p['library_code']:'library';
     }
-    $b['library_code'] = isset($p['library_code'])?$p['library_code']:'library';
+    else{
+        $b = $p;
+    }
     $bookmark  = bookmark($b);
-    //
     $url = isset($bookmark['country']->url) ?  $bookmark['country']->url: 'https://myfriends.life';
     $website = isset($bookmark['country']->website) ? $bookmark['country']->website : 'www.myfriends.life';
     if (!isset($debug)){
@@ -39,10 +40,10 @@ function publishLanguageFooter($p){
     if (!$footer ){
         $language_footer = 'languageFooter.html';
         if($p['destination'] == 'nojs' || $p['destination'] == 'sdcard'){
-            $language_footer = $p['sdcard_language_footer'];
-
+            $language_footer = $p['sdcard_settings']->footer;
         }
-        $debug .= 'LanguageFooter Setfrom languageFooter.html'. "\n";
+        writeLogDebug('publishLanguageFooter-44-footer', $language_footer);
+        writeLogDebug('publishLanguageFooter-45-p', $p['sdcard_settings']);
         $footer  =  myGetPrototypeFile( $language_footer, $p['destination']);
     }
     $placeholders = array(

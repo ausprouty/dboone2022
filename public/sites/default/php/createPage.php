@@ -14,9 +14,12 @@ function createPage($p, $content){
     // get bookmark
     if (isset($p['recnum'])){
         $b['recnum'] = $p['recnum'];
+        $b['library_code'] =isset($p['library_code'])?$p['library_code']:'library';
     }
-    $b['library_code'] = $p['library_code'];
-    $bookmark = bookmark($b);
+    else{
+        $b = $p;
+    }
+    $bookmark  = bookmark($b);
     //writeLog('createPage-18-bookmark', $bookmark);
     $p['selected_css'] = isset($bookmark['book']->style)? $bookmark['book']->style: STANDARD_CSS;
     if (!isset($bookmark['book']->format)){

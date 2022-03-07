@@ -23,13 +23,13 @@ function publishDestination ($p){
       return ROOT_WEBSITE;
   }
   elseif($destination == 'sdcard'){
-      return ROOT_SDCARD . _publishDestinationClean($p['sdSubDir']);;
+      return ROOT_SDCARD . _publishDestinationClean($p['sdcard_settings']->subDirectory);
   }
   elseif($destination == 'nojs'){
-      return ROOT_SDCARD . _publishDestinationClean($p['sdSubDir']);;
+      return ROOT_SDCARD . _publishDestinationClean($p['sdcard_settings']->subDirectory);
   }
   elseif($destination == 'pdf'){
-      return ROOT_SDCARD . _publishDestinationClean($p['sdSubDir']);;
+      return ROOT_SDCARD . _publishDestinationClean($p['sdcard_settings']->subDirectory);;
   }
   $message= 'In publishDestination invalid destination:  ' . $destination;
   writeLogError('publishDestination-30', $p);

@@ -3,11 +3,16 @@ myRequireOnce('writeLog.php');
 myRequireOnce('dirMake.php');
 
 function checkStatusBook($p){
+    if (!isset($p['sdcard_settings']->subDirectory)){
+        $message = 'p[sdcard_settings]->subDirectory not set';
+        writeLogError('checkStatusBook', $message);
+        trigger_error($message, E_USER_ERROR);
+    }
     $check = [];
     $out = new stdClass();
     writeLogDebug('checkStatusBook-p', $p);
     //define("ROOT_SDCARD", ROOT . 'sdcard.mc2.')
-    $p['dir_sdcard'] = ROOT_SDCARD . _checkStatusBookClean($p['sdSubDir']);
+    $p['dir_sdcard'] = ROOT_SDCARD . _checkStatusBookClean($p['sdcard_settings']->subDirectory);
     $p['dir_video_list'] = ROOT_EDIT . 'sites/' . SITE_CODE .'/sdcard/';
     $p['dir_series'] =  $p['country_code'] .'/'. $p['language_iso'] . '/'. $p['code'];
 
@@ -63,7 +68,7 @@ function _checkStatusBookClean($dir_sdcard){
   return $clean;
 }
 /*
-    $p['dir_sdcard'] = ROOT_SDCARD . _checkStatusBookClean($p['sdSubDir']);
+    $p['dir_sdcard'] = ROOT_SDCARD . _checkStatusBookClean($p['sdcard_settings']->subDirectory);
     $p['dir_video_list'] = ROOT_EDIT . 'sites/' . SITE_CODE .'/sdcard/'.'/';
     $p['dir_series'] =  $p['country_code'] .'/'. $p['language_iso'] . '/'. $p[code];
 */

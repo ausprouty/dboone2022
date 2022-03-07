@@ -16,7 +16,7 @@
         </p>
         <p>For sensitive countries be sure to click "Remove External Links"</p>
         <p>
-          You will find all content in {{ this.sdroot }}{{ this.sdSubDirVal }}
+          You will find all content in {{ this.sdroot }}{{  this.sdcard.subDirectory }}
         </p>
       </div>
       <div>
@@ -90,7 +90,6 @@ export default {
       videolist_text: 'Create Media List for SD Card',
       languages: [],
       country_name: null,
-      sdSubDirVal: null,
       dir_scard: null,
       language_data: [],
       footers: [],

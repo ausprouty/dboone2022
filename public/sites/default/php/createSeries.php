@@ -13,8 +13,11 @@ function createSeries($p, $data){
     $footer = publishLanguageFooter($p); // returns $footer
     if (isset($p['recnum'])){
         $b['recnum'] = $p['recnum'];
+        $b['library_code'] = $p['library_code'];
     }
-    $b['library_code'] = $p['library_code'];
+    else{
+        $b = $p;
+    }
     $bookmark  = bookmark($b);
     $selected_css = isset($bookmark['book']->style) ? $bookmark['book']->style :STANDARD_CSS ;
     $json_dir =   $bookmark['language']->folder .'/'.$p['folder_name'] .'/'; // for files.json

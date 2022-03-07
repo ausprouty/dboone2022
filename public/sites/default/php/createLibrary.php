@@ -18,10 +18,12 @@ function createLibrary($p, $text) {
     //
     if (isset($p['recnum'])){
         $b['recnum'] = $p['recnum'];
+        $b['library_code'] =isset($p['library_code'])?$p['library_code']:'library';
     }
-    $b['library_code'] = $p['library_code'];
-    $bookmark = bookmark($b);
-
+    else{
+        $b = $p;
+    }
+    $bookmark  = bookmark($b);
     //
     // get template for library and fill in library details
     //

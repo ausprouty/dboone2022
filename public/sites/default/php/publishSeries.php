@@ -25,6 +25,11 @@ function publishSeries ($p){
         ORDER BY recnum DESC LIMIT 1";
    // $debug .= $sql. "\n";
     $data = sqlArray($sql);
+    if (!$data){
+       $message = 'No data found for: ' . $sql;
+       writeLogError('publishSeries-29', $message);
+       trigger_error( $message, E_USER_ERROR);
+    }
     //$debug .= $data['text'] . "\n";
     $text = json_decode($data['text']);
     writeLogDebug('publishSeries-30-text', $text);
@@ -37,8 +42,11 @@ function publishSeries ($p){
             // find css
             if (isset($p['recnum'])){
                 $b['recnum'] = $p['recnum'];
+                $b['library_code'] = $p['library_code'];
             }
-            $b['library_code'] = $p['library_code'];
+            else{
+                $b = $p;
+            }
             $bookmark  = bookmark($b);
             $selected_css = isset($bookmark['book']->style) ? $bookmark['book']->style :STANDARD_CSS ;
             $dir = dirCreate('series', $p['destination'],  $p, $folders = null);

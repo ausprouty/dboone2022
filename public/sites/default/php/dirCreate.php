@@ -17,7 +17,7 @@ function dirCreate($scope, $destination,  $p, $folders = null){
             $dir = ROOT_EDIT . '/sites/' . SITE_CODE . '/content/';
             break;
         case 'nojs':
-            $dir = ROOT_SDCARD . $p['sdSubDir'] .'/folder/nojs/';
+            $dir = ROOT_SDCARD . $p['sdcard_settings']->subDirectory .'/folder/nojs/';
             break;
         case 'staging':
             $dir = ROOT_STAGING . 'content/';
@@ -26,7 +26,7 @@ function dirCreate($scope, $destination,  $p, $folders = null){
             $dir = ROOT_WEBSITE. 'content/';
             break;
         case 'sdcard':
-            $dir = ROOT_SDCARD . $p['sdSubDir'] .'/folder/content/';
+            $dir = ROOT_SDCARD . $p['sdcard_settings']->subDirectory .'/folder/content/';
             break;
         case 'root':
         case 'default':

@@ -12,6 +12,12 @@ function publishSeriesAndChapters ($p){
     $debug = '';
     // first prototype the Series Index
     $out = publishSeries ($p);
+    if (!isset($out['files_json'])){
+        $message= 'No files_json returned from Publish Series';
+        writeLogError('publishSeriesAndChapters-17', $message);
+        writeLogError('publishSeriesAndChapters-18', $p);
+        triggerError( $message, E_USER_ERROR);
+    }
     $files_json = $out['files_json']; // this starts file for download of series
     $files_in_pages = [];
     // find the list of chapters that are ready to publish

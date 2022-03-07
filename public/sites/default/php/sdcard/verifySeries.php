@@ -5,7 +5,7 @@ myRequireOnce('dirMake.php');
 
 function verifySeriesDir($p){
     writeLogDebug('verifySeries', $p);
-    $p['dir_sdcard'] = ROOT_SDCARD . _verifySeriesClean($p['sdSubDir']);
+    $p['dir_sdcard'] = ROOT_SDCARD . _verifySeriesClean($p['sdcard_settings']->subDirectory);
     $p['dir_video_list'] = ROOT_EDIT . 'sites/' . SITE_CODE .'/sdcard/';
     $p['dir_series'] =  $p['country_code'] .'/'. $p['language_iso'] . '/'. $p['code'];
 
@@ -17,7 +17,7 @@ function _verifySeriesClean($dir_sdcard){
   return $clean;
 }
 /*
-    $p['dir_sdcard'] = ROOT_SDCARD . _verifySeriesClean($p['sdSubDir']);
+    $p['dir_sdcard'] = ROOT_SDCARD . _verifySeriesClean($p['sdcard_settings']->subDirectory);
     $p['dir_video_list'] = ROOT_EDIT . 'sites/' . SITE_CODE .'/sdcard/'.'/';
     $p['dir_series'] =  $p['country_code'] .'/'. $p['language_iso'] . '/'. $p[code];
 */

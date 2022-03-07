@@ -14,7 +14,7 @@ myRequireOnce ('version2Text.php');
 */
 function bookmark ($p){
     $rand=  random_int(0, 99999);
-    writeLogDebug('bookmark-17-p-' . $rand, $p);
+    //writeLogDebug('bookmark-17-p-' . $rand, $p);
     $b['bookmark'] = null;
     if (isset($p['recnum'])){
          // be sure to add this in for library since you can not yet derive it.
@@ -62,7 +62,7 @@ function bookmark ($p){
 
 
     $out=version2Text($out);
-    writeLogDebug('bookmark-64-out-' . $rand, $out);
+    //writeLogDebug('bookmark-64-out-' . $rand, $out);
     return $out;
 }
 function checkBookmarkCountry($b){

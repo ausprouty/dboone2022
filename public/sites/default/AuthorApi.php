@@ -120,6 +120,9 @@ function setParameters($post){
 		$p['filename'] = isset($route->filename) ? $route->filename : NULL;
 		$debug .= 'filename:' . $p['filename']. "\n\n\n";
 	}
+	if (isset($p['sdcard'])){
+		$p['sdcard_settings'] = json_decode($p['sdcard']);
+	}
 	if (!isset($p['version'])){
 		$p['version'] = VERSION;
 	}
