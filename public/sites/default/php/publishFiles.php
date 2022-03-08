@@ -77,10 +77,9 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     // copy all images and styles to the publish directory
     //$response = publishCopyImagesAndStyles($output, $destination);
 
-    $d['destination'] =$destination;
-    $output = modifyImages($output, $d);
+    $output = modifyImages($output, $p);
     // make sure  all files are copied to destination directory
-    publishFilesInPage($output, $d);
+    publishFilesInPage($output, $p);
     $output = makePathsRelative($output, $fname);
     writeLogAppend('publishFiles', $fname);
     fileWrite($fname, $output, $p);

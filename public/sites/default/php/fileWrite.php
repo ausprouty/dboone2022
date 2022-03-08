@@ -13,19 +13,18 @@ function fileWrite($filename, $text, $p){
     for ($i = 1; $i < $count; $i++){
        $filename = str_ireplace ($publishDestination, '', $filename);
     }
-    if ($destination == 'nojs' || $destination == 'pdf'){
+    if ($p['destination'] == 'nojs' || $p['destination'] == 'pdf'){
         $bad =  $publishDestination . 'content/';
        $filename= str_ireplace($bad , $publishDestination, $filename);
     }
     else{
-         $message ="filename was $filename and destination is $destination";
+         $message ="filename was $filename and destination is "  . $p['destination'];
     }
     $filename = dirMake($filename);
-    if ($destination == 'pdf'){
+    if ($p['destination'] == 'pdf'){
         $output = fileWritePDF($filename, $text);
         return $output;
     }
-
     $fh = fopen($filename, 'w');
     if ($fh){
         fwrite($fh, $text);

@@ -33,7 +33,7 @@ function modifyLinks($text, $p){
         $text = str_ireplace('" >', '">', $text);
         $text  = _modifyInternalLinks($text, $find, $p);
     }
-    if (($p['destination'] == 'nojs' || $p['destination'] == 'sdcard') && ALLOW_EXTERNAL_LINKS_IN_SDCARD == FALSE){
+    if (($p['destination'] == 'nojs' || $p['destination'] == 'sdcard') && $p['sdcard_settings']->external_links  == FALSE){
         writeLogError('modifyLinks-37', 'I am about the check for remove readmore Links');
          $find = '<a class="readmore"';
          if (strpos($text, $find) !== false){

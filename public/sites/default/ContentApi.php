@@ -100,6 +100,11 @@ function getParameters(){
     }
     if (isset($p['sdcard'])){
 		$p['sdcard_settings'] = json_decode($p['sdcard']);
+        $bad =['/','..'];
+        if (isset($p['sdcard_settings']->subDirectory)){
+            $clean = str_replace($bad, '', $p['sdcard_settings']->subDirectory);
+            $p['dir_sdcard'] = ROOT_SDCARD . $clean . '/';
+        }
 	}
     $p['site'] =  $_GET['site'];
     foreach ($p as $key=>$value){

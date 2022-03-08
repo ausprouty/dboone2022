@@ -31,7 +31,7 @@ function publishPage ($p){
     }
     //writeLogError ('publishPage-30-debug', $debug);
     $text  = createPage($p, $data);
-    $files_in_page  = publishFilesInPage($text, $p['destination']);
+    $files_in_page  = publishFilesInPage($text, $p);
     $p['files_in_page'] = array_merge($p['files_in_page'], $files_in_page);
      // get bookmark for stylesheet
     if (isset($p['recnum'])){
@@ -42,9 +42,6 @@ function publishPage ($p){
         $b = $p;
     }
     $bookmark  = bookmark($b);
-
-    //writeLog ('publishPage-52-bookmark', $bookmark);
-
     $selected_css = isset($bookmark['book']->style)? $bookmark['book']->style: STANDARD_CSS;
     //
     // class="nobreak" need to be changed to class="nobreak-final" so color is correct
@@ -52,12 +49,18 @@ function publishPage ($p){
      //
     // modify the page for notes and links
     //
-
-     //writeLog ('publishPage-61-text', $text);
     $text = modifyPage($text, $p, $data, $bookmark);
     //writeLog ('publishPage-62', $text);
     // write file
-    $series_dir = publishDestination($p) . 'content/'. $data['country_code'] .'/'.
+    $root_folder = array(
+        'staging' => 'content/',
+        'website' => 'content/',
+        'sdcard' =>'content/',
+        'nojs' =>'nojs/',
+        'pdf' =>'pdf/'
+    );
+    $d =$p['destination'];
+    $series_dir = publishDestination($p) . $root_folder[$d]. $data['country_code'] .'/'.
         $data['language_iso'] .'/'. $data['folder_name'] .'/';
     $fname = $series_dir . $data['filename'] .'.html';
     $text .= '<!--- Created by publishPage-->' . "\n";

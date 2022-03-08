@@ -6,6 +6,7 @@ myRequireOnce ('myGetPrototypeFile.php');
 
 
 function createSeries($p, $data){
+    writeLogDebug('3-createSeries', $p);
     $debug= "createSeries\n";
     $text = json_decode($data['text']);
     // $debug .= "\n\n In prototypeSeries\n";

@@ -9,9 +9,10 @@ myRequireOnce ('writeLog.php');
 
 
 function publishSeriesAndChapters ($p){
-    $debug = '';
+   writeLogDebug ('1-publishSeriesAndChapters-p', $p);
     // first prototype the Series Index
     $out = publishSeries ($p);
+
     if (!isset($out['files_json'])){
         $message= 'No files_json returned from Publish Series';
         writeLogError('publishSeriesAndChapters-17', $message);
@@ -61,7 +62,8 @@ function publishSeriesAndChapters ($p){
                     }
                 }
                 else{
-                    $debug .= 'NO RESULT for ' . $file. "\n";
+                    $message= 'NO RESULT for ' . $file. "\n";
+                    writeLogError('publishSeriesAndChapters-66', $message);
                 }
             }
 

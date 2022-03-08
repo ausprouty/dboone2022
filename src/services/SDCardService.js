@@ -18,6 +18,17 @@ import { parseXML } from 'jquery'
 
 // I want to export a JSON.stringified of response.data.text
 export default {
+  initialize(params) {
+    params.site = process.env.VUE_APP_SITE
+    params.my_uid = store.state.user.uid
+    params.sdcard = JSON.stringify(store.state.sdCardSettings)
+    params.subdirectory = 'sdcard'
+    params.token = store.state.user.token
+    if (typeof params.destination == 'undefined') {
+      params.destination = 'sdcard'
+    }
+    return params
+  },
   async checkStatusBook(params) {
     params = this.initialize(params)
     params.page = 'checkStatusBook'
@@ -68,17 +79,7 @@ export default {
     params.action = 'getLanguagesAvailable'
     return await AuthorService.aReturnContent(params)
   },
-  initialize(params) {
-    params.site = process.env.VUE_APP_SITE
-    params.my_uid = store.state.user.uid
-    params.sdcard = JSON.stringify(store.state.sdCardSettings)
-    params.subdirectory = 'sdcard'
-    params.token = store.state.user.token
-    if (typeof params.destination == 'undefined') {
-      params.destination = 'sdcard'
-    }
-    return params
-  },
+
 
   async publish(scope, params) {
     var action = null
