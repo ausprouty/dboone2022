@@ -63,6 +63,7 @@ export default {
     return await AuthorService.aReturnContent(params)
   },
   async getLanguages(params) {
+    params = this.initialize(params)
     params.page = 'getLanguagesAvailable'
     params.action = 'getLanguagesAvailable'
     return await AuthorService.aReturnContent(params)

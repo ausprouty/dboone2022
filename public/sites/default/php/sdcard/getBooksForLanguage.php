@@ -17,13 +17,15 @@ function getBooksForLanguage($p){
                 $book_list = $library_data->books;
                  writeLogDebug('getBooksForLanguage-library', $book_list);
                 foreach ($book_list as $book){
-                    $book->library_code = $p['library_code'];
-                    $book->language_iso = $p['language_iso'];
-                    $book->country_code = $p['country_code'];
-                    $book->folder_name = $book->code;
-                    $book->recnum= _getBooksForLanguageRecnum ($book);
+                    if ($book->publish){
+                        $book->library_code = $p['library_code'];
+                        $book->language_iso = $p['language_iso'];
+                        $book->country_code = $p['country_code'];
+                        $book->folder_name = $book->code;
+                        $book->recnum= _getBooksForLanguageRecnum ($book);
+                        $books[]= $book;
+                    }
 
-                    $books[]= $book;
                 }
             }
 

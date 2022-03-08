@@ -55,7 +55,7 @@ if (isset($p['action'])){
 				if (isset($p['subdirectory'])){
       			 	$subdirectory  = $p['subdirectory'];
 				}
-				writeLogError('AuthorApi-62-p', $p);
+				writeLogDebug('AuthorApi-62-p', $p);
 				myRequireOnce($p['page'] , $subdirectory);
 				$action = $p['action'];
 				$out = $action ($p);
@@ -128,6 +128,7 @@ function setParameters($post){
 	}
 	$p['site'] =  $_GET['site'];
 	$p['debug'] = $debug;
+	writeLogDebug('AuthorSetParameters-p', $p);
 	return $p;
 
 }

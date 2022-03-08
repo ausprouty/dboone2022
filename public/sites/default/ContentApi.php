@@ -98,10 +98,14 @@ function getParameters(){
         $p['filename'] = isset($r['filename']) ? $r['filename'] : $p['filename'];
         $p['recnum'] = isset($r['recnum']) ? $r['recnum'] : $p['recnum'];
     }
+    if (isset($p['sdcard'])){
+		$p['sdcard_settings'] = json_decode($p['sdcard']);
+	}
     $p['site'] =  $_GET['site'];
     foreach ($p as $key=>$value){
         $debug .= "p['". $key . "'] = " . $value. "\n";
     }
     $p['debug'] = $debug;
+    writeLogDebug('ContentSetParameters-p', $p);
     return $p;
 }

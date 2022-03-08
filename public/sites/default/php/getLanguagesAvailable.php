@@ -3,14 +3,10 @@ myRequireOnce ('writeLog.php');
 
 function getLanguagesAvailable($p){
     $available = [];
-
-    $debug = 'In getLanguagesAvailable '. "\n";
-    //writeLog('getLanguagesAvailable-8' ,$debug );
     // flags
     $sql = "SELECT * FROM content
                 WHERE filename = 'countries'
                 ORDER BY recnum DESC LIMIT 1";
-    $debug .= "$sql \n";
     $data = sqlArray($sql);
     $countries_array = json_decode($data['text']);
     //find prototype countries data
@@ -27,10 +23,9 @@ function getLanguagesAvailable($p){
             }
     }
     $query = sqlMany($sql);
-    //writeLog('getLanguagesAvailable-22' ,$debug );
     while($country = $query->fetch_array()){
         // get prototyped languages from each prototyped country
-         if ($p['destination']=='staging'){
+         if ($p['destination'] =='staging'){
             $sql = "SELECT * FROM content
                 WHERE  country_code = '". $country['country_code'] ."'
                 AND filename = 'languages'  AND prototype_date != ''
@@ -57,7 +52,6 @@ function getLanguagesAvailable($p){
                     $flag = DIR_DEFAULT_SITE . 'images/country/'. $country_object->image;
                 }
             }
-            $debug .= "$flag is flag for " .  $country['country_code']. " \n";
             //writeLog('getLanguagesAvailable-44' , $text->languages );
             foreach ($text->languages as $language){
                 if (isset($language->publish)){

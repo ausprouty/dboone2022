@@ -12,7 +12,7 @@ function checkStatusBook($p){
     $out = new stdClass();
     writeLogDebug('checkStatusBook-p', $p);
     //define("ROOT_SDCARD", ROOT . 'sdcard.mc2.')
-    $p['dir_sdcard'] = ROOT_SDCARD . _checkStatusBookClean($p['sdcard_settings']->subDirectory);
+    $p['dir_sdcard'] = ROOT_SDCARD . _checkStatusBookClean($p['sdcard_settings']->subDirectory) .'/';
     $p['dir_video_list'] = ROOT_EDIT . 'sites/' . SITE_CODE .'/sdcard/';
     $p['dir_series'] =  $p['country_code'] .'/'. $p['language_iso'] . '/'. $p['code'];
 

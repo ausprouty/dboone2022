@@ -4,8 +4,12 @@ myRequireOnce('writeLog.php');
 myRequireOnce('dirMake.php');
 
 function verifySeriesDir($p){
+    if (!isset($p['sdcard_settings'])){
+        $message= 'No sdcard_settings in verifySeriesDir';
+        trigger_error($message, E_USER_ERROR);
+    }
     writeLogDebug('verifySeries', $p);
-    $p['dir_sdcard'] = ROOT_SDCARD . _verifySeriesClean($p['sdcard_settings']->subDirectory);
+    $p['dir_sdcard'] = ROOT_SDCARD . _verifySeriesClean($p['sdcard_settings']->subDirectory) .'/';
     $p['dir_video_list'] = ROOT_EDIT . 'sites/' . SITE_CODE .'/sdcard/';
     $p['dir_series'] =  $p['country_code'] .'/'. $p['language_iso'] . '/'. $p['code'];
 
