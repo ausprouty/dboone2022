@@ -109,16 +109,16 @@ export default {
       var params = this.book
       console.log(params)
       if (location == 'cover') {
-        this.nojs_text = 'Publishing'
+        this.cover_text = 'Publishing'
         await SDCardService.publish('cover', params)
-        this.progress.nojs = await SDCardService.verifyBookCover(params)
-        this.nojs_text = 'Media'
+        this.progress.cover = await SDCardService.verifyBookCover(params)
+        this.cover_text = 'Media'
       }
       if (location == 'media') {
-        this.nojs_text = 'Publishing'
+        this.media_text = 'Publishing'
         await SDCardService.publish('media', params)
-        this.progress.nojs = await SDCardService.verifyBookMedia(params)
-        this.nojs_text = 'Media'
+        this.progress.media = await SDCardService.verifyBookMedia(params)
+        this.media_text = 'Media'
       }
       if (location == 'nojs') {
         this.nojs_text = 'Publishing'

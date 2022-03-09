@@ -3,11 +3,13 @@
 myRequireOnce ('dirMake.php');
 myRequireOnce ('writeLog.php');
 myRequireOnce ('modifyRevealVideo.php');
-myRequireOnce ('videoFindForSDCardNewName.php');
-myRequireOnce ('audioMakeRefFileForSDCard.php');
+myRequireOnce ('videoFindForSDCardNewName.php', 'sdcard');
+myRequireOnce ('audioMakeRefFileForSDCard.php', 'sdcard');
 
 
 function videoMakeBatFileForSDCard($p){
+  writeLogDebug('videoMakeBatFileForSDCard', $p);
+  return;
    audioMakeRefFileForSDCard($p);
    $output = '';
    $series_videos = [];
@@ -47,9 +49,6 @@ function videoMakeBatFileForSDCard($p){
     return $output;
 }
 function videoMakeBatFileForSDCardSingle($video, $dir){
-    if ( $dir == 'video'){
-       //writeLog('videoMakeBatFileForSDCardSingle-51-'.  $video['filename'], $video);
-    }
     $output = '';
     $template_with_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start] -to [end]   -vf scale=[width]:-1  [dir]/[new_name].mp4' ;
     $template_without_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start]  -vf scale=[width]:-1    [dir]/[new_name].mp4';

@@ -5,6 +5,19 @@ myRequireOnce('dirMake.php');
 myRequireOnce('verifyBookDir.php', 'sdcard');
 
 
+function verifyBookCover($p){
+    $p = verifyBookDir($p);
+    return 'ready';
+
+}
+function verifyBookMedia($p){
+    $dir_series = ROOT_EDIT . 'sites/' . SITE_CODE .'/media/' .$p['country_code'] .'/'. $p['language_iso'] .'/';
+    if (file_exists($dir_series)){
+       return 'ready';
+    }
+    return 'ready';
+
+}
 
 function verifyBookSDCard($p){
     $p = verifyBookDir($p);
