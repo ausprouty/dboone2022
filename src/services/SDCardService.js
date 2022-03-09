@@ -35,30 +35,30 @@ export default {
     params.action = 'checkStatusBook'
     return await AuthorService.aReturnContent(params)
   },
-  async verifySeriesNoJS(params) {
+  async verifyBookNoJS(params) {
     params = this.initialize(params)
-    params.page = 'verifySeries'
-    params.action = 'verifySeriesNoJS'
+    params.page = 'verifyBook'
+    params.action = 'verifyBookNoJS'
     return await AuthorService.aReturnContent(params)
   },
 
-  async verifySeriesPDF(params) {
+  async verifyBookPDF(params) {
     params = this.initialize(params)
-    params.page = 'verifySeries'
-    params.action = 'verifySeriesPDF'
+    params.page = 'verifyBook'
+    params.action = 'verifyBookPDF'
     return await AuthorService.aReturnContent(params)
   },
-  async verifySeriesSDCard(params) {
+  async verifyBookSDCard(params) {
     params = this.initialize(params)
-    params.page = 'verifySeries'
-    params.action = 'verifySeriesSDCard'
+    params.page = 'verifyBook'
+    params.action = 'verifyBookSDCard'
     return await AuthorService.aReturnContent(params)
   },
 
-  async verifySeriesVideoList(params) {
+  async verifyBookVideoList(params) {
     params = this.initialize(params)
-    params.page = 'verifySeries'
-    params.action = 'verifySeriesVideoList'
+    params.page = 'verifyBook'
+    params.action = 'verifyBookVideoList'
     return await AuthorService.aReturnContent(params)
   },
   async getBooks(params) {

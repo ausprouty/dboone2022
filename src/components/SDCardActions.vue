@@ -89,25 +89,25 @@ export default {
       if (location == 'nojs') {
         this.nojs_text = 'Publishing'
         await NoJSService.publish('seriesAndChapters', params)
-        this.progress.nojs = await SDCardService.verifySeriesNoJS(params)
+        this.progress.nojs = await SDCardService.verifyBookNoJS(params)
         this.nojs_text = 'No JS'
       }
       if (location == 'pdf') {
         this.pdf_text = 'Publishing'
         await PDFService.publish('seriesAndChapters', params)
-        this.progress.pdf = await SDCardService.verifySeriesPDF(params)
+        this.progress.pdf = await SDCardService.verifyBookPDF(params)
         this.pdf_text = 'PDF'
       }
       if (location == 'sdcard') {
         this.sdcard_text = 'Publishing'
         await SDCardService.publish('seriesAndChapters', params)
-        this.progress.sdcard = await SDCardService.verifySeriesSDCard(params)
+        this.progress.sdcard = await SDCardService.verifyBookSDCard(params)
         this.sdcard_text = 'SD Card'
       }
       if (location == 'videolist') {
         this.videolist_text = 'Publishing'
         await SDCardService.publish('videoMakeBatFileForSDCard', params)
-        this.progress.videolist = await SDCardService.verifySeriesVideoList(
+        this.progress.videolist = await SDCardService.verifyBookVideoList(
           params
         )
         this.videolist_text = 'Video List'

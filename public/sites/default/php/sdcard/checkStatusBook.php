@@ -1,6 +1,7 @@
 <?php
 myRequireOnce('writeLog.php');
 myRequireOnce('dirMake.php');
+myRequireOnce('verifyBook.php', 'sdcard');
 
 function checkStatusBook($p){
     if (!isset($p['sdcard_settings']->subDirectory)){
@@ -8,15 +9,9 @@ function checkStatusBook($p){
         writeLogError('checkStatusBook', $message);
         trigger_error($message, E_USER_ERROR);
     }
+    $p = verifyBookDir($p);// set $p['dir_sdcard']
     $check = [];
     $out = new stdClass();
-    writeLogDebug('checkStatusBook-p', $p);
-    //define("ROOT_SDCARD", ROOT . 'sdcard.mc2.')
-    $p['dir_sdcard'] = ROOT_SDCARD . _checkStatusBookClean($p['sdcard_settings']->subDirectory) .'/';
-    $p['dir_video_list'] = ROOT_EDIT . 'sites/' . SITE_CODE .'/sdcard/';
-    $p['dir_series'] =  $p['country_code'] .'/'. $p['language_iso'] . '/'. $p['code'];
-
-
     writeLogDebug('checkStatusBook-dir', $p['dir_sdcard'] . '/folder/content/');
     $progress = json_decode($p['progress']);
     foreach ($progress as $key=>$value){
@@ -24,7 +19,7 @@ function checkStatusBook($p){
         switch ($key){
             case "sdcard":
                 if (file_exists($p['dir_sdcard'] . '/folder/content/')){
-                   $out->sdcard = checkStatusBookSDCard($p);
+                   $out->sdcard = verifyBookSDCard($p);
                 }
                 else{
                     $out->sdcard = 'undone';
@@ -32,7 +27,7 @@ function checkStatusBook($p){
                 break;
             case "nojs":
                 if (file_exists($p['dir_sdcard'] . '/folder/nojs/')){
-                   $out->nojs = checkStatusBookNoJS($p);
+                   $out->nojs = verifyBookNoJS($p);
                 }
                 else{
                     $out->nojs = 'undone';
@@ -40,15 +35,17 @@ function checkStatusBook($p){
                 break;
             case "pdf":
                 if (file_exists($p['dir_sdcard'] . '/folder/pdf/')){
-                   $out->pdf = checkStatusBookPDF($p);
+                   $out->pdf = verifyBookPDF($p);
                 }
                 else{
                     $out->pdf = 'undone';
                 }
                 break;
             case "videolist":
-                if (file_exists($p['dir_video_list'] . $p['country_code'])){
-                   $out->videolist = checkStatusBookVideoList($p);
+                $fn = $p['dir_video_list'];
+                writeLogDebug('checkStatusBook-46', $fn);
+                if (file_exists($fn)){
+                   $out->videolist = verifyBookVideoList($p);
                 }
                 else{
                     $out->videolist = 'undone';
@@ -59,40 +56,4 @@ function checkStatusBook($p){
     }
     writeLogDebug('checkStatusBook-10-out', $out);
     return $out;
-}
-
-
-function _checkStatusBookClean($dir_sdcard){
-  $bad =['/'.'..'];
-  $clean = str_replace($bad, '', $dir_sdcard);
-  return $clean;
-}
-/*
-    $p['dir_sdcard'] = ROOT_SDCARD . _checkStatusBookClean($p['sdcard_settings']->subDirectory);
-    $p['dir_video_list'] = ROOT_EDIT . 'sites/' . SITE_CODE .'/sdcard/'.'/';
-    $p['dir_series'] =  $p['country_code'] .'/'. $p['language_iso'] . '/'. $p[code];
-*/
-function checkStatusBookSDCard($p){
-    if (!file_exists($p['dir_sdcard'] . '/folder/content/'. $p['dir_series'] )){
-       return 'ready';
-    }
-    return 'done';
-}
-function checkStatusBookNoJS($p){
-     if (!file_exists($p['dir_sdcard'] . '/folder/nojs/'. $p['dir_series'] )){
-        return 'ready';
-    }
-    return 'done';
-}
-function checkStatusBookPDF($p){
-    if (!file_exists($p['dir_sdcard'] . '/folder/pdf/'. $p['dir_series'] )){
-        return 'ready';
-    }
-    return 'done';
-}
-function checkStatusBookVideoList($p){
-   if (!file_exists($p['dir_video_list'] .  $p['dir_series'] )){
-        return 'ready';
-    }
-    return 'done';
 }
