@@ -35,6 +35,18 @@ export default {
     params.action = 'checkStatusBook'
     return await AuthorService.aReturnContent(params)
   },
+  async verifyBookCover(params) {
+    params = this.initialize(params)
+    params.page = 'verifyBook'
+    params.action = 'verifyBookCover'
+    return await AuthorService.aReturnContent(params)
+  },
+  async verifyBookMedia(params) {
+    params = this.initialize(params)
+    params.page = 'verifyBook'
+    params.action = 'verifyBookMedia'
+    return await AuthorService.aReturnContent(params)
+  },
   async verifyBookNoJS(params) {
     params = this.initialize(params)
     params.page = 'verifyBook'
@@ -80,7 +92,6 @@ export default {
     return await AuthorService.aReturnContent(params)
   },
 
-
   async publish(scope, params) {
     var action = null
     params = this.initialize(params)
@@ -118,6 +129,12 @@ export default {
         break
       case 'videoConcatBat':
         action = 'AuthorApi.php?page=videoConcatBat&action=videoConcatBat'
+        break
+      case 'media':
+        action = 'AuthorApi.php?page=copyBookMedia&action=copyBookMedia'
+        break
+      case 'cover':
+        action = 'AuthorApi.php?page=copySDCardCover&action=copySDCardCover'
         break
 
       case 'default':

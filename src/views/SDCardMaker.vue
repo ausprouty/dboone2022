@@ -16,7 +16,8 @@
         </p>
         <p>For sensitive countries be sure to click "Remove External Links"</p>
         <p>
-          You will find all content in {{ this.sdroot }}{{  this.sdcard.subDirectory }}
+          You will find all content in {{ this.sdroot
+          }}{{ this.sdcard.subDirectory }}
         </p>
       </div>
       <div>
@@ -58,6 +59,7 @@
     </div>
     <div class="spacer"></div>
 
+    <div class="spacer"></div>
     <SDCardBooks
       v-for="language in sdcard.languages"
       :key="language.language_iso"

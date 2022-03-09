@@ -2,6 +2,7 @@
 myRequireOnce('writeLog.php');
 myRequireOnce('dirMake.php');
 myRequireOnce('verifyBook.php', 'sdcard');
+myRequireOnce('verifyBookDir.php', 'sdcard');
 
 function checkStatusBook($p){
     if (!isset($p['sdcard_settings']->subDirectory)){

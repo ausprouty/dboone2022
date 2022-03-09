@@ -36,6 +36,24 @@
         {{ videolist_text }}
       </button>
     </div>
+    <div class="column">
+      <button
+        class="button"
+        v-bind:class="progress.media"
+        @click="localPublish('media')"
+      >
+        {{ media_text }}
+      </button>
+    </div>
+    <div class="column">
+      <button
+        class="button"
+        v-bind:class="progress.cover"
+        @click="localPublish('cover')"
+      >
+        {{ cover_text }}
+      </button>
+    </div>
   </div>
 </template>
 
@@ -72,12 +90,16 @@ export default {
       sdcard_text: 'SD Card',
       nojs_text: 'No JS',
       pdf_text: 'PDF',
-      videolist_text: 'Video List',
+      videolist_text: 'Media List',
+      media_text: 'Media',
+      cover_text: 'Cover',
       progress: {
         sdcard: '',
         nojs: '',
         pdf: '',
         videolist: '',
+        media: '',
+        cover: '',
       },
     }
   },
@@ -86,6 +108,18 @@ export default {
       var response = null
       var params = this.book
       console.log(params)
+      if (location == 'cover') {
+        this.nojs_text = 'Publishing'
+        await SDCardService.publish('cover', params)
+        this.progress.nojs = await SDCardService.verifyBookCover(params)
+        this.nojs_text = 'Media'
+      }
+      if (location == 'media') {
+        this.nojs_text = 'Publishing'
+        await SDCardService.publish('media', params)
+        this.progress.nojs = await SDCardService.verifyBookMedia(params)
+        this.nojs_text = 'Media'
+      }
       if (location == 'nojs') {
         this.nojs_text = 'Publishing'
         await NoJSService.publish('seriesAndChapters', params)
@@ -129,6 +163,10 @@ export default {
 }
 </script>
 <style scoped>
+button {
+  font-size: 10px;
+  padding: 10px;
+}
 div.actions {
   flex: 1 1 0px;
 }
