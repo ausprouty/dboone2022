@@ -2,12 +2,24 @@ const apiURL = process.env.VUE_APP_DEFAULT_SITES_URL
 const apiSite = process.env.VUE_APP_SITE
 const apiLocation = process.env.VUE_APP_SITE_LOCATION
 
+const postDestination =
+  'AuthorApi.php?site=' + apiSite + '&location=' + apiLocation
+
 const apiSECURE = axios.create({
   baseURL: apiURL,
   withCredentials: false, // This is the default
   crossDomain: true,
   headers: {
     Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+})
+const apiDOWNLOAD = axios.create({
+  baseURL: apiURL,
+  withCredentials: false, // This is the default
+  crossDomain: true,
+  headers: {
+    responseType: 'blob',
     'Content-Type': 'application/json',
   },
 })
@@ -35,6 +47,21 @@ export default {
     params.action = 'checkStatusBook'
     return await AuthorService.aReturnContent(params)
   },
+  // see https://morioh.com/p/f4d331b62cda
+  async downloadMediaBatFiles(params) {
+    params = this.initialize(params)
+    params.page = 'downloadMediaBatFiles'
+    params.action = 'downloadMediaBatFiles'
+    var contentForm = this.toAuthorizedFormData(params)
+    var response = await apiDOWNLOAD.post(postDestination, contentForm)
+    console.log(response)
+    var fileURL = window.URL.createObjectURL(new Blob([response.data]))
+    var fileLink = document.createElement('a')
+    fileLink.href = fileURL
+    fileLink.setAttribute('download', 'file.zip')
+    document.body.appendChild(fileLink)
+    fileLink.click()
+  },
   async verifyBookCover(params) {
     params = this.initialize(params)
     params.page = 'verifyBook'
@@ -53,7 +80,6 @@ export default {
     params.action = 'verifyBookNoJS'
     return await AuthorService.aReturnContent(params)
   },
-
   async verifyBookPDF(params) {
     params = this.initialize(params)
     params.page = 'verifyBook'
@@ -66,7 +92,6 @@ export default {
     params.action = 'verifyBookSDCard'
     return await AuthorService.aReturnContent(params)
   },
-
   async verifyBookVideoList(params) {
     params = this.initialize(params)
     params.page = 'verifyBook'
@@ -91,7 +116,6 @@ export default {
     params.action = 'getLanguagesAvailable'
     return await AuthorService.aReturnContent(params)
   },
-
   async publish(scope, params) {
     var action = null
     params = this.initialize(params)
@@ -146,7 +170,6 @@ export default {
     var response = await apiSECURE.post(complete_action, contentForm)
     return response
   },
-
   toFormData(obj) {
     var form_data = new FormData()
     for (var key in obj) {

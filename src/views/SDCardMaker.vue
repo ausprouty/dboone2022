@@ -65,6 +65,19 @@
       :key="language.language_iso"
       :language="language"
     />
+    <p>
+      After you make the Video List Bat files you will need to download and run
+      them on your local machine. They take too much processing time to run
+      remotely. Then upload the processed videos someplace.
+    </p>
+
+    <div class="row">
+      <div class="column">
+        <button class="button" @click="downloadMediaBatFiles()">
+          {{ this.bat_text }}
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -74,6 +87,7 @@ import SDCardBooks from '@/components/SDCardBooks.vue'
 import SDCardService from '@/services/SDCardService.js'
 import AuthorService from '@/services/AuthorService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
+import axios from 'axios'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { required } from 'vuelidate/lib/validators'
 export default {
@@ -95,6 +109,7 @@ export default {
       dir_scard: null,
       language_data: [],
       footers: [],
+      bat_text: 'Download Media Batch Files',
       sdcard: {
         languages: [],
         footer: null,
@@ -124,6 +139,28 @@ export default {
     },
   },
   methods: {
+    async downloadMediaBatFiles() {
+      this.bat_text = 'Downloading'
+      var params = this.$route.params
+      var filename = await SDCardService.downloadMediaBatFiles(params)
+      this.bat_text = 'Finished'
+      this.download(filename)
+    },
+    async download(filename) {
+      axios({
+        url: process.env.VUE_APP_URL + filename,
+        method: 'GET',
+        responseType: 'blob',
+      }).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]))
+        var fileLink = document.createElement('a')
+        fileLink.href = fileURL
+        fileLink.setAttribute('download', 'file.pdf')
+        document.body.appendChild(fileLink)
+        fileLink.click()
+      })
+    },
+
     sdSubDir() {
       var sub = ''
       var temp = ''

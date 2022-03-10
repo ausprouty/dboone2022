@@ -82,10 +82,24 @@ else{
 $debug .= "\n\nHERE IS JSON_ENCODE OF DATA THAT IS NOT ESCAPED\n";
 $debug .= json_encode($out) . "\n";
 writeLog($p['action'] ,   $debug);
+/*
+if ($p['action'] == 'downloadMediaBatFiles'){
+    $zipname = $out;
+	writeLogDebug('zip-87', $zipname);
+	writeLogDebug('zip-88',filesize($zipname));
+	header('Content-Type: application/zip');
+    header('Content-disposition: attachment; filename='. $zipname);
+    header('Content-Length: ' . filesize($zipname));
+    readfile($zipname);
+
+}
+*/
+
+	header("Content-type: application/json");
+	echo json_encode($out, JSON_UNESCAPED_UNICODE);
 
 // return response
-header("Content-type: application/json");
-echo json_encode($out, JSON_UNESCAPED_UNICODE);
+
 die();
 //}
 

@@ -8,8 +8,7 @@ myRequireOnce ('audioMakeRefFileForSDCard.php', 'sdcard');
 
 
 function videoMakeBatFileForSDCard($p){
-  writeLogDebug('videoMakeBatFileForSDCard', $p);
-  return;
+  //writeLogDebug('videoMakeBatFileForSDCard', $p);
    audioMakeRefFileForSDCard($p);
    $output = '';
    $series_videos = [];
@@ -33,7 +32,7 @@ function videoMakeBatFileForSDCard($p){
                 $count= count($chapter_videos);
                 //writeLog('videoMakeBatFileForSDCard-32-count-'. $chapter->filename , $count);
                  if ($count == 1){
-                     $dir = 'video';
+                     $dir = $p['folder_name'] .'/video';
                    //writeLog('videoMakeBatFileForSDCard-35-videos-' . $chapter->filename , $chapter_videos);
                     $output .= videoMakeBatFileForSDCardSingle($chapter_videos[0], $dir);
                    //writeLog('videoMakeBatFileForSDCard-37-output-' . $chapter->filename , $output);
@@ -77,9 +76,6 @@ function videoMakeBatFileForSDCardSingle($video, $dir){
             }
             $output = str_replace($placeholders, $replace,  $template) . "\n";
     }
-    if ( $dir == 'video'){
-       //writeLog('videoMakeBatFileForSDCardSingle-80-'.  $video['filename'], $output);
-    }
 
     return $output;
 }
@@ -88,7 +84,7 @@ function videoMakeBatFileForSDCardConcat($chapter_videos, $p,  $filename){
     $output ='';
     $template = 'ffmpeg -f concat -safe 0 -i concat/[list_name] -c copy video/[new_name].mp4';
     $file_list = '';
-    $dir= 'concat';
+    $dir= $p['folder_name'] .'/concat';
     foreach ($chapter_videos as $video){
         $file_list .= 'file '. $video['new_name']  .'.mp4' ."\n";
         $output .= videoMakeBatFileForSDCardSingle($video, $dir);
@@ -124,10 +120,10 @@ function videoMakeBatFileForSDCardWrite($text, $p){
 }
 function videoMakeBatFileForSDCardWriteConcat($text, $p, $filename){
     //define("ROOT_EDIT", '/home/vx5ui10wb4ln/public_html/myfriends.edit/');
-   //writeLog('videoMakeBatFileForSDCardWriteConcat-115-p', $p);
-     $dir = ROOT_EDIT  . 'sites/' . SITE_CODE  . '/sdcard/' . $p['country_code'] . '/' . $p['language_iso'] . '/concat/';
-     dirMake($dir);
-     $filename=  $filename . '.txt';
+    //writeLogDebug('videoMakeBatFileForSDCardWriteConcat-123-p', $p);
+    $dir = ROOT_EDIT  . 'sites/' . SITE_CODE  . '/sdcard/' . $p['country_code'] . '/' . $p['language_iso']  .'/concat/';
+    dirMake($dir);
+    $filename=  $filename . '.txt';
     $fh = fopen( $dir. $filename, 'w');
 	fwrite($fh, $text);
     fclose($fh);

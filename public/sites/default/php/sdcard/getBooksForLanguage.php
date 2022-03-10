@@ -4,7 +4,7 @@ myRequireOnce ('getLatestContent.php');
 myRequireOnce ('writeLog.php');
 // MC2 and other clients have multiple libraries
 function getBooksForLanguage($p){
-    writeLogDebug('getBooksForLanguage-p', $p);
+    //writeLogDebug('getBooksForLanguage-p', $p);
     $books =[];
     $p['scope'] = 'library';
     $libraries=findLibraries($p);
@@ -15,7 +15,7 @@ function getBooksForLanguage($p){
             $library_data = json_decode($data['text']);
             if (isset($library_data->books)){
                 $book_list = $library_data->books;
-                 writeLogDebug('getBooksForLanguage-library', $book_list);
+                 //writeLogDebug('getBooksForLanguage-library', $book_list);
                 foreach ($book_list as $book){
                     if ($book->publish){
                         $book->library_code = $p['library_code'];
@@ -43,6 +43,6 @@ function _getBooksForLanguageRecnum ($book){
      'scope' => 'series'
   );
   $content =getLatestContent($params);
-  writeLogDebug('_getBooksForLanguageRecnum', $content);
+  //writeLogDebug('_getBooksForLanguageRecnum', $content);
   return $content['recnum'];
 }

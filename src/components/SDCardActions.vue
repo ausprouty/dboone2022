@@ -144,7 +144,7 @@ export default {
         this.progress.videolist = await SDCardService.verifyBookVideoList(
           params
         )
-        this.videolist_text = 'Video List'
+        this.videolist_text = 'Media List'
       }
       if (response == 'error') {
         alert('There was an error')
