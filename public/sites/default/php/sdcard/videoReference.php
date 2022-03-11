@@ -109,6 +109,7 @@ function videoReference(){
     $link['GOLuke2619'] = 'lumo/LUMOLuke19144';
     $link['GOLuke2620'] = 'lumo/LUMOLuke19452047';
     $link['GOLuke2622'] = 'lumo/LUMOLuke21372238';
+    $link['GOLuke2623']=  'lumo/LUMOLuke22392325';
     $link['GOLuke2625'] = 'lumo/LUMOLuke24153';
     $link['GOMark1501'] = 'lumo/LUMOMark1145';
     $link['GOMark1503'] = 'lumo/LUMOMark320441';
@@ -122,9 +123,13 @@ function videoReference(){
     $link['GOMatt2511'] = 'lumo/LUMOMatthew14131520';
     $link['GOMatt2512'] = 'lumo/LUMOMatthew1621189';
     $link['GOMatt2513'] = 'lumo/LUMOMatthew1621189';
+    $link['GOMatt2514'] = 'lumo/LUMOMatthew18101930';
     $link['GOMatt2522'] = 'lumo/LUMOMatthew263675';
     $link['GOMatt2524'] = 'lumo/LUMOMatthew27322820';
+    $link['https://vimeo.com/286515674'] = 'vimeo/La Question Fascinante-286515674';
     $link['https://vimeo.com/162977296'] = 'vimeo/The Amazing Question';
     $link['https://vimeo.com/162982206'] = 'vimeo/My Story - English';
+    $link['https://www.youtube.com/watch?v=biTh0SIiHWQ'] = 'youtube/biTh0SIiHWQ';
+    $link['https://www.youtube.com/watch?v=MpsnJAExC0g']= 'youtube/MpsnJAExC0g';
     return $link;
 }

@@ -13,8 +13,8 @@ function videoMakeBatFileForSDCard($p){
    $output = '';
    $series_videos = [];
    $chapter_videos = [];
-   // this allows me to include a different file for each language.
-   myRequireOnce ('videoReference.php',  $p['language_iso']);
+
+   myRequireOnce ('videoReference.php', 'sdcard');
  //find series data that has been prototyped
     $sql = "SELECT * FROM content
         WHERE  country_code = '". $p['country_code'] ."'
@@ -182,6 +182,11 @@ function videoFindForSDCard($p, $filename){
         AND prototype_date IS NOT NULL
         ORDER BY recnum DESC LIMIT 1";
     $data = sqlArray($sql);
+    if (!isset($data['text'])){
+        writeLogError ('videoFindForSDCard -'. $filename, $sql);
+        return $chapter_videos;
+
+    }
     $text= $data['text'];
     ////writeLog('videoFindForSDCard-76-'. $filename, $text);
     $find = '<div class="reveal film">';
@@ -209,24 +214,22 @@ function videoFindForSDCard($p, $filename){
             $url= substr($url, $start);
             if (isset($videoReference[$url])){
                  $video['download_name'] = $videoReference[$url];
-                if (strpos($video['download_name'], 'LUMO') !== FALSE){
-                    $video['download_name'] ='lumo/'. $video['download_name'];
-                }
-                else{
-                   $video['download_name'] ='acts/'. $video['download_name'];
-                }
             }
             else{
                 $video['download_name'] = NULL;
                 $message = 'Download name not found for ' . $url;
-                writeLogError('videoFindForSDCard-102-' . $filename, $message );
+                writeLogError('videoFindForSDCard-216-'. $p['language_iso'] .'-'. $filename, $message );
             }
         }
         else{
-            $video['download_name'] = NULL;
-            $message = 'Download name not found for ' . $url;
-            writeLogError('videoFindForSDCard-102-' . $filename, $message );
-
+            if (isset($videoReference[$url])){
+                 $video['download_name'] = $videoReference[$url];
+            }
+            else{
+                $video['download_name'] = NULL;
+                 $message = 'Download name not found for ' . $url;
+                writeLogError('videoFindForSDCard-226-'. $p['language_iso'] .'-'.  $filename, $message );
+            }
         }
         $video['url']= $url;
          // find start and end times

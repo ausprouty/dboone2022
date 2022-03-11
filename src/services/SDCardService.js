@@ -48,19 +48,11 @@ export default {
     return await AuthorService.aReturnContent(params)
   },
   // see https://morioh.com/p/f4d331b62cda
-  async downloadMediaBatFiles(params) {
+  async zipMediaBatFiles(params) {
     params = this.initialize(params)
-    params.page = 'downloadMediaBatFiles'
-    params.action = 'downloadMediaBatFiles'
-    var contentForm = this.toAuthorizedFormData(params)
-    var response = await apiDOWNLOAD.post(postDestination, contentForm)
-    console.log(response)
-    var fileURL = window.URL.createObjectURL(new Blob([response.data]))
-    var fileLink = document.createElement('a')
-    fileLink.href = fileURL
-    fileLink.setAttribute('download', 'file.zip')
-    document.body.appendChild(fileLink)
-    fileLink.click()
+    params.page = 'zipMediaBatFiles'
+    params.action = 'zipMediaBatFiles'
+    return await AuthorService.aReturnResponse(params)
   },
   async verifyBookCover(params) {
     params = this.initialize(params)

@@ -2,10 +2,10 @@
 myRequireOnce('dirListRecursive.php');
 myRequireOnce('writeLog.php');
 
-function downloadMediaBatFiles($p){
+function zipMediaBatFiles($p){
      $dir = ROOT_EDIT. 'sites/'. SITE_CODE .'/sdcard/'. $p['country_code'] .'/';
     // FROM https://stackoverflow.com/questions/1754352/download-multiple-files-as-a-zip-file-using-php
-    $files = downloadMediaBatFilesGet($p);
+    $files = zipMediaBatFilesGet($p);
     $zipname = 'MediaBatFiles' . $p['sdcard_settings']->subDirectory .'.zip';
     $zip = new ZipArchive;
     $zip->open($zipname, ZipArchive::CREATE);
@@ -20,11 +20,11 @@ $zipname = 'php/default/' . $zipname;
     return ($zipname);
 }
 //define("ROOT_EDIT", ROOT . 'edit.mc2.online/');
-function downloadMediaBatFilesGet($p){
+function zipMediaBatFilesGet($p){
     $output = [];
     $dir = ROOT_EDIT. 'sites/'. SITE_CODE .'/sdcard/'. $p['country_code'] .'/';
     $subDirectories = explode('.', $p['sdcard_settings']->subDirectory);
-    writeLogDebug('downloadMediaBatFilesGet', $subDirectories);
+    writeLogDebug('zipMediaBatFilesGet', $subDirectories);
     foreach ($subDirectories as $sub){
         if (strlen ($sub) > 1){ // because first one will be blank
             $check_dir =$dir . $sub;
@@ -32,6 +32,6 @@ function downloadMediaBatFilesGet($p){
             $output = array_merge($files, $output);
         }
    }
-   writeLogDebug('downloadMediaBatFilesGet-33', $output);
+   writeLogDebug('zipMediaBatFilesGet-33', $output);
    return $output;
 }

@@ -65,15 +65,22 @@
       :key="language.language_iso"
       :language="language"
     />
-    <p>
-      After you make the Video List Bat files you will need to download and run
-      them on your local machine. They take too much processing time to run
-      remotely. Then upload the processed videos someplace.
-    </p>
+    <p>After you make the Video List Bat files:</p>
+    <ul>
+      <li>Check for Errors in the error log</li>
+      <li>Correct errors in html and republish</li>
+      <li>Download any missing files</li>
+      <li>Update Reference File</li>
+      <li>
+        Download and run the bat files on your local machine - try M:MC2/sdcard/ (They
+        take too much processing time to run remotely.)
+      </li>
+      <li>Then upload the processed videos to sites/{{ this.site }}/media</li>
+    </ul>
 
     <div class="row">
       <div class="column">
-        <button class="button" @click="downloadMediaBatFiles()">
+        <button class="button" @click="zipMediaBatFiles()">
           {{ this.bat_text }}
         </button>
       </div>
@@ -106,6 +113,7 @@ export default {
       videolist_text: 'Create Media List for SD Card',
       languages: [],
       country_name: null,
+      site: process.env.VUE_APP_SITE,
       dir_scard: null,
       language_data: [],
       footers: [],
@@ -139,14 +147,15 @@ export default {
     },
   },
   methods: {
-    async downloadMediaBatFiles() {
+    async zipMediaBatFiles() {
       this.bat_text = 'Downloading'
       var params = this.$route.params
-      var filename = await SDCardService.downloadMediaBatFiles(params)
+      var filename = await SDCardService.zipMediaBatFiles(params)
       this.bat_text = 'Finished'
-      this.download(filename)
+      this.ddownloadMediaBatFiles(filename)
     },
-    async download(filename) {
+    async downloadMediaBatFiles(filename) {
+      alert('trying to download ' + filename)
       axios({
         url: process.env.VUE_APP_URL + filename,
         method: 'GET',

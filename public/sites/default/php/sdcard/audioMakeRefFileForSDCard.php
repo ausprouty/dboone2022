@@ -22,14 +22,20 @@ function audioMakeRefFileForSDCard($p){
     $text = json_decode($data['text']);
     if (isset($text->chapters)){
         foreach ($text->chapters as $chapter){
-            if ($chapter->prototype){
-                $chapter_audios = audioFindForSDCard($p, $chapter->filename);
-                if (count($chapter_audios) > 0){
-                    foreach ($chapter_audios as $chapter_audio){
-                      array_push($series_audios, $chapter_audio);
-                   }
+            if (isset($chapter->prototype)){
+                if ($chapter->prototype){
+                    $chapter_audios = audioFindForSDCard($p, $chapter->filename);
+                    if (count($chapter_audios) > 0){
+                        foreach ($chapter_audios as $chapter_audio){
+                        array_push($series_audios, $chapter_audio);
+                    }
+                    }
                 }
             }
+            else{
+                writeLogError('audioMakeRefFileForSDCard-36', $chapter);
+            }
+
         }
     }
    // //writeLog('audioMakeBatFileForSDCard-35-chapter_audios', $series_audios);
