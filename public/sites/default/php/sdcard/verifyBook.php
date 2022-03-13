@@ -3,6 +3,7 @@ myRequireOnce('getLatestContent.php');
 myRequireOnce('writeLog.php');
 myRequireOnce('dirMake.php');
 myRequireOnce('verifyBookDir.php', 'sdcard');
+myRequireOnce('verifyBookMedia.php', 'sdcard');
 
 
 function verifyBookCover($p){
@@ -10,14 +11,7 @@ function verifyBookCover($p){
     return 'ready';
 
 }
-function verifyBookMedia($p){
-    $dir_series = ROOT_EDIT . 'sites/' . SITE_CODE .'/media/' .$p['country_code'] .'/'. $p['language_iso'] .'/';
-    if (file_exists($dir_series)){
-       return 'ready';
-    }
-    return 'ready';
 
-}
 
 function verifyBookSDCard($p){
     $p = verifyBookDir($p);

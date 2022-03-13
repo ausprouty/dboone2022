@@ -40,7 +40,9 @@ function publishLanguageFooter($p){
     if (!$footer ){
         $language_footer = 'languageFooter.html';
         if($p['destination'] == 'nojs' || $p['destination'] == 'sdcard'){
-            $language_footer = $p['sdcard_settings']->footer;
+            if (isset($p['sdcard_settings']->footer)){
+                 $language_footer = $p['sdcard_settings']->footer;
+            }
         }
         writeLogDebug('publishLanguageFooter-44-footer', $language_footer);
         writeLogDebug('publishLanguageFooter-45-p', $p['sdcard_settings']);

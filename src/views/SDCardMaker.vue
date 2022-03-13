@@ -72,10 +72,13 @@
       <li>Download any missing files</li>
       <li>Update Reference File</li>
       <li>
-        Download and run the bat files on your local machine - try M:MC2/sdcard/ (They
-        take too much processing time to run remotely.)
+        Download, move to M:MC2/sdcard/
+        {{ this.$route.params.country_code }}, unzip and run the bat files -
+        (They take too much processing time to run remotely.)
       </li>
-      <li>Then upload the processed videos to sites/{{ this.site }}/media</li>
+      <li>Make a zip file of the audio and video directories</li>
+      <li>Then upload the zip file to sites/{{ this.site }}/media/LANGUAGE_ISO</li>
+      <li>Check to see that all audio files are in the audio directory</li>
     </ul>
 
     <div class="row">
@@ -150,12 +153,14 @@ export default {
     async zipMediaBatFiles() {
       this.bat_text = 'Downloading'
       var params = this.$route.params
-      var filename = await SDCardService.zipMediaBatFiles(params)
+      var response = await SDCardService.zipMediaBatFiles(params)
+      console.log(response)
+      var filename = response
       this.bat_text = 'Finished'
-      this.ddownloadMediaBatFiles(filename)
+      this.downloadMediaBatFiles(filename)
     },
     async downloadMediaBatFiles(filename) {
-      alert('trying to download ' + filename)
+      var download_name = 'MediaBatFiles' + this.sdcard.subDirectory + '.zip'
       axios({
         url: process.env.VUE_APP_URL + filename,
         method: 'GET',
@@ -164,7 +169,7 @@ export default {
         var fileURL = window.URL.createObjectURL(new Blob([response.data]))
         var fileLink = document.createElement('a')
         fileLink.href = fileURL
-        fileLink.setAttribute('download', 'file.pdf')
+        fileLink.setAttribute('download', download_name)
         document.body.appendChild(fileLink)
         fileLink.click()
       })

@@ -10,7 +10,10 @@ myRequireOnce ('audioMakeRefFileForSDCard.php', 'sdcard');
 function videoMakeBatFileForSDCard($p){
   //writeLogDebug('videoMakeBatFileForSDCard', $p);
    audioMakeRefFileForSDCard($p);
-   $output = '';
+   $output = 'mkdir video' . "\n";
+   $output .= 'cd video' . "\n";
+   $output .= 'mkdir ' . $p['folder_name'] . "\n";
+   $output .= 'cd ..' . "\n";
    $series_videos = [];
    $chapter_videos = [];
 
@@ -27,12 +30,15 @@ function videoMakeBatFileForSDCard($p){
     $text = json_decode($data['text']);
     if (isset($text->chapters)){
         foreach ($text->chapters as $chapter){
-            if ($chapter->prototype){
+            if (!isset($chapter->prototype)){
+                writeLogAppend('videoMakeBatFileForSDCard', $chapter );
+            }
+            elseif ($chapter->prototype){
                 $chapter_videos = videoFindForSDCard($p, $chapter->filename);
                 $count= count($chapter_videos);
                 //writeLog('videoMakeBatFileForSDCard-32-count-'. $chapter->filename , $count);
                  if ($count == 1){
-                     $dir = $p['folder_name'] .'/video';
+                     $dir = $p['folder_name'];
                    //writeLog('videoMakeBatFileForSDCard-35-videos-' . $chapter->filename , $chapter_videos);
                     $output .= videoMakeBatFileForSDCardSingle($chapter_videos[0], $dir);
                    //writeLog('videoMakeBatFileForSDCard-37-output-' . $chapter->filename , $output);
@@ -49,8 +55,8 @@ function videoMakeBatFileForSDCard($p){
 }
 function videoMakeBatFileForSDCardSingle($video, $dir){
     $output = '';
-    $template_with_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start] -to [end]   -vf scale=[width]:-1  [dir]/[new_name].mp4' ;
-    $template_without_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start]  -vf scale=[width]:-1    [dir]/[new_name].mp4';
+    $template_with_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start] -to [end]   -vf scale=[width]:-1  video/[dir]/[new_name].mp4' ;
+    $template_without_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start]  -vf scale=[width]:-1    video/[dir]/[new_name].mp4';
     if (isset($video['download_name'])){
         $placeholders = array(
                 '[old_name]',
@@ -82,9 +88,9 @@ function videoMakeBatFileForSDCardSingle($video, $dir){
 function videoMakeBatFileForSDCardConcat($chapter_videos, $p,  $filename){
     // see https://trac.ffmpeg.org/wiki/Concatenate#samecodec
     $output ='';
-    $template = 'ffmpeg -f concat -safe 0 -i concat/[list_name] -c copy video/[new_name].mp4';
+    $template = 'ffmpeg -f concat -safe 0 -i concat/[list_name] -c copy video/[dir]/[new_name].mp4';
     $file_list = '';
-    $dir= $p['folder_name'] .'/concat';
+    $dir='concat';
     foreach ($chapter_videos as $video){
         $file_list .= 'file '. $video['new_name']  .'.mp4' ."\n";
         $output .= videoMakeBatFileForSDCardSingle($video, $dir);
@@ -93,6 +99,7 @@ function videoMakeBatFileForSDCardConcat($chapter_videos, $p,  $filename){
     $placeholders = array(
         '[list_name]',
         '[width]',
+        '[dir]',
         '[new_name]'
     );
     $list_name = $filename . '.txt';
@@ -100,7 +107,9 @@ function videoMakeBatFileForSDCardConcat($chapter_videos, $p,  $filename){
     $replace = array(
         $list_name,
         VIDEO_WIDTH,
-        $new_name
+        $p['folder_name'],
+        $new_name,
+
     );
     $concat = str_ireplace ($placeholders,  $replace, $template);
     $output.= $concat . "\n";

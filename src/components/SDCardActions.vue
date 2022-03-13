@@ -185,6 +185,11 @@ div.parent {
   display: table-cell;
 }
 .undone {
+  background-color: black;
+  padding: 10px;
+  color: white;
+}
+.error {
   background-color: red;
   padding: 10px;
   color: white;
@@ -197,7 +202,8 @@ div.parent {
 }
 
 .done {
-  background-color: purple;
+  background-color: green;
   padding: 10px;
+   color: white;
 }
 </style>

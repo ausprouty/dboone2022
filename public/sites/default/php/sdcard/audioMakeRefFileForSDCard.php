@@ -38,8 +38,8 @@ function audioMakeRefFileForSDCard($p){
 
         }
     }
-   // //writeLog('audioMakeBatFileForSDCard-35-chapter_audios', $series_audios);
-    // create file
+
+    // create file even if no data; otherwise verify will not work
     $template= '$link[\'[old_name]\'] = \'[new_name]\'';
     foreach ($series_audios as $audio){
         if ($audio['url']){
@@ -55,6 +55,7 @@ function audioMakeRefFileForSDCard($p){
         }
     }
     audioMakeBatFileForSDCardWrite($output, $p);
+
     return $output;
 }
 

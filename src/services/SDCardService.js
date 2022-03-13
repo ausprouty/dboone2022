@@ -52,7 +52,7 @@ export default {
     params = this.initialize(params)
     params.page = 'zipMediaBatFiles'
     params.action = 'zipMediaBatFiles'
-    return await AuthorService.aReturnResponse(params)
+    return await AuthorService.aReturnContent(params)
   },
   async verifyBookCover(params) {
     params = this.initialize(params)

@@ -142,7 +142,7 @@ function modifyRevealVideo($text, $bookmark, $p){
         $url = modifyVideoRevealFindText($old, 4);
          if ($p['destination'] == 'sdcard' || $p['destination'] =='nojs'){
              $filename = $bookmark['page']->filename;
-             $video = '/media/'. $p['country_code'] . '/'. $p['language_iso'] .'/video/'. videoFindForSDCardNewName($filename) ;
+             $video = '/media/'. $p['country_code'] . '/'. $p['language_iso'] .'/video/'.  $p['folder_name'] .'/'. videoFindForSDCardNewName($filename) ;
              $video .='.mp4';
              $video_type= 'file';
          }
