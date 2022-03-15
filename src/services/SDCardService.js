@@ -14,15 +14,7 @@ const apiSECURE = axios.create({
     'Content-Type': 'application/json',
   },
 })
-const apiDOWNLOAD = axios.create({
-  baseURL: apiURL,
-  withCredentials: false, // This is the default
-  crossDomain: true,
-  headers: {
-    responseType: 'blob',
-    'Content-Type': 'application/json',
-  },
-})
+
 import axios from 'axios'
 import store from '@/store/store.js'
 import AuthorService from '@/services/AuthorService.js'
@@ -90,6 +82,13 @@ export default {
     params.action = 'verifyBookVideoList'
     return await AuthorService.aReturnContent(params)
   },
+  async verifyCommonFiles(params) {
+    params = this.initialize(params)
+    params.page = 'verifyCommonFiles'
+    params.action = 'verifyCommonFiles'
+    return await AuthorService.aReturnContent(params)
+  },
+
   async getBooks(params) {
     params = this.initialize(params)
     params.page = 'getBooksForLanguage'

@@ -88,6 +88,13 @@
         </button>
       </div>
     </div>
+    <div class="row">
+      <div class="column">
+        <button class="button" @click="verifyCommonFiles()">
+          {{ this.common_text }}
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -114,6 +121,7 @@ export default {
       sdroot: process.env.VUE_APP_ROOT_SDCARD,
       authorized: false,
       videolist_text: 'Create Media List for SD Card',
+      common_text: 'Check Common Files',
       languages: [],
       country_name: null,
       site: process.env.VUE_APP_SITE,
@@ -150,6 +158,14 @@ export default {
     },
   },
   methods: {
+    async verifyCommonFiles(){
+      this.common_text = 'Verifying'
+      var params = this.$route.params
+      var response = await SDCardService.verifyCommonFiles(params)
+      console.log(response)
+      this.common_text = 'Verified'
+
+    },
     async zipMediaBatFiles() {
       this.bat_text = 'Downloading'
       var params = this.$route.params

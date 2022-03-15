@@ -5,6 +5,7 @@ myRequireOnce ('writeLog.php');
 myRequireOnce ('modifyRevealVideo.php');
 myRequireOnce ('videoFindForSDCardNewName.php', 'sdcard');
 myRequireOnce ('audioMakeRefFileForSDCard.php', 'sdcard');
+myRequireOnce ('videoReference.php', 'sdcard');
 
 
 function videoMakeBatFileForSDCard($p){
@@ -17,7 +18,6 @@ function videoMakeBatFileForSDCard($p){
    $series_videos = [];
    $chapter_videos = [];
 
-   myRequireOnce ('videoReference.php', 'sdcard');
  //find series data that has been prototyped
     $sql = "SELECT * FROM content
         WHERE  country_code = '". $p['country_code'] ."'
@@ -38,7 +38,7 @@ function videoMakeBatFileForSDCard($p){
                 $count= count($chapter_videos);
                 //writeLog('videoMakeBatFileForSDCard-32-count-'. $chapter->filename , $count);
                  if ($count == 1){
-                     $dir = $p['folder_name'];
+                     $dir = 'video/'. $p['folder_name'];
                    //writeLog('videoMakeBatFileForSDCard-35-videos-' . $chapter->filename , $chapter_videos);
                     $output .= videoMakeBatFileForSDCardSingle($chapter_videos[0], $dir);
                    //writeLog('videoMakeBatFileForSDCard-37-output-' . $chapter->filename , $output);
@@ -47,6 +47,7 @@ function videoMakeBatFileForSDCard($p){
                 if ($count > 1){
                     $output .= videoMakeBatFileForSDCardConcat($chapter_videos,  $p, $chapter->filename);
                 }
+                videoMakeBatFileToCheckSource($chapter_videos, $p );
             }
         }
     }
@@ -55,8 +56,8 @@ function videoMakeBatFileForSDCard($p){
 }
 function videoMakeBatFileForSDCardSingle($video, $dir){
     $output = '';
-    $template_with_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start] -to [end]   -vf scale=[width]:-1  video/[dir]/[new_name].mp4' ;
-    $template_without_end = 'ffmpeg  -accurate_seek -i [old_name].mp4 -ss [start]  -vf scale=[width]:-1    video/[dir]/[new_name].mp4';
+    $template_with_end = 'ffmpeg  -accurate_seek -i [old_name] -ss [start] -to [end]   -vf scale=[width]:-1  [dir]/[new_name].mp4' ;
+    $template_without_end = 'ffmpeg  -accurate_seek -i [old_name] -ss [start]  -vf scale=[width]:-1    [dir]/[new_name].mp4';
     if (isset($video['download_name'])){
         $placeholders = array(
                 '[old_name]',
@@ -252,4 +253,17 @@ function videoFindForSDCard($p, $filename){
     }
     //writeLog('videoFindForSDCard-185-chaptervideos', $chapter_videos);
     return $chapter_videos;
+}
+
+function  videoMakeBatFileToCheckSource($chapter_videos, $p ){
+    $output ='';
+    $dir = ROOT_EDIT  . 'sites/' . SITE_CODE  . '/sdcard/' . $p['country_code'] . '/' . $p['language_iso'] . '/';
+    dirMake($dir);
+    $filename = 'CheckSource-' . $p['folder_name'] . '.txt';
+    foreach ($chapter_videos as $video){
+        $output .= $video['download_name'] . "\n";
+    }
+    $fh =  $dir. $filename;
+    file_put_contents($fh, $output,  FILE_APPEND | LOCK_EX );
+    return;
 }
