@@ -20,6 +20,12 @@ myRequireOnce ('myGetPrototypeFile.php');
 
 // destination must be 'staging', 'website', 'pdf'  or 'sdcard'
 function publishFiles( $destination , $p, $fname, $text, $standard_css, $selected_css){
+    if (!isset($p['recnum'])){
+        $rand =random_int(0,9999);
+        $p['filename'] = $fname;
+        writeLogError('publishFiles-25-'. $rand, $p);
+        return;
+    }
     // start with header
     $output = myGetPrototypeFile('header.html', $p['destination']);
     // add onload only if files are here

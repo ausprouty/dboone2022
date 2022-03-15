@@ -77,7 +77,9 @@
         (They take too much processing time to run remotely.)
       </li>
       <li>Make a zip file of the audio and video directories</li>
-      <li>Then upload the zip file to sites/{{ this.site }}/media/LANGUAGE_ISO</li>
+      <li>
+        Then upload the zip file to sites/{{ this.site }}/media/LANGUAGE_ISO
+      </li>
       <li>Check to see that all audio files are in the audio directory</li>
     </ul>
 
@@ -92,6 +94,13 @@
       <div class="column">
         <button class="button" @click="verifyCommonFiles()">
           {{ this.common_text }}
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <button class="button" @click="verifyLanguageIndex()">
+          {{ this.language_text }}
         </button>
       </div>
     </div>
@@ -122,6 +131,7 @@ export default {
       authorized: false,
       videolist_text: 'Create Media List for SD Card',
       common_text: 'Check Common Files',
+      language_text: 'Create Language Index',
       languages: [],
       country_name: null,
       site: process.env.VUE_APP_SITE,
@@ -158,13 +168,20 @@ export default {
     },
   },
   methods: {
-    async verifyCommonFiles(){
+    async verifyLanguageIndex() {
+      this.language_text = 'Verifying'
+      var params = this.$route.params
+      var response = await SDCardService.verifyLanguageIndex(params)
+      console.log(response)
+      this.common_language = 'Verified'
+    },
+
+    async verifyCommonFiles() {
       this.common_text = 'Verifying'
       var params = this.$route.params
       var response = await SDCardService.verifyCommonFiles(params)
       console.log(response)
       this.common_text = 'Verified'
-
     },
     async zipMediaBatFiles() {
       this.bat_text = 'Downloading'

@@ -2,9 +2,12 @@
 
 myRequireOnce ('dirCreate.php');
 myRequireOnce ('myGetPrototypeFile.php');
+myRequireOnce ('writeLog.php');
 
-function createLanguages($p, $data){
+function createLanguages($p, $data, $allowed = ['all']){
+     writeLogDebug('createLanguages-8', $data);
     $text = json_decode($data['text']);
+    writeLogDebug('createLanguages-9', $text);
     if (!isset($text->languages)){
         $message = "in createLanguages and  no value for text->languages ";
         writeLogError('createLanguages-10-message', $message);
@@ -40,7 +43,9 @@ function createLanguages($p, $data){
             $status = $language->prototype;
         }
         if ($status  == true ){
-            $replace = array(
+           //sd cards may want to limit the languages offered
+           if ($allowed[0] == 'all' || in_array($language->iso, $allowed)){
+               $replace = array(
                 '/content/'.$p['country_code']  . '/'. $language->folder. '/index.html',
                     $language->name
                 );
@@ -50,6 +55,8 @@ function createLanguages($p, $data){
             //
             dirCreate('language', $p['destination'],  $p);
             //$p['language_dir'] = ' /content/'. $p['country_code']  . '/'.  $language->folder .'/';
+           }
+
         }
     }
     $text = str_replace('[[languages]]',$temp,  $main_template);

@@ -88,6 +88,12 @@ export default {
     params.action = 'verifyCommonFiles'
     return await AuthorService.aReturnContent(params)
   },
+  async verifyLanguageIndex(params) {
+    params = this.initialize(params)
+    params.page = 'verifyLanguageIndex'
+    params.action = 'verifyLanguageIndex'
+    return await AuthorService.aReturnContent(params)
+  },
 
   async getBooks(params) {
     params = this.initialize(params)
@@ -116,6 +122,9 @@ export default {
         break
       case 'language':
         action = 'AuthorApi.php?page=publish&action=publishLanguage'
+        break
+      case 'libraries':
+        action = 'AuthorApi.php?page=publishLibraries&action=publishLibraries'
         break
       case 'library':
         action = 'AuthorApi.php?page=publishLibrary&action=publishLibrary'

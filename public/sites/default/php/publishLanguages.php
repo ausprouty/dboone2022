@@ -5,7 +5,7 @@ myRequireOnce ('publishFiles.php');
 myRequireOnce ('publishLanguagesAvailable.php');
 
 
-function publishLanguages($p){
+function publishLanguages($p, $allowed = ['all']){
     $publishDestination = publishDestination($p);
 
     $creator =   "\n" .'&nbsp; <!--- Created by publishLanguages -->&nbsp; '.  "\n";
@@ -25,7 +25,7 @@ function publishLanguages($p){
     //
     // create page
     //
-    $text = createLanguages($p, $data);
+    $text = createLanguages($p, $data, $allowed);
     if ($text){
         // "/content/M2/languages.html"
         $fname =   $p['country_dir'] . 'languages.html';

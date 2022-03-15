@@ -2,6 +2,8 @@
   <div>
     <h2>{{ language.language_name }}</h2>
 
+    <SDCardLanguage v-bind:language="language" />
+
     <div v-for="(book, id) in books" :key="id" :book="book">
       <div>
         <h3>{{ book.title }} ({{ book.library_code }})</h3>
@@ -13,6 +15,7 @@
 
 <script>
 import SDCardService from '@/services/SDCardService.js'
+import SDCardLanguage from '@/components/SDCardLanguage.vue'
 import SDCardActions from '@/components/SDCardActions.vue'
 export default {
   props: {
@@ -20,6 +23,7 @@ export default {
   },
   components: {
     SDCardActions,
+    SDCardLanguage,
   },
   data() {
     return {

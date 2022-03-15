@@ -12,7 +12,7 @@ function publishLibrary($p){
     // get data for current library
     //
     $filename =  $p['library_code'];
-    $sql = "SELECT text FROM content
+    $sql = "SELECT text, recnum  FROM content
         WHERE  country_code = '" . $p['country_code']. "'
         AND language_iso = '". $p['language_iso'] ."'
         AND folder_name = '' AND filename = '$filename'
@@ -21,6 +21,7 @@ function publishLibrary($p){
     $debug .= $sql. "\n";
     $data = sqlArray($sql);
     $text = json_decode($data['text']);
+    $p['recnum']= $data['recnum'];
      // set style
      if (isset($text->format->style)){
         $selected_css = $text->format->style;
