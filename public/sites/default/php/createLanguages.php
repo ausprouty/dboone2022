@@ -5,9 +5,7 @@ myRequireOnce ('myGetPrototypeFile.php');
 myRequireOnce ('writeLog.php');
 
 function createLanguages($p, $data, $allowed = ['all']){
-     writeLogDebug('createLanguages-8', $data);
     $text = json_decode($data['text']);
-    writeLogDebug('createLanguages-9', $text);
     if (!isset($text->languages)){
         $message = "in createLanguages and  no value for text->languages ";
         writeLogError('createLanguages-10-message', $message);
@@ -35,6 +33,7 @@ function createLanguages($p, $data, $allowed = ['all']){
     );
     $temp = '';
     foreach ($text->languages as $language){
+        $rand = random_int(0,9999);
         $status = false;
         if ($p['destination'] == 'website'){
             $status = $language->publish;
@@ -50,17 +49,11 @@ function createLanguages($p, $data, $allowed = ['all']){
                     $language->name
                 );
             $temp .= str_replace($placeholders, $replace, $sub_template);
-            //
-            // make sure Language directory exits? Do I need this????
-            //
-            dirCreate('language', $p['destination'],  $p);
-            //$p['language_dir'] = ' /content/'. $p['country_code']  . '/'.  $language->folder .'/';
            }
 
         }
     }
     $text = str_replace('[[languages]]',$temp,  $main_template);
+    writeLogDebug('createLanguages-68', $text);
     return $text;
-
-
 }

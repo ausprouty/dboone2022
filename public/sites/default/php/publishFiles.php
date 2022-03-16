@@ -20,12 +20,6 @@ myRequireOnce ('myGetPrototypeFile.php');
 
 // destination must be 'staging', 'website', 'pdf'  or 'sdcard'
 function publishFiles( $destination , $p, $fname, $text, $standard_css, $selected_css){
-    if (!isset($p['recnum'])){
-        $rand =random_int(0,9999);
-        $p['filename'] = $fname;
-        writeLogError('publishFiles-25-'. $rand, $p);
-        return;
-    }
     // start with header
     $output = myGetPrototypeFile('header.html', $p['destination']);
     // add onload only if files are here
@@ -52,7 +46,10 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
         // class="nobreak" need to be changed to class="nobreak-final" so color is correct
         $text = str_ireplace("nobreak", "nobreak-final", $text);
     }
-    $title = WEBSITE_TITLE . getTitle($p['recnum']);
+    $title= WEBSITE_TITLE;
+    if (isset($p['recnum'])){
+        $title .= ' '. getTitle($p['recnum']);
+    }
     $language_google = languageHtml($p['language_iso']);
     $placeholders = array(
         '{{ language.google }}',

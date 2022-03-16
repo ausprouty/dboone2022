@@ -3,6 +3,7 @@
 /sites/mc2/images/css ->sdcard.mc2.something/folder/sites/mc2/images/standard
 /sites/mc2/images/standard -> sdcard.mc2.something/folder/sites/mc2/images/standard
 /sites/default/sdcard/Cx File Explorer.apk-> sdcard.mc2.something/Cx File Explorer.apk
+/langugage javascript folders
 */
 
 

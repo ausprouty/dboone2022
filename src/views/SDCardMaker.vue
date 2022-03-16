@@ -58,38 +58,6 @@
       </multiselect>
     </div>
     <div class="spacer"></div>
-
-    <div class="spacer"></div>
-    <SDCardBooks
-      v-for="language in sdcard.languages"
-      :key="language.language_iso"
-      :language="language"
-    />
-    <p>After you make the Video List Bat files:</p>
-    <ul>
-      <li>Check for Errors in the error log</li>
-      <li>Correct errors in html and republish</li>
-      <li>Download any missing files</li>
-      <li>Update Reference File</li>
-      <li>
-        Download, move to M:MC2/sdcard/
-        {{ this.$route.params.country_code }}, unzip and run the bat files -
-        (They take too much processing time to run remotely.)
-      </li>
-      <li>Make a zip file of the audio and video directories</li>
-      <li>
-        Then upload the zip file to sites/{{ this.site }}/media/LANGUAGE_ISO
-      </li>
-      <li>Check to see that all audio files are in the audio directory</li>
-    </ul>
-
-    <div class="row">
-      <div class="column">
-        <button class="button" @click="zipMediaBatFiles()">
-          {{ this.bat_text }}
-        </button>
-      </div>
-    </div>
     <div class="row">
       <div class="column">
         <button class="button" @click="verifyCommonFiles()">
@@ -102,6 +70,42 @@
         <button class="button" @click="verifyLanguageIndex()">
           {{ this.language_text }}
         </button>
+      </div>
+    </div>
+
+    <button class="button" @click="showProgress()">Show Progress</button>
+
+    <div v-if="this.show_progress">
+      <SDCardBooks
+        v-for="language in sdcard.languages"
+        :key="language.language_iso"
+        :language="language"
+      />
+
+      <p>After you make the Video List Bat files:</p>
+      <ul>
+        <li>Check for Errors in the error log</li>
+        <li>Correct errors in html and republish</li>
+        <li>Download any missing files</li>
+        <li>Update Reference File</li>
+        <li>
+          Download, move to M:MC2/sdcard/
+          {{ this.$route.params.country_code }}, unzip and run the bat files -
+          (They take too much processing time to run remotely.)
+        </li>
+        <li>Make a zip file of the audio and video directories</li>
+        <li>
+          Then upload the zip file to sites/{{ this.site }}/media/LANGUAGE_ISO
+        </li>
+        <li>Check to see that all audio files are in the audio directory</li>
+      </ul>
+
+      <div class="row">
+        <div class="column">
+          <button class="button" @click="zipMediaBatFiles()">
+            {{ this.bat_text }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -134,6 +138,7 @@ export default {
       language_text: 'Create Language Index',
       languages: [],
       country_name: null,
+      show_progress: false,
       site: process.env.VUE_APP_SITE,
       dir_scard: null,
       language_data: [],
@@ -168,6 +173,9 @@ export default {
     },
   },
   methods: {
+    showProgress() {
+      this.show_progress = true
+    },
     async verifyLanguageIndex() {
       this.language_text = 'Verifying'
       var params = this.$route.params

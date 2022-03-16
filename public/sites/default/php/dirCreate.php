@@ -38,7 +38,7 @@ function dirCreate($scope, $destination,  $p, $folders = null){
             $dir.=  $p['country_code'] .'/';
             break;
         case('language'):
-            $dir.= $p['country_code']  .'/'.$p['language_iso'] .'/';
+            $dir.= $p['country_code']  .'/'. $p['language_iso'] .'/';
             break;
         case('library'):
             $dir.= $p['country_code']  .'/'.$p['language_iso'] .'/'.$p['library_code'].'/';

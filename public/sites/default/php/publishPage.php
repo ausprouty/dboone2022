@@ -64,7 +64,6 @@ function publishPage ($p){
         $data['language_iso'] .'/'. $data['folder_name'] .'/';
     $fname = $series_dir . $data['filename'] .'.html';
     $text .= '<!--- Created by publishPage-->' . "\n";
-    writeLogError ('publishPage-62-fname', $fname);
     // go to publishFiles
     publishFiles( $p['destination'], $p, $fname, $text,  STANDARD_CSS, $selected_css);
 
