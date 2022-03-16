@@ -10,8 +10,8 @@ myRequireOnce('createDirectory.php');
 function copyDirectory($source, $destination){
 	$debug = '';
 	if (!file_exists ($source)){
-			$message ="source directory $source does not exist";
-		trigger_error($message, E-USER-ERROR );
+		$message ="source directory $source does not exist";
+		trigger_error($message, E_USER_ERROR );
 	}
 	if (!file_exists ($destination)){
 		createDirectory($destination);

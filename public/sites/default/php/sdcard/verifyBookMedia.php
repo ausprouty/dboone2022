@@ -44,8 +44,8 @@ function verifyBookMedia($p){
 function verifyBookMediaVideos($file_name, $p){
    $ok = true;
     $file = $p['dir_sdcard'].'folder/content/'.$p['dir_series'] .'/' . $file_name;
-    $sd_media_location = $p['dir_sdcard'] . 'folder';
-    $dir_media_bank = ROOT_EDIT . 'sites/' . SITE_CODE;
+    $sd_media_location = $p['dir_sdcard'] . 'folder/media/'. SITE_CODE .'/';
+    $dir_media_bank = ROOT_EDIT . 'sites/' . SITE_CODE.'/';
     $text= file_get_contents($file);
     $find = '<video id="video"';
     $count = substr_count($text, $find);
