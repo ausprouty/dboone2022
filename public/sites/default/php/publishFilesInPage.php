@@ -65,11 +65,10 @@ function publishFilesInPageFind($find_begin, $text, $p){
                 if (strpos($filename, '.html') == false){
                     if (strpos($filename, 'void(0)') == false && strpos($filename, '://') == false ){
                         if (strpos($filename, 'script:popUp') == false){ // no need to copy from popups
-                            //$message ="  pos_begin is   $pos_begin\n";
-                           // $message .="  pos_end is   $pos_end\n";
-                            $message = "$from not found \n\n\n\n";
-                            //$message .="  text is   $intial_text\n";
-                            writeLogAppend('ERRORS-PublishFilesInPage-72' , $message );
+                            if (strpos($filename, 'localVideoOptions.js ' == false)){
+                                $message = "$from not found \n\n\n\n";
+                                writeLogAppend('ERRORS-PublishFilesInPage-72' , $message );
+                            }
                         }
                     }
                 }

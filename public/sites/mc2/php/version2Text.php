@@ -15,7 +15,9 @@ function version2Text($text){
     //$text = str_ireplace('/content/M2/images/standard/Notes.png','/sites/mc2/images/standard/Notes.png' , $text);
     $text = str_ireplace('"/content/M2/', '"/sites/mc2/content/M2/', $text);
     $text = str_ireplace('"content', '"/content', $text);
-     $text = str_ireplace('"sites', '"/sites', $text);
+    $text = str_ireplace('"sites', '"/sites', $text);
+    $text = str_ireplace('sites/mc2/sites/mc2/', 'sites/mc2/', $text);
+    //$text = str_ireplace('sites/mc2/content/', 'content/', $text);
     //writeLog('version2Text-9', $text);
    return $text;
 }

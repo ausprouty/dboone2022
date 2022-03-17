@@ -1,5 +1,6 @@
 <?php
 myRequireOnce ('writeLog.php');
+ myRequireOnce ('audioReference.php', 'sdcard');
 /*
 Input is:
     <--Start Audio Template-->
@@ -177,18 +178,14 @@ function modifyRevealAudioFindText($old, $td_number){
     return $text;
 }
 function modifyRevealAudioSDCardUrl($url){
-    //writeLog('modifyRevealAudioSDCardUrl-167-url', $url);
-    myRequireOnce ('audioReference.php');
+
     $url = trim($url);
-     //writeLog('modifyRevealAudioSDCardUrl-170-url', $url);
     $link = audioReference();
-    //writeLog('modifyRevealAudioSDCardUrl-172-link', $link);
     if (isset($link[$url])){
-        //writeLog('modifyRevealAudioSDCardUrl-174-found', $link[$url]);
+
        return $link[$url];
     }
     else{
-         //writeLog('modifyRevealAudioSDCardUrl-178-NOTfound', $url);
         if (strpos($url, 'https%3A')){
             $url = str_ireplace('https%3A', 'https:', $url);
             if (isset($link[$url])){

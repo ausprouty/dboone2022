@@ -181,7 +181,7 @@ export default {
       var params = this.$route.params
       var response = await SDCardService.verifyLanguageIndex(params)
       console.log(response)
-      this.common_language = 'Verified'
+      this.language_text = 'Verified'
     },
 
     async verifyCommonFiles() {

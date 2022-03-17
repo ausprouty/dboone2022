@@ -24,7 +24,7 @@ function makePathsRelative( $text, $filename){
 
    $start = false;
    for ($i = 0; $i < $count; $i++){
-      if ($parts[$i] == 'content'){
+      if ($parts[$i] == 'content' || $parts[$i] == 'nojs'){
          $start = true;
       }
       if($start){

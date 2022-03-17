@@ -47,9 +47,9 @@ function biblePopupMaker($p){
             $p['entry'] = $reference;
 
             // create dbtArray
-            writeLogError('biblePopupMaker-54-p-'. $count, $p);
+            writeLogDebug('biblePopupMaker-50-reference-'. $count, $reference);
             $res = createBibleDbtArrayFromPassage($p);
-            writeLogError('biblePopupMaker-56-res'.$count , $res);
+            writeLogDebug('biblePopupMaker-52-res'.$count , $res);
             if (isset($res)){
                 $dbtArray = $res;
                 $bible_text = '';

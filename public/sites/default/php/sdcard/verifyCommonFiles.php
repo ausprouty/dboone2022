@@ -33,7 +33,7 @@ function verifyCommonFiles($p){
   $destination = $p['dir_sdcard'] . 'folder/sites/'.SITE_CODE. '/images/standard/';
   copyDirectory($source,$destination);
 
- $source = ROOT_EDIT . 'sites/'. SITE_CODE. '/'. $p['country_code']. '/images/standard/';
+ $source = ROOT_EDIT . 'sites/'. SITE_CODE. '/content/'. $p['country_code']. '/images/standard/';
   $destination = $p['dir_sdcard'] . 'folder/sites/'. SITE_CODE. '/'. $p['country_code']. '/images/standard/';
   copyDirectory($source,$destination);
 
