@@ -573,6 +573,13 @@ li.nobreak {
   margin-left: -40px;
   margin-top: 12px;
 }
+li.nobreak-final,
+li.nobreak-final-final {
+  color: black;
+  list-style-type: none;
+  margin-left: -40px;
+  margin-top: 12px;
+}
 .popup {
   color: green;
   font-style: italic;

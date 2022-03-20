@@ -44,23 +44,22 @@ function biblePopupMaker($p){
             $reference = substr($text, $word_start, $word_length);  //>Matthew 5:14
             $span_length = $pos_end - $pos_start + 7;
             $span = substr($text, $pos_start, $span_length); //<span class="bible-link">Matthew 5:14</span>
-            $p['entry'] = $reference;
-
+            $p['entry'] = html_entity_decode($reference);
+            $message = $p['entry'] . "  $reference ";
+            writeLogDebug('biblePopupMaker-48',  $message );
             // create dbtArray
-            writeLogDebug('biblePopupMaker-50-reference-'. $count, $reference);
-            $res = createBibleDbtArrayFromPassage($p);
-            writeLogDebug('biblePopupMaker-52-res'.$count , $res);
-            if (isset($res)){
-                $dbtArray = $res;
-                $bible_text = '';
-                // find text
-                foreach ($dbtArray as $dbt){
-                    $dbt['version_ot'] = $ot;
-                    $dbt['version_nt'] = $nt;
-                    $bible = bibleGetPassage($dbt);
-                    writeLogError('biblePopupMaker-65-bible'.$count , $bible);
-                    $bible_text .= $bible['text'];
-                }
+            writeLogDebug('biblePopupMaker-50-entry-'. $count,  $p['entry'] );
+           //$res = createBibleDbtArrayFromPassage($p); This will break for French because of 1 Timoth&eacute;e
+            $p['passage'] =$p['entry'];//  because you are bypassing createBibleDbtArrayFromPassage
+            $dbt = createBibleDbtArray($p);
+            writeLogDebug('biblePopupMaker-52-array'.$count , $dbt);
+            if (isset($dbt)){
+                $dbt['version_ot'] = $ot;
+                $dbt['version_nt'] = $nt;
+                writeLogDebug('biblePopupMaker-62-dbt-'.$count , $dbt);
+                $bible = bibleGetPassage($dbt);
+                writeLogDebug('biblePopupMaker-65-bible'.$count , $bible);
+                $bible_text = $bible['text'];
                 // remove any headers
                 if (strpos ($bible_text, '<h3>') !== FALSE){
                     $bible_text = _removeH3($bible_text);

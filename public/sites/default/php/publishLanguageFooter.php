@@ -48,12 +48,17 @@ function publishLanguageFooter($p){
         writeLogDebug('publishLanguageFooter-45-p', $p['sdcard_settings']);
         $footer  =  myGetPrototypeFile( $language_footer, $p['destination']);
     }
+     $page_title ='Link: ';
+    if (isset($p['recnum'])){
+         $page_title = getTitle($p['recnum']) .': '; // this will go right before link when shared.
+    }
     $placeholders = array(
-        '{{ url }}', '{{ website }}'
+        '{{ url }}', '{{ website }}','{{ page_title }}'
     );
     $values = array(
         $url,
-        $website
+        $website,
+        $page_title
     );
     $footer  = str_replace( $placeholders, $values, $footer ) ;
 

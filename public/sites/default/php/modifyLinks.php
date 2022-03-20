@@ -33,14 +33,15 @@ function modifyLinks($text, $p){
         $text = str_ireplace('" >', '">', $text);
         $text  = _modifyInternalLinks($text, $find, $p);
     }
-    if (($p['destination'] == 'nojs' || $p['destination'] == 'sdcard') && $p['sdcard_settings']->external_links  == FALSE){
-        writeLogError('modifyLinks-37', 'I am about the check for remove readmore Links');
+    if ($p['sdcard_settings']->remove_external_links  == TRUE){
+        writeLogDebug('modifyLinks-37', 'I am about to remove readmore Links');
          $find = '<a class="readmore"';
          if (strpos($text, $find) !== false){
-             writeLogError('modifyLinks-40', 'I am going to remove readmore Links');
+             writeLogDebug('modifyLinks-40', 'I am going to remove readmore Links');
             $text = _removeReadmoreLinks($text);
         }
     }
+    $find = 'href="http';
     if (strpos($text, $find) !== false){
         $text = _modifyExternalLinks($text, $find, $p);
     }

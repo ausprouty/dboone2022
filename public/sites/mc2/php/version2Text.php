@@ -21,3 +21,4 @@ function version2Text($text){
     //writeLog('version2Text-9', $text);
    return $text;
 }
+

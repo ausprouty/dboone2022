@@ -7,8 +7,7 @@ function getTitle($recnum){
     }
     else{
         $message = "no recnum in getTitle ";
-         writeLogError('getTitle-12', $message);
-        trigger_error( $message, E_USER_ERROR);
+        writeLogError('getTitle-10-'. time(), $message);
         return FALSE;
     }
     // do we have a page in a series?
@@ -31,7 +30,6 @@ function getTitle($recnum){
             }
         }
          writeLogError('getTitle-35-data', $data);
-        $message = "in getTitle No Title Found ";
         return NULL;
 
     }
@@ -78,9 +76,7 @@ function getTitle($recnum){
             }
         }
         $out = null;
-       writeLogError('getTitle-90-data', $data);
-        $message = "in getTitle No Title Found ";
-        trigger_error( $message, E_USER_ERROR);
+        writeLogError('getTitle-90-data', $data);
         return NULL;
     }
     // do we have a country index?

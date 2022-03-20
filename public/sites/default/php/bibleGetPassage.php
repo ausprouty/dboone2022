@@ -2,29 +2,29 @@
 myRequireOnce ('sql.php');
 /*requires $p as array:
         'entry' => 'Zephaniah 1:2-3'
-        'bookId' => 'Zeph',  
-        'chapterId' => 1, 
-        'verseStart' => 2, 
+        'bookId' => 'Zeph',
+        'chapterId' => 1,
+        'verseStart' => 2,
         'verseEnd' => 3,
         'bid' => '123' // this is bid being used.
         'collection_code' => 'OT' ,
-        'version_ot' => '123', // this is bid 
+        'version_ot' => '123', // this is bid
         'version_nt' => '134'
         )
 
 
     return aut as an array:
         debug:
-       content: as an array with 
+       content: as an array with
 		'passage_name' => 'Zephaniah 1:2-3'
 		'bible' => 'bible verse text',
         'link' => 'https://biblegateway.com/passage/?search=John%201:1-14&version=LSG',
         'publisher' => 'Louis Segond (LSG) by Public Domain'
-       
+
 */
 
 function bibleGetPassage($p){
-    
+    $out=[];
     $debug = 'I came into  bibleGetPassage' . "\n";
     // make sure bid is set
     if (!isset($p['bid'])){
@@ -55,7 +55,7 @@ function bibleGetPassage($p){
     else{
         $p['rldir'] = 'rtl';
     }
-   
+
     //$debug = $data['source']  . "\n";
     if ($data['source'] == 'bible_gateway'){
         myRequireOnce ('bibleGetPassageBiblegateway.php');

@@ -21,11 +21,11 @@
         </p>
       </div>
       <div>
-        <label for="external_links">
+        <label for="remove_external_links">
           <h3>Remove External Links</h3>
         </label>
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <input type="checkbox" id="external_links" checked />
+        <input type="checkbox" id="remove_external_links" checked />
         <h3>Footer</h3>
         <BaseSelect
           v-model="$v.sdcard.$model.footer"
@@ -147,7 +147,7 @@ export default {
       sdcard: {
         languages: [],
         footer: null,
-        external_links: false,
+        remove_external_links: false,
         action: 'sdcard',
         series: null,
         subDirectory: null,
@@ -165,7 +165,7 @@ export default {
       $each: {
         languages: { required },
         footer: { required },
-        external_links: { required },
+        remove_external_links: { required },
         actions: { required },
         series: { required },
         subDirectory: {},
