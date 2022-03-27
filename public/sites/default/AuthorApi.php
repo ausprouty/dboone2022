@@ -118,8 +118,6 @@ function setParameters($post){
 	}
 	$debug .= 'end of parameters' . "\n";
 	$debug .= 'finished post loop' . "\n";
-
-
 	if (isset($p['route'])){
 		$debug .= "\n\n\n\n" .'set by route' . "\n";
 		$route = json_decode($p['route']);

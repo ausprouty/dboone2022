@@ -149,7 +149,7 @@ function prototypeLanguageFooter($p){
     $text = 'Here is the link to ' . $title['content'] ;
 
     $placeholders = array(
-        '{{ url }}', '{{ website }}', '{{ title }}', '{{ text }}', '{{ page }}', '{{ note_id }}'
+        '{{ url }}', '{{ website }}', '{{ title }}', '{{ text }}', '{{ page_title }}', '{{ note_id }}'
     );
     $values = array(
         $url,

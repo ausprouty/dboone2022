@@ -27,20 +27,26 @@ function facebook(aus = '339218283324109') {
   window.open(link)
 }
 function sendAction(page, title) {
-  if (localStorage.getItem(page)) {
+  page = location.href
+  var start = page.indexOf('content/')
+  let url = 'https://app.mc2.online/' + page.substring(start)
+
+  var indexStart = start + 8
+  let pageEnding = page.substring(indexStart)
+  let noteIndex = pageEnding.replace(/\//g, '-')
+
+  if (localStorage.getItem(noteIndex)) {
     var text = ''
     var text2 = ''
-    var notes = JSON.parse(localStorage.getItem(page))
+    var notes = JSON.parse(localStorage.getItem(noteIndex))
     var length = notes.length
-    for (i = 0; i < length; i++) {
+    for (var i = 0; i < length; i++) {
       if (notes[i].value != '') {
         text2 = text + notes[i].value + '\n\n'
         text = text2
       }
     }
-    var url = page.replace(/-/g, '/')
-    text2 =
-      text + 'See the questions at https://app.mc2.online/content/' + url + '\n'
+    text2 = text + 'See the questions at ' + url + '\n'
     text = text2
     var subject = 'Your notes for ' + title
     location.href = getMailtoUrl('', subject, text)
@@ -51,7 +57,16 @@ function sendAction(page, title) {
 
 function shareLesson(message) {
   var subject = 'MC2 Online'
-  var url = location.href
+  if (message == '{{ text }}') {
+    message = 'Link:'
+  }
+  var page = location.href
+  let start = page.indexOf('/content/')
+  let url = 'https://app.mc2.online/' + page.substring(start)
+
+  // we need to reformat this because it may be a local address on an SD card
+  // may return  file:///C:/xampp/htdocs/MC2French/folder/content/M2/fra/tc/index.html
+  // and you want https://app.mc2.online/content/M2/fra/tc/index.html
   if ('share' in navigator) {
     navigator.share({
       title: subject,
@@ -59,7 +74,7 @@ function shareLesson(message) {
       url: url,
     })
   } else {
-    var body = message + ': ' + url;
+    var body = message + ': ' + url
     // Here we use the WhatsApp API as fallback; remember to encode your text for URI
     //location.href = 'mailto:?body=' + encodeURIComponent(text + ' - ') + location.href + ';subject=' + encodeURIComponent(title);
     location.href = getMailtoUrl('', subject, body)

@@ -50,21 +50,33 @@ function publishLanguageFooter($p){
     }
      $page_title ='Link: ';
     if (isset($p['recnum'])){
-         $page_title = getTitle($p['recnum']) .': '; // this will go right before link when shared.
+         $page_title = getTitle($p['recnum']) .': ';
+         $page_title = str_replace("'", "\'", $page_title);// this will go right before link when shared.
+    }
+    if (isset($bookmark['page']->filename)){
+        //$page = $p['country_code'] . '/'. $p['language_iso']. '/'. $p['folder_name'] .'/'.  $bookmark['page']->filename .'.html';
+        $note_id = $p['country_code'] . '-'. $p['language_iso']. '-'. $p['folder_name'] .'-'.  $bookmark['page']->filename  .'.html';
+    }
+    else{
+       // $page = '';
+        $note_id = 'must be an error somewhere';
     }
     $placeholders = array(
-        '{{ url }}', '{{ website }}','{{ page_title }}'
+        '{{ url }}',
+        '{{ website }}',
+        '{{ page_title }}',
+        '{{ note_id }}'
     );
     $values = array(
         $url,
         $website,
-        $page_title
+        $page_title,
+        $note_id
     );
     $footer  = str_replace( $placeholders, $values, $footer ) ;
 
     $footer .= languageSpecificJavascripts($p);
 
-    $debug .=  'Country Footer:' . "\n"  .$footer  . "\n";
-     //writeLog('publishLanguageFooter', $debug);
+
     return $footer;
 }

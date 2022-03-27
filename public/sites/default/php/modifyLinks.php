@@ -34,14 +34,14 @@ function modifyLinks($text, $p){
         $text  = _modifyInternalLinks($text, $find, $p);
     }
     if ($p['sdcard_settings']->remove_external_links  == TRUE){
-        writeLogDebug('modifyLinks-37', 'I am about to remove readmore Links');
+        writeLogDebug('modifyLinks-37',$text );
          $find = '<a class="readmore"';
          if (strpos($text, $find) !== false){
              writeLogDebug('modifyLinks-40', 'I am going to remove readmore Links');
             $text = _removeReadmoreLinks($text);
         }
     }
-    $find = 'href="http';
+    $find = '"http';
     if (strpos($text, $find) !== false){
         $text = _modifyExternalLinks($text, $find, $p);
     }
@@ -160,13 +160,30 @@ function _modifyExternalLinks($text, $find, $p){
         $text = str_ireplace ('href="http', ' target = "_blank" href="http', $text);
         return $text;
     }
-    if (ALLOW_EXTERNAL_LINKS_IN_SDCARD == TRUE){
+    if ($p['sdcard_settings']->remove_external_links  == FALSE){
         $text = str_ireplace ('href="http', ' target = "_blank" href="http', $text);
         return $text;
     }
-    $message = 'external link found.  How do you want to process?';
-    //writeLogError('_modifyExternalLinks', "$message\n$text");
-    trigger_error( $message, E_USER_ERROR);
+// now you want to get rid of external links
+// look for http  find< before and> after;
+    $find = 'http';
+    $length_find = strlen($find);
+    $count = substr_count($text, $find);
+    for ($i= 1; $i <= $count; $i++){
+        $pos_http_start = strpos($text, $find) ;
+        $pos_link_end= strpos($text, '>', $pos_http_start);
+        $truncated = substr($text, 0, $pos_http_start );
+        $pos_link_start= strrpos($truncated, '<');
+        $length = $pos_link_end -  $pos_link_start +1;
+        $substr = substr($text, $pos_link_start, $length );
+        $values = array(
+            'substr' => $substr,
+            'length'=> $length,
+            'text' =>$text
+        );
+        writeLogDebug('modifyExternalLinks-180-' . $i, $values);
+        $text = str_replace($substr, '', $text);
+    }
     return $text;
 }
  // <a class="readmore"  href="https://biblegateway.com/passage/?search=John%2010:22-30&amp;version=NIV">Read More </a>

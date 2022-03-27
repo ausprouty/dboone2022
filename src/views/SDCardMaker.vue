@@ -25,7 +25,11 @@
           <h3>Remove External Links</h3>
         </label>
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <input type="checkbox" id="remove_external_links" checked />
+        <input
+          type="checkbox"
+          id="remove_external_links"
+          v-model="$v.sdcard.$model.remove_external_links"
+        />
         <h3>Footer</h3>
         <BaseSelect
           v-model="$v.sdcard.$model.footer"
@@ -140,7 +144,6 @@ export default {
       country_name: null,
       show_progress: false,
       site: process.env.VUE_APP_SITE,
-      dir_scard: null,
       language_data: [],
       footers: [],
       bat_text: 'Download Media Batch Files',
