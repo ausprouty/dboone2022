@@ -62,7 +62,7 @@ function shareLesson(message) {
   }
   var page = location.href
   let start = page.indexOf('/content/')
-  let url = 'https://app.mc2.online/' + page.substring(start)
+  let url = 'https://app.mc2.online' + page.substring(start)
 
   // we need to reformat this because it may be a local address on an SD card
   // may return  file:///C:/xampp/htdocs/MC2French/folder/content/M2/fra/tc/index.html

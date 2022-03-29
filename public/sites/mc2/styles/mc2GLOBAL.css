@@ -651,6 +651,7 @@ li.nobreak-final-final {
 
 .active,
 .active h2,
+.active h3,
 .collapsible:hover {
   background-color: #555;
   color: white;
