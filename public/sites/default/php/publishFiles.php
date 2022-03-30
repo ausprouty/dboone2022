@@ -40,7 +40,7 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
         $headers= $result['headers'];
     }
     else{
-        $headers= '';
+        $headers= ' ';
     }
     if ($destination != 'staging'){
         // class="nobreak" need to be changed to class="nobreak-final" so color is correct

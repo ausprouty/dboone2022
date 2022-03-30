@@ -29,7 +29,7 @@ function getTitle($recnum){
                 }
             }
         }
-         writeLogError('getTitle-35-data', $data);
+        // this will return null for an index
         return NULL;
 
     }

@@ -21,7 +21,7 @@ function createContent($p){
 		$filetype = isset($p['filetype']) ? $p['filetype'] : NULL;
 		$title = isset($p['title']) ? $p['title'] : NULL;
 		$filename = isset($p['filename']) ? $p['filename'] : NULL;
-		$page = isset($p['page']) ? $p['page'] : NULL;
+		$page = 0;
 
 		$conn = new mysqli(HOST, USER, PASS, DATABASE_CONTENT);
 		$text = $conn->real_escape_string($text);
@@ -30,6 +30,7 @@ function createContent($p){
 			country_code,folder_name,filetype,title,filename, page, text) values
 			('$version','$edit_date','$my_uid','$language_iso',
 			'$country_code','$folder_name','$filetype','$title','$filename','$page','$text')";
+        writeLogDebug('create-33', $sql);
 		$result = $conn->query($sql);
 		if(!$result){
 			$message = "Could not add Content";

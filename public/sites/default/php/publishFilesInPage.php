@@ -65,7 +65,8 @@ function publishFilesInPageFind($find_begin, $text, $p){
                 if (strpos($filename, '.html') == false){
                     if (strpos($filename, 'void(0)') == false && strpos($filename, '://') == false ){
                         if (strpos($filename, 'script:popUp') == false){ // no need to copy from popups
-                            if (strpos($filename, 'localVideoOptions.js ' == false)){
+                           writeLogAppend('PublishFilesInPage-68' , $filename );
+                            if (strpos($filename, strval('localVideoOptions.js') == false)){
                                 $message = "$from not found \n\n\n\n";
                                 writeLogAppend('ERRORS-PublishFilesInPage-72' , $message );
                             }

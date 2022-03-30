@@ -1,6 +1,6 @@
 <?php
 myRequireOnce ('publishDestination.php');
-myRequireOnce ('fileWritePDF.php');
+myRequireOnce ('fileWritePDF.php', 'pdf');
 
 function fileWrite($filename, $text, $p){
     //make sure publishDestination is in $filename exactly once.
