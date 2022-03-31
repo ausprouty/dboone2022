@@ -1,17 +1,17 @@
 <?php
 myRequireOnce ('dirCreate.php');
+myRequireOnce ('writeLog.php');
 
 //// add content to database
 function createContent($p){
-	$debug = "\n\n\n\n\n" . 'In createContent'. "\n";
 	$text = isset($p['text']) ? $p['text'] : NULL;
 	if (!$text){
-		$message = "in createContent $p[text] can not be null";
-        trigger_error( $message, E_USER_ERROR);
-
+		$message = 'in createContent $p[text] can not be null';
+		$rand = random_int(0, 9999);
+		writeLogError('createContent-'. $rand,$p);
+        return null;
 	}
 	else{
-
 		$version = isset($p['version']) ? $p['version'] : VERSION;
 		$edit_date = time();
 		$my_uid = isset($p['my_uid']) ? $p['my_uid'] : NULL;
@@ -22,10 +22,8 @@ function createContent($p){
 		$title = isset($p['title']) ? $p['title'] : NULL;
 		$filename = isset($p['filename']) ? $p['filename'] : NULL;
 		$page = 0;
-
 		$conn = new mysqli(HOST, USER, PASS, DATABASE_CONTENT);
 		$text = $conn->real_escape_string($text);
-
 		$sql = "INSERT into content (version,edit_date,edit_uid,language_iso,
 			country_code,folder_name,filetype,title,filename, page, text) values
 			('$version','$edit_date','$my_uid','$language_iso',
@@ -34,8 +32,7 @@ function createContent($p){
 		$result = $conn->query($sql);
 		if(!$result){
 			$message = "Could not add Content";
-        	trigger_error( $message, E_USER_ERROR);
-
+			writeLogError('createContent-38', $sql);
 		}
 		else{
 			$message = "Success";

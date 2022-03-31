@@ -2,16 +2,18 @@
 echo nl2br('in Import MC3' . "\n");
 require_once ('../.env.api.remote.php');
 echo nl2br(ROOT_LOG . "\n");
+require_once('../../default/php/myRequireOnce.php');
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
 myRequireOnce ('getLatestMc2Content.php');
 myRequireOnce ('create.php');
+myRequireOnce ('writeLog.php');
 
 
-$fixing = 'multiply2';
+$fixing = 'multiply3';
 
-$debug = "Import Mc2 Multiply2<br>\n";
-$sql = 'SELECT DISTINCT filename FROM mc2_content 
+$debug = "Import Mc2 Multiply3<br>\n";
+$sql = 'SELECT DISTINCT filename FROM mc2_content
     WHERE language_iso = "eng"
     AND country_code = "M2"
     AND folder_name = "multiply3"
@@ -28,8 +30,7 @@ $sql = 'SELECT DISTINCT filename FROM mc2_content
          'folder_name' => 'multiply3',
          'filename' => $data['filename']
      );
-    $res = getLatestMc2Content($p);
-    $new = $res['content'];
+    $new = getLatestMc2Content($p);
     echo ($new['language_iso']);
     $new['country_code'] = 'AU';
     $new['my_uid'] = 996; // done by computer
@@ -37,21 +38,5 @@ $sql = 'SELECT DISTINCT filename FROM mc2_content
 
  }
  echo ($debug);
- _writeThisLog('ImportM2'. time() , $debug);
+ writeLogDebug('ImportM2'. time() , $debug);
  return;
-
- 
- function _writeThisLog($filename, $content){
-	if (!is_array($content)){
-		$text = $content;
-	}
-	else{
-		$text = '';
-		foreach ($content as $key=> $value){
-			$text .= $key . ' => '. $value . "\n";
-		}
-	}
-	$fh = fopen(ROOT_LOG . $filename . '.txt', 'w');
-	fwrite($fh, $text);
-    fclose($fh);
-}

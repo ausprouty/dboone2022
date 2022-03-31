@@ -3,27 +3,24 @@
 myRequireOnce ('prototypeORpublish.php');
 myRequireOnce ('sql.php');
 myRequireOnce ('myGetPrototypeFile.php');
+myRequireOnce ('writeLog.php');
 
 /* return latest mc2_content
 */
 function getLatestMc2content($p){
     $out = [];
-    $out['debug'] ='In getLatestmc2_content' . "\n";
-    echo nl2br($out['debug']);
     if (!isset($p['scope'])){
-        $out['debug'] .=  'No scope was set';
-        return $out;
+        writeLogError('getLatestMc2content-13', "No scope was set");
+        return null;
     }
 
     switch($p['scope']){
         case "countries":
-            $out['debug'] .='Case is countries' . "\n";
             $sql = 'SELECT * FROM mc2_content
                 WHERE filename = "countries"
                 ORDER BY recnum DESC LIMIT 1';
             break;
         case "languages":
-        $out['debug'] .='Case is languages' . "\n";
             $sql = "SELECT * from mc2_content
                 WHERE country_code = '". $p['country_code'] . "'
                 AND filename = 'languages'
@@ -31,7 +28,6 @@ function getLatestMc2content($p){
                 ORDER BY recnum DESC LIMIT 1";
             break;
         case "library":
-            $out['debug'] .='Case is library' . "\n";
             if (!isset($p['library_code'])){
                 $p['library_code'] = 'library';
             }
@@ -43,7 +39,6 @@ function getLatestMc2content($p){
                 ORDER BY recnum DESC LIMIT 1";
             break;
         case "libraryNames":
-            $out['debug'] .='Case is libraryNames' . "\n";
             $sql = "SELECT DISTINCT filename FROM mc2_content
                 WHERE country_code = '". $p['country_code'] . "'
                 AND language_iso = '" . $p['language_iso'] . "'
@@ -51,7 +46,6 @@ function getLatestMc2content($p){
                 ORDER BY recnum DESC";
             break;
         case "libraryIndex":
-            $out['debug'] .='Case is libraryIndex' . "\n";
             $sql = "SELECT * FROM mc2_content
                 WHERE country_code = '". $p['country_code'] . "'
                 AND language_iso = '" . $p['language_iso'] . "'
@@ -60,7 +54,6 @@ function getLatestMc2content($p){
                 ORDER BY recnum DESC LIMIT 1";
             break;
         case "series":
-            $out['debug'] .='Case is series' . "\n";
             $sql = "SELECT * from mc2_content
                 WHERE country_code = '". $p['country_code'] . "'
                 AND language_iso = '" . $p['language_iso'] . "'
@@ -69,7 +62,6 @@ function getLatestMc2content($p){
                 ORDER BY recnum DESC LIMIT 1";
             break;
         case "page":
-            $out['debug'] .='Case is page' . "\n";
             $sql = "SELECT * from mc2_content
                 WHERE country_code = '". $p['country_code'] . "'
                 AND language_iso = '" . $p['language_iso'] . "'
@@ -79,15 +71,14 @@ function getLatestMc2content($p){
             break;
         default:
             $sql = null;
-            $out['debug'] .= "no match for  ". $p['scope'] . "\n";
+            $message =  "no match for  ". $p['scope'] . "\n";
+            writeLogError('getLatestMc2content-76', $message);
 
     }
-    $out['debug'] .= $sql . "\n";
     // execute query
     if ($sql){
         $result = sqlArray($sql);
         if (isset($result['recnum'])){
-            $out['debug'] .='Recnum ' . $result['recnum'] ."\n";
             $out= $result;
         }
         else{
