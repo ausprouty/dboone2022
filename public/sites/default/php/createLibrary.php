@@ -1,7 +1,8 @@
 <?php
 myRequireOnce ('writeLog.php');
 myRequireOnce ('dirCreate.php');
-myRequireOnce ('myGetPrototypeFile.php');
+
+myRequireOnce ('getPrototypeFileLibrary.php');
 
 function createLibrary($p, $text) {
      /* Return a container for the books in this library.
@@ -27,7 +28,7 @@ function createLibrary($p, $text) {
     //
     // get template for library and fill in library details
     //
-    $body = myGetPrototypeFile('library.html', $p['destination']);
+    $body = getPrototypeFileLibrary($p);
     //
     //  Format Navigation area;
     //

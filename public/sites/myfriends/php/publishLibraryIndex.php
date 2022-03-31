@@ -2,6 +2,7 @@
 
 myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFiles.php');
+myRequireOnce ('writeLog.php');
 
 
 function publishLibraryIndex($p){
@@ -25,13 +26,18 @@ function publishLibraryIndex($p){
     // replace placeholders
     $body = '<div class="page_content">'. "\n";
     $body .= $text->page . "\n";
-    $body = str_replace('/preview/library', '/content', $body);
+    writeLogDebug('publishLibraryIndex-29', $body);
+    $body = str_replace('/preview/library/AU/eng/friends.html', 'friends.html', $body);
+    $body = str_replace('/preview/library/AU/eng/meet.html', 'meet.html', $body);
+    $body = str_replace('/preview/series/AU/eng/family/youth-basics', 'youth-basics/index.html', $body); 
+    $body = str_replace('/preview/series/AU/eng/current/current', 'current/index.html', $body);
+
     // see if anyone is bypassing the library (there is only one book in this language)
     if (strpos($body, '/preview/series/')){
         $body = bypassLibrary($body);
     }
-    $body = $body .  $footer  ;
-    // set file name
+    $body = $body . $footer;
+    writeLogDebug('publishLibraryIndex-34', $body);
     $language_dir = publishDestination($p) .'content/'.  $p['country_code'] . '/'. $p['language_iso'];
     $fname = $language_dir . '/index.html';
     // write  file
@@ -44,14 +50,18 @@ function publishLibraryIndex($p){
     }
     // update records
     //
+    
     $time = time();
     $sql = null;
+      writeLogDebug('publishLibraryIndex-51', $p);
     if ($p['destination'] == 'staging'){
+       
         $sql = "UPDATE content
-            SET prototype_date = '$time', prototype__uid = '". $p['my_uid'] ."'
+            SET prototype_date = '$time', prototype_uid = '". $p['my_uid'] ."'
             WHERE  country_code = '" . $p['country_code'] ."'
             AND folder_name = '' AND filename = 'index'
             AND prototype_date IS NULL";
+        
     }
     if ($p['destination'] == 'website'){
         $sql = "UPDATE content
@@ -61,6 +71,7 @@ function publishLibraryIndex($p){
             AND prototype_date IS NOT NULL
             AND publish_date IS NULL";
     }
+    writeLogDebug('publishLibraryIndex-66', $sql);
     if ($sql){
       sqlArray($sql, 'update');
     }

@@ -43,7 +43,7 @@ function publishLibraryIndex($p){
     $sql = null;
     if ($p['destination'] == 'staging'){
         $sql = "UPDATE content
-            SET prototype_date = '$time', prototype__uid = '". $p['my_uid'] ."'
+            SET prototype_date = '$time', prototype_uid = '". $p['my_uid'] ."'
             WHERE  country_code = '" . $p['country_code'] ."'
             AND folder_name = '' AND filename = 'index'
             AND prototype_date IS NULL";

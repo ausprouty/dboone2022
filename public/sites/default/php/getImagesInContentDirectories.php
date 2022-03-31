@@ -7,6 +7,8 @@ myRequireOnce ('writeLog.php');
 function getImagesInContentDirectories($p){
 
 	$out = [];
+	$html = '.html';
+	$json = '.json';
 	//writeLog('getImagesInContentDirectories-9-dir',$p['image_dirs']);
 	$image_dirs= explode(',', $p['image_dirs']);
     foreach ($image_dirs as $directory){
@@ -20,7 +22,8 @@ function getImagesInContentDirectories($p){
 			$handler = opendir ($dir);
 			while ($mfile = readdir ($handler)){
 				if ($mfile != '.' && $mfile != '..' ){
-					if(strpos($mfile, strval('.html')) == FALSE && strpos($mfile, strval('.json') == FALSE)){
+					
+					if(strpos($mfile, $html) == FALSE && strpos($mfile, $html == FALSE)){
 						$out[] =  $directory . '/'.  $mfile ;
 				    }
 				}

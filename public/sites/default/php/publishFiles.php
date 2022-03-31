@@ -20,6 +20,7 @@ myRequireOnce ('myGetPrototypeFile.php');
 
 // destination must be 'staging', 'website', 'pdf'  or 'sdcard'
 function publishFiles( $destination , $p, $fname, $text, $standard_css, $selected_css){
+   
      // some libary indexes have a name of meet.html with then gets appended with another html
     if (strpos($fname, '.html.html') !== false){
         $fname = str_replace('.html.html', '.html', $filename);
@@ -54,6 +55,7 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     if (isset($p['recnum'])){
         $title .= ' '. getTitle($p['recnum']);
     }
+    
     $language_google = languageHtml($p['language_iso']);
     $placeholders = array(
         '{{ language.google }}',
@@ -76,17 +78,20 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     $output = str_replace($placeholders, $replace,  $output);
     // insert text
     $output .= $text;
+    writeLogDebug('publishFiles-81', $output);
     // remove dupliate CSS
     $output = publishCSS($output, $p);
+     writeLogDebug('publishFiles-84', $output);
     // append footer
     $footer= 'footer.html';
     $output .= myGetPrototypeFile($footer, $p['destination']);
     // copy all images and styles to the publish directory
     //$response = publishCopyImagesAndStyles($output, $destination);
-
+    writeLogDebug('publishFiles-89', $output);
     $output = modifyImages($output, $p);
     // make sure  all files are copied to destination directory
     publishFilesInPage($output, $p);
+
     $output = makePathsRelative($output, $fname);
     writeLogAppend('publishFiles', $fname);
     fileWrite($fname, $output, $p);
