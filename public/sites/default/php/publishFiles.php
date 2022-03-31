@@ -20,6 +20,10 @@ myRequireOnce ('myGetPrototypeFile.php');
 
 // destination must be 'staging', 'website', 'pdf'  or 'sdcard'
 function publishFiles( $destination , $p, $fname, $text, $standard_css, $selected_css){
+     // some libary indexes have a name of meet.html with then gets appended with another html
+    if (strpos($fname, '.html.html') !== false){
+        $fname = str_replace('.html.html', '.html', $filename);
+    }
     // start with header
     $output = myGetPrototypeFile('header.html', $p['destination']);
     // add onload only if files are here

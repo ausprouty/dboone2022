@@ -32,11 +32,16 @@ function publishLibraryIndex($p){
     }
     $body = $body .  $footer  ;
     // set file name
-    $language_dir = publishDestination($p) . $p['country_code'] . '/'. $p['language_iso'];
+    $language_dir = publishDestination($p) .'content/'.  $p['country_code'] . '/'. $p['language_iso'];
     $fname = $language_dir . '/index.html';
     // write  file
     $body .= '<!--- Created by publishLibrary-->' . "\n";
     publishFiles( $p['destination'], $p, $fname, $body,   STANDARD_CSS,  $selected_css);
+    // Australia is the current owner of this site, so their file goes to root
+    if ($fname  ==  publishDestination($p) .'content/AU/eng/index.html'){
+        $fname = publishDestination($p). 'index.html'; // add as root directory index
+        publishFiles( $p['destination'], $p, $fname, $body,   STANDARD_CSS,  $selected_css);
+    }
     // update records
     //
     $time = time();

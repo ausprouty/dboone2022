@@ -1,6 +1,6 @@
 <?php
 echo 'in Import M2';
-require_once ('../.env.api.remote.myfriends.php');
+require_once ('../.env.api.remote.php');
 echo ROOT_LOG;
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
@@ -22,12 +22,12 @@ $new['country_code'] = 'AU';
 $new['my_uid'] = 996; // done by computer
 createContent($new);
 
- 
+
  echo ($debug);
  _writeThisLog('ImportM2'. time() , $debug);
  return;
 
- 
+
  function _writeThisLog($filename, $content){
 	if (!is_array($content)){
 		$text = $content;

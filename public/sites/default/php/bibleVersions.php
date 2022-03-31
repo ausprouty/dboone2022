@@ -29,18 +29,11 @@ function getBibleVersions($p){
         $bible->bid =  $data->bid;
         $bible->volume_name=  utf8_encode($data->volume_name);
         $out[] = $bible;
-        $debug .= $data->volume_name . "\n";
-        $debug .= json_encode($bible, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) . "\n\n";
         $count++;
     }
-    if ($count > 0){
-
-        $debug .= 'encode of all';
-        $debug .= json_encode( $out, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES). "\n";
-    }
-    else{
-         $message = "No Bibles for  ". $p['language_iso'];
-        trigger_error( $message, E_USER_ERROR);
+    if ($count <1){
+        $message = "No Bibles for  ". $p['language_iso'];
+        writeLogError('getBibleVersions-36', $message);
         $out= [];
     }
     $conn->close();

@@ -1,6 +1,7 @@
 <?php
 echo nl2br('in Import MC2' . "\n");
-require_once ('../.env.api.remote.myfriends.php');
+require_once ('../.env.api.remote.php');
+require_once('../../default/php/myRequireOnce.php');
 echo nl2br(ROOT_LOG . "\n");
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
@@ -11,7 +12,7 @@ myRequireOnce ('create.php');
 $fixing = 'multiply2';
 
 $debug = "Import Mc2 Multiply2<br>\n";
-$sql = 'SELECT DISTINCT filename FROM mc2_content 
+$sql = 'SELECT DISTINCT filename FROM mc2_content
     WHERE language_iso = "eng"
     AND country_code = "M2"
     AND folder_name = "multiply2"
@@ -40,7 +41,7 @@ $sql = 'SELECT DISTINCT filename FROM mc2_content
  _writeThisLog('ImportM2'. time() , $debug);
  return;
 
- 
+
  function _writeThisLog($filename, $content){
 	if (!is_array($content)){
 		$text = $content;

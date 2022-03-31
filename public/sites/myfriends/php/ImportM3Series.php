@@ -1,6 +1,6 @@
 <?php
 echo nl2br('in Import MC3' . "\n");
-require_once ('../.env.api.remote.myfriends.php');
+require_once ('../.env.api.remote.php');
 echo nl2br(ROOT_LOG . "\n");
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');

@@ -1,6 +1,6 @@
 <?php
 echo 'in Import M2';
-require_once ('../.env.api.remote.myfriends.php');
+require_once ('../.env.api.remote.php');
 echo ROOT_LOG;
 myRequireOnce ('sql.php');
 myRequireOnce ('.env.cors.php');
