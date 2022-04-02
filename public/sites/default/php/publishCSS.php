@@ -66,7 +66,7 @@ function publishCSS($text, $p){
             }
             else{
                 $message = "$from not found in publishCSS";
-                writeLogError('publishCSS-74-text', $text);
+                writeLogError('publishCSS-74-text', $message . "\n\n" . $text);
                 trigger_error( $message, E_USER_ERROR);
             }
         }

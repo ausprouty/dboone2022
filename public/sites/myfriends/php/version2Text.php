@@ -6,6 +6,7 @@ function version2Text($text){
   $text = str_ireplace('/images/default/menu/header-front.png',
                     '/sites/myfriends/images/menu/header-front.png', $text);
 
+
   $text = str_ireplace('/images/default/country/world.jpg',
                      '/sites/default/images/country/world.jpg', $text);
   $text = str_ireplace('/images/country/YT.png',

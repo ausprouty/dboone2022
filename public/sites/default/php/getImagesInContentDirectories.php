@@ -21,9 +21,8 @@ function getImagesInContentDirectories($p){
 		if (file_exists($dir)){
 			$handler = opendir ($dir);
 			while ($mfile = readdir ($handler)){
-				if ($mfile != '.' && $mfile != '..' ){
-					
-					if(strpos($mfile, $html) == FALSE && strpos($mfile, $html == FALSE)){
+				if ($mfile != '.' && $mfile != '..' &&  $mfile != '' ){
+					if(strpos($mfile, $html) == FALSE && strpos($mfile, $json == FALSE)){
 						$out[] =  $directory . '/'.  $mfile ;
 				    }
 				}

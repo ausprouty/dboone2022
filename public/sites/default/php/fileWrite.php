@@ -32,7 +32,8 @@ function fileWrite($filename, $text, $p){
     }
     else{
         $message = " 'NOT able to write' .  $filename . ' with destination of '. $destination ";
-         writeLogError('fileWrite-34-'. random_int(0, 99999), $message);
+         writeLogAppend('fileWrite-34', $message);
+         writeLogAppend('fileWrite-34', "$text\n\n");
     }
 
 }

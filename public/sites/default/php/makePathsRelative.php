@@ -14,7 +14,7 @@ We assume filename is inside of content
 */
 
 function makePathsRelative( $text, $filename){
-   writeLogDebug('makePathsRelative-17', $text);
+
    // make sure all paths are absolute first
    $text = str_ireplace('href="sites', 'href="/sites', $text );
    $up ='../';

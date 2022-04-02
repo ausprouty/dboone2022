@@ -35,6 +35,9 @@ function version2Text($text){
                            '"/sites/generations/images/css/trainer.png', $text);
     $text = str_ireplace('"/images/video.png',
                            '"/sites/generations/images/css/video.png', $text);
+    $text = str_ireplace('/sites/generations/sites/generations/',
+                           '/sites/generations/', $text);
+
 
 
 

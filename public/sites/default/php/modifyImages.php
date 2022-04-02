@@ -63,10 +63,7 @@ function modifyContentImages($text, $p){
         }
         else{
             $message = "$from not found in publishCopyImagesAndStyles";
-            writeLogError('modifyContentImages-66-message', $message);
-            writeLogError('modifyContentImages-66-text', $text);
-             writeLogError('modifyContentImages-66-p', $p);
-            trigger_error( $message, E_USER_ERROR);
+            writeLogAppend('ERROR- modifyContentImages-66', $from);
         }
     }
     $good = 'src="/content/';
@@ -98,6 +95,7 @@ function copySiteImages($text, $p){
             $filename = substr($text, $pos_start, $length);
             $from = ROOT_EDIT . $filename;
             $from = str_ireplace('//', '/', $from);
+            $from = trim($from); // remove any trailing space
 
             if (file_exists($from)){
                 $to = $destination_dir.  $filename;
@@ -111,9 +109,8 @@ function copySiteImages($text, $p){
                 }
             }
             else{
-                $message = "$from not found in copySiteImages";
-                writeLogError('copySiteImages', $message);
-                trigger_error( $message, E_USER_ERROR);
+                writeLogAppend('ERROR- copySiteImages', $from);
+
             }
         }
 

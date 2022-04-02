@@ -68,7 +68,7 @@ function publishFilesInPageFind($find_begin, $text, $p){
                            writeLogAppend('PublishFilesInPage-68' , $filename );
                             $find = 'localVideoOptions.js';
                             if (strpos($filename, $find)  == false){
-                                $message = "$from not found \n\n\n\n";
+                                $message = "$from not found";
                                 writeLogAppend('ERRORS-PublishFilesInPage-72' , $message );
                             }
                         }

@@ -9,7 +9,7 @@ myRequireOnce ('writeLog.php');
 
 
 function publishSeriesAndChapters ($p){
-   writeLogDebug ('1-publishSeriesAndChapters-p', $p);
+
     // first prototype the Series Index
     $out = publishSeries ($p);
 

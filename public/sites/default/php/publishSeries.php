@@ -8,7 +8,7 @@ myRequireOnce ('publishFiles.php');
 // returns $p[files_json] for use by prototypeSeriesandChapters
 function publishSeries ($p){
     // when coming in with only book information the folder_name is not yet set
-    writeLogDebug ('2-publishSeries', $p);
+
     if (!isset($p['folder_name'])){
         if (isset($p['code'])){
             $p['folder_name'] = $p['code'];
