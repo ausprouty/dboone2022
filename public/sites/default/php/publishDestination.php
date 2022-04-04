@@ -32,6 +32,9 @@ function publishDestination ($p){
   elseif($destination == 'pdf'){
       return ROOT_SDCARD . _publishDestinationSDCard($p)  . '/folder/';
   }
+   elseif($destination == 'apk'){
+      return ROOT_APK . _publishDestinationSDCard($p)  . '/folder/';
+  }
   $message= 'In publishDestination invalid destination:  ' . $destination;
   writeLogError('publishDestination-30', $p);
   trigger_error($message, E_USER_ERROR);

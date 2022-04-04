@@ -25,6 +25,14 @@ export default new Vuex.Store({
       series: null,
       subDirectory: null,
     },
+     apk: {
+      language: null,
+      footer: null,
+      external_links: false,
+      action: 'apk',
+      build: null,
+      series: null,
+    },
     revision: '2.0',
     baseURL: './',
     cssURL: './content/',
@@ -75,6 +83,9 @@ export default new Vuex.Store({
   mutations: {
     SET_LANGUAGES(state, value) {
       state.languages = value[0]
+    },
+    SET_APK(state, value) {
+      state.apk = value
     },
     SET_SDCARD_SETTINGS(state, value) {
       state.sdCardSettings = value
@@ -216,6 +227,9 @@ export default new Vuex.Store({
     },
     setSDCardSettings({ commit }, value) {
       commit('SET_SDCARD_SETTINGS', value)
+    },
+    setApk({ commit }, value) {
+      commit('SET_APK', value)
     },
     logoutUser({ commit }) {
       commit('LOGOUT_USER')
