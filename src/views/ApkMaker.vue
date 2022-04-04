@@ -9,9 +9,9 @@
     </div>
     <div v-if="this.authorized">
       <div>
-        <h1>APK Maker for {{ this.country_name }}</h1>
+        <h1>Apk Maker for {{ this.country_name }}</h1>
         <p>
-          This page allows you to create the source code for an APK file which will have all the
+          This page allows you to create the source code for an Apk file which will have all the
           content and videos.
         </p>
         <p>For sensitive countries be sure to click "Remove External Links"</p>
@@ -19,7 +19,7 @@
          <form>
             <BaseInput
               v-model="$v.apk_settings.$model.build"
-              label="APK Build Name and Number"
+              label="Apk Build Name and Number"
               type="text"
               placeholder="engM1.346"
               class="field"
@@ -141,9 +141,9 @@ export default {
   data() {
     return {
       prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
-      apk_root: process.env.VUE_APP_ROOT_APK,
+      apk_root: process.env.VUE_APP_ROOT_Apk,
       authorized: false,
-      videolist_text: 'Create Media List for APK Card',
+      videolist_text: 'Create Media List for Apk Card',
       common_text: 'Check Common Files',
       language_text: 'Create Language Index',
       languages: [],
@@ -168,10 +168,10 @@ export default {
       return this.$store.state.bookmark
     },
   },
-  provide: function () {  // see https://v2.vuejs.org/v2/guide/components-edge-cases.html#Dependency-Injection
-    return {
-      getApkSettings: this.apk_settings
-    }
+  provide()  {  // see https://vuejs.org/guide/components/provide-inject.html#provide
+      return {
+        apk_settings: this.apk_settings
+      }
   },
   validations: {
     apk_settings: {
@@ -229,8 +229,7 @@ export default {
         fileLink.click()
       })
     },
-
-
+  },
   async created() {
     this.authorized = this.authorize('write', this.$route.params)
     if (this.authorized) {

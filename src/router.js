@@ -19,6 +19,15 @@ export default new Router({
       },
     },
     {
+      path: '/apk/:country_code',
+      name: 'apkMaker',
+      component: function () {
+        return import(
+          /* webpackChunkName: "sortCountries" */ './views/ApkMaker.vue'
+        )
+      },
+    },
+    {
       path: '/',
       name: 'home',
       component: CountriesPreview,
@@ -286,7 +295,7 @@ export default new Router({
       },
       props: false,
     },
-     {
+    {
       path: '/test/sent67',
       name: 'testsent67',
       component: function () {

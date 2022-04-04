@@ -25,7 +25,6 @@ export default {
   initialize(params) {
     params.site = process.env.VUE_APP_SITE
     params.my_uid = store.state.user.uid
-    params.apk = JSON.stringify(store.state.apkSettings)
     params.subdirectory = 'apk'
     params.token = store.state.user.token
     if (typeof params.destination == 'undefined') {

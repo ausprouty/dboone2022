@@ -6,15 +6,16 @@
   </div>
 </template>
 <script>
-import APKService from '@/services/APKService.js'
+import ApkService from '@/services/ApkService.js'
 
 export default {
   props: {
     language: Object,
   },
-  inject: ['getApkSettings'],
+  inject: ['apk_settings'],
   data() {
     return {
+      apk_setting: this.apk_settings,
       library_text: 'Create Library Index',
       progress: 'undone',
     }
@@ -22,10 +23,10 @@ export default {
   methods: {
     async verifyLibraries() {
       var params = this.language
-      params.apk_settings = JSON.stringify(this.getApkSettings())
-      console.log(params)
+      console.log(this.apk_setting)
+      params.apk_settings = JSON.stringify(this.apk_setting)
       this.library_text = 'Publishing'
-      this.progress = await APKService.publish('libraries', params)
+      this.progress = await ApkService.publish('libraries', params)
       this.library_text = 'Published'
     },
   },

@@ -6,7 +6,7 @@
         v-bind:class="progress.content"
         @click="localPublish('sdcard')"
       >
-        {{ sdcard_text }}
+        {{ content_text }}
       </button>
     </div>
 
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import APKService from '@/services/APKService.js'
+import ApkService from '@/services/ApkService.js'
 
 export default {
   props: {
@@ -66,13 +66,12 @@ export default {
 		"prototype": true
     }
 */
-  inject: ['getApkSettings'],
+  inject: ['apk_settings'],
   data() {
     return {
-      sdcard_text: 'SD Card',
-      nojs_text: 'No JS',
-      pdf_text: 'PDF',
+      apk_setting: this.apk_settings,
       videolist_text: 'Media List',
+      content_text: 'Content',
       media_text: 'Media',
       cover_text: 'Cover',
       progress: {
@@ -87,33 +86,32 @@ export default {
     async localPublish(location) {
       var response = null
       var params = this.book
-
-      params.apk_settings = JSON.stringify(this.getApkSettings())
+      params.apk_settings = JSON.stringify(this.apk_setting)
       console.log(params.apk)
       console.log(params)
       if (location == 'cover') {
         this.cover_text = 'Publishing'
-        await APKService.publish('cover', params)
-        this.progress.cover = await APKService.verifyBookCover(params)
+        await ApkService.publish('cover', params)
+        this.progress.cover = await ApkService.verifyBookCover(params)
         this.cover_text = 'Media'
       }
       if (location == 'media') {
         this.media_text = 'Publishing'
-        await APKService.publish('media', params)
-        this.progress.media = await APKService.verifyBookMedia(params)
+        await ApkService.publish('media', params)
+        this.progress.media = await ApkService.verifyBookMedia(params)
         this.media_text = 'Media'
       }
 
       if (location == 'content') {
         this.sdcard_text = 'Publishing'
-        await APKService.publish('seriesAndChapters', params)
-        this.progress.content = await APKService.verifyBookAPK(params)
+        await ApkService.publish('seriesAndChapters', params)
+        this.progress.content = await ApkService.verifyBookApk(params)
         this.sdcard_text = 'SD Card'
       }
       if (location == 'videolist') {
         this.videolist_text = 'Publishing'
-        await APKService.publish('videoMakeBatFileForAPK', params)
-        this.progress.videolist = await APKService.verifyBookVideoList(params)
+        await ApkService.publish('videoMakeBatFileForApk', params)
+        this.progress.videolist = await ApkService.verifyBookVideoList(params)
         this.videolist_text = 'Media List'
       }
       if (response == 'error') {
@@ -127,7 +125,7 @@ export default {
     params.progress = JSON.stringify(this.progress)
 
     console.log(params)
-    this.progress = await APKService.checkStatusBook(params)
+    this.progress = await ApkService.checkStatusBook(params)
     console.log(this.progress)
   },
 }
