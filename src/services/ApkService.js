@@ -69,10 +69,10 @@ export default {
     params.action = 'verifyBookPDF'
     return await AuthorService.aReturnContent(params)
   },
-  async verifyBookSDCard(params) {
+  async verifyBookApk(params) {
     params = this.initialize(params)
     params.page = 'verifyBook'
-    params.action = 'verifyBookSDCard'
+    params.action = 'verifyBookApk'
     return await AuthorService.aReturnContent(params)
   },
   async verifyBookVideoList(params) {
@@ -146,9 +146,9 @@ export default {
       case 'page':
         action = 'AuthorApi.php?page=publishPage&action=publishPage'
         break
-      case 'videoMakeBatFileForSDCard':
+      case 'videoMakeBatFileForApk':
         action =
-          'AuthorApi.php?page=videoMakeBatFileForSDCard&action=videoMakeBatFileForSDCard'
+          'AuthorApi.php?page=videoMakeBatFileForApk&action=videoMakeBatFileForApk'
         break
       case 'videoConcatBat':
         action = 'AuthorApi.php?page=videoConcatBat&action=videoConcatBat'
@@ -157,7 +157,7 @@ export default {
         action = 'AuthorApi.php?page=copyBookMedia&action=copyBookMedia'
         break
       case 'cover':
-        action = 'AuthorApi.php?page=copySDCardCover&action=copySDCardCover'
+        action = 'AuthorApi.php?page=copyApkCover&action=copyApkCover'
         break
 
       case 'default':

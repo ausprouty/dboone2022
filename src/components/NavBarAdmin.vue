@@ -193,7 +193,7 @@ export default {
             },
           })
           break
-        case 'apk':
+        case 'apkMaker':
           this.$router.push({
             name: 'apkMaker',
             params: {

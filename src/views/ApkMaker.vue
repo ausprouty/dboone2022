@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar called_by="SDCardMaker" />
+    <NavBar called_by="ApkMaker" />
     <div v-if="!this.authorized">
       <p>
         You have stumbled into a restricted page. Sorry I can not show it to you
@@ -8,113 +8,91 @@
       </p>
     </div>
     <div v-if="this.authorized">
-      <div>
-        <h1>Apk Maker for {{ this.country_name }}</h1>
-        <p>
-          This page allows you to create the source code for an Apk file which will have all the
-          content and videos.
-        </p>
-        <p>For sensitive countries be sure to click "Remove External Links"</p>
-        <p>
-         <form>
-            <BaseInput
-              v-model="$v.apk_settings.$model.build"
-              label="Apk Build Name and Number"
-              type="text"
-              placeholder="engM1.346"
-              class="field"
-            />
-        </p>
-      </div>
-      <div>
-        <label for="remove_external_links">
-          <h3>Remove External Links</h3>
-        </label>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <input
-          type="checkbox"
-          id="remove_external_links"
-          v-model="$v.apk_settings.$model.remove_external_links"
+      <form>
+        <div>
+          <h1>Apk Maker for {{ this.country_name }}</h1>
+          <p>
+            This page allows you to create the source code for an Apk file which
+            will have all the content and videos.
+          </p>
+          <p>
+            For sensitive countries be sure to click "Remove External Links"
+          </p>
+        </div>
+
+        <div>
+          <BaseSelect
+            label="Language"
+            :options="language_options"
+            v-model="$v.apk_settings.$model.language"
+            class="field"
+          />
+          <label for="remove_external_links">
+            <h3>Remove External Links</h3>
+          </label>
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            id="remove_external_links"
+            v-model="$v.apk_settings.$model.remove_external_links"
+          />
+          <h3>Footer</h3>
+          <BaseSelect
+            v-model="$v.apk_settings.$model.footer"
+            :options="footers"
+            class="field"
+          />
+
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+          <div class="column">
+            <button class="button" @click="verifyCommonFiles()">
+              {{ this.common_text }}
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column">
+            <button class="button" @click="verifyLanguageIndex()">
+              {{ this.language_text }}
+            </button>
+          </div>
+        </div>
+
+        <button class="button" @click="showProgress()">Show Progress</button>
+      </form>
+      <div v-if="this.show_progress">
+        <ApkBooks
+          v-bind="this.apk_settings.language"
+          :key="language.language_iso"
+          :language="language"
         />
-        <h3>Footer</h3>
-        <BaseSelect
-          v-model="$v.apk_settings.$model.footer"
-          :options="footers"
-          class="field"
-        />
-      </div>
 
-      <h3>Languages</h3>
-      <multiselect
-        v-model="$v.apk_settings.$model.languages"
-        @input="sdSubDir"
-        :options="language_data"
-        :multiple="false"
-        :close-on-select="false"
-        :clear-on-select="false"
-        :preserve-search="true"
-        placeholder="Choose one"
-        label="language_name"
-        track-by="language_name"
-        :preselect-first="false"
-      >
-        <template slot="selection" slot-scope="{ values, search, isOpen }"
-          ><span
-            class="multiselect__single"
-            v-if="values.length &amp;&amp; !isOpen"
-            >{{ values.length }} options selected</span
-          ></template
-        >
-      </multiselect>
-    </div>
-    <div class="spacer"></div>
-    <div class="row">
-      <div class="column">
-        <button class="button" @click="verifyCommonFiles()">
-          {{ this.common_text }}
-        </button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="column">
-        <button class="button" @click="verifyLanguageIndex()">
-          {{ this.language_text }}
-        </button>
-      </div>
-    </div>
+        <p>After you make the Video List Bat files:</p>
+        <ul>
+          <li>Check for Errors in the error log</li>
+          <li>Correct errors in html and republish</li>
+          <li>Download any missing files</li>
+          <li>Update Reference File</li>
+          <li>
+            Download, move to M:MC2/sdcard/
+            {{ this.$route.params.country_code }}, unzip and run the bat files -
+            (They take too much processing time to run remotely.)
+          </li>
+          <li>Make a zip file of the audio and video directories</li>
+          <li>
+            Then upload the zip file to sites/{{ this.site }}/media/LANGUAGE_ISO
+          </li>
+          <li>Check to see that all audio files are in the audio directory</li>
+        </ul>
 
-    <button class="button" @click="showProgress()">Show Progress</button>
-
-    <div v-if="this.show_progress">
-      <ApkBooks
-        v-bind="this.apk_settings.language"
-        :key="language.language_iso"
-        :language="language"
-      />
-
-      <p>After you make the Video List Bat files:</p>
-      <ul>
-        <li>Check for Errors in the error log</li>
-        <li>Correct errors in html and republish</li>
-        <li>Download any missing files</li>
-        <li>Update Reference File</li>
-        <li>
-          Download, move to M:MC2/sdcard/
-          {{ this.$route.params.country_code }}, unzip and run the bat files -
-          (They take too much processing time to run remotely.)
-        </li>
-        <li>Make a zip file of the audio and video directories</li>
-        <li>
-          Then upload the zip file to sites/{{ this.site }}/media/LANGUAGE_ISO
-        </li>
-        <li>Check to see that all audio files are in the audio directory</li>
-      </ul>
-
-      <div class="row">
-        <div class="column">
-          <button class="button" @click="zipMediaBatFiles()">
-            {{ this.bat_text }}
-          </button>
+        <div class="row">
+          <div class="column">
+            <button class="button" @click="zipMediaBatFiles()">
+              {{ this.bat_text }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -136,7 +114,6 @@ export default {
   components: {
     NavBar,
     ApkBooks,
-    Multiselect,
   },
   data() {
     return {
@@ -146,7 +123,7 @@ export default {
       videolist_text: 'Create Media List for Apk Card',
       common_text: 'Check Common Files',
       language_text: 'Create Language Index',
-      languages: [],
+      language_options: [],
       country_name: null,
       show_progress: false,
       site: process.env.VUE_APP_SITE,
@@ -158,8 +135,6 @@ export default {
         footer: null,
         remove_external_links: false,
         action: 'apk',
-        build: null,
-        series: null,
       },
     }
   },
@@ -168,10 +143,11 @@ export default {
       return this.$store.state.bookmark
     },
   },
-  provide()  {  // see https://vuejs.org/guide/components/provide-inject.html#provide
-      return {
-        apk_settings: this.apk_settings
-      }
+  provide() {
+    // see https://vuejs.org/guide/components/provide-inject.html#provide
+    return {
+      apk_settings: this.apk_settings,
+    }
   },
   validations: {
     apk_settings: {
@@ -181,8 +157,6 @@ export default {
         footer: { required },
         remove_external_links: { required },
         action: { required },
-        build: { required },
-        series: { required },
       },
     },
   },
@@ -235,13 +209,8 @@ export default {
     if (this.authorized) {
       await AuthorService.bookmark(this.$route.params)
       this.country_name = this.bookmark.country.name
-      this.language_data = await ApkService.getLanguages(this.$route.params)
-      this.$store.dispatch('setLanguages', [this.language_data])
-      var len = this.language_data.length
-      for (var i = 0; i < len; i++) {
-        this.languages[i + 1] = this.language_data[i].language_name
-      }
       this.footers = await ApkService.getFooters(this.$route.params)
+      this.language_options = await ApkService.getLanguages(this.$route.params)
     }
   },
 }
