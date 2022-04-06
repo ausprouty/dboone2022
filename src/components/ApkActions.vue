@@ -4,7 +4,7 @@
       <button
         class="button"
         v-bind:class="progress.content"
-        @click="localPublish('sdcard')"
+        @click="localPublish('content')"
       >
         {{ content_text }}
       </button>
@@ -46,6 +46,7 @@ import ApkService from '@/services/ApkService.js'
 export default {
   props: {
     book: Object,
+    apk_settings: Object,
   },
 
   /*
@@ -66,13 +67,11 @@ export default {
 		"prototype": true
     }
 */
-  inject: ['apk_settings'],
   data() {
     return {
-      apk_setting: this.apk_settings,
-      videolist_text: 'Media List',
       content_text: 'Content',
       media_text: 'Media',
+      videolist_text: 'Video List',
       cover_text: 'Cover',
       progress: {
         content: '',
@@ -86,8 +85,8 @@ export default {
     async localPublish(location) {
       var response = null
       var params = this.book
-      params.apk_settings = JSON.stringify(this.apk_setting)
-      console.log(params.apk)
+      params.apk_settings = JSON.stringify(this.apk_settings)
+      console.log(params.apk_settings)
       console.log(params)
       if (location == 'cover') {
         this.cover_text = 'Publishing'
@@ -103,10 +102,10 @@ export default {
       }
 
       if (location == 'content') {
-        this.sdcard_text = 'Publishing'
+        this.content_text = 'Publishing'
         await ApkService.publish('seriesAndChapters', params)
         this.progress.content = await ApkService.verifyBookApk(params)
-        this.sdcard_text = 'SD Card'
+        this.content_text = 'Content'
       }
       if (location == 'videolist') {
         this.videolist_text = 'Publishing'
@@ -123,7 +122,7 @@ export default {
   async created() {
     var params = this.book
     params.progress = JSON.stringify(this.progress)
-
+    params.apk_settings = JSON.stringify(this.apk_settings)
     console.log(params)
     this.progress = await ApkService.checkStatusBook(params)
     console.log(this.progress)

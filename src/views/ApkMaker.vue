@@ -21,12 +21,35 @@
         </div>
 
         <div>
-          <BaseSelect
-            label="Language"
+          <label for="language">
+            <h3>Language</h3>
+          </label>
+          <v-select
+            label="language_name"
             :options="language_options"
+            placeholder="Select"
             v-model="$v.apk_settings.$model.language"
+          >
+          </v-select>
+        </div>
+        <h4>Existing Builds</h4>
+
+        <div v-for="build in builds" :key="build">
+          {{ build }}
+        </div>
+        <div>
+          <label for="build">
+            <h3>Build</h3>
+          </label>
+          <BaseInput
+            v-model="$v.apk_settings.$model.build"
+            label=""
+            type="text"
+            default="eng.m1.1"
             class="field"
           />
+        </div>
+        <div>
           <label for="remove_external_links">
             <h3>Remove External Links</h3>
           </label>
@@ -42,7 +65,6 @@
             :options="footers"
             class="field"
           />
-
         </div>
         <div class="spacer"></div>
         <div class="row">
@@ -59,16 +81,21 @@
             </button>
           </div>
         </div>
-
-        <button class="button" @click="showProgress()">Show Progress</button>
       </form>
-      <div v-if="this.show_progress">
-        <ApkBooks
-          v-bind="this.apk_settings.language"
-          :key="language.language_iso"
-          :language="language"
-        />
+      <button class="button" @click="showProgress()">Show Progress</button>
 
+      <div v-if="this.show_progress">
+        <h1>{{ this.apk_settings.language.language_name }}</h1>
+        <div>
+          <button
+            class="button"
+            v-bind:class="progress"
+            @click="verifyLibraries()"
+          >
+            {{ library_text }}
+          </button>
+        </div>
+        <ApkBooks :apk_settings="apk_settings" />
         <p>After you make the Video List Bat files:</p>
         <ul>
           <li>Check for Errors in the error log</li>
@@ -99,21 +126,21 @@
   </div>
 </template>
 <script>
-import Multiselect from 'vue-multiselect'
-
-import ApkBooks from '@/components/ApkBooks.vue'
 import ApkService from '@/services/ApkService.js'
+import ApkBooks from '@/components/ApkBooks.vue'
 import AuthorService from '@/services/AuthorService.js'
 import NavBar from '@/components/NavBarAdmin.vue'
 import axios from 'axios'
 import { authorizeMixin } from '@/mixins/AuthorizeMixin.js'
 import { required } from 'vuelidate/lib/validators'
+import vSelect from 'vue-select'
 export default {
   mixins: [authorizeMixin],
   props: ['country_code'],
   components: {
     NavBar,
     ApkBooks,
+    'v-select': vSelect,
   },
   data() {
     return {
@@ -123,7 +150,9 @@ export default {
       videolist_text: 'Create Media List for Apk Card',
       common_text: 'Check Common Files',
       language_text: 'Create Language Index',
+      library_text: 'Create Library Index',
       language_options: [],
+      builds: [],
       country_name: null,
       show_progress: false,
       site: process.env.VUE_APP_SITE,
@@ -131,9 +160,17 @@ export default {
       footers: [],
       bat_text: 'Download Media Batch Files',
       apk_settings: {
-        language: null,
+        language: {
+          country_code: null,
+          flag: null,
+          folder: null,
+          language_iso: null,
+          language_name: null,
+          library: null,
+        },
         footer: null,
         remove_external_links: false,
+        build: null,
         action: 'apk',
       },
     }
@@ -143,12 +180,6 @@ export default {
       return this.$store.state.bookmark
     },
   },
-  provide() {
-    // see https://vuejs.org/guide/components/provide-inject.html#provide
-    return {
-      apk_settings: this.apk_settings,
-    }
-  },
   validations: {
     apk_settings: {
       required,
@@ -156,6 +187,7 @@ export default {
         language: { required },
         footer: { required },
         remove_external_links: { required },
+        build: { required },
         action: { required },
       },
     },
@@ -163,13 +195,7 @@ export default {
   methods: {
     showProgress() {
       this.show_progress = true
-    },
-    async verifyLanguageIndex() {
-      this.language_text = 'Verifying'
-      var params = this.$route.params
-      var response = await ApkService.verifyLanguageIndex(params)
-      console.log(response)
-      this.language_text = 'Verified'
+      console.log(this.apk_settings.language)
     },
 
     async verifyCommonFiles() {
@@ -179,6 +205,22 @@ export default {
       console.log(response)
       this.common_text = 'Verified'
     },
+    async verifyLanguageIndex() {
+      this.language_text = 'Verifying'
+      var params = this.$route.params
+      var response = await ApkService.verifyLanguageIndex(params)
+      console.log(response)
+      this.language_text = 'Verified'
+    },
+    async verifyLibraries() {
+      var params = this.language
+      console.log(this.apk_setting)
+      params.apk_settings = JSON.stringify(this.apk_setting)
+      this.library_text = 'Publishing'
+      this.progress = await ApkService.publish('libraries', params)
+      this.library_text = 'Published'
+    },
+
     async zipMediaBatFiles() {
       this.bat_text = 'Downloading'
       var params = this.$route.params
@@ -211,6 +253,7 @@ export default {
       this.country_name = this.bookmark.country.name
       this.footers = await ApkService.getFooters(this.$route.params)
       this.language_options = await ApkService.getLanguages(this.$route.params)
+      this.builds = await ApkService.getBuilds(this.$route.params)
     }
   },
 }

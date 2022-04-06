@@ -5,8 +5,9 @@ myRequireOnce('verifyBook.php', 'apk');
 myRequireOnce('verifyBookDir.php', 'apk');
 
 function checkStatusBook($p){
-    if (!isset($p['apk_settings']->subDirectory)){
-        $message = 'p[apk_settings]->subDirectory not set';
+    writeLogDebug('checkStatusBook-8', $p);
+    if (!isset($p['apk_settings']->build)){
+        $message = 'p[apk_settings]->build not set';
         writeLogError('checkStatusBook', $message);
         trigger_error($message, E_USER_ERROR);
     }
@@ -18,30 +19,15 @@ function checkStatusBook($p){
     foreach ($progress as $key=>$value){
         $out->$key = $value;
         switch ($key){
-            case "apk":
+            case "content":
                 if (file_exists($p['dir_apk'] . '/folder/content/')){
-                   $out->apk = verifyBookApk($p);
+                   $out->content = verifyBookApk($p);
                 }
                 else{
-                    $out->apk = 'undone';
+                    $out->content = 'undone';
                 }
                 break;
-            case "nojs":
-                if (file_exists($p['dir_apk'] . '/folder/nojs/')){
-                   $out->nojs = verifyBookNoJS($p);
-                }
-                else{
-                    $out->nojs = 'undone';
-                }
-                break;
-            case "pdf":
-                if (file_exists($p['dir_apk'] . '/folder/pdf/')){
-                   $out->pdf = verifyBookPDF($p);
-                }
-                else{
-                    $out->pdf = 'undone';
-                }
-                break;
+
             case "videolist":
                 $fn = $p['dir_video_list'];
                 ////writeLogDebug('checkStatusBook-46', $fn);

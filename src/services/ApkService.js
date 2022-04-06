@@ -2,9 +2,6 @@ const apiURL = process.env.VUE_APP_DEFAULT_SITES_URL
 const apiSite = process.env.VUE_APP_SITE
 const apiLocation = process.env.VUE_APP_SITE_LOCATION
 
-const postDestination =
-  'AuthorApi.php?site=' + apiSite + '&location=' + apiLocation
-
 const apiSECURE = axios.create({
   baseURL: apiURL,
   withCredentials: false, // This is the default
@@ -18,7 +15,6 @@ const apiSECURE = axios.create({
 import axios from 'axios'
 import store from '@/store/store.js'
 import AuthorService from '@/services/AuthorService.js'
-import { parseXML } from 'jquery'
 
 // I want to export a JSON.stringified of response.data.text
 export default {
@@ -38,62 +34,12 @@ export default {
     params.action = 'checkStatusBook'
     return await AuthorService.aReturnContent(params)
   },
-  // see https://morioh.com/p/f4d331b62cda
-  async zipMediaBatFiles(params) {
+  async getBuilds(params) {
     params = this.initialize(params)
-    params.page = 'zipMediaBatFiles'
-    params.action = 'zipMediaBatFiles'
+    params.page = 'getBuilds'
+    params.action = 'getBuilds'
     return await AuthorService.aReturnContent(params)
   },
-  async verifyBookCover(params) {
-    params = this.initialize(params)
-    params.page = 'verifyBook'
-    params.action = 'verifyBookCover'
-    return await AuthorService.aReturnContent(params)
-  },
-  async verifyBookMedia(params) {
-    params = this.initialize(params)
-    params.page = 'verifyBook'
-    params.action = 'verifyBookMedia'
-    return await AuthorService.aReturnContent(params)
-  },
-  async verifyBookNoJS(params) {
-    params = this.initialize(params)
-    params.page = 'verifyBook'
-    params.action = 'verifyBookNoJS'
-    return await AuthorService.aReturnContent(params)
-  },
-  async verifyBookPDF(params) {
-    params = this.initialize(params)
-    params.page = 'verifyBook'
-    params.action = 'verifyBookPDF'
-    return await AuthorService.aReturnContent(params)
-  },
-  async verifyBookApk(params) {
-    params = this.initialize(params)
-    params.page = 'verifyBook'
-    params.action = 'verifyBookApk'
-    return await AuthorService.aReturnContent(params)
-  },
-  async verifyBookVideoList(params) {
-    params = this.initialize(params)
-    params.page = 'verifyBook'
-    params.action = 'verifyBookVideoList'
-    return await AuthorService.aReturnContent(params)
-  },
-  async verifyCommonFiles(params) {
-    params = this.initialize(params)
-    params.page = 'verifyCommonFiles'
-    params.action = 'verifyCommonFiles'
-    return await AuthorService.aReturnContent(params)
-  },
-  async verifyLanguageIndex(params) {
-    params = this.initialize(params)
-    params.page = 'verifyLanguageIndex'
-    params.action = 'verifyLanguageIndex'
-    return await AuthorService.aReturnContent(params)
-  },
-
   async getBooks(params) {
     params = this.initialize(params)
     params.page = 'getBooksForLanguage'
@@ -169,6 +115,63 @@ export default {
     var response = await apiSECURE.post(complete_action, contentForm)
     return response
   },
+  async verifyBookApk(params) {
+    params = this.initialize(params)
+    params.page = 'verifyBook'
+    params.action = 'verifyBookApk'
+    return await AuthorService.aReturnContent(params)
+  },
+  async verifyBookCover(params) {
+    params = this.initialize(params)
+    params.page = 'verifyBook'
+    params.action = 'verifyBookCover'
+    return await AuthorService.aReturnContent(params)
+  },
+  async verifyBookMedia(params) {
+    params = this.initialize(params)
+    params.page = 'verifyBook'
+    params.action = 'verifyBookMedia'
+    return await AuthorService.aReturnContent(params)
+  },
+  async verifyBookNoJS(params) {
+    params = this.initialize(params)
+    params.page = 'verifyBook'
+    params.action = 'verifyBookNoJS'
+    return await AuthorService.aReturnContent(params)
+  },
+  async verifyBookPDF(params) {
+    params = this.initialize(params)
+    params.page = 'verifyBook'
+    params.action = 'verifyBookPDF'
+    return await AuthorService.aReturnContent(params)
+  },
+
+  async verifyBookVideoList(params) {
+    params = this.initialize(params)
+    params.page = 'verifyBook'
+    params.action = 'verifyBookVideoList'
+    return await AuthorService.aReturnContent(params)
+  },
+  async verifyCommonFiles(params) {
+    params = this.initialize(params)
+    params.page = 'verifyCommonFiles'
+    params.action = 'verifyCommonFiles'
+    return await AuthorService.aReturnContent(params)
+  },
+  async verifyLanguageIndex(params) {
+    params = this.initialize(params)
+    params.page = 'verifyLanguageIndex'
+    params.action = 'verifyLanguageIndex'
+    return await AuthorService.aReturnContent(params)
+  },
+  // see https://morioh.com/p/f4d331b62cda
+  async zipMediaBatFiles(params) {
+    params = this.initialize(params)
+    params.page = 'zipMediaBatFiles'
+    params.action = 'zipMediaBatFiles'
+    return await AuthorService.aReturnContent(params)
+  },
+
   toFormData(obj) {
     var form_data = new FormData()
     for (var key in obj) {

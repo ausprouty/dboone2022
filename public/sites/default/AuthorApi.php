@@ -132,13 +132,19 @@ function setParameters($post){
 		$p['filename'] = isset($route->filename) ? $route->filename : NULL;
 		$debug .= 'filename:' . $p['filename']. "\n\n\n";
 	}
-	 if (isset($p['sdcard'])){
+	if (isset($p['sdcard'])){
 		$p['sdcard_settings'] = json_decode($p['sdcard']);
         $bad =['/','..'];
         if (isset($p['sdcard_settings']->subDirectory)){
             $clean = str_replace($bad, '', $p['sdcard_settings']->subDirectory);
             $p['dir_sdcard'] = ROOT_SDCARD . $clean . '/';
         }
+	}
+	if (isset($p['apk_settings'])){
+		$p['apk_settings'] = json_decode($p['apk_settings']);
+		$p['country_code'] = $p['apk_settings']->language->country_code;
+		$p['language_iso'] = $p['apk_settings']->language->language_iso;
+
 	}
 	if (!isset($p['version'])){
 		$p['version'] = VERSION;

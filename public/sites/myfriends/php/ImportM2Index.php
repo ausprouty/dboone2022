@@ -27,5 +27,3 @@ createContent($new);
  writeLogDebug('ImportM2'. time() , $debug);
  return;
 
-
-}
