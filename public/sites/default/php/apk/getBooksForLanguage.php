@@ -43,6 +43,9 @@ function _getBooksForLanguageRecnum ($book){
      'scope' => 'series'
   );
   $content =getLatestContent($params);
-  //writeLogDebug('_getBooksForLanguageRecnum', $content);
+  if (!isset($content['recnum'])){
+      writeLogDebug('_getBooksForLanguageRecnum-47', $content);
+      writeLogDebug('_getBooksForLanguageRecnum-48', $params);
+  }
   return $content['recnum'];
 }

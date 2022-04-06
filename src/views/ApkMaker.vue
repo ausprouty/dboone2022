@@ -61,7 +61,7 @@
           />
           <h3>Footer</h3>
           <BaseSelect
-            v-model="$v.apk_settings.$model.footer"
+            v-model="$v.apk_settings.$model.langauge_footer"
             :options="footers"
             class="field"
           />
@@ -168,7 +168,7 @@ export default {
           language_name: null,
           library: null,
         },
-        footer: null,
+        langauge_footer: null,
         remove_external_links: false,
         build: null,
         action: 'apk',
@@ -185,7 +185,7 @@ export default {
       required,
       $each: {
         language: { required },
-        footer: { required },
+        langauge_footer: { required },
         remove_external_links: { required },
         build: { required },
         action: { required },

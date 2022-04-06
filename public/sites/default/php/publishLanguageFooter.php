@@ -4,6 +4,7 @@ myRequireOnce ('myGetPrototypeFile.php');
 
 // requires $p['recnum'] and $p['library_code']
 function publishLanguageFooter($p){
+
     $debug = 'In publishLanguageFooter' . "\n";
     if (isset($p['recnum'])){
         $b['recnum'] = $p['recnum'];
@@ -32,21 +33,11 @@ function publishLanguageFooter($p){
     $data = sqlArray($sql);
     if ($data){
         $text = json_decode($data['text']);
-        if (isset($text->footer)){
-            $debug .= 'LanguageFooter Set by Database'. "\n";
-        }
         $footer  = isset($text->footer) ? $text->footer : null;
     }
     if (!$footer ){
-        $language_footer = 'languageFooter.html';
-        if($p['destination'] == 'nojs' || $p['destination'] == 'sdcard'){
-            if (isset($p['sdcard_settings']->footer)){
-                 $language_footer = $p['sdcard_settings']->footer;
-            }
-        }
-        writeLogDebug('publishLanguageFooter-44-footer', $language_footer);
-        writeLogDebug('publishLanguageFooter-45-p', $p['sdcard_settings']);
-        $footer  =  myGetPrototypeFile( $language_footer, $p['destination']);
+         myRequireOnce ('getLanguageFooter.php', $p['destination']);
+         $footer=getLanguageFooter($p);
     }
      $page_title ='Link: ';
     if (isset($p['recnum'])){
