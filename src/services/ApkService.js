@@ -11,14 +11,29 @@ const apiSECURE = axios.create({
     'Content-Type': 'application/json',
   },
 })
-
 import axios from 'axios'
 import store from '@/store/store.js'
 import AuthorService from '@/services/AuthorService.js'
-
 // I want to export a JSON.stringified of response.data.text
 export default {
   initialize(params) {
+    if (typeof params.apk_settings != 'undefined') {
+      console.log('apk_settings is defined')
+      if (typeof params.apk_settings === 'string') {
+        console.log('apk_settings is string')
+        var temp = JSON.parse(params.apk_settings)
+        params.apk_settings = temp
+      } else {
+        console.log('apk_settings is not a string')
+        console.log(params.apk_settings)
+      }
+      if (typeof params.apk_settings.language != 'undefined') {
+        params.country_code = params.apk_settings.language.country_code
+        params.language_iso = params.apk_settings.language.language_iso
+      }
+      var temp1 = JSON.stringify(params.apk_settings)
+      params.apk_settings = temp1
+    }
     params.site = process.env.VUE_APP_SITE
     params.my_uid = store.state.user.uid
     params.subdirectory = 'apk'
@@ -26,6 +41,7 @@ export default {
     if (typeof params.destination == 'undefined') {
       params.destination = 'apk'
     }
+    console.log(params)
     return params
   },
   async checkStatusBook(params) {
@@ -41,9 +57,12 @@ export default {
     return await AuthorService.aReturnContent(params)
   },
   async getBooks(params) {
+    console.log('getBooks')
+    console.log(params)
     params = this.initialize(params)
     params.page = 'getBooksForLanguage'
     params.action = 'getBooksForLanguage'
+    console.log(params)
     return await AuthorService.aReturnContent(params)
   },
   async getFooters(params) {
@@ -133,19 +152,6 @@ export default {
     params.action = 'verifyBookMedia'
     return await AuthorService.aReturnContent(params)
   },
-  async verifyBookNoJS(params) {
-    params = this.initialize(params)
-    params.page = 'verifyBook'
-    params.action = 'verifyBookNoJS'
-    return await AuthorService.aReturnContent(params)
-  },
-  async verifyBookPDF(params) {
-    params = this.initialize(params)
-    params.page = 'verifyBook'
-    params.action = 'verifyBookPDF'
-    return await AuthorService.aReturnContent(params)
-  },
-
   async verifyBookVideoList(params) {
     params = this.initialize(params)
     params.page = 'verifyBook'

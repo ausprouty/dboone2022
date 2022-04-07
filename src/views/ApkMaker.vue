@@ -185,7 +185,7 @@ export default {
       required,
       $each: {
         language: { required },
-        langauge_footer: { required },
+        language_footer: { required },
         remove_external_links: { required },
         build: { required },
         action: { required },
@@ -215,7 +215,7 @@ export default {
     async verifyLibraries() {
       var params = this.language
       console.log(this.apk_setting)
-      params.apk_settings = JSON.stringify(this.apk_setting)
+      params.apk_settings = this.apk_settings
       this.library_text = 'Publishing'
       this.progress = await ApkService.publish('libraries', params)
       this.library_text = 'Published'

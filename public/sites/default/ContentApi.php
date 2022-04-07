@@ -108,8 +108,6 @@ function getParameters(){
 	}
     if (isset($p['apk_settings'])){
 		$p['apk_settings'] = json_decode($p['apk_settings']);
-		$p['country_code'] = $p['apk_settings']->language->country_code;
-		$p['language_iso'] = $p['apk_settings']->language->language_iso;
 	}
     $p['site'] =  $_GET['site'];
     foreach ($p as $key=>$value){

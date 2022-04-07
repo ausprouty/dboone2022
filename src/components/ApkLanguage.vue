@@ -12,7 +12,7 @@ export default {
   props: {
     language: Object,
   },
-  inject: ['apk_settings'],
+
   data() {
     return {
       apk_setting: this.apk_settings,
@@ -24,7 +24,7 @@ export default {
     async verifyLibraries() {
       var params = this.language
       console.log(this.apk_setting)
-      params.apk_settings = JSON.stringify(this.apk_setting)
+      params.apk_settings = this.apk_setting
       this.library_text = 'Publishing'
       this.progress = await ApkService.publish('libraries', params)
       this.library_text = 'Published'

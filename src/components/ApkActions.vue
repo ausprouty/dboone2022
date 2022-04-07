@@ -85,7 +85,7 @@ export default {
     async localPublish(location) {
       var response = null
       var params = this.book
-      params.apk_settings = JSON.stringify(this.apk_settings)
+      params.apk_settings = this.apk_settings
       console.log(params.apk_settings)
       console.log(params)
       if (location == 'cover') {
@@ -122,7 +122,7 @@ export default {
   async created() {
     var params = this.book
     params.progress = JSON.stringify(this.progress)
-    params.apk_settings = JSON.stringify(this.apk_settings)
+    params.apk_settings = this.apk_settings
     console.log(params)
     this.progress = await ApkService.checkStatusBook(params)
     console.log(this.progress)

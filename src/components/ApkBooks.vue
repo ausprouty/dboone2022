@@ -28,7 +28,8 @@ export default {
   async created() {
     this.books = []
     var params = {}
-    params.apk_settings = JSON.stringify(this.apk_settings)
+    console.log(this.apk_settings)
+    params.apk_settings = this.apk_settings
     console.log(params)
     this.books = await ApkService.getBooks(params)
     console.log(this.books)

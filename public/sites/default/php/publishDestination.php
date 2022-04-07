@@ -33,7 +33,7 @@ function publishDestination ($p){
       return ROOT_SDCARD . _publishDestinationSDCard($p)  . '/folder/';
   }
    elseif($destination == 'apk'){
-      return ROOT_APK . _publishDestinationSDCard($p)  . '/folder/';
+      return ROOT_APK .'/'. _publishDestinationApk($p)  . '/folder/';
   }
   $message= 'In publishDestination invalid destination:  ' . $destination;
   writeLogError('publishDestination-30', $p);
@@ -54,7 +54,17 @@ function _publishDestinationSDCard($p){
     writeLogError('_publishDestinationSDCard-p ', $p);
     trigger_error($message, E_USER_ERROR);
   }
-  $bad =['/'.'..'];
+  $bad =['/','..'];
   $clean = str_replace($bad, '', $p['sdcard_settings']->subDirectory);
+  return $clean;
+}
+function _publishDestinationApk($p){
+  if (!isset($p['apk_settings']->build)){
+    $message = 'No APK Settings';
+    writeLogError('_publishDestinationApk-p ', $p);
+    trigger_error($message, E_USER_ERROR);
+  }
+  $bad =['/','..'];
+  $clean = str_replace($bad, '', $p['apk_settings']->build);
   return $clean;
 }
