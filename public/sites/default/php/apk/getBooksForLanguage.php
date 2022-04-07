@@ -17,9 +17,7 @@ function getBooksForLanguage($p){
                 $book_list = $library_data->books;
                  //writeLogDebug('getBooksForLanguage-library', $book_list);
                 foreach ($book_list as $book){
-                    $recnum=_getBooksForLanguageRecnum ($book);
-                    writeLogAppend('getBooksForLanguage-19', $book);
-                     writeLogAppend('getBooksForLanguage-19', "recnum = $recnum");
+                    $recnum=_getBooksForLanguageRecnum ($book, $p);
                     // only include series that are to be published
                     // TODO: How will we work with pages?
                     if ($book->publish && $recnum){
@@ -40,17 +38,15 @@ function getBooksForLanguage($p){
     return $books;
 }
 
-function _getBooksForLanguageRecnum ($book){
+function _getBooksForLanguageRecnum ($book, $p){
   $params = array(
-     'country_code'=> $book->country_code,
-     'language_iso' => $book->language_iso,
+     'country_code'=> $p['country_code'],
+     'language_iso' => $p['language_iso'],
      'folder_name' => $book->code,
      'scope' => 'series'
   );
   $content = getLatestContent($params);
-  writeLogAppend ('_getBooksForLanguageRecnum', $content);
   if (!isset($content['recnum'])){
-      // most likely this is a page
       writeLogAppend('_getBooksForLanguageRecnum-48', $params);
       return null;
   }

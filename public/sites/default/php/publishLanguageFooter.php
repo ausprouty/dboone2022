@@ -37,6 +37,7 @@ function publishLanguageFooter($p){
     }
     if (!$footer ){
          myRequireOnce ('getLanguageFooter.php', $p['destination']);
+         writeLogAppend('publishLanguageFooter-40',  $p['destination']);
          $footer=getLanguageFooter($p);
     }
      $page_title ='Link: ';

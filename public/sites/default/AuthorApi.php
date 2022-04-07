@@ -108,29 +108,18 @@ die();
 //            FUNCTIONS
 */
 function setParameters($post){
-	$debug = 'Using set Parameters'. "\n";
-	$debug .= '$p[] = ' . "\n";
-	$debug .= 'parameters:' . "\n";
+
 	foreach ($post as $param_name => $param_value) {
 		$$param_name = $param_value;
 		$p[$param_name] =  $param_value;
-		$debug .= $param_name . ' = ' . $param_value. "\n";
 	}
-	$debug .= 'end of parameters' . "\n";
-	$debug .= 'finished post loop' . "\n";
 	if (isset($p['route'])){
-		$debug .= "\n\n\n\n" .'set by route' . "\n";
 		$route = json_decode($p['route']);
 		$p['country_code'] = isset($route->country_code) ? $route->country_code : NULL;
-		$debug .= 'country_code:' . $p['country_code'] . "\n";
 		$p['language_iso'] = isset($route->language_iso )? $route->language_iso : NULL;
-		$debug .= 'language_iso:' . $p['language_iso'] . "\n";
 		$p['library_code'] = isset($route->library_code) ? $route->library_code : NULL;
-		$debug .= 'library_code:' . $p['library_code'] .  "\n";
 		$p['folder_name'] = isset($route->folder_name) ? $route->folder_name : NULL;
-		$debug .= 'folder_name:' . $p['folder_name'].  "\n";
 		$p['filename'] = isset($route->filename) ? $route->filename : NULL;
-		$debug .= 'filename:' . $p['filename']. "\n\n\n";
 	}
 	if (isset($p['sdcard'])){
 		$p['sdcard_settings'] = json_decode($p['sdcard']);
@@ -143,13 +132,11 @@ function setParameters($post){
 	if (isset($p['apk_settings'])){
 		$p['apk_settings'] = json_decode($p['apk_settings']);
 
-
 	}
 	if (!isset($p['version'])){
 		$p['version'] = VERSION;
 	}
 	$p['site'] =  $_GET['site'];
-	$p['debug'] = $debug;
 	writeLogDebug('AuthorSetParameters-p', $p);
 	return $p;
 
