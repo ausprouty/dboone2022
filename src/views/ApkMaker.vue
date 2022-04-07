@@ -42,7 +42,7 @@
             <h3>Build</h3>
           </label>
           <BaseInput
-            v-model="$v.apk_settings.$model.build"
+            v-model="$v.apk_settings.$model.subdirectory"
             label=""
             type="text"
             default="eng.m1.1"
@@ -168,9 +168,9 @@ export default {
           language_name: null,
           library: null,
         },
-        langauge_footer: null,
+        language_footer: null,
         remove_external_links: false,
-        build: null,
+        subdirectory: null,
         action: 'apk',
       },
     }
@@ -187,7 +187,7 @@ export default {
         language: { required },
         language_footer: { required },
         remove_external_links: { required },
-        build: { required },
+        subdirectory: { required },
         action: { required },
       },
     },

@@ -53,8 +53,10 @@ function publishPage ($p){
     //writeLog ('publishPage-62', $text);
     // write file
     $root_folder = array(
+
         'staging' => 'content/',
         'website' => 'content/',
+        'apk'=>'content/',
         'sdcard' =>'content/',
         'nojs' =>'nojs/',
         'pdf' =>'pdf/'

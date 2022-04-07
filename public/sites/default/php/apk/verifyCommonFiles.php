@@ -10,7 +10,7 @@ myRequireOnce('verifyBookDir.php', 'apk');
 
 function verifyCommonFiles($p){
   $subdirectory=  _verifyBookClean($p['apk_settings']->subDirectory) ;
-  $p['dir_apk'] = ROOT_SDCARD . $subdirectory. '/';;
+  $p['dir_apk'] = ROOT_SDCARD .'/'.  $subdirectory. '/';;
   // css
   $source = ROOT_EDIT . 'sites/default/images/css/';
   $destination = $p['dir_apk'] . 'folder/sites/default/images/css/';

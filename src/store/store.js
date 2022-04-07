@@ -25,14 +25,7 @@ export default new Vuex.Store({
       series: null,
       subDirectory: null,
     },
-     apk: {
-      language: null,
-      footer: null,
-      external_links: false,
-      action: 'apk',
-      build: null,
-      series: null,
-    },
+
     revision: '2.0',
     baseURL: './',
     cssURL: './content/',

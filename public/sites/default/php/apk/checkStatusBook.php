@@ -6,8 +6,8 @@ myRequireOnce('verifyBookDir.php', 'apk');
 
 function checkStatusBook($p){
     writeLogDebug('checkStatusBook-8', $p);
-    if (!isset($p['apk_settings']->build)){
-        $message = 'p[apk_settings]->build not set';
+    if (!isset($p['apk_settings']->subdirectory)){
+        $message = 'p[apk_settings]->subdirectory not set';
         writeLogError('checkStatusBook', $message);
         trigger_error($message, E_USER_ERROR);
     }
