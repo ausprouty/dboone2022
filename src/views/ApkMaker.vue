@@ -42,7 +42,7 @@
             <h3>Build</h3>
           </label>
           <BaseInput
-            v-model="$v.apk_settings.$model.subdirectory"
+            v-model="$v.apk_settings.$model.build"
             label=""
             type="text"
             default="eng.m1.1"
@@ -144,8 +144,6 @@ export default {
   },
   data() {
     return {
-      prototype_url: process.env.VUE_APP_PROTOTYPE_CONTENT_URL,
-      apk_root: process.env.VUE_APP_ROOT_Apk,
       authorized: false,
       videolist_text: 'Create Media List for Apk Card',
       common_text: 'Check Common Files',
@@ -170,7 +168,7 @@ export default {
         },
         language_footer: null,
         remove_external_links: false,
-        subdirectory: null,
+        build: null,
         action: 'apk',
       },
     }
@@ -187,7 +185,7 @@ export default {
         language: { required },
         language_footer: { required },
         remove_external_links: { required },
-        subdirectory: { required },
+        build: { required },
         action: { required },
       },
     },
@@ -195,19 +193,22 @@ export default {
   methods: {
     showProgress() {
       this.show_progress = true
-      console.log(this.apk_settings.language)
     },
 
     async verifyCommonFiles() {
       this.common_text = 'Verifying'
       var params = this.$route.params
+      params.apk_settings = this.apk_settings
+      console.log (params)
       var response = await ApkService.verifyCommonFiles(params)
+      alert('I have returned in verifyCommonFiles')
       console.log(response)
       this.common_text = 'Verified'
     },
     async verifyLanguageIndex() {
       this.language_text = 'Verifying'
       var params = this.$route.params
+      params.apk_settings = this.apk_settings
       var response = await ApkService.verifyLanguageIndex(params)
       console.log(response)
       this.language_text = 'Verified'
@@ -224,6 +225,7 @@ export default {
     async zipMediaBatFiles() {
       this.bat_text = 'Downloading'
       var params = this.$route.params
+      params.apk_settings = this.apk_settings
       var response = await ApkService.zipMediaBatFiles(params)
       console.log(response)
       var filename = response
@@ -231,7 +233,7 @@ export default {
       this.downloadMediaBatFiles(filename)
     },
     async downloadMediaBatFiles(filename) {
-      var download_name = 'MediaBatFiles' + this.apk.subDirectory + '.zip'
+      var download_name = 'MediaBatFiles' + this.apk_settings.build + '.zip'
       axios({
         url: process.env.VUE_APP_URL + filename,
         method: 'GET',

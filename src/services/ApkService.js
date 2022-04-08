@@ -162,7 +162,11 @@ export default {
     params = this.initialize(params)
     params.page = 'verifyCommonFiles'
     params.action = 'verifyCommonFiles'
-    return await AuthorService.aReturnContent(params)
+    alert('verifyCommonFiles calles AuthorService')
+    var res = await AuthorService.aReturnContent(params)
+    alert(' AuthorService returns res')
+    console.log(res)
+    return res
   },
   async verifyLanguageIndex(params) {
     params = this.initialize(params)

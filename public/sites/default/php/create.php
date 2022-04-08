@@ -15,6 +15,10 @@ function createContent($p){
 		$version = isset($p['version']) ? $p['version'] : VERSION;
 		$edit_date = time();
 		$my_uid = isset($p['my_uid']) ? $p['my_uid'] : NULL;
+		$prototype_uid= isset($p['prototype_uid']) ? $p['prototype_uid'] : NULL;
+		$prototype_date= isset($p['prototype_date']) ? $p['prototype_date'] : NULL;
+		$publish_uid= isset($p['publish_uid']) ? $p['publish_uid'] : NULL;
+		$publish_date= isset($p['publish_date']) ? $p['publish_date'] : NULL;
 		$language_iso = isset($p['language_iso']) ? $p['language_iso'] : NULL;
 		$country_code = isset($p['country_code']) ? $p['country_code'] : NULL;
 		$folder_name = isset($p['folder_name']) ? $p['folder_name'] :'';
@@ -24,9 +28,11 @@ function createContent($p){
 		$page = 0;
 		$conn = new mysqli(HOST, USER, PASS, DATABASE_CONTENT);
 		$text = $conn->real_escape_string($text);
-		$sql = "INSERT into content (version,edit_date,edit_uid,language_iso,
+		$sql = "INSERT into content (version,edit_date,edit_uid,
+		        prototype_uid, prototype_date, publish_uid, publish_date,language_iso,
 			country_code,folder_name,filetype,title,filename, page, text) values
-			('$version','$edit_date','$my_uid','$language_iso',
+			('$version','$edit_date','$my_uid',
+			'$prototype_uid', '$prototype_date', '$publish_uid', '$publish_date','$language_iso',
 			'$country_code','$folder_name','$filetype','$title','$filename','$page','$text')";
         writeLogDebug('create-33', $sql);
 		$result = $conn->query($sql);

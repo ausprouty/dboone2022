@@ -6,7 +6,7 @@ function zipMediaBatFiles($p){
      $dir = ROOT_EDIT. 'sites/'. SITE_CODE .'/apk/'. $p['country_code'] .'/';
     // FROM https://stackoverflow.com/questions/1754352/download-multiple-files-as-a-zip-file-using-php
     $files = zipMediaBatFilesGet($p);
-    $zipname = 'MediaBatFiles' . $p['apk_settings']->subDirectory .'.zip';
+    $zipname = 'MediaBatFiles' . $p['apk_settings']->build .'.zip';
     $zip = new ZipArchive;
     $zip->open($zipname, ZipArchive::CREATE);
     foreach ($files as $file) {
@@ -24,7 +24,7 @@ function zipMediaBatFiles($p){
 function zipMediaBatFilesGet($p){
     $output = [];
     $dir = ROOT_EDIT. 'sites/'. SITE_CODE .'/apk/'. $p['country_code'] .'/';
-    $subDirectories = explode('.', $p['apk_settings']->subDirectory);
+    $subDirectories = explode('.', $p['apk_settings']->build);
     writeLogDebug('zipMediaBatFilesGet', $subDirectories);
     foreach ($subDirectories as $sub){
         if (strlen ($sub) > 1){ // because first one will be blank

@@ -7,10 +7,18 @@
 */
 myRequireOnce('copyDirectory.php');
 myRequireOnce('verifyBookDir.php', 'apk');
+myRequireOnce('writeLog.php');
 
 function verifyCommonFiles($p){
-  $subdirectory=  _verifyBookClean($p['apk_settings']->subDirectory) ;
-  $p['dir_apk'] = ROOT_SDCARD .'/'.  $subdirectory. '/';;
+  if (isset($p['apk_settings']->build)){
+    $build=  _verifyBookClean($p['apk_settings']->build) ;
+  }
+  else{
+    $build = 'unknown';
+    writeLogAppend('ERROR-verifyCommonFiles', $p['apk_settings']);
+  }
+
+  $p['dir_apk'] = ROOT_APK .'/'.  $build. '/';;
   // css
   $source = ROOT_EDIT . 'sites/default/images/css/';
   $destination = $p['dir_apk'] . 'folder/sites/default/images/css/';
@@ -33,31 +41,18 @@ function verifyCommonFiles($p){
   $destination = $p['dir_apk'] . 'folder/sites/'.SITE_CODE. '/images/standard/';
   copyDirectory($source,$destination);
 
- $source = ROOT_EDIT . 'sites/'. SITE_CODE. '/content/'. $p['country_code']. '/images/standard/';
+  $source = ROOT_EDIT . 'sites/'. SITE_CODE. '/content/'. $p['country_code']. '/images/standard/';
   $destination = $p['dir_apk'] . 'folder/sites/'. SITE_CODE. '/'. $p['country_code']. '/images/standard/';
   copyDirectory($source,$destination);
 
-
   // javascript
-
-  $languages = explode('.',  $subdirectory);
-  foreach ($languages as $language_code){
-    if ($language_code != ''){
-      $source = ROOT_EDIT .'sites/'. SITE_CODE. '/content/'. $p['country_code'].'/'.$language_code .'/javascript/';
-      $destination = $p['dir_apk'] .'folder/content/'. $p['country_code'] . '/'. $language_code .'/javascript/';
-      writeLogAppend('verifyCommonFiles-50', "$source\n$destination \n\n");
-      copyDirectory($source,$destination);
-
-    }
-  }
-  // apk
-  $source = ROOT_EDIT . 'sites/default/apk/Cx File Explorer.apk';
-  $destination = $p['dir_apk'] . 'Cx File Explorer.apk';
-  copy($source,$destination);
+  $source = ROOT_EDIT .'sites/'. SITE_CODE. '/content/'. $p['country_code'].'/'. $p['language_iso'] .'/javascript/';
+  $destination = $p['dir_apk'] .'folder/content/'. $p['country_code'] . '/'.  $p['language_iso'] .'/javascript/';
+  copyDirectory($source,$destination);
 
   $source = ROOT_EDIT . 'sites/'. SITE_CODE.'/prototype/apk/'.  SITE_CODE . '.html';
-  $destination = $p['dir_apk'] . SITE_CODE . '.html';
+  $destination = $p['dir_apk'] . 'index.html';
   copy($source,$destination);
-
-  return true;
+  writeLogDebug('verifyCommonFiles-56', 'finished');
+  return 'finished';
 }

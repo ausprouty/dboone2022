@@ -32,6 +32,7 @@ $sql = 'SELECT DISTINCT filename FROM mc2_content
      );
     $new = getLatestMc2Content($p);
     echo ($new['language_iso']);
+    $new['text'] =_transform($new['text']);
     $new['country_code'] = 'AU';
     $new['my_uid'] = 996; // done by computer
     createContent($new);
@@ -40,3 +41,22 @@ $sql = 'SELECT DISTINCT filename FROM mc2_content
  echo ($debug);
  writeLogDebug('ImportM2'. time() , $debug);
  return;
+
+ function _transform($text){
+   $bad = array(
+       'Period',
+       'Periods',
+       'multiply2/Period',
+       'content/M2/eng',
+       'Our vision is: <em> &ldquo;A church for every village and community, and the gospel for every person.&rdquo;</em>'
+   );
+   $good = array(
+       'Phase',
+       'Phases',
+       'multiply2/Phase',
+       'content/AU/eng',
+       'Our vision is: <em> &ldquo;A Jesus-centered community within reach of every person, everywhere!&rdquo;</em>'
+   );
+   $text = str_replace($bad, $good, $text);
+   return $text;
+ };
