@@ -66,36 +66,35 @@
             class="field"
           />
         </div>
-        <div class="spacer"></div>
-        <div class="row">
-          <div class="column">
-            <button class="button" @click="verifyCommonFiles()">
-              {{ this.common_text }}
-            </button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="column">
-            <button class="button" @click="verifyLanguageIndex()">
-              {{ this.language_text }}
-            </button>
-          </div>
-        </div>
       </form>
       <button class="button" @click="showProgress()">Show Progress</button>
 
       <div v-if="this.show_progress">
         <h1>{{ this.apk_settings.language.language_name }}</h1>
-        <div>
-          <button
-            class="button"
-            v-bind:class="progress"
-            @click="verifyLibraries()"
-          >
-            {{ library_text }}
-          </button>
+        <div class="spacer"></div>
+        <div class="row">
+          <div class="column">
+            <button
+              class="button"
+              v-bind:class="progress.common"
+              @click="verifyCommonFiles()"
+            >
+              {{ this.common_text }}
+            </button>
+          </div>
         </div>
+
         <ApkBooks :apk_settings="apk_settings" />
+
+         <button
+          class="button"
+          v-bind:class="progress.libraries"
+          @click="verifyContentIndex()"
+        >
+          {{ content_index_text }}
+        </button>
+
+        <hr />
         <p>After you make the Video List Bat files:</p>
         <ul>
           <li>Check for Errors in the error log</li>
@@ -146,9 +145,8 @@ export default {
     return {
       authorized: false,
       videolist_text: 'Create Media List for Apk Card',
-      common_text: 'Check Common Files',
-      language_text: 'Create Language Index',
-      library_text: 'Create Library Index',
+      common_text: 'Common Files',
+      content_index_text: 'Content Index',
       language_options: [],
       builds: [],
       country_name: null,
@@ -157,6 +155,10 @@ export default {
       language_data: [],
       footers: [],
       bat_text: 'Download Media Batch Files',
+      progress: {
+        common: 'undone',
+        libraries: 'undone',
+      },
       apk_settings: {
         language: {
           country_code: null,
@@ -193,35 +195,37 @@ export default {
   methods: {
     showProgress() {
       this.show_progress = true
+      this.checkCommonFiles()
     },
-
+    async checkCommonFiles() {
+      this.common_text = 'Checking'
+      var params = this.$route.params
+      params.apk_settings = this.apk_settings
+      console.log(params)
+      var response = await ApkService.checkCommonFiles(params)
+      console.log(response)
+      this.progress.common = response
+      this.common_text = 'Common Files'
+    },
     async verifyCommonFiles() {
       this.common_text = 'Verifying'
       var params = this.$route.params
       params.apk_settings = this.apk_settings
-      console.log (params)
+      console.log(params)
       var response = await ApkService.verifyCommonFiles(params)
-      alert('I have returned in verifyCommonFiles')
       console.log(response)
+      this.progress.common = response
       this.common_text = 'Verified'
     },
-    async verifyLanguageIndex() {
-      this.language_text = 'Verifying'
+    async verifyContentIndex() {
       var params = this.$route.params
       params.apk_settings = this.apk_settings
-      var response = await ApkService.verifyLanguageIndex(params)
+      this.content_index_text = 'Publishing'
+      var response = await ApkService.verifyContentIndex(params)
       console.log(response)
-      this.language_text = 'Verified'
+      this.progress.libraries = response
+      this.content_index_text = 'Published'
     },
-    async verifyLibraries() {
-      var params = this.language
-      console.log(this.apk_setting)
-      params.apk_settings = this.apk_settings
-      this.library_text = 'Publishing'
-      this.progress = await ApkService.publish('libraries', params)
-      this.library_text = 'Published'
-    },
-
     async zipMediaBatFiles() {
       this.bat_text = 'Downloading'
       var params = this.$route.params
@@ -263,5 +267,27 @@ export default {
 <style scoped>
 div.spacer {
   height: 30px;
+}
+.undone {
+  background-color: black;
+  padding: 10px;
+  color: white;
+}
+.error {
+  background-color: red;
+  padding: 10px;
+  color: white;
+}
+
+.ready {
+  background-color: yellow;
+  padding: 10px;
+  color: black;
+}
+
+.done {
+  background-color: green;
+  padding: 10px;
+  color: white;
 }
 </style>

@@ -28,12 +28,32 @@ function createContent($p){
 		$page = 0;
 		$conn = new mysqli(HOST, USER, PASS, DATABASE_CONTENT);
 		$text = $conn->real_escape_string($text);
-		$sql = "INSERT into content (version,edit_date,edit_uid,
+		if ($publish_date){ // used when importing data
+			$sql = "INSERT into content (version,edit_date,edit_uid,
 		        prototype_uid, prototype_date, publish_uid, publish_date,language_iso,
 			country_code,folder_name,filetype,title,filename, page, text) values
 			('$version','$edit_date','$my_uid',
 			'$prototype_uid', '$prototype_date', '$publish_uid', '$publish_date','$language_iso',
 			'$country_code','$folder_name','$filetype','$title','$filename','$page','$text')";
+		}
+		elseif($prototype_date){ // used when importing data
+			$sql = "INSERT into content (version,edit_date,edit_uid,
+		        prototype_uid, prototype_date,language_iso,
+			country_code,folder_name,filetype,title,filename, page, text) values
+			('$version','$edit_date','$my_uid',
+			'$prototype_uid', '$prototype_date', '$language_iso',
+			'$country_code','$folder_name','$filetype','$title','$filename','$page','$text')";
+
+		}
+		else{ // normal case
+			$sql = "INSERT into content (version,edit_date,edit_uid,
+		        language_iso,
+			country_code,folder_name,filetype,title,filename, page, text) values
+			('$version','$edit_date','$my_uid',
+			'$language_iso',
+			'$country_code','$folder_name','$filetype','$title','$filename','$page','$text')";
+
+		}
         writeLogDebug('create-33', $sql);
 		$result = $conn->query($sql);
 		if(!$result){

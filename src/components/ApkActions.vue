@@ -28,15 +28,6 @@
         {{ media_text }}
       </button>
     </div>
-    <div class="column">
-      <button
-        class="button"
-        v-bind:class="progress.cover"
-        @click="localPublish('cover')"
-      >
-        {{ cover_text }}
-      </button>
-    </div>
   </div>
 </template>
 
@@ -88,12 +79,7 @@ export default {
       params.apk_settings = this.apk_settings
       console.log(params.apk_settings)
       console.log(params)
-      if (location == 'cover') {
-        this.cover_text = 'Publishing'
-        await ApkService.publish('cover', params)
-        this.progress.cover = await ApkService.verifyBookCover(params)
-        this.cover_text = 'Media'
-      }
+
       if (location == 'media') {
         this.media_text = 'Publishing'
         await ApkService.publish('media', params)

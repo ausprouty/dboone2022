@@ -10,6 +10,7 @@ myRequireOnce('verifyBookDir.php', 'apk');
 myRequireOnce('writeLog.php');
 
 function verifyCommonFiles($p){
+  // make sure all directories are checked in checkCommonFiles
   if (isset($p['apk_settings']->build)){
     $build=  _verifyBookClean($p['apk_settings']->build) ;
   }
@@ -18,7 +19,7 @@ function verifyCommonFiles($p){
     writeLogAppend('ERROR-verifyCommonFiles', $p['apk_settings']);
   }
 
-  $p['dir_apk'] = ROOT_APK .'/'.  $build. '/';;
+  $p['dir_apk'] = ROOT_APK .'/'.  $build. '/';
   // css
   $source = ROOT_EDIT . 'sites/default/images/css/';
   $destination = $p['dir_apk'] . 'folder/sites/default/images/css/';
@@ -50,7 +51,7 @@ function verifyCommonFiles($p){
   $destination = $p['dir_apk'] .'folder/content/'. $p['country_code'] . '/'.  $p['language_iso'] .'/javascript/';
   copyDirectory($source,$destination);
 
-  $source = ROOT_EDIT . 'sites/'. SITE_CODE.'/prototype/apk/'.  SITE_CODE . '.html';
+  $source = ROOT_EDIT . 'sites/'. SITE_CODE.'/prototype/apk/rootIndex.html';
   $destination = $p['dir_apk'] . 'index.html';
   copy($source,$destination);
   writeLogDebug('verifyCommonFiles-56', 'finished');

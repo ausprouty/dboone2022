@@ -44,6 +44,14 @@ export default {
     console.log(params)
     return params
   },
+  async checkCommonFiles(params) {
+    params = this.initialize(params)
+    params.page = 'checkCommonFiles'
+    params.action = 'checkCommonFiles'
+    var res = await AuthorService.aReturnContent(params)
+    console.log(res)
+    return res
+  },
   async checkStatusBook(params) {
     params = this.initialize(params)
     params.page = 'checkStatusBook'
@@ -162,9 +170,7 @@ export default {
     params = this.initialize(params)
     params.page = 'verifyCommonFiles'
     params.action = 'verifyCommonFiles'
-    alert('verifyCommonFiles calles AuthorService')
     var res = await AuthorService.aReturnContent(params)
-    alert(' AuthorService returns res')
     console.log(res)
     return res
   },
@@ -172,6 +178,12 @@ export default {
     params = this.initialize(params)
     params.page = 'verifyLanguageIndex'
     params.action = 'verifyLanguageIndex'
+    return await AuthorService.aReturnContent(params)
+  },
+  async verifyContentIndex(params) {
+    params = this.initialize(params)
+    params.page = 'verifyContentIndex'
+    params.action = 'verifyContentIndex'
     return await AuthorService.aReturnContent(params)
   },
   // see https://morioh.com/p/f4d331b62cda

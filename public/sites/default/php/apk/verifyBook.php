@@ -19,7 +19,8 @@ function verifyBookApk($p){
     $dir_series = $p['dir_apk'] . '/folder/content/'. $p['dir_series'] .'/';
     writeLogDebug('verifyBookApk-23', $dir_series);
     if (!file_exists($dir_series)){
-       return 'ready';
+       writeLogAppend('verifyBookApk-22', $dir_series );
+       return 'undone';
     }
     // now see if all items are there
     //writeLogDebug('verifyBookApk-text', $text);
@@ -29,31 +30,32 @@ function verifyBookApk($p){
         if ($chapter->publish){
              $filename=  $dir_series. $chapter->filename. '.html';
             if (!file_exists($filename)){
-                $ok = false;
+                writeLogAppend('verifyBookApk-33', $filename );
+                return 'undone';
             }
         }
     }
     if ($ok){
         return 'done';
     }
-    return 'ready';
+    return 'undone';
 }
 function verifyBookVideoList($p){
     $p = verifyBookDir($p);
     $fn = $p['dir_video_list'];
     //writeLogDebug('verifyBookVideoList-90', $fn);
     if (!file_exists( $fn)){
-        return 'ready';
+        return 'undone';
     }
     $fn = $p['dir_video_list'] . $p['folder_name']. '.bat';
     //writeLogDebug('verifyBookVideoList-94', $fn);
     if (!file_exists($fn)){
-        return 'ready';
+        return 'undone';
     }
      $fn = $p['dir_video_list'] . $p['folder_name'] . 'audio.bat';
      //writeLogDebug('verifyBookVideoList-99', $fn);
     if (!file_exists($fn)){
-        return 'ready';
+        return 'undone';
     }
     return 'done';
 
