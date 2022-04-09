@@ -6,13 +6,13 @@
 /langugage javascript folders
 */
 myRequireOnce('copyDirectory.php');
-myRequireOnce('verifyBookDir.php', 'apk');
+myRequireOnce('cleanParameters.php', 'apk');
 myRequireOnce('writeLog.php');
 
 function verifyCommonFiles($p){
   // make sure all directories are checked in checkCommonFiles
   if (isset($p['apk_settings']->build)){
-    $build=  _verifyBookClean($p['apk_settings']->build) ;
+    $build=  cleanParametersApkDir($p['apk_settings']->build) ;
   }
   else{
     $build = 'unknown';
@@ -51,9 +51,7 @@ function verifyCommonFiles($p){
   $destination = $p['dir_apk'] .'folder/content/'. $p['country_code'] . '/'.  $p['language_iso'] .'/javascript/';
   copyDirectory($source,$destination);
 
-  $source = ROOT_EDIT . 'sites/'. SITE_CODE.'/prototype/apk/rootIndex.html';
-  $destination = $p['dir_apk'] . 'index.html';
-  copy($source,$destination);
+
   writeLogDebug('verifyCommonFiles-56', 'finished');
   return 'finished';
 }

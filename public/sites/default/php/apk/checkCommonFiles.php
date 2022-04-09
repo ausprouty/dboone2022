@@ -6,12 +6,12 @@
 /langugage javascript folders
 */
 myRequireOnce('copyDirectory.php');
-myRequireOnce('verifyBookDir.php', 'apk');
+myRequireOnce('cleanParameters.php', 'apk');
 myRequireOnce('writeLog.php');
 
 function checkCommonFiles($p){
   if (isset($p['apk_settings']->build)){
-    $build=  _verifyBookClean($p['apk_settings']->build) ;
+    $build=  cleanParametersApkDir($p['apk_settings']->build) ;
   }
   else{
     $build = 'unknown';

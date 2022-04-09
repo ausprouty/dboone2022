@@ -1,20 +1,22 @@
 <?php
-myRequireOnce('verifyBookDir.php', 'apk');
+myRequireOnce('cleanParameters.php', 'apk');
 myRequireOnce('writeLog.php');
 myRequireOnce('getLatestContent.php');
 myRequireOnce('bookmark.php');
 myRequireOnce('folderList.php');
+myRequireOnce('fileWrite.php');
 
 
 function verifyContentIndex($p){
   if (isset($p['apk_settings']->build)){
-    $build=  _verifyBookClean($p['apk_settings']->build) ;
+    $build=  cleanParametersApkDir($p['apk_settings']->build) ;
   }
   else{
     $build = 'unknown';
     writeLogAppend('ERROR-verifyCommonFiles', $p['apk_settings']);
   }
   $p['dir_apk'] = ROOT_APK .'/'.  $build. '/';
+  verifyContentIndexRoot($p);
   $folders = folderList( $p['dir_apk']); // tellsl us which series to include
   $p['scope'] = 'library';
   $data = getLatestContent($p);
@@ -110,7 +112,6 @@ function verifyContentIndex($p){
                         $code = $book->name;
                         $book->code = $code;
                     }
-                    $code =$p['country_code'].'/'.$p['langauge_iso'] .'/'. $code;
                     // you will need library code in bookmark
                     $book->library_code =  $b['library_code'];
                     // deal with any duplicates
@@ -158,5 +159,26 @@ function verifyContentIndexBooks( $p){
   $dir_content =  $p['dir_apk'] .'folder/content/'.SITE_CODE .'/'.  $p['langauge_iso'] .'/';
   $folders = folderList($dir_content);
   return $folders;
+
+}
+
+function verifyContentIndexRoot($p){
+  $template_file = ROOT_EDIT . 'sites/'. SITE_CODE.'/prototype/apk/rootIndex.html';
+  if (!file_exists($template_file)){
+    writeLogError('verifyContentIndexRoot'. $template_file);
+  }
+  $text = file_get_contents($template_file);
+  $find = [
+    '{{ country_code }}',
+    '{{ language_iso }}'
+  ];
+  $replace = [
+    $p['country_code'],
+    $p['language_iso']
+  ];
+  $text = str_replace($find, $replace, $text);
+  $filename = $p['dir_apk'] . 'index.html';
+  fileWrite($filename, $text, $p)
+  return;
 
 }
