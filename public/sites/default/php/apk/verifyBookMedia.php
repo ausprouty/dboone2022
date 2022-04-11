@@ -7,18 +7,18 @@ Looking for
         pull each html file
         find the videos in it
         see if it exists on directory
-    $p['dir_apk'] = ROOT_SDCARD . cleanParametersApkDir($p['apk_settings']->build) .'/';
+    $p['dir_apk'] = ROOT_APK . getBuild($p) .'/';
     $p['dir_video_list'] = ROOT_EDIT . 'sites/' . SITE_CODE .'/apk/' .$p['country_code'] .'/'. $p['language_iso'] .'/';
     $p['dir_series'] =  $p['country_code'] .'/'. $p['language_iso'] . '/'. $p['folder_name'];
 */
 myRequireOnce('writeLog.php');
-myRequireOnce('cleanParameters.php', 'apk');
+myRequireOnce('getBuild.php', 'apk');
 myRequireOnce('dirListFiles.php');
 myRequireOnce('dirMake.php');
 
 function verifyBookMedia($p){
    $output = [];
-   $p = verifyBookDir($p);
+   $p = getBookDir($p);
 
    $dir_series_content = $p['dir_apk'].'folder/content/'.$p['dir_series'] .'/';
    $content_files =dirListFiles($dir_series_content);

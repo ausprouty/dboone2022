@@ -1,20 +1,15 @@
 <?php
-myRequireOnce('cleanParameters.php', 'apk');
+myRequireOnce('getBuild.php', 'apk');
 myRequireOnce('writeLog.php');
 myRequireOnce('getLatestContent.php');
 myRequireOnce('bookmark.php');
 myRequireOnce('folderList.php');
 myRequireOnce('fileWrite.php');
+myRequireOnce('dirCreate.php');
 
 
 function verifyContentIndex($p){
-  if (isset($p['apk_settings']->build)){
-    $build=  cleanParametersApkDir($p['apk_settings']->build) ;
-  }
-  else{
-    $build = 'unknown';
-    writeLogAppend('ERROR-verifyCommonFiles', $p['apk_settings']);
-  }
+  $build = getBuild($p);
   $p['dir_apk'] = ROOT_APK .'/'.  $build. '/';
   verifyContentIndexRoot($p);
   $folders = folderList( $p['dir_apk']); // tellsl us which series to include
@@ -72,13 +67,12 @@ function verifyContentIndex($p){
     $temp = 'bookTitled.html';
     if ($bookmark['language']->titles){
         $temp = 'bookImage.html';
-        $debug .= 'Using template for bookImage '. "\n";
     }
     $book_template = myGetPrototypeFile('' . $temp, $p['destination']);
     //
     //  replace for values in book templage for each book
     //
-    $books_in_apk = verifyContentIndexBooks( $p['dir_apk']);
+    $books_in_apk = verifyContentIndexBooks( $p);
     $books = '';
     $placeholders = array(
         '{{ link }}',
@@ -151,12 +145,12 @@ function verifyContentIndex($p){
         fwrite($fh, $body);
         fclose($fh);
     }
-
+    return 'done';
 }
 //find valid books from directory
 function verifyContentIndexBooks( $p){
   // $p['dir_apk'] = ROOT_APK .'/'.  $build. '/';
-  $dir_content =  $p['dir_apk'] .'folder/content/'.SITE_CODE .'/'.  $p['langauge_iso'] .'/';
+  $dir_content =  $p['dir_apk'] .'folder/content/'.$p['country_code'] .'/'.  $p['language_iso'] .'/';
   $folders = folderList($dir_content);
   return $folders;
 
@@ -178,7 +172,7 @@ function verifyContentIndexRoot($p){
   ];
   $text = str_replace($find, $replace, $text);
   $filename = $p['dir_apk'] . 'index.html';
-  fileWrite($filename, $text, $p)
+  fileWrite($filename, $text, $p);
   return;
 
 }

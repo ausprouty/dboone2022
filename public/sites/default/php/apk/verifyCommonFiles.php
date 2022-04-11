@@ -6,18 +6,12 @@
 /langugage javascript folders
 */
 myRequireOnce('copyDirectory.php');
-myRequireOnce('cleanParameters.php', 'apk');
+myRequireOnce('getBuild.php', 'apk');
 myRequireOnce('writeLog.php');
 
 function verifyCommonFiles($p){
   // make sure all directories are checked in checkCommonFiles
-  if (isset($p['apk_settings']->build)){
-    $build=  cleanParametersApkDir($p['apk_settings']->build) ;
-  }
-  else{
-    $build = 'unknown';
-    writeLogAppend('ERROR-verifyCommonFiles', $p['apk_settings']);
-  }
+  $build = getBuild($p);
 
   $p['dir_apk'] = ROOT_APK .'/'.  $build. '/';
   // css

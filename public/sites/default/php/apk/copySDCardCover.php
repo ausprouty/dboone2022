@@ -1,6 +1,6 @@
 <?php
-myRequireOnce('verifyBookDir', 'apk');
+myRequireOnce('getBookDir', 'apk');
 function copyApkCover($p){
-     $p = verifyBookDir($p);// set $p['dir_apk']
+     $p = getBookDir($p);// set $p['dir_apk']
 return;
 }

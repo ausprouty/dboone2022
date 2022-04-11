@@ -2,17 +2,17 @@
 myRequireOnce('getLatestContent.php');
 myRequireOnce('writeLog.php');
 myRequireOnce('dirMake.php');
-myRequireOnce('verifyBookDir.php', 'apk');
+myRequireOnce('getBookDir.php', 'apk');
 myRequireOnce('verifyBookMedia.php', 'apk');
 
 
 function verifyBookCover($p){
-    $p = verifyBookDir($p);
+    $p = getBookDir($p);
     return 'ready';
 }
 function verifyBookApk($p){
     writeLogDebug('verifyBookApk-17', $p);
-    $p = verifyBookDir($p);
+    $p = getBookDir($p);
     $p['scope'] = 'series';
     $content = getLatestContent($p);
     $text = json_decode($content['text']);
@@ -41,7 +41,7 @@ function verifyBookApk($p){
     return 'undone';
 }
 function verifyBookVideoList($p){
-    $p = verifyBookDir($p);
+    $p = getBookDir($p);
     $fn = $p['dir_video_list'];
     //writeLogDebug('verifyBookVideoList-90', $fn);
     if (!file_exists( $fn)){

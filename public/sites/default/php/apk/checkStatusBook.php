@@ -2,16 +2,11 @@
 myRequireOnce('writeLog.php');
 myRequireOnce('dirMake.php');
 myRequireOnce('verifyBook.php', 'apk');
-myRequireOnce('verifyBookDir.php', 'apk');
+myRequireOnce('getBookDir.php', 'apk');
 
 function checkStatusBook($p){
     writeLogDebug('checkStatusBook-8', $p);
-    if (!isset($p['apk_settings']->build)){
-        $message = 'p[apk_settings]->subdirectory not set';
-        writeLogError('checkStatusBook', $message);
-        trigger_error($message, E_USER_ERROR);
-    }
-    $p = verifyBookDir($p);// set $p['dir_apk']
+    $p = getBookDir($p);// set $p['dir_apk']
     $check = [];
     $out = new stdClass();
     ////writeLogDebug('checkStatusBook-dir', $p['dir_apk'] . '/folder/content/');

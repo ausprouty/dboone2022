@@ -52,6 +52,14 @@ export default {
     console.log(res)
     return res
   },
+   async checkContentIndex(params) {
+    params = this.initialize(params)
+    params.page = 'checkContentIndex'
+    params.action = 'checkContentIndex'
+    var res = await AuthorService.aReturnContent(params)
+    console.log(res)
+    return res
+  },
   async checkStatusBook(params) {
     params = this.initialize(params)
     params.page = 'checkStatusBook'

@@ -86,7 +86,7 @@
 
         <ApkBooks :apk_settings="apk_settings" />
 
-         <button
+        <button
           class="button"
           v-bind:class="progress.libraries"
           @click="verifyContentIndex()"
@@ -196,24 +196,31 @@ export default {
     showProgress() {
       this.show_progress = true
       this.checkCommonFiles()
+      this.checkContentIndex()
     },
     async checkCommonFiles() {
       this.common_text = 'Checking'
       var params = this.$route.params
       params.apk_settings = this.apk_settings
-      console.log(params)
       var response = await ApkService.checkCommonFiles(params)
       console.log(response)
       this.progress.common = response
       this.common_text = 'Common Files'
     },
+    async checkContentIndex() {
+      this.content_index_text = 'Checking'
+      var params = this.$route.params
+      params.apk_settings = this.apk_settings
+      var response = await ApkService.checkContentIndex(params)
+      console.log(response)
+      this.progress.content_index = response
+      this.content_index_text = 'Content Index'
+    },
     async verifyCommonFiles() {
       this.common_text = 'Verifying'
       var params = this.$route.params
       params.apk_settings = this.apk_settings
-      console.log(params)
       var response = await ApkService.verifyCommonFiles(params)
-      console.log(response)
       this.progress.common = response
       this.common_text = 'Verified'
     },
@@ -222,7 +229,6 @@ export default {
       params.apk_settings = this.apk_settings
       this.content_index_text = 'Publishing'
       var response = await ApkService.verifyContentIndex(params)
-      console.log(response)
       this.progress.libraries = response
       this.content_index_text = 'Published'
     },
