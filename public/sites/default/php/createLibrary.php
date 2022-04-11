@@ -1,8 +1,9 @@
 <?php
 myRequireOnce ('writeLog.php');
 myRequireOnce ('dirCreate.php');
-
-myRequireOnce ('getPrototypeFileLibrary.php');
+myRequireOnce('decidePublishBook.php', $p['destination']);
+myRequireOnce('getLibraryImage.php', $p['destination']);
+myRequireOnce ('getPrototypeFileLibrary.php',$p['destination']);
 
 function createLibrary($p, $text) {
      /* Return a container for the books in this library.
@@ -59,17 +60,9 @@ function createLibrary($p, $text) {
 
     $country_index =  dirCreate('country', $p['destination'], $p);
     $root_index = '/content/index.html';
-   // if ($p['destination'] !== 'nojs'){
-    //        if ($filename == 'library'){
-    //        $navlink = $root_index;
-    //    }
-    //    else{
-    //        $navlink = $country_index;
-    //    }
-    //}
-    //else{
-        $navlink = '../index.html';
-   // }
+
+    $navlink = '../index.html';
+
 
     // get language footer in prototypeOEpublish.php
     $footer = publishLanguageFooter($p);
@@ -110,17 +103,7 @@ function createLibrary($p, $text) {
     );
     if (isset($text->books)){
         foreach ($text->books as $book){
-
-            $status = false;
-            if ($p['destination'] == 'website'){
-                $status = $book->publish;
-            }
-            else{
-                if (isset($book->prototype)){
-                    $status = $book->prototype;
-                }
-            }
-            if ($status  == true ){
+            if (decidePublishBook($p, $book)  == true ){
                 if (!isset($book->hide)){$book->hide = false;}
                 if (!$book->hide){
                     // deal with legacy data

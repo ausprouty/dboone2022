@@ -9,27 +9,27 @@ myRequireOnce('dirCreate.php');
 
 
 function verifyContentIndex($p){
-  $build = getBuild($p);
-  $p['dir_apk'] = ROOT_APK .'/'.  $build. '/';
-  verifyContentIndexRoot($p);
-  $folders = folderList( $p['dir_apk']); // tellsl us which series to include
-  $p['scope'] = 'library';
-  $data = getLatestContent($p);
-  $text = json_decode($data['text']);
-  // get bookmark
+    $build = getBuild($p);
+    $p['dir_apk'] = ROOT_APK .'/'.  $build. '/';
+    verifyContentIndexRoot($p);
+    $folders = folderList( $p['dir_apk']); // tellsl us which series to include
+    $p['scope'] = 'library';
+    $data = getLatestContent($p);
+    $text = json_decode($data['text']);
+    // get bookmark
     if (isset($root_library['recnum'])){
         $b['recnum'] = $root_library['recnum'];
-        $b['library_code'] ='library';
     }
     else{
         $b = $p;
     }
+     $b['library_code'] ='library';
     $bookmark  = bookmark($b);
     //
     // get template for library and fill in library details
     //
-    $body = ROOT_EDIT . 'sites/'. SITE_CODE.'/prototype/apk/contentIndex.html';
-
+    $body = file_get_contents(ROOT_EDIT . 'sites/'. SITE_CODE.'/prototype/apk/contentIndex.html');
+    writeLogDebug('verifyContentIndex-32', $body);
     //
     //  Replace other variables for Library
     //
@@ -139,7 +139,7 @@ function verifyContentIndex($p){
         }
     }
     $body = str_replace('[[books]]',$books, $body);
-    $filename = $p['dir_apk'] . 'folder/content/index.html';
+    $filename = $p['dir_apk'] . 'folder/content/'. $p['country_code'] . '/'. $p['language_iso'] .'/'. 'index.html';
     $fh = fopen($filename, 'w');
     if ($fh){
         fwrite($fh, $body);
