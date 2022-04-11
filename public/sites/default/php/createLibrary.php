@@ -1,11 +1,12 @@
 <?php
 myRequireOnce ('writeLog.php');
 myRequireOnce ('dirCreate.php');
-myRequireOnce('decidePublishBook.php', $p['destination']);
-myRequireOnce('getLibraryImage.php', $p['destination']);
-myRequireOnce ('getPrototypeFileLibrary.php',$p['destination']);
+
 
 function createLibrary($p, $text) {
+    myRequireOnce('decidePublishBook.php', $p['destination']);
+    myRequireOnce('getLibraryImage.php', $p['destination']);
+    myRequireOnce('getPrototypeFileLibrary.php',$p['destination']);
      /* Return a container for the books in this library.
     This will be used to prototype these books by prototypeLibraryandBooks.
 

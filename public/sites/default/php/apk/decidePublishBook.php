@@ -1,4 +1,5 @@
 <?php
+myRequireOnce('folderList.php');
 
 function decidePublishBook($p, $book){
     $status = false;
@@ -17,4 +18,3 @@ function decidePublishBook($p, $book){
     }
    return $status;
 }
-

@@ -1,5 +1,5 @@
 <?php
-
+myRequireOnce('writeLog.php');
 myRequireOnce ('createLibrary.php');
 myRequireOnce ('publishDestination.php');
 myRequireOnce ('publishFiles.php');
@@ -43,6 +43,7 @@ function publishLibrary($p){
         $filename = 'index';
     }
     $fname = $dir . $filename . '.html';
+    writeLogDebug('publishLibrary-45', $fname);
     $body .= '<!--- Created by publishLibrary-->' . "\n";
     publishFiles( $p['destination'], $p, $fname, $body, STANDARD_CARD_CSS, $selected_css);
 

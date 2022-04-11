@@ -5,7 +5,6 @@ function getLanguageFooter($p){
     }
     else{
         $language_footer=  'languageFooter.html';
-        writeLogAppend('ERROR-getLanguageFooter-8', $p['apk_settings']);
     }
     $footer  =  myGetPrototypeFile( $language_footer, $p['destination']);
     return $footer;

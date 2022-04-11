@@ -93,7 +93,8 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     publishFilesInPage($output, $p);
 
     $output = makePathsRelative($output, $fname);
-    writeLogAppend('publishFiles', $fname);
+    writeLogAppend('publishFiles-96', $fname);
+    writeLogDebug('publishFiles-97' , $fname);
     fileWrite($fname, $output, $p);
     return $output;
 }

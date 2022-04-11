@@ -4,10 +4,10 @@ myRequireOnce ('fileWritePDF.php', 'pdf');
 
 function fileWrite($filename, $text, $p){
     //make sure publishDestination is in $filename exactly once.
-
+    $p['filename'] = $filename;
     $publishDestination =  publishDestination($p);
     if (strpos($filename,  $publishDestination) === false){
-        $filename =$publishDestination . $filename;
+        $filename = $publishDestination . $filename;
     }
     $count = substr_count($filename, $publishDestination);
     for ($i = 1; $i < $count; $i++){
