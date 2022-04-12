@@ -7,7 +7,7 @@ myRequireOnce ('createDirectory.php');
 myRequireOnce ('fileWrite.php');
 myRequireOnce ('getTitle.php');
 myRequireOnce ('languageHtml.php');
-myRequireOnce ('languageSpecificJavascripts.php');
+
 myRequireOnce ('makePathsRelative.php');
 myRequireOnce ('modifyHeaders.php');
 myRequireOnce ('modifyImages.php');
@@ -20,6 +20,7 @@ myRequireOnce ('myGetPrototypeFile.php');
 
 // destination must be 'staging', 'website', 'pdf'  or 'sdcard'
 function publishFiles( $destination , $p, $fname, $text, $standard_css, $selected_css){
+    myRequireOnce ('languageSpecificJavascripts.php', $p['destination']);
 
      // some libary indexes have a name of meet.html with then gets appended with another html
     if (strpos($fname, '.html.html') !== false){

@@ -14,12 +14,7 @@ function dirCreate($scope, $destination,  $p, $folders = null){
     $dir = '';
     switch($destination){
         case 'apk':
-            if ($p['filename']== 'smething'){
-              $dir = ROOT_APK . getBuild($p);
-            }
-            else{
                 $dir = ROOT_APK . getBuild($p) .'/folder/content/';
-            }
             break;
         case 'edit':
             //define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');

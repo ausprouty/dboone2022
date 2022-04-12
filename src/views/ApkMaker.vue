@@ -88,7 +88,7 @@
 
         <button
           class="button"
-          v-bind:class="progress.libraries"
+          v-bind:class="progress.content_index"
           @click="verifyContentIndex()"
         >
           {{ content_index_text }}
@@ -157,7 +157,7 @@ export default {
       bat_text: 'Download Media Batch Files',
       progress: {
         common: 'undone',
-        libraries: 'undone',
+        content_index: 'undone',
       },
       apk_settings: {
         language: {

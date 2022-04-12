@@ -34,9 +34,11 @@ function publishDestination ($p){
   }
   elseif($destination == 'apk'){
     $build= getBuild($p);
-    $find= ROOT_APK . $build .'/index.html';
-    if ($p['filename'] == $find){
-      return ROOT_APK . $build;
+    if (isset($p['filename'])){
+      $find= ROOT_APK . $build .'/index.html';
+      if ($p['filename'] == $find){
+        return ROOT_APK . $build;
+      }
     }
     return ROOT_APK . $build  . '/folder/';
   }

@@ -50,10 +50,7 @@ function createLibrary($p, $text) {
     //
     //  Replace other variables for Library
     //
-    $library_image = '';
-    if (isset($text->format->image->image)){
-        $library_image =   '/sites/' . SITE_CODE .  $text->format->image->image;
-    }
+    $library_image =  getLibraryImage($p);
     $body = str_replace('{{ library.image }}', $library_image, $body);
 
     $library_text= isset($text->text)? $text->text : null;

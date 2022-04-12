@@ -18,14 +18,9 @@ import AuthorService from '@/services/AuthorService.js'
 export default {
   initialize(params) {
     if (typeof params.apk_settings != 'undefined') {
-      console.log('apk_settings is defined')
       if (typeof params.apk_settings === 'string') {
-        console.log('apk_settings is string')
         var temp = JSON.parse(params.apk_settings)
         params.apk_settings = temp
-      } else {
-        console.log('apk_settings is not a string')
-        console.log(params.apk_settings)
       }
       if (typeof params.apk_settings.language != 'undefined') {
         params.country_code = params.apk_settings.language.country_code
@@ -49,15 +44,13 @@ export default {
     params.page = 'checkCommonFiles'
     params.action = 'checkCommonFiles'
     var res = await AuthorService.aReturnContent(params)
-    console.log(res)
     return res
   },
-   async checkContentIndex(params) {
+  async checkContentIndex(params) {
     params = this.initialize(params)
     params.page = 'checkContentIndex'
     params.action = 'checkContentIndex'
     var res = await AuthorService.aReturnContent(params)
-    console.log(res)
     return res
   },
   async checkStatusBook(params) {
@@ -73,12 +66,9 @@ export default {
     return await AuthorService.aReturnContent(params)
   },
   async getBooks(params) {
-    console.log('getBooks')
-    console.log(params)
     params = this.initialize(params)
     params.page = 'getBooksForLanguage'
     params.action = 'getBooksForLanguage'
-    console.log(params)
     return await AuthorService.aReturnContent(params)
   },
   async getFooters(params) {
@@ -179,7 +169,6 @@ export default {
     params.page = 'verifyCommonFiles'
     params.action = 'verifyCommonFiles'
     var res = await AuthorService.aReturnContent(params)
-    console.log(res)
     return res
   },
   async verifyLanguageIndex(params) {

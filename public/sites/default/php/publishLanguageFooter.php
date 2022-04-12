@@ -4,6 +4,7 @@ myRequireOnce ('myGetPrototypeFile.php');
 
 // requires $p['recnum'] and $p['library_code']
 function publishLanguageFooter($p){
+    myRequireOnce('languageSpecificJavascripts.php', $p['destination']);
 
     $debug = 'In publishLanguageFooter' . "\n";
     if (isset($p['recnum'])){

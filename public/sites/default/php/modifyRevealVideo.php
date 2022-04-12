@@ -110,8 +110,15 @@ function modifyRevealVideo($text, $bookmark, $p){
         <div class="collapsed">
         <video id="video"  width = "100%" controls>
         <source src="[video]" type="video/mp4">
-
-
+        </div>';
+    }
+    elseif ($p['destination'] == 'apk'){
+        $watch_phrase = $bookmark['language']->watch_offline;
+        $template_link ='
+        <button id="VimeoButton0" type="button" class="collapsible external-movie ">[title_phrase]</button>
+        <div class="collapsed">
+        <video id="video"  width = "100%" controls>
+        <source src="[video]" type="video/mp4">
         </div>';
     }
     else{
@@ -126,7 +133,7 @@ function modifyRevealVideo($text, $bookmark, $p){
     for ($i = 0; $i < $count; $i++){
         // we only have one video link for each page on the sdcard
         $new = $template_link;
-        if ($i > 0 && ($p['destination'] == 'sdcard' || $p['destination'] == 'nojs')){
+        if ($i > 0 && ($p['destination'] == 'sdcard' || $p['destination'] == 'nojs' || $p['destination']== 'apk')){
           $new = '';
         }
         // get old division
@@ -140,7 +147,7 @@ function modifyRevealVideo($text, $bookmark, $p){
         $title_phrase =  $word = str_replace('%', $title, $watch_phrase);
         //find url
         $url = modifyVideoRevealFindText($old, 4);
-         if ($p['destination'] == 'sdcard' || $p['destination'] =='nojs'){
+         if ($p['destination'] == 'sdcard' || $p['destination'] =='nojs'|| $p['destination'] == 'apk'){
              $filename = $bookmark['page']->filename;
              $video = '/media/'. $p['country_code'] . '/'. $p['language_iso'] .'/video/'.  $p['folder_name'] .'/'. videoFindForSDCardNewName($filename) ;
              $video .='.mp4';

@@ -10,6 +10,7 @@ function verifyContentIndex($p){
     $p['dir_apk'] = ROOT_APK . $build. '/';
     verifyContentIndexRoot($p);
     $p['library_code'] = 'library';
+    writeLogDebug('verifyContentIndex-13', $p);
     publishLibrary($p);
     return 'done';
 }
