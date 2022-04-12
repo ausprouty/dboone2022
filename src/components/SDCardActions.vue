@@ -3,10 +3,10 @@
     <div class="column">
       <button
         class="button"
-        v-bind:class="progress.sdcard"
-        @click="localPublish('sdcard')"
+        v-bind:class="progress.content"
+        @click="localPublish('content')"
       >
-        {{ sdcard_text }}
+        {{ content_text }}
       </button>
     </div>
     <div class="column">
@@ -87,7 +87,7 @@ export default {
 */
   data() {
     return {
-      sdcard_text: 'SD Card',
+      content_text: 'Content',
       nojs_text: 'No JS',
       pdf_text: 'PDF',
       videolist_text: 'Media List',
@@ -132,11 +132,11 @@ export default {
         this.progress.pdf = await SDCardService.verifyBookPDF(params)
         this.pdf_text = 'PDF'
       }
-      if (location == 'sdcard') {
-        this.sdcard_text = 'Publishing'
+      if (location == 'content') {
+        this.content_text = 'Publishing'
         await SDCardService.publish('seriesAndChapters', params)
-        this.progress.sdcard = await SDCardService.verifyBookSDCard(params)
-        this.sdcard_text = 'SD Card'
+        this.progress.content = await SDCardService.verifyBookSDCard(params)
+        this.content_text = 'Content'
       }
       if (location == 'videolist') {
         this.videolist_text = 'Publishing'

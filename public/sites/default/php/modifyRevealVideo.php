@@ -95,7 +95,7 @@ function modifyRevealVideo($text, $bookmark, $p){
         $template_link = '';
     }
 
-    elseif ($p['destination'] == 'nojs'){
+    elseif ($p['destination'] == 'nojs'  ){
         $watch_phrase = '';
         $template_link =
         '<video width="100%"  controls>
@@ -103,7 +103,7 @@ function modifyRevealVideo($text, $bookmark, $p){
             <a href="[video]"> Watch Here</a>
         </video>';
     }
-    elseif ($p['destination'] == 'sdcard'){
+    elseif ($p['destination'] == 'sdcard'|| $p['destination'] == 'apk'){
         $watch_phrase = $bookmark['language']->watch_offline;
         $template_link ='
         <button id="VimeoButton0" type="button" class="external-movie ">[title_phrase]</button>
@@ -112,15 +112,7 @@ function modifyRevealVideo($text, $bookmark, $p){
         <source src="[video]" type="video/mp4">
         </div>';
     }
-    elseif ($p['destination'] == 'apk'){
-        $watch_phrase = $bookmark['language']->watch_offline;
-        $template_link ='
-        <button id="VimeoButton0" type="button" class="collapsible external-movie ">[title_phrase]</button>
-        <div class="collapsed">
-        <video id="video"  width = "100%" controls>
-        <source src="[video]" type="video/mp4">
-        </div>';
-    }
+
     else{
         $watch_phrase = $bookmark['language']->watch;
         $template_link = '<button id="revealButton[id]" type="button" class="external-movie">[title_phrase]</button>

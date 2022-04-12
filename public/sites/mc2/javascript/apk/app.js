@@ -1,84 +1,20 @@
 var CACHE_DYNAMIC_NAME = 'content-1'
 var DEFAULT_ENTRY = '/content/index.html'
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker
-    .register('/sw.js')
-    .then(function () {
-      console.log('Service worker registered!')
-      localStorage.setItem('swWorking', 'TRUE')
-    })
-    .catch(function (err) {
-      console.log(err)
-      localStorage.setItem('swWorking', 'FALSE')
-    })
-}
-
 // return to last page if restarting
 // check for current dynamic
 
 function router() {
-  // check if dynamic cache needs updating
-  if (CACHE_DYNAMIC_NAME != localStorage.getItem('dynamic-cache')) {
-    restoreDynamic()
-    localStorage.setItem('dynamic-cache', CACHE_DYNAMIC_NAME)
-  }
   // store last page so that root index can redirect when you come again
-
   localStorage.setItem('lastpage', window.location.href)
 }
+
 document.addEventListener('DOMContentLoaded', router)
 
-function restoreDynamic() {
-  if (typeof localStorage.offline != 'undefined' && localStorage.offline) {
-    console.log('restoreDynamic')
-    var offline = JSON.parse(localStorage.offline) //get existing values
-    offline.forEach(function (series) {
-      var ajaxPromise = fetch(series)
-        .then(function (response) {
-          return response.json()
-        })
-        .then(function (jsonFile) {
-          jsonFile.forEach(function (element) {
-            console.log(element.url)
-            caches.open(CACHE_DYNAMIC_NAME).then(function (cache) {
-              cache.add(element.url)
-            })
-          })
-        })
-    })
-  }
-}
 // check to see if this is an index file for a series and get value index.json
 window.onload = function () {
-  var series = document.getElementById('offline-request')
-  if (series !== null) {
-    checkOfflineSeries(series.dataset.json)
-  }
-
   findCollapsible()
-  //mc2DecideWhichVideosToShow();
   findSummaries()
-  if (localStorage.getItem('mc2Trainer')) {
-    // unhide all trainer notes
-    var elements = document.getElementsByClassName('trainer-hide')
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].className = 'trainer'
-    }
-    // unhide all items which are collapsed for students
-    elements = document.getElementsByClassName('collapsible')
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].className = 'revealed'
-    }
-    elements = document.getElementsByClassName('collapsed')
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].style.display = 'block'
-    }
-  }
-  if (!navigator.onLine) {
-    console.log('I am offline')
-    hideWhenOffline()
-  }
 }
 
 function findSummaries() {
@@ -159,41 +95,6 @@ function goToPageAndSetReturn(page) {
   localStorage.setItem('returnpage', window.location.href)
   window.location.replace(page)
 }
-function hideWhenOffline() {
-  // get rid of all readmore comments
-  var readmore = document.getElementsByClassName('readmore')
-  if (readmore.length > 0) {
-    console.log('I found readmore')
-    for (var i = 0; i < readmore.length; i++) {
-      readmore[i].style.display = 'none'
-    }
-  }
-  readmore = document.getElementsByClassName('bible_readmore')
-  if (readmore.length > 0) {
-    console.log('I found bible_readmore')
-    for (var i = 0; i < readmore.length; i++) {
-      readmore[i].style.display = 'none'
-    }
-  }
-  // hide external-link
-  var links = document.getElementsByClassName('external-link')
-  if (links.length > 0) {
-    console.log('I found external-link')
-    for (var i = 0; i < links.length; i++) {
-      links[i].style.className = 'unlink'
-    }
-  }
-  // hide external-movie
-  links = document.getElementsByClassName('external-movie')
-  if (links.length > 0) {
-    console.log('I found external-link')
-    for (var i = 0; i < links.length; i++) {
-      links[i].style.display = 'none'
-    }
-  }
-}
-
-
 
 // get value of variable in array
 // is id in key?
@@ -221,7 +122,3 @@ function inLocalStorage(key, id) {
   deferred.resolve(result)
   return deferred.promise()
 }
-
-
-// for sharing
-//https://developers.google.com/web/updates/2016/09/navigator-share

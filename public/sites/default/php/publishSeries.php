@@ -28,7 +28,7 @@ function publishSeries ($p){
     if (!$data){
        $message = 'No data found for: ' . $sql;
        writeLogError('publishSeries-29', $message);
-       trigger_error( $message, E_USER_ERROR);
+       return $p;
     }
     //$debug .= $data['text'] . "\n";
     $text = json_decode($data['text']);

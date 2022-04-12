@@ -1,6 +1,6 @@
 <?php
 myRequireOnce ('writeLog.php');
- myRequireOnce ('audioReference.php', 'sdcard');
+myRequireOnce ('audioReference.php', 'sdcard');
 /*
 Input is:
     <--Start Audio Template-->
@@ -71,7 +71,7 @@ function modifyRevealAudio($text, $bookmark, $p){
         <audio width="100%"  controls src="[url]">
         </audio>';
     }
-    elseif ($p['destination'] == 'sdcard'){
+    elseif ($p['destination'] == 'sdcard' || $p['destination'] == 'apk'){
         $listen_phrase = $bookmark['language']->listen_offline;
         $local_template= '
         <button id="AudioButton[id]" type="button" class="collapsible external-audio ">[title_phrase]</button>
@@ -131,7 +131,7 @@ function modifyRevealAudio($text, $bookmark, $p){
         $debug .=  "url is | $url |\n";
         $audio_text = modifyRevealAudioFindText($old, 6);
         $debug .=  "audio_text is | $audio_text |\n";
-        if ($p['destination'] == 'sdcard' || $p['destination'] == 'nojs'){
+        if ($p['destination'] == 'sdcard' || $p['destination'] == 'nojs'||  $p['destination'] == 'apk'){
             $new = $local_template;
             $url = modifyRevealAudioSDCardUrl($url);
         }
