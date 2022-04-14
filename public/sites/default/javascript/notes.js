@@ -5,7 +5,7 @@ window.onload = function () {
     console.log(notes)
     showNotes(notes)
   }
-
+}
 
 function showNotes(page) {
   console.log('this will show notes for ' + page)
@@ -16,7 +16,7 @@ function showNotes(page) {
   var notes = JSON.parse(response)
   var len = notes.length
   var notePlace = null
-  for (i = 0; i < len; i++) {
+  for (var i = 0; i < len; i++) {
     console.log(notes[i].key)
     // sometimes people change the number of notes on a page after we publish
     notePlace = document.getElementById(notes[i].key)

@@ -141,10 +141,8 @@ export default {
           'bidi',
           'uploadimage',
           'forms',
-          'iframe',
           'uploadwidget',
           'clipboard',
-          'videoembed',
           'templates',
           'panelbutton',
           'floatpanel',
@@ -219,7 +217,7 @@ export default {
         ],
         height: 600,
         removeButtons:
-          'About,CreatePlaceholder,DocProps,Flash,Iframe,NewPage,PageBreak,Preview,Print,Save,Scayt,Smiley,SpecialChar',
+          'About,CreatePlaceholder,DocProps,Flash,Iframe,MediaEmbed,NewPage,PageBreak,Preview,Print,Save,Scayt,Smiley,SpecialChar',
       },
     }
   },

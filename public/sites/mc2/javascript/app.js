@@ -76,7 +76,6 @@ window.onload = function () {
     }
   }
   if (!navigator.onLine) {
-    console.log('I am offline')
     hideWhenOffline()
   }
 }
@@ -193,8 +192,6 @@ function hideWhenOffline() {
   }
 }
 
-
-
 // get value of variable in array
 // is id in key?
 function inLocalStorage(key, id) {
@@ -221,7 +218,6 @@ function inLocalStorage(key, id) {
   deferred.resolve(result)
   return deferred.promise()
 }
-
 
 // for sharing
 //https://developers.google.com/web/updates/2016/09/navigator-share

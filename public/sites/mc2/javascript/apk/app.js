@@ -1,6 +1,3 @@
-var CACHE_DYNAMIC_NAME = 'content-1'
-var DEFAULT_ENTRY = '/content/index.html'
-
 // return to last page if restarting
 // check for current dynamic
 
@@ -15,6 +12,9 @@ document.addEventListener('DOMContentLoaded', router)
 window.onload = function () {
   findCollapsible()
   findSummaries()
+  if (!navigator.onLine) {
+    hideWhenOffline()
+  }
 }
 
 function findSummaries() {
@@ -66,6 +66,29 @@ function findCollapsible() {
         this.classList.add('revealed')
       }
     })
+  }
+}
+
+function hideWhenOffline() {
+  // get rid of all readmore comments
+  var readmore = document.getElementsByClassName('readmore')
+  if (readmore.length > 0) {
+    for (var i = 0; i < readmore.length; i++) {
+      readmore[i].style.display = 'none'
+    }
+  }
+  readmore = document.getElementsByClassName('bible_readmore')
+  if (readmore.length > 0) {
+    for (var i = 0; i < readmore.length; i++) {
+      readmore[i].style.display = 'none'
+    }
+  }
+  // hide external-link
+  var links = document.getElementsByClassName('external-link')
+  if (links.length > 0) {
+    for (var i = 0; i < links.length; i++) {
+      links[i].style.className = 'unlink'
+    }
   }
 }
 
