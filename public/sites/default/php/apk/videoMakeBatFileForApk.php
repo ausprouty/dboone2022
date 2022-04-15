@@ -9,7 +9,6 @@ myRequireOnce ('videoReference.php', 'apk');
 
 
 function videoMakeBatFileForApk($p){
-  //writeLogDebug('videoMakeBatFileForApk', $p);
    audioMakeRefFileForApk($p);
    $output = 'mkdir video' . "\n";
    $output .= 'cd video' . "\n";
@@ -39,10 +38,7 @@ function videoMakeBatFileForApk($p){
                 //writeLog('videoMakeBatFileForApk-32-count-'. $chapter->filename , $count);
                  if ($count == 1){
                      $dir = 'video/'. $p['folder_name'];
-                   //writeLog('videoMakeBatFileForApk-35-videos-' . $chapter->filename , $chapter_videos);
                     $output .= videoMakeBatFileForApkSingle($chapter_videos[0], $dir);
-                   //writeLog('videoMakeBatFileForApk-37-output-' . $chapter->filename , $output);
-
                 }
                 if ($count > 1){
                     $output .= videoMakeBatFileForApkConcat($chapter_videos,  $p, $chapter->filename);

@@ -23,11 +23,13 @@ function checkCommonFiles($p){
   $destination[] = $p['dir_apk'] .'folder/content/'. $p['country_code'] . '/'.  $p['language_iso'] .'/javascript/';
   foreach ($destination as $d){
     if (!is_dir($d)){
+      writeLogDebug('checkCommonFiles-26', $d);
         return 'undone';
     }
   }
   $file = $p['dir_apk'] . 'index.html';
   if (!file_exists($file)){
+    writeLogDebug('checkCommonFiles-32', $file);
     return 'undone';
   }
   return 'done';

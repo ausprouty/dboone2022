@@ -45,7 +45,5 @@ function verifyCommonFiles($p){
   $destination = $p['dir_apk'] .'folder/content/'. $p['country_code'] . '/'.  $p['language_iso'] .'/javascript/';
   copyDirectory($source,$destination);
 
-
-  writeLogDebug('verifyCommonFiles-56', 'finished');
-  return 'finished';
+  return 'done';
 }

@@ -2,17 +2,21 @@
 myRequireOnce('getBuild.php', 'apk');
 myRequireOnce('writeLog.php');
 myRequireOnce('publishLibrary.php');
+myRequireOnce('findLibraries.php');
 
 
 
 function verifyContentIndex($p){
-    $build = getBuild($p);
-    $p['dir_apk'] = ROOT_APK . $build. '/';
-    verifyContentIndexRoot($p);
-    $p['library_code'] = 'library';
-    writeLogDebug('verifyContentIndex-13', $p);
+  $build = getBuild($p);
+  $p['dir_apk'] = ROOT_APK . $build. '/';
+  verifyContentIndexRoot($p);
+  $libraries = findLibraries($p);
+  foreach ($libraries as $library){
+    $p['library_code'] = $library;
+    writeLogAppend('verifyContentIndex-16', $p);
     publishLibrary($p);
-    return 'done';
+  }
+  return 'done';
 }
 
 
@@ -32,7 +36,6 @@ function verifyContentIndexRoot($p){
   ];
   $text = str_replace($find, $replace, $text);
   $filename = $p['dir_apk'] . 'index.html';
-  writeLogDebug('verifyContentIndexRoot-34', $filename);
   fileWrite($filename, $text, $p);
   return;
 

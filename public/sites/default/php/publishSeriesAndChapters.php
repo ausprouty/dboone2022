@@ -17,7 +17,7 @@ function publishSeriesAndChapters ($p){
         $message= 'No files_json returned from Publish Series';
         writeLogError('publishSeriesAndChapters-17', $message);
         writeLogError('publishSeriesAndChapters-18', $p);
-        triggerError( $message, E_USER_ERROR);
+        // this will happen if you have a sublibrary
     }
     $files_json = $out['files_json']; // this starts file for download of series
     $files_in_pages = [];
@@ -40,7 +40,6 @@ function publishSeriesAndChapters ($p){
                 $p['recnum'] = $data['recnum'];
                 // need to find latest record for recnum
                 $result =  publishPage ($p);
-                writeLogDebug('publishSeriesAndChapters-36-result', $result);
                 if (is_array($result)){
                     if (isset($result['files_in_page'])){
                         $files_in_pages = array_merge($files_in_pages,$result['files_in_page']);

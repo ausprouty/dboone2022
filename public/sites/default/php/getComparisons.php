@@ -8,7 +8,7 @@ function getComparisons($p){
         $p['language_iso'] = $out['languages']['change'];
         $debug .= 'Changed language_iso to '. $p['language_iso'] ;
     }
-    $out['library'] = getLibraries($p);
+    $out['library'] = _getLibraries($p);
     if (isset($out['library']['change'])){
         $p['library_code'] = $out['library']['change'];
         $debug .= 'Changed libary_code to '. $p['library_code'];
@@ -43,10 +43,10 @@ function getComparisons($p){
 }
 
 function getCountries($p){
-    
+
     $output = [];
     $output['country'] = 'I did not find it';
-    $sql = 'SELECT * FROM content  
+    $sql = 'SELECT * FROM content
         WHERE  filename = "countries"
         ORDER BY recnum DESC
         LIMIT 1';
@@ -62,7 +62,7 @@ function getCountries($p){
         if ($country->code == $p['country_code'] ){
             $output['country'] = $name;
         }
-        
+
       //  $details->country_code = $country->code;
       //  $details->country_name = $name;
         $out[$name] = (object) array('country_code' => $country->code, 'country_name' => $name);
@@ -75,14 +75,14 @@ function getCountries($p){
     return $output;
 }
 function getLanguages($p){
-    
+
     $output = [];
     $output['language'] = null;
     if (!isset($p['country_code'])){
         $output['debug'] = 'Parameter missing';
         return $output;
     }
-    $sql = 'SELECT * FROM content  
+    $sql = 'SELECT * FROM content
         WHERE  filename = "languages"
         AND country_code ="' . $p['country_code'] . '"
         ORDER BY recnum DESC
@@ -106,8 +106,8 @@ function getLanguages($p){
     }
     return $output;
 }
-function getLibraries($p){
-    
+function _getLibraries($p){
+
     $output = [];
     $output['library'] = null;
     if (!isset($p['country_code']) || !isset($p['language_iso']) || !isset($p['library_code'])){
@@ -117,8 +117,8 @@ function getLibraries($p){
     }
     $found_same_library = false;
    // find library names
-   $sql = "SELECT DISTINCT filename  FROM content 
-    WHERE  country_code = '" . $p['country_code'] . "' 
+   $sql = "SELECT DISTINCT filename  FROM content
+    WHERE  country_code = '" . $p['country_code'] . "'
     AND language_iso = '" . $p['language_iso'] ."' AND folder_name = ''";
     //$debug .= $sql. "\n";
     $query = sqlMany($sql, 'query');
@@ -142,7 +142,7 @@ function getLibraries($p){
         $output['library'] = 'No Libraries';
         $output['change'] = '';
     }
-       
+
     return $output;
 }
 function getBooks($p){
@@ -151,19 +151,19 @@ function getBooks($p){
         $output['parameters'] =$p;
         return $output;
     }
-    
+
     $output = [];
     $output['book'] = null;
     $output['debug'] = null;
     $output['debug'] .= $p['folder_name'] . ' is p{folder] ' . "\n";
     // what libraries do we have?
-    $sql = 'SELECT DISTINCT filename FROM content  
+    $sql = 'SELECT DISTINCT filename FROM content
         WHERE  country_code ="' . $p['country_code'] . '"
         AND language_iso = "' . $p['language_iso'] . '"
         AND folder_name = ""';
     $query = sqlMany($sql);
     while($library = $query->fetch_array()){
-        $sql = 'SELECT * FROM content  
+        $sql = 'SELECT * FROM content
             WHERE  country_code ="' . $p['country_code'] . '"
             AND language_iso = "' . $p['language_iso'] . '"
             AND filename = "' . $library['filename'] . '"
@@ -173,7 +173,7 @@ function getBooks($p){
         $data = sqlArray($sql);
         $text = json_decode($data['text']);
         if (isset($text->books)){
-           
+
             foreach ($text->books as $book){
                 if ($book->code == $p['folder_name'] ){
                     $output['book'] = $book->title;
@@ -197,7 +197,7 @@ function getBooks($p){
 }
 
 function getChapters($p){
-    
+
     $output = [];
     $output['chapter'] = null;
     if (!isset($p['country_code']) || !isset($p['language_iso']) || !isset($p['folder_name'])){
@@ -205,7 +205,7 @@ function getChapters($p){
         $output['parameters'] =$p;
         return $output;
     }
-    $sql = 'SELECT * FROM content  
+    $sql = 'SELECT * FROM content
         WHERE  country_code ="' . $p['country_code'] . '"
         AND language_iso = "' . $p['language_iso'] . '"
         AND folder_name =  "' . $p['folder_name'] . '"
@@ -236,7 +236,7 @@ function getChapters($p){
     return $output;
 }
 function getVersions($p){
-    
+
     $output = [];
     if (!isset($p['country_code']) || !isset($p['language_iso']) || !isset($p['folder_name'])){
         $output['debug'] = 'Parameter missing';
@@ -244,7 +244,7 @@ function getVersions($p){
         return $output;
     }
     if ($p['content_type'] == 'series'){
-        $sql = 'SELECT recnum, edit_date FROM content  
+        $sql = 'SELECT recnum, edit_date FROM content
             WHERE  country_code ="' . $p['country_code'] . '"
             AND language_iso = "' . $p['language_iso'] . '"
             AND folder_name =  "' . $p['folder_name'] . '"
@@ -252,13 +252,13 @@ function getVersions($p){
             ORDER BY recnum DESC';
     }
     else{
-        $sql = 'SELECT recnum, edit_date FROM content  
+        $sql = 'SELECT recnum, edit_date FROM content
             WHERE  country_code ="' . $p['country_code'] . '"
             AND language_iso = "' . $p['language_iso'] . '"
             AND filename = "' . $p['folder_name'] . '"
             ORDER BY recnum DESC';
     }
-    
+
     $query = sqlMany($sql);
     while($data = $query->fetch_array()){
         $title = date('Y-m-d H:i:s', $data['edit_date']) . '(' . $data['recnum'] . ')';

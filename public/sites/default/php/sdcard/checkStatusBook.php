@@ -13,7 +13,6 @@ function checkStatusBook($p){
     $p = verifyBookDir($p);// set $p['dir_sdcard']
     $check = [];
     $out = new stdClass();
-    ////writeLogDebug('checkStatusBook-dir', $p['dir_sdcard'] . '/folder/content/');
     $progress = json_decode($p['progress']);
     foreach ($progress as $key=>$value){
         $out->$key = $value;
@@ -44,7 +43,6 @@ function checkStatusBook($p){
                 break;
             case "videolist":
                 $fn = $p['dir_video_list'];
-                ////writeLogDebug('checkStatusBook-46', $fn);
                 if (file_exists($fn)){
                    $out->videolist = verifyBookVideoList($p);
                 }
@@ -55,6 +53,5 @@ function checkStatusBook($p){
             default:
         }
     }
-    ////writeLogDebug('checkStatusBook-10-out', $out);
     return $out;
 }

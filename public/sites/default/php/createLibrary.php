@@ -50,7 +50,7 @@ function createLibrary($p, $text) {
     //
     //  Replace other variables for Library
     //
-    $library_image =  getLibraryImage($p);
+    $library_image =  getLibraryImage($p, $text);
     $body = str_replace('{{ library.image }}', $library_image, $body);
 
     $library_text= isset($text->text)? $text->text : null;
@@ -70,14 +70,19 @@ function createLibrary($p, $text) {
         '{{ ribbon }}',
         '{{ version }}',
         '{{ footer }}',
-        '{{ language.rldir }}'
+        '{{ language.rldir }}',
+        '{{ country_code }}',
+        '{{ language_iso }}',
+
     );
     $replace = array(
         $navlink,
         $ribbon,
         $p['version'],
         $footer ,
-        $bookmark['language']->rldir
+        $bookmark['language']->rldir,
+        $p['country_code'],
+        $p['language_iso']
     );
     $body = str_replace($placeholders, $replace, $body);
     //

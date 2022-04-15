@@ -24,11 +24,19 @@ function createBibleDbtArrayFromPassage($p){
     return $out;
 }
 function createBibleDbtArray($p){
-    //OK to here
     $language_iso = $p['language_iso'];
     $passage = $p['passage'];
     $passage = trim($passage);
-    $parts = explode(' ', $passage);
+    $parts = [];
+    // chinese does not use a space before reference
+    if (strpos($passage, ' ') == FALSE){
+       $pos = strcspn( $passage , '0123456789' );
+       $parts[0]= substr($passage, 0, $pos-1);
+       $parts[1] = substr($passage, $pos);
+    }
+    else{
+        $parts = explode(' ', $passage);
+    }
     $book = $parts[0];
     if ($book == 1 || $book == 2 || $book == 3){
         $book .= ' '. $parts[1];

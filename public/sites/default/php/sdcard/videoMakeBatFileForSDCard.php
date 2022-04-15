@@ -9,7 +9,6 @@ myRequireOnce ('videoReference.php', 'sdcard');
 
 
 function videoMakeBatFileForSDCard($p){
-  //writeLogDebug('videoMakeBatFileForSDCard', $p);
    audioMakeRefFileForSDCard($p);
    $output = 'mkdir video' . "\n";
    $output .= 'cd video' . "\n";
@@ -39,10 +38,7 @@ function videoMakeBatFileForSDCard($p){
                 //writeLog('videoMakeBatFileForSDCard-32-count-'. $chapter->filename , $count);
                  if ($count == 1){
                      $dir = 'video/'. $p['folder_name'];
-                   //writeLog('videoMakeBatFileForSDCard-35-videos-' . $chapter->filename , $chapter_videos);
                     $output .= videoMakeBatFileForSDCardSingle($chapter_videos[0], $dir);
-                   //writeLog('videoMakeBatFileForSDCard-37-output-' . $chapter->filename , $output);
-
                 }
                 if ($count > 1){
                     $output .= videoMakeBatFileForSDCardConcat($chapter_videos,  $p, $chapter->filename);

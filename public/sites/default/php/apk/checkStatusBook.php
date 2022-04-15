@@ -5,11 +5,10 @@ myRequireOnce('verifyBook.php', 'apk');
 myRequireOnce('getBookDir.php', 'apk');
 
 function checkStatusBook($p){
-    writeLogDebug('checkStatusBook-8', $p);
+
     $p = getBookDir($p);// set $p['dir_apk']
     $check = [];
     $out = new stdClass();
-    ////writeLogDebug('checkStatusBook-dir', $p['dir_apk'] . '/folder/content/');
     $progress = json_decode($p['progress']);
     foreach ($progress as $key=>$value){
         $out->$key = $value;
@@ -25,7 +24,6 @@ function checkStatusBook($p){
 
             case "videolist":
                 $fn = $p['dir_video_list'];
-                ////writeLogDebug('checkStatusBook-46', $fn);
                 if (file_exists($fn)){
                    $out->videolist = verifyBookVideoList($p);
                 }
@@ -36,6 +34,5 @@ function checkStatusBook($p){
             default:
         }
     }
-    ////writeLogDebug('checkStatusBook-10-out', $out);
     return $out;
 }

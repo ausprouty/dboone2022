@@ -181,7 +181,9 @@ export default {
     params = this.initialize(params)
     params.page = 'verifyContentIndex'
     params.action = 'verifyContentIndex'
-    return await AuthorService.aReturnContent(params)
+    var res = await AuthorService.aReturnContent(params)
+    console.log(res)
+    return res
   },
   // see https://morioh.com/p/f4d331b62cda
   async zipMediaBatFiles(params) {

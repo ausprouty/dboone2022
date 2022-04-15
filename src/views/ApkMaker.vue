@@ -229,7 +229,7 @@ export default {
       params.apk_settings = this.apk_settings
       this.content_index_text = 'Publishing'
       var response = await ApkService.verifyContentIndex(params)
-      this.progress.libraries = response
+      this.progress.content_index = response
       this.content_index_text = 'Published'
     },
     async zipMediaBatFiles() {
