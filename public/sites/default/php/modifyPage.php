@@ -3,7 +3,7 @@
 myRequireOnce ('createPage.php');
 myRequireOnce ('getTitle.php');
 myRequireOnce ('modifyBibleLinks.php');
-myRequireOnce ('modifyHeader.php');
+myRequireOnce ('modifyHeaders.php');
 myRequireOnce ('modifyJavascript.php');
 myRequireOnce ('modifyLinks.php');
 myRequireOnce ('modifyNoteArea.php');

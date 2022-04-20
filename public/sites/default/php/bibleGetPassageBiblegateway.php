@@ -24,7 +24,6 @@ myRequireOnce('writeLog.php');
 
 function bibleGetPassageBiblegateway($p){
 	$output = array();
-	$output['debug']= 'In bibleGetPassageBiblegateway' . "\n";
 	// returns array (and I have no idea why both verse and reference; why k.
 	//1 =>
 	//array (
@@ -41,7 +40,10 @@ function bibleGetPassageBiblegateway($p){
 	//   'reference' => 'John 14:15-26',
     // ),
     $parse = array();
-	$reference_shaped = str_replace(' ' , '%20', trim($p['entry']));
+	// it seems that Chinese does not always like the way we enter things.
+	$reference_shaped = str_replace($p['bookLookup'], $p['bookId'], $p['entry']); // try this and see if it works/
+	$reference_shaped = str_replace(' ' , '%20', $reference_shaped);
+
 	$agent = 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)';
 	$reffer = 'http://biblegateway.com//passage/?search='. $reference_shaped . '&version='. $p['version_code']; // URL
 	$POSTFIELDS = null;

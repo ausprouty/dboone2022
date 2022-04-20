@@ -32,7 +32,6 @@ function makePathsRelative( $text, $filename){
       }
    }
    $text= str_ireplace ('"/', $replace, $text);
-   writeLogDebug('makePathsRelative-35', $text);
    return $text;
 
 }

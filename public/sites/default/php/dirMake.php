@@ -20,7 +20,6 @@ function dirMake($filename){
 			}
 		}
 		if ($ok){
-			writeLogAppend('dirMake-17', $part . "\n");
 			$dir .= $part . '/';
 			if (!file_exists($dir)){
 				mkdir ($dir);
