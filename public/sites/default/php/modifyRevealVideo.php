@@ -89,43 +89,16 @@ NO JS:
 
 */
 function modifyRevealVideo($text, $bookmark, $p){
+    myRequireOnce ('videoTemplate.php', $p['destination']);
+    myRequireOnce ('videoFollows.php', 'apk');
     $debug = '';
-    if ($p['destination'] == 'pdf'){
-        $watch_phrase = '';
-        $template_link = '';
-    }
-
-    elseif ($p['destination'] == 'nojs'  ){
-        $watch_phrase = '';
-        $template_link =
-        '<video width="100%"  controls>
-            <source src="[video]" type="video/mp4">
-            <a href="[video]"> Watch Here</a>
-        </video>';
-    }
-    elseif ($p['destination'] == 'sdcard'|| $p['destination'] == 'apk'){
-        $watch_phrase = $bookmark['language']->watch_offline;
-        $template_link ='
-        <button id="VimeoButton0" type="button" class="external-movie ">[title_phrase]</button>
-        <div class="collapsed">
-        <video id="video"  width = "100%" controls>
-        <source src="[video]" type="video/mp4">
-        </div>';
-    }
-
-    else{
-        $watch_phrase = $bookmark['language']->watch;
-        $template_link = '<button id="revealButton[id]" type="button" class="external-movie">[title_phrase]</button>
-                   <div class="collapsed">[video]</div>';
-    }
-    $template_options = '<div id="ShowOptionsFor[video]"></div>';
-    // [ChangeLanguage] is changed in local.js
+    $watch_phrase=videoTemplateWatchPhrase($bookmark);
+    $template_options = '<div id="ShowOptionsFor[video]"></div>'; // [ChangeLanguage] is changed in local.js
+    $previous_url = '';
     $find = '<div class="reveal film">';
     $count = substr_count($text, $find);
-    for ($i = 0; $i < $count; $i++){
-        // we combine videos that are in sequence on the sdcard and apk
-
-        // get old division
+    $apk_video_count = 0;
+    for ($i = 0; $i < $count; $i++){        // get old division
         $pos_start = strpos($text,$find);
         $pos_end = strpos($text, '</div>', $pos_start);
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
@@ -136,19 +109,27 @@ function modifyRevealVideo($text, $bookmark, $p){
         $title_phrase =  $word = str_replace('%', $title, $watch_phrase);
         //find url
         $url = modifyVideoRevealFindText($old, 4);
-
-        if ($i > 0 && ($p['destination'] == 'sdcard' || $p['destination'] == 'nojs' || $p['destination']== 'apk')){
-          $new = '';
+        // in these destinations we concantinate sequential videos (Acts#1 and Acts #2)
+        if ($p['destination'] == 'sdcard' || $p['destination'] == 'nojs' || $p['destination']== 'apk'){
+            $follows = videoFollows($previous_url, $url);
+            $previous_url = $url;
+            if ($follows){
+                $new = '';
+            }
+            else{
+                $new = videoTemplateLink($bookmark);
+                $filename = $bookmark['page']->filename;
+                $video = '/media/'. $p['country_code'] . '/'. $p['language_iso'] .'/video/'.  $p['folder_name'] .'/'. videoFindForSDCardNewName($filename) ;
+                if ($apk_video_count > 0){
+                    $video .= '-'. $apk_video_count;
+                }
+                $video .='.mp4';
+                $video_type= 'file';
+                $apk_video_count++;
+            }
         }
-        else{}
-         if ($p['destination'] == 'sdcard' || $p['destination'] =='nojs'|| $p['destination'] == 'apk'){
-             $filename = $bookmark['page']->filename;
-             $video = '/media/'. $p['country_code'] . '/'. $p['language_iso'] .'/video/'.  $p['folder_name'] .'/'. videoFindForSDCardNewName($filename) ;
-             $video .='.mp4';
-             $video_type= 'file';
-         }
         else {
-            $new = $template_link;
+            $new = videoTemplateLink($bookmark);
             // find type of video and trim url
             if (strpos($url, 'api.arclight.org/videoPlayerUrl?') != FALSE){
                 $new .=  $template_options; // JESUS project videos are available in many languages

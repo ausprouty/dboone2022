@@ -1,4 +1,5 @@
 <?php
+// given multiply102  will return 102
 
 function videoFindForSDCardNewName($filename){
   $length = strlen($filename);
