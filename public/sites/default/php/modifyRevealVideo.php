@@ -92,6 +92,7 @@ function modifyRevealVideo($text, $bookmark, $p){
     myRequireOnce ('videoTemplate.php', $p['destination']);
     myRequireOnce ('videoFollows.php', 'apk');
     $debug = '';
+    $previous_title_phrase= '';
     $watch_phrase=videoTemplateWatchPhrase($bookmark);
     $template_options = '<div id="ShowOptionsFor[video]"></div>'; // [ChangeLanguage] is changed in local.js
     $previous_url = '';
@@ -115,6 +116,7 @@ function modifyRevealVideo($text, $bookmark, $p){
             $previous_url = $url;
             if ($follows){
                 $new = '';
+                $text=videoFollowsChangeVideoTitle($previous_title_phrase, $text, $bookmark);
             }
             else{
                 $new = videoTemplateLink($bookmark);
@@ -127,6 +129,7 @@ function modifyRevealVideo($text, $bookmark, $p){
                 $video_type= 'file';
                 $apk_video_count++;
             }
+            $previous_title_phrase = $title_phrase;
         }
         else {
             $new = videoTemplateLink($bookmark);

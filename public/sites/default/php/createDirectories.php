@@ -5,7 +5,10 @@
 */
 
 function createDirectories($dir){
-    $dir = str_replace('..', '', $dir); // make safe
+    if (strpos($dir, './') !== FALSE){
+       writeLogAppend('ERROR-createDirectories', $dir);
+       return;
+    }
     $out = null;
     $parts = explode('/', $dir);
     $path = null;

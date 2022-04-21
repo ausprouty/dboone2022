@@ -1,5 +1,7 @@
 <?php
+
 myRequireOnce ('writeLog.php');
+myRequireOnce('modifyPrototypeAndFinalLinks.php');
 
 function modifyLinks($text, $p){
     // take these out so we can put in proper links later.  The editors like the URL so they can follow links in the editor.
@@ -12,13 +14,13 @@ function modifyLinks($text, $p){
     if (WEBADDRESS_STAGING){
         $find = '<a href="' . WEBADDRESS_STAGING;  //
         if (strpos($text, $find) !== false){
-             $text  =  _modifyPrototypeAndFinalLinks($text, WEBADDRESS_STAGING);
+             $text  =  modifyPrototypeAndFinalLinks($text, WEBADDRESS_STAGING, $p);
         }
     }
     if (WEBADDRESS_FINAL){
         $find = '<a href="' . WEBADDRESS_FINAL;  //
-        if (strpos($text, $find) !== false){
-            $text  =  _modifyPrototypeAndFinalLinks($text, WEBADDRESS_FINAL);
+        if (strpos($text, $find) !== false ){
+            $text  =  modifyPrototypeAndFinalLinks($text, WEBADDRESS_FINAL, $p);
         }
     }
     // version2 content references are /sites/mc2/content

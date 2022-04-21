@@ -38,7 +38,6 @@ function publishLanguageFooter($p){
     }
     if (!$footer ){
          myRequireOnce ('getLanguageFooter.php', $p['destination']);
-         writeLogAppend('publishLanguageFooter-40',  $p['destination']);
          $footer=getLanguageFooter($p);
     }
      $page_title ='Link: ';
@@ -58,18 +57,19 @@ function publishLanguageFooter($p){
         '{{ url }}',
         '{{ website }}',
         '{{ page_title }}',
-        '{{ note_id }}'
+        '{{ note_id }}',
+        '{{ country_code }}',
+        '{{ language_iso }}'
     );
     $values = array(
         $url,
         $website,
         $page_title,
-        $note_id
+        $note_id,
+        $p['country_code'],
+        $p['language_iso']
     );
     $footer  = str_replace( $placeholders, $values, $footer ) ;
-
     $footer .= languageSpecificJavascripts($p);
-
-
     return $footer;
 }

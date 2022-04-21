@@ -23,21 +23,16 @@ function  modifyImages($text, $p){
 }
 
 function modifyContentImages($text, $p){
-    //writeLog('modifyContentImages-26-p', $p);
-    //writeLog('modifyContentImages-2-text', $text);
     //define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
     $destination_dir = publishDestination($p);
     $debug = 'In modifyContentImages' . "\n";
     $debug .= $p['destination'] . "\n";
     $debug .= $text . "\n\n ============ End of Text ==============\n";
-     //writeLog('modifyContentImages-params', $debug);
     //  "sites/generations
     $find = 'src="/'.  SITE_DIRECTORY . 'content/';
-    //writeLog('modifyContentImages-35-find', $find);
     $remove = SITE_DIRECTORY ;
     $find_end = '"';
     $count = substr_count($text, $find);
-    //writeLog('modifyContentImages-39-count', $count);
     $pos_start = 1;
     // find these images and copy to the target directory
     for ($i= 1; $i <= $count; $i++){
@@ -47,18 +42,14 @@ function modifyContentImages($text, $p){
         $filename = substr($text, $pos_start, $length);
         $from = ROOT_EDIT . $filename;
         $from = str_ireplace('//', '/', $from);
-        $debug .= $from . "\n";
-        //writeLog('modifyContentImages-51-from-'. $i, $from);
         if (file_exists($from)){
             $to = $destination_dir. str_ireplace($remove, '', $filename);
             $to = str_ireplace('//', '/', $to);
-            //writeLog('modifyContentImages-54-to-'. $i, $to);
             createDirectory($to);
             // do not copy html files or you will overwrite current index page
             if (!is_dir($from) && strpos ($to, '.html') === false){
-                copy ($from, $to );
-                $message = ' modifyContentImages copied ' . $filename . ' from' . $from . ' to '. $to . "\n";
-                 //writeLog('modifyContentImages-60- copy-'. $i, $message);
+                $message = 'copied ' . $filename . ' from' . $from . ' to '. $to . "\n";
+                 copy ($from, $to );
             }
         }
         else{
@@ -68,24 +59,18 @@ function modifyContentImages($text, $p){
     }
     $good = 'src="/content/';
     $text = str_ireplace($find, $good, $text);
-    //writeLog('modifyContentImages-64-text',  $text);
     return $text;
 
 }
 // looking for  <img src="/sites/mc2/images and  <img src="/sites/images
 function copySiteImages($text, $p){
-    $debug = '';
-    //writeLog('copySiteImages-26-p', $p);
-    //writeLog('copySiteImages-2-text', $text);
     //define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
     $destination_dir = publishDestination($p);
-     //writeLog('copySiteImages-params', $debug);
     $sites = array(DIR_SITE, DIR_DEFAULT_SITE);
     foreach ($sites as $site){
         $find = '<img src="/'. $site . 'images';
         $find_end = '"';
         $count = substr_count($text, $find);
-        //writeLog('copySiteImages-92-count', $count);
         $pos_start = 1;
         // find these images and copy to the target directory
         for ($i= 1; $i <= $count; $i++){
@@ -105,15 +90,12 @@ function copySiteImages($text, $p){
                 if (!is_dir($from) && strpos ($to, '.html') === false){
                     copy ($from, $to );
                     $message = ' copySiteImages copied ' . $filename . ' from' . $from . ' to '. $to . "\n";
-                    //writeLog('copySiteImages-113- copy-'. $i, $message);
                 }
             }
             else{
                 writeLogAppend('ERROR- copySiteImages', $from);
-
             }
         }
-
     }
     return $text;
 }

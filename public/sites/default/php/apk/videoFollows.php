@@ -45,7 +45,6 @@ function videoFollows($previous_url, $url){
     $previous_number= substr($previous_url_clean, -4);
     $this_number= substr($url_clean, -4);
     $message= " for $previous_url, $url we have $previous_number and $this_number";
-    writeLogAppend('videoMakeBatFileForApkFollows-334', $message);
     if (!is_numeric($previous_number)){
         return NULL;
     }
@@ -66,4 +65,33 @@ function videoFollows($previous_url, $url){
         }
     }
     return NULL;
+}
+// you need to change the previous title phrase to include the entire passage this video shows
+function videoFollowsChangeVideoTitle($previous_title_phrase, $text, $bookmark){
+     writeLogAppend('videoFollowsChangeVideoTitle-72',  $text);
+    $pos_title_phrase= strpos($text, $previous_title_phrase);
+     if ( $pos_title_phrase === FALSE){
+        writeLogAppend('ERROR- videoFollowsChangeVideoTitle-75', $previous_title_phrase);
+       return $text;
+    }
+    $minus_title_phrase = 0 - $pos_title_phrase;
+    $find = 'class="collapsible bible">';
+    $offset = strlen($find);
+    $pos_read_start = strrpos($text, $find, $minus_title_phrase) + $offset;
+    if ($pos_read_start === FALSE){
+        writeLogAppend('ERROR- videoFollowsChangeVideoTitle-82', $previous_title_phrase);
+       return $text;
+    }
+    $pos_read_end = strpos($text, '</button>',  $pos_read_start);
+    $length =  $pos_read_end- $pos_read_start;
+    $reference = substr($text, $pos_read_start, $length);
+    $read_phrase = $bookmark['language']->read;
+    $read_phrase = trim(str_replace ( '%', '', $read_phrase ));
+    $reference =str_replace ($read_phrase, '', $reference);
+    $watch_phrase= $bookmark['language']->watch_offline;
+    $new_title_phrase = str_replace('%', $reference, $watch_phrase );
+    writeLogAppend('videoFollowsChangeVideoTitle-88', $new_title_phrase );
+    $text =str_replace($previous_title_phrase, $new_title_phrase, $text);
+    writeLogAppend('videoFollowsChangeVideoTitle-93', $text);
+    return $text;
 }
