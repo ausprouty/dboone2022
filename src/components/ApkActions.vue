@@ -62,7 +62,7 @@ export default {
     return {
       content_text: 'Content',
       media_text: 'Media',
-      videolist_text: 'Video List',
+      videolist_text: 'Media List',
       cover_text: 'Cover',
       progress: {
         content: '',

@@ -86,7 +86,7 @@
         :language="language"
       />
 
-      <p>After you make the Video List Bat files:</p>
+      <p>After you make the Media List Bat files:</p>
       <ul>
         <li>Check for Errors in the error log</li>
         <li>Correct errors in html and republish</li>

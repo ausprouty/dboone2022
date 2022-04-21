@@ -123,11 +123,8 @@ function modifyRevealVideo($text, $bookmark, $p){
     $find = '<div class="reveal film">';
     $count = substr_count($text, $find);
     for ($i = 0; $i < $count; $i++){
-        // we only have one video link for each page on the sdcard
-        $new = $template_link;
-        if ($i > 0 && ($p['destination'] == 'sdcard' || $p['destination'] == 'nojs' || $p['destination']== 'apk')){
-          $new = '';
-        }
+        // we combine videos that are in sequence on the sdcard and apk
+
         // get old division
         $pos_start = strpos($text,$find);
         $pos_end = strpos($text, '</div>', $pos_start);
@@ -139,6 +136,11 @@ function modifyRevealVideo($text, $bookmark, $p){
         $title_phrase =  $word = str_replace('%', $title, $watch_phrase);
         //find url
         $url = modifyVideoRevealFindText($old, 4);
+
+        if ($i > 0 && ($p['destination'] == 'sdcard' || $p['destination'] == 'nojs' || $p['destination']== 'apk')){
+          $new = '';
+        }
+        else{}
          if ($p['destination'] == 'sdcard' || $p['destination'] =='nojs'|| $p['destination'] == 'apk'){
              $filename = $bookmark['page']->filename;
              $video = '/media/'. $p['country_code'] . '/'. $p['language_iso'] .'/video/'.  $p['folder_name'] .'/'. videoFindForSDCardNewName($filename) ;
@@ -146,6 +148,7 @@ function modifyRevealVideo($text, $bookmark, $p){
              $video_type= 'file';
          }
         else {
+            $new = $template_link;
             // find type of video and trim url
             if (strpos($url, 'api.arclight.org/videoPlayerUrl?') != FALSE){
                 $new .=  $template_options; // JESUS project videos are available in many languages

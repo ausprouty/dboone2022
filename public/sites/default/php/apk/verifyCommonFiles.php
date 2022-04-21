@@ -13,7 +13,7 @@ function verifyCommonFiles($p){
   // make sure all directories are checked in checkCommonFiles
   $build = getBuild($p);
 
-  $p['dir_apk'] = ROOT_APK .'/'.  $build. '/';
+  $p['dir_apk'] = ROOT_APK .  $build. '/';
   // css
   $source = ROOT_EDIT . 'sites/default/images/css/';
   $destination = $p['dir_apk'] . 'folder/sites/default/images/css/';

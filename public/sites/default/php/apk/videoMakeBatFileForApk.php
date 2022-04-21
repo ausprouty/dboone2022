@@ -6,6 +6,7 @@ myRequireOnce ('modifyRevealVideo.php');
 myRequireOnce ('videoFindForApkNewName.php', 'apk');
 myRequireOnce ('audioMakeRefFileForApk.php', 'apk');
 myRequireOnce ('videoReference.php', 'apk');
+myRequireOnce('videoFollows.php', 'apk');
 
 
 function videoMakeBatFileForApk($p){
@@ -34,14 +35,16 @@ function videoMakeBatFileForApk($p){
             }
             elseif ($chapter->prototype){
                 $chapter_videos = videoFindForApk($p, $chapter->filename);
+                writeLogAppend('videoMakeBatFileForApk-37', $chapter_videos);
                 $count= count($chapter_videos);
                 //writeLog('videoMakeBatFileForApk-32-count-'. $chapter->filename , $count);
+                $dir = 'video/'. $p['folder_name'];
                  if ($count == 1){
-                     $dir = 'video/'. $p['folder_name'];
+
                     $output .= videoMakeBatFileForApkSingle($chapter_videos[0], $dir);
                 }
                 if ($count > 1){
-                    $output .= videoMakeBatFileForApkConcat($chapter_videos,  $p, $chapter->filename);
+                    $output .= videoMakeBatFileForApkConsiderConcat($chapter_videos,  $p, $chapter->filename, $dir);
                 }
                 videoMakeBatFileToCheckSource($chapter_videos, $p );
             }
@@ -82,6 +85,53 @@ function videoMakeBatFileForApkSingle($video, $dir){
 
     return $output;
 }
+
+function videoMakeBatFileForApkConsiderConcat($chapter_videos,  $p, $filename, $dir){
+    $output = '';
+    $concat= [];
+    // find out if videos are a sequence
+    foreach($chapter_videos as $key=>$video){
+        if ($video['follows']){
+            $previous = $key -1;
+            $chapter_videos[$previous]['preceeds'] = $video['url'];
+        }
+    }
+    writeLogAppend('videoMakeBatFileForApkConsiderConcat-97',$chapter_videos);
+    foreach($chapter_videos as $key=>$video){
+        if (!$video['follows'] && !isset($video['preceeds'])){
+            $output .= videoMakeBatFileForApkSingle($video, $dir);
+        }
+        if (isset($video['preceeds']) && !$video['follows']){
+            writeLogAppend('videoMakeBatFileForApkConsiderConcat-104', $video);
+           $concat= [];
+           $concat[] = $video;
+           $next_video = $video['preceeds'];
+        }
+        if ($video['follows']){
+             writeLogAppend('videoMakeBatFileForApkConsiderConcat-110', $video);
+              writeLogAppend('videoMakeBatFileForApkConsiderConcat-111', $next_video);
+            if ($video['url'] == $next_video){
+                $concat[] = $video;
+                writeLogAppend('videoMakeBatFileForApkConsiderConcat-114', $concat);
+                if (!isset($video['proceeds'])){
+                    writeLogAppend('videoMakeBatFileForApkConsiderConcat-116', $concat);
+                    $output .= videoMakeBatFileForApkConcat($concat, $p,  $filename);
+                    $concat = [];
+                }
+                else{
+                    $next_video = $video['preceeds'];
+                }
+            }
+        }
+    }
+    if(count($concat)>1){
+        writeLogAppend('videoMakeBatFileForApkConsiderConcat-125', $concat);
+        $output .= videoMakeBatFileForApkConcat($concat, $p,  $filename);
+
+    }
+    return $output;
+}
+
 function videoMakeBatFileForApkConcat($chapter_videos, $p,  $filename){
     // see https://trac.ffmpeg.org/wiki/Concatenate#samecodec
     $output ='';
@@ -199,6 +249,7 @@ function videoFindForApk($p, $filename){
     $count = substr_count($text, $find);
     //writeLog('videoFindForApk-140-count', $count);
     $offset = 0;
+    $previous_url = NULL;
     for ($i = 0; $i < $count; $i++){
         // get old division
         $pos_start = strpos($text,$find, $offset);
@@ -241,6 +292,9 @@ function videoFindForApk($p, $filename){
          // find start and end times
         $video['start_time'] = modifyVideoRevealFindTime ($old, 7);
         $video['end_time'] = modifyVideoRevealFindTime ($old, 9);
+        //does this follow on from previous video? If so record $url
+        $video['follows'] = videoFollows($previous_url, $url);
+        $previous_url= $url;
         //if more than one video in this chapter
         if ($i > 0){
             $video['new_name'] = $new_name . '-' . $i;

@@ -37,7 +37,7 @@ function modifyLinks($text, $p){
     if (strpos($text, $find) !== false){
         myRequireOnce('removeExternalLinks.php', $p['destination']);
         if (removeExternalLinks($p)){
-            $text = removeReadmoreLinks($text, $p);
+            $text = _removeReadmoreLinks($text, $p);
         }
     }
 
