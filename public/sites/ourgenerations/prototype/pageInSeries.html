@@ -1,0 +1,24 @@
+<!--This page differs from standard in that
+  it has an option for showing teacher notes
+  if has a div to showAudioOptions which is used when more than one language of the JF is to be  offered
+ -->
+
+<link rel="stylesheet" href="{{ card.style }}" />
+<link rel="stylesheet" href="{{ book.style }}" />
+  [[nav]]
+  <div class="page_content {{ dir }}">
+  {{ page.title_and_image }}
+
+
+  <p class = "toggle-teacher">
+    <a id = "toggle-teacher" href="javascript:void(0);" onclick="toggleTeacherNotes()">Show Teacher Notes</a>
+  </p>
+  <div id="showVideoOptions"></div>
+  <div onload="displayTeacherNotes()">
+    {{ page.text }}
+  </div>
+  <div class="version">
+    <p class="version">Version {{ version }}</p>
+  </div>
+  {{ footer }}
+</div>

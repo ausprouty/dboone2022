@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "serve-generations": "vue-cli-service serve --mode generations.local",
+    "serve-ourgenerations": "vue-cli-service serve --mode ourgenerations.local",
     "serve-mc2": "vue-cli-service serve --mode mc2.local",
     "serve-myfriends": "vue-cli-service serve --mode myfriends.local",
     "serve-sent67": "vue-cli-service serve --mode sent67.local",
@@ -12,6 +13,7 @@
     "serve-train113": "vue-cli-service serve --mode train113.local",
     "build": "vue-cli-service build",
     "build-generations": "vue-cli-service build --mode generations.remote ",
+    "build-ourgenerations": "vue-cli-service build --mode ourgenerations.remote ",
     "build-community": "vue-cli-service build --mode community.remote ",
     "build-mc2": "vue-cli-service build --mode mc2.remote ",
     "build-sent67": "vue-cli-service build --mode sent67.remote",

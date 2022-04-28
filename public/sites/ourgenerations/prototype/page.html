@@ -1,0 +1,18 @@
+
+<!-- This page differs from standard in having a tickbox for show teacher notes -->
+<link rel="stylesheet" href="{{ card.style }}" />
+<link rel="stylesheet" href="{{ book.style }}" />
+<div class="page_content {{ dir }}">
+  [[nav]]
+
+  <p id = "toggle-teacher" class = "toggle-teacher">
+    <a href="javascript:void(0);" onclick="toggleTeacherNotes()">Show Teacher Notes</a>
+  </p>
+  <div onload="displayTeacherNotes()">
+    {{ page.text }}
+  <div>
+  <div class="version">
+    <p class="version">Version {{ version }}</p>
+  </div>
+  {{ footer }}
+</div>

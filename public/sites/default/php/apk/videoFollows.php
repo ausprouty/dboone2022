@@ -68,30 +68,40 @@ function videoFollows($previous_url, $url){
 }
 // you need to change the previous title phrase to include the entire passage this video shows
 function videoFollowsChangeVideoTitle($previous_title_phrase, $text, $bookmark){
-     writeLogAppend('videoFollowsChangeVideoTitle-72',  $text);
-    $pos_title_phrase= strpos($text, $previous_title_phrase);
+    $pos_title_phrase= mb_strpos($text, $previous_title_phrase);
      if ( $pos_title_phrase === FALSE){
         writeLogAppend('ERROR- videoFollowsChangeVideoTitle-75', $previous_title_phrase);
        return $text;
     }
     $minus_title_phrase = 0 - $pos_title_phrase;
-    $find = 'class="collapsible bible">';
-    $offset = strlen($find);
-    $pos_read_start = strrpos($text, $find, $minus_title_phrase) + $offset;
+    $find = 'collapsible bible">';
+    $pos_read_start = mb_strpos($text, $find);
     if ($pos_read_start === FALSE){
-        writeLogAppend('ERROR- videoFollowsChangeVideoTitle-82', $previous_title_phrase);
-       return $text;
+        writeLogError('videoFollowsChangeVideoTitle-84', $find);
+        return $text;
     }
-    $pos_read_end = strpos($text, '</button>',  $pos_read_start);
+    $pos_read_start = $pos_read_start + strlen($find);
+    $pos_read_end = mb_strpos($text, '</button>',  $pos_read_start);
     $length =  $pos_read_end- $pos_read_start;
-    $reference = substr($text, $pos_read_start, $length);
+    $reference = mb_substr($text, $pos_read_start, $length);
+    // from https://stackoverflow.com/questions/10066647/multibyte-trim-in-php
+    // did not work
+    //$reference = preg_replace('~^\s+|\s+$~us', '', $reference);
     $read_phrase = $bookmark['language']->read;
     $read_phrase = trim(str_replace ( '%', '', $read_phrase ));
     $reference =str_replace ($read_phrase, '', $reference);
     $watch_phrase= $bookmark['language']->watch_offline;
     $new_title_phrase = str_replace('%', $reference, $watch_phrase );
-    writeLogAppend('videoFollowsChangeVideoTitle-88', $new_title_phrase );
+    $debug= array(
+        'previous_title_phrase'=> $previous_title_phrase,
+        'pos_title_phrase' => $pos_title_phrase,
+        'pos_read_start'=> $pos_read_start,
+        'pos_read_end'=>$pos_read_end,
+        'length'=> $length,
+        'reference'=> $reference,
+        'new_title_phrase'=>$new_title_phrase
+    );
+    writeLogAppend('videoFollowsChangeVideoTitle-101', $debug );
     $text =str_replace($previous_title_phrase, $new_title_phrase, $text);
-    writeLogAppend('videoFollowsChangeVideoTitle-93', $text);
     return $text;
 }

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <script>
+          // go to last page visited or initial index
+      if (localStorage.getItem("lastpage")) {
+         var lastpage = localStorage.getItem("lastpage");
+         localStorage.removeItem("lastpage");
+         window.location.replace(lastpage);
+      } else {
+         window.location.replace('content/M2/index.html')
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

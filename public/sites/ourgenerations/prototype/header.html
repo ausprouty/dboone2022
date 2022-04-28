@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="{{ language.google }}">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V514YX5X44"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-V514YX5X44');
+    </script>
+
+
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="/js/teacherNotes.js"></script>
+    <link rel="apple-touch-icon" href="/sites/generations/images/icons/apple-touch-icon-iphone-60x60.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/sites/generations/images/icons/apple-touch-icon-ipad-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/sites/generations/images/icons/apple-touch-icon-iphone-retina-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/sites/generations/images/icons/apple-touch-icon-ipad-retina-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/sites/generations/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/generations/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/sites/generations/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="/sites/generations/images/icons/site.webmanifest">
+    <link rel="mask-icon" href="/sites/generations/images/icons/safari-pinned-tab.svg" color="#4a367d">
+    <link rel="shortcut icon" href="/sites/generations/images/icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/sites/generations/images/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link href="/sites/default/styles/appGLOBAL.css" rel="stylesheet" />
+    <link href="{{ standard.css }}" rel="stylesheet" />
+    <link href="{{ selected.css }}" rel="stylesheet" />
+  </head>
+  <body id="app" class="container" {{ onload-note-js }} >
+    <div id="addToHomeScreen" class="hidden">
+      <div class="close" onclick="closeScreen()">Close<img class="close" src="/sites/generations/images/close.png"></div>
+      <div id = "addToHomeScreenButton">
+        <picture>
+          <source media="(min-width: 601px)" srcset="/sites/generations/images/Add-to-homepage-Landscape.png">
+          <source media="(max-width: 600px)" srcset="/sites/generations/images/Add-to-homepage-Portrait.png">
+          <img class="addToHomeScreenNotice" src="/sites/generations/images/Add-to-homepage-Portrait.png" alt="Add to Homepage">
+         </picture>
+      </div>
+    </div>
+  </body>
+</html>

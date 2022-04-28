@@ -1,0 +1,914 @@
+:root {
+  --color-black: black;
+
+  --color-blue: #0085b2;
+  --color-version: #164c7f;
+  --color-main-background: #ececec;
+  --color-main-title: #4a367d;
+  --color-main-expand: #4a377e;
+  --color-secondary-expand: #4a377e;
+  --color-expanded-title: #b5b5b5;
+  --color-line-break: #cecece;
+  --color-bible-link: red;
+  --color-trainer-notes: #fbe0c6;
+}
+
+
+div.app-series-header,
+div.Xapp-link {
+  max-width: 620px;
+}
+#offline-ready {
+  color: var(--color-main-title);
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  margin: 0;
+  width: 95%;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+div.page_content {
+  background-color: var(--color-main-background);
+}
+#app {
+  background-color: white;
+}
+
+/*
+  Content Reauired for CKEditor
+
+  */
+p.indent {
+  margin-left: 20px;
+}
+.indent2 {
+  margin-left: 40px;
+}
+.indent3 {
+  margin-left: 60px;
+}
+div.note-area {
+  width: 100%;
+  display: block;
+  background-color: #efefef;
+}
+textarea {
+  background-color: #efefef;
+  width: 100%;
+}
+.year {
+  text-align: center;
+  color: blue;
+  font-weight: bold;
+}
+div.trainer {
+  color: black;
+  border-radius: 15px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  padding: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  background: var(--color-trainer-notes) url('../images/css/trainer.png');
+  background-position: 8px 2px;
+  background-repeat: no-repeat;
+}
+div.trainer-hide {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+.reveal {
+  background: lightblue url('../images/css/reveal_small.png');
+  background-position: 8px 2px;
+  background-repeat: no-repeat;
+}
+.reveal-big,
+.reveal_big {
+  background: lightblue url('../images/css/reveal_big.png');
+  background-position: 8px 2px;
+  background-repeat: no-repeat;
+}
+.reveal.bible {
+  color: black;
+  background: pink url('../images/css/bible.png');
+  background-position: 8px 2px;
+  background-repeat: no-repeat;
+}
+.bible-link {
+  color: var(--color-bible-link);
+}
+.reveal.video {
+  background: lightgreen url('../images/css/video.png');
+  background-position: 8px 2px;
+  background-repeat: no-repeat;
+}
+
+hr.reveal {
+  border-top: 1px dashed red;
+}
+
+div.invisible {
+  padding: 0 5px;
+  display: none;
+  overflow: hidden;
+}
+li.nobreak {
+  color: purple;
+  list-style-type: none;
+  margin-left: -40px;
+  margin-top: 12px;
+}
+.popup {
+  color: var(--color-secondary-expand);
+  font-style: italic;
+}
+.action,
+.external-movie,
+.collapsible {
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  padding: 18px;
+  padding-left: 60px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  background: var(--color-main-title) url('../images/css/reveal.png');
+  background-position: 8px 8px;
+  background-repeat: no-repeat;
+}
+
+.action {
+  background: var(--color-main-title) url('../images/css/action.png');
+  background-position: 8px 8px;
+  background-repeat: no-repeat;
+}
+.collapsible.bible {
+  background: var(--color-main-title) url('../images/css/bible.png');
+  background-position: 8px 8px;
+  background-repeat: no-repeat;
+}
+table.video {
+  width: 100%;
+  border: 1px;
+  color: black;
+}
+td.video {
+  border: solid black;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+  padding: 5px;
+}
+.revealed {
+  color: var(--color-main-expand);
+  margin-top: 20px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  padding: 18px;
+  padding-left: 60px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  background: #777 url('../images/css/white_minus.png');
+  background-position: 8px 8px;
+  background-repeat: no-repeat;
+}
+.revealed.bible {
+  background: #777 url('../images/css/white_minus.png');
+  background-position: 8px 8px;
+  background-repeat: no-repeat;
+}
+.revealed.video {
+  background: #777 url('../images/css/white_minus.png');
+  background-position: 8px 8px;
+  background-repeat: no-repeat;
+}
+
+.active,
+.collapsible:hover {
+  background-color: var(--color-main-background);
+}
+.collapsed-big,
+.collapsed-small,
+.collapsed {
+  padding: 28px;
+  font-weight: bold;
+  display: none;
+  overflow: hidden;
+}
+.hidden {
+  visibility: hidden;
+}
+
+.badge {
+  display: inline-flex;
+  height: 26px;
+  width: auto;
+  padding: 0 7px;
+  margin: 0 5px;
+  background: transparent;
+  border-radius: 13px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 26px;
+}
+.badge.-fill-gradient {
+  background: linear-gradient(to right, #16c0b0, #84cf6a);
+  color: #fff;
+}
+.cache-series {
+  background-color: var(--color-main-title);
+}
+
+.preview {
+  background-color: white;
+  max-width: 620px;
+  width: 100%;
+}
+.hidden {
+  visibility: hidden;
+}
+.indent2 {
+  margin-left: 40px;
+}
+.indent3 {
+  margin-left: 60px;
+}
+div.note-area {
+  background-color: white;
+}
+textarea {
+  background-color: #efefef;
+}
+
+h1,
+h3,
+h4,
+h5,
+h6 {
+  display: flex;
+  margin-left: 10px;
+  margin-right: 10px;
+  align-items: center;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+h1 {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--color-main-title);
+  display: inline;
+}
+h2 {
+  font-size: 18px;
+  font-weight: 700;
+}
+h3 {
+  font-size: 16px;
+  font-weight: 700;
+}
+h4 {
+  font-size: 14px;
+  font-weight: 700;
+}
+h5 {
+  font-size: 16px;
+  font-weight: 700;
+}
+h6 {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+b,
+strong {
+  font-weight: bolder;
+}
+small {
+  font-size: 80%;
+}
+.error {
+  border: 1px solid var(--color-main-title);
+}
+.errorMessage {
+  color: var(--color-main-title);
+}
+.eyebrow {
+  font-size: 20px;
+}
+.-text-primary {
+  color: #39b982;
+}
+.-text-base {
+  color: #000;
+}
+.-text-error {
+  color: tomato;
+}
+.-text-gray {
+  color: rgba(0, 0, 0, 0.5);
+}
+.rtl.heb-verse {
+  direction: ltr;
+  unicode-bidi: embed;
+}
+.italics {
+  font-style: italic;
+}
+a.black {
+  color: black;
+  text-decoration: underline;
+}
+button,
+label,
+input,
+optgroup,
+select,
+textarea {
+  display: inline-flex;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+button,
+input {
+  overflow: visible;
+}
+button,
+select {
+  text-transform: none;
+}
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  -webkit-appearance: none;
+}
+button::-moz-focus-inner,
+[type='button']::-moz-focus-inner,
+[type='reset']::-moz-focus-inner,
+[type='submit']::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+button:-moz-focusring,
+[type='button']:-moz-focusring,
+[type='reset']:-moz-focusring,
+[type='submit']:-moz-focusring {
+  outline: 2px solid #39b982;
+}
+button {
+  margin-bottom: 20px;
+  background-color: var(--color-secondary-expand);
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  text-align: center;
+  padding: 0 40px;
+}
+.button.red {
+  background-color: var(--color-main-title);
+  height: 48px;
+}
+.button.grey {
+  background-color: grey;
+  height: 48px;
+}
+div.bible,
+div.bible {
+  background-color: var(--color-main-background);
+  padding-left: 10px;
+  line-height: 25px;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-bottom: 20px;
+  padding-right: 10px;
+  padding-top: 20px;
+  text-align: left;
+  color: #333130;
+}
+
+img {
+  border-style: none;
+  width: 100%;
+}
+img.sortable {
+  height: 30px;
+  width: 30px;
+}
+img.image100 {
+  width: 50%;
+  max-width: 200px;
+}
+img.nav-icon {
+  width: 100%;
+  max-width: 650px;
+}
+img.app-img-header {
+  width: 100%;
+}
+img.book,
+img.book-large {
+  padding: 10px;
+  width: 95%;
+  margin: auto;
+}
+label {
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+}
+
+input,
+textarea {
+  box-sizing: border-box;
+  border: solid 1px rgba(0, 0, 0, 0.4);
+}
+textarea {
+  width: 100%;
+  overflow: auto;
+  font-size: 20px;
+}
+[type='checkbox'],
+[type='radio'] {
+  box-sizing: border-box;
+  padding: 0;
+}
+[type='number']::-webkit-inner-spin-button,
+[type='number']::-webkit-outer-spin-button {
+  height: auto;
+}
+[type='search'] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+[type='search']::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+[type='text'],
+[type='number'],
+[type='search'],
+[type='password'] {
+  height: 52px;
+  width: 100%;
+  padding: 0 10px;
+  font-size: 20px;
+}
+[type='text']:focus,
+[type='number']:focus,
+[type='search']:focus,
+[type='password']:focus {
+  border-color: #39b982;
+}
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+[hidden] {
+  display: none;
+}
+select {
+  width: 100%;
+  height: 52px;
+  padding: 0 24px 0 10px;
+  vertical-align: middle;
+  background: #fff
+    url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E")
+    no-repeat right 12px center;
+  background-size: 8px 10px;
+  border: solid 1px rgba(0, 0, 0, 0.4);
+  border-radius: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+select:focus {
+  border-color: #39b982;
+  outline: 0;
+}
+select:focus::ms-value {
+  color: #000;
+  background: #fff;
+}
+select::ms-expand {
+  opacity: 0;
+}
+li {
+  text-align: left;
+}
+ol.rtl {
+  list-style-type: arabic-indic;
+}
+label,
+.bold {
+  font-weight: bold;
+}
+p.version {
+  text-align: center;
+  color: var(--color-version);
+  font-size: 10pt;
+}
+p.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.notpublished {
+  background-color: yellow;
+}
+p.bible {
+  padding-bottom: 10px;
+  padding-top: 0px;
+}
+.gospel_text {
+  padding-bottom: 10px;
+  padding-left: 40px;
+  padding-right: 10px;
+  padding-top: 30px;
+}
+.gospel-prayer {
+  background-image: url('../images/css/quote_open.gif');
+  background-position: 10px top;
+  background-repeat: no-repeat;
+  color: #085276;
+  font-style: italic;
+  font-weight: bold;
+  padding-left: 35px;
+}
+.lesson-subheader {
+  text-align: left;
+  font-weight: 600;
+}
+.triangle {
+  text-align: left;
+}
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+a {
+  background: transparent;
+  color: var(--color-main-title);
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+a.bible-readmore {
+  background-color: var(--color-main-title);
+  border-color: var(--color-main-title);
+  border: 1px;
+  color: #fff;
+  height: auto;
+  margin-bottom: 0;
+  padding: 6px 10px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+sup,
+.versenum {
+  color: var(--color-blue);
+  font-size: 75%;
+  line-height: 0;
+  padding-right: 2px;
+  padding-left: 3px;
+  position: relative;
+  vertical-align: baseline;
+}
+sup,
+.versenum {
+  top: -0.5em;
+}
+div.summary-big,
+div.summary-small,
+div.summary,
+div.lesson {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  position: relative;
+  text-align: left;
+}
+div.myfriends-lesson-rtl,
+div.lesson.rtl {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  position: relative;
+  text-align: right;
+}
+
+div.lesson-subtitle,
+div.lesson-section {
+  bottom: 0;
+  color: var(--color-black);
+  font-size: 30px;
+  line-height: 30px;
+  margin-left: 45px;
+  position: absolute;
+}
+div.summary-title,
+div.summary-title-big,
+div.summary-title-small {
+  color: var(--color-main-expand);
+  font-size: 24px;
+  line-height: 30px;
+  margin-left: 60px;
+  margin-top: -40px;
+}
+div.myfriends-lesson-subtitle-rtl,
+div.lesson-subtitle.rtl {
+  bottom: 0;
+  color: var(--color-black);
+  font-size: 30px;
+  line-height: 30px;
+  margin-right: 65px;
+  position: absolute;
+}
+
+img.lesson-icon {
+  margin-right: 20px;
+  vertical-align: middle;
+  width: 30px;
+}
+img.generations-plus-big {
+  margin-right: 20px;
+  vertical-align: middle;
+  width: 60px;
+}
+img.generations-plus-small {
+  margin-right: 20px;
+  margin-left: 20px;
+  width: 30px;
+  margin-bottom: 10px;
+}
+img.myfriend-lesson-rtl-icon,
+img.lesson-icon.rtl {
+  height: 30px;
+  margin-right: 20px;
+  vertical-align: middle;
+  width: 30px;
+}
+.myfriends-poetry-top-rtl,
+.myfriends-bible-rtl {
+  text-align: right;
+}
+img.myfriend-lesson-rtl-icon,
+img.lesson-rtl-icon {
+  height: 30px;
+  margin-left: 20px;
+  vertical-align: middle;
+  width: 30px;
+}
+li.ltr {
+  color: var(--color-main-title);
+}
+p {
+  text-align: left;
+}
+p.reference {
+  padding-top: 20px;
+  color: var(--color-main-title);
+  font-size: 20px;
+  padding-bottom: 20px;
+}
+
+div.footer {
+  text-align: center;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  padding-bottom: 75px;
+  margin-top: 96px;
+}
+a.footer {
+  color: #999999;
+  text-decoration: none;
+}
+p.footer {
+  color: #777777;
+  letter-spacing: 0.5em;
+  text-align: center;
+}
+div.float left {
+  float: left;
+}
+.summary.summary-sunken,
+.summary-big.summary-sunken,
+.summary-small.summary-sunken,
+.summary-big.summary-sunken-big,
+.summary-small.summary-sunken-small,
+.collapsed,
+textarea {
+  border-radius: 15px;
+  background: #ececec;
+  box-shadow: inset 8px 8px 16px #cbcbcb, inset -8px -8px 16px #ffffff;
+  border: none;
+}
+
+.summary-big.summary-sunken textarea,
+.summary-small.summary-sunken textarea {
+  background: #ffffff;
+  padding: 20px;
+  padding-top: 30px;
+}
+.summary-heading-sunken-big,
+.summary-heading-sunken-small {
+  color: var(--color-expanded-title);
+}
+div.invisible {
+  background-color: transparent;
+}
+.sunken-text-big,
+.sunken-text-small,
+.sunken-text,
+.sunken-text picture,
+.sunken-text a,
+.sunken-text.popup,
+.sunken-text.versenum {
+  margin-right: 20px;
+  margin-left: 20px;
+  padding-bottom: 20px;
+  font-weight: 700;
+  color: var(--color-secondary-expand);
+}
+.summary,
+.collapsed {
+  color: var(--color-main-expand);
+}
+img.summary-big,
+img.generations-plus-big {
+  height: 60px;
+  width: 60px;
+}
+img.summary-small,
+img.generations-plus-small {
+  height: 30px;
+  width: 30px;
+}
+.Xapp-card,
+.app-card,
+.cache-series {
+  border-radius: 25px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  background: #e1cdf0;
+  background: linear-gradient(145deg, #e1cdf0, #f5dbd1);
+  box-shadow: 10px 10px 20px #bababa, -10px -10px 20px #ffffff;
+}
+
+.cache-series {
+  border-radius: 25px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  background: var(--color-main-title);
+  box-shadow: 10px 10px 20px #bababa, -10px -10px 20px #ffffff;
+}
+button.cache-series {
+  border-radius: 8px;
+}
+button.action {
+  width: 90%;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  box-shadow: 10px 10px 20px #bababa, -10px -10px 20px #ffffff;
+}
+.No-app-series-header {
+  border-radius: 25px;
+  background: #ececec;
+  box-shadow: 10px 10px 20px #bababa, -10px -10px 20px #ffffff;
+}
+.nav.full {
+  border-radius: 0px;
+  background: var(--color-main-background);
+}
+.app-series-header {
+  margin-top: 30px;
+}
+
+.Xapp-card:hover,
+.app-card:hover,
+.cache-series:hover {
+  margin-bottom: 25px;
+  border-radius: 25px;
+  background: linear-gradient(145deg, #d4d4d4, #fdfdfd);
+  background: linear-gradient(145deg, #d0aaed, #efbfb5);
+
+  box-shadow: 10px 10px 20px #979797, -10px -10px 20px #ffffff;
+}
+.Xapp-card:hover {
+  background: linear-gradient(145deg, #d4d4d4, #fdfdfd);
+  background: linear-gradient(145deg, #d0aaed, #efbfb5);
+}
+img.Xsocial {
+  border-radius: 11px;
+  background: #fff;
+  box-shadow: 11px 11px 22px #bababa, -11px -11px 22px #ffffff;
+  box-shadow: 11px 11px 22px #999999, -11px -11px 22px #ffffff;
+}
+.cache-series:hover {
+  background: var(--color-secondary-expand);
+}
+.NO-app-series-header:hover {
+  border-radius: 25px;
+  background: linear-gradient(145deg, #d4d4d4, #fdfdfd);
+  box-shadow: 20px 20px 28px #979797, -20px -20px 28px #ffffff;
+}
+.chapter {
+  margin-left: 15px;
+  margin-bottom: 15px;
+}
+div.app-link {
+  width: 90%;
+  margin: auto;
+}
+p.toggle-teacher {
+  text-align: right;
+}
+p.note-instruction {
+  text-align: center;
+  color: var(--color-version);
+}
+table,
+th,
+td {
+  border-color: var(--color-secondary-expand);
+  border-collapse: collapse;
+  border: 2px solid;
+  padding: 10px;
+}
+table.social,
+th.social,
+td.social {
+  border: none;
+}
+table.generations-table {
+  width: 100%;
+  padding: 3px;
+}
+
+tr.generations-table-header-row {
+  background: var(--color-main-title);
+}
+td.generations-table-header-cell {
+  color: white;
+  text-align: center;
+}
+
+.close,
+#addToHomeScreen {
+  background: var(--color-trainer-notes);
+}
+
+@media only screen and (max-width: 500px) {
+  p.footer {
+    letter-spacing: 0.1em;
+  }
+  li.nobreak {
+    margin-left: -10px;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  div.lesson-subtitle,
+  div.lesson-section {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  div.summary-title-big,
+  div.summary-title-small {
+    font-size: 18px;
+  }
+  p,
+  p.myfriends-gospel-text {
+    font-size: 12pt;
+  }
+  div.book,
+  div.chapter-title,
+  div.chapter,
+  div.card-names,
+  div.card-language {
+    font-size: 14px;
+  }
+  div.chapter-description {
+    font-size: 10pt;
+  }
+}
