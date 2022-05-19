@@ -190,18 +190,15 @@ export default {
         params.start_page = this.start_page
         params.username = this.username
         params.password = this.password
-
-        LogService.consoleLogMessage('params from SaveForm')
-        LogService.consoleLogMessage(params)
         var res = null
         res = await AuthorService.registerUser(params)
-        LogService.consoleLogMessage('res from Author Service')
-        LogService.consoleLogMessage(res)
         if (res.data.error) {
           this.registered = false
           this.error_message = res.data.message
         } else {
-          location.reload(true)
+          this.$router.push({
+            name: 'previewCountries',
+          })
         }
       } catch (error) {
         LogService.consoleLogError('Register There was an error ', error) //

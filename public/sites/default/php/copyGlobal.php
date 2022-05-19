@@ -6,6 +6,7 @@
 */
 function copyGlobal($source, $destination){
 	$out = array();
+
 	if (file_exists($source)){
 		$handler = opendir ($source);
 		while ($mfile = readdir ($handler)){
@@ -18,12 +19,9 @@ function copyGlobal($source, $destination){
 						if (!is_dir($destination_file)){
 							if (strpos($setup_file, '.') !== FALSE){
 								copy ($setup_file, $destination_file);
-								$debug .=  ' copied ' .  $setup_file . ' to ' . $destination_file . "\n\n";
+
 							}
 						}
-					}
-					else{
-						$debug = 'Destination exists: '. $destination_file . "\n\n";
 					}
 				}
 			}

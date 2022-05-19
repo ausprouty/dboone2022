@@ -28,16 +28,14 @@ function editTemplate($p){
     writeLogError('editTemplate-11', $message );
     return false;
   }
-   // $template_dir = ROOT_EDIT_CONTENT . $p['country_code'] .'/'. $p['language_iso'] .'/templates/';
-    $template_dir= dirCreate('language', 'edit',  $p,  'templates/') ;
+  // $template_dir = ROOT_EDIT_CONTENT . $p['country_code'] .'/'. $p['language_iso'] .'/templates/';
+  $template_dir= dirCreate('language', 'edit',  $p,  'templates/') ;
 
-    // make sure this is an html file
-    if (strpos($p['template'], '.html') === FALSE){
-        $p['template'] .= '.html';
-    }
-    $filename = $template_dir . $p['template'];
-    fileWrite($filename, $p['text'], $p);
-
-
-	return $out;
+  // make sure this is an html file
+  if (strpos($p['template'], '.html') === FALSE){
+      $p['template'] .= '.html';
+  }
+  $filename = $template_dir . $p['template'];
+  fileWrite($filename, $p['text'], $p);
+	return 'success';
 }

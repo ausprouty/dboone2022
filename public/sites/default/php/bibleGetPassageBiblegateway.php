@@ -24,6 +24,7 @@ myRequireOnce('writeLog.php');
 
 function bibleGetPassageBiblegateway($p){
 	$output = array();
+	$output['debug']= '';
 	// returns array (and I have no idea why both verse and reference; why k.
 	//1 =>
 	//array (

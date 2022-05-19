@@ -38,9 +38,6 @@ function bookmark ($p){
         $b['filename'] = isset($p['filename'])?$p['filename']:null;
         if ($b['folder_name'] =='undefined') {$b['folder_name']  = null;}
     }
-   // writeLogError('bookmark-40-p' . $rand, $p);
-   // writeLogError('bookmark-40-b' . $rand, $b);
-   //writeLog('bookmark-48-b', $b);
     if ($b['country_code']){
         $b['bookmark']['country'] = checkBookmarkCountry($b);
         if ($b['language_iso']){
@@ -57,12 +54,8 @@ function bookmark ($p){
             }
         }
     }
-   // writeLogError('bookmark-59-bookmark' . $rand, $b['bookmark']);
     $out = $b['bookmark'];
-
-
     $out=version2Text($out);
-    //writeLogDebug('bookmark-64-out-' . $rand, $out);
     return $out;
 }
 function checkBookmarkCountry($b){
@@ -74,8 +67,8 @@ function checkBookmarkCountry($b){
     //writeLog('checkBookmarkCountry-84-content', $content);
     $response = json_decode($content['text']);
     if (!$response){
-        writeLogError('checkBookmarkCountry', $debug);
-        trigger_error("No response in checkBookmarkCountry", E_USER_ERROR);
+        writeLogError('checkBookmarkCountry', $b);
+        return NULL;
     }
     foreach ($response as $country){
         if ($country->code == $b['country_code']){
@@ -92,8 +85,8 @@ function checkBookmarkLanguage($b){
     $content = getLatestContent($b);
     $response = json_decode($content['text'] );
     if (!$response){
-        writeLogError('checkBookmarkLanguage', $debug);
-        trigger_error("No response in checkBookmarkLanguage", E_USER_ERROR);
+        writeLogError('checkBookmarkLanguage', $b);
+        return NULL;
     }
     if (isset($response->languages)){
         foreach ($response->languages as $language){
@@ -116,8 +109,8 @@ function checkBookmarkLibraries($b){
     $content = getLatestContent($b);
     $names = json_decode($content['text']);
     if (!$names){
-        writeLogError('checkBookmarkLibraries', $debug);
-        trigger_error("No names in checkBookmarkLibraries", E_USER_ERROR);
+        writeLogError('checkBookmarkLibraries', $b);
+        return NULL;
     }
     foreach ($names as $name){
         if ($name !== 'index' && $name !== 'languages'){
@@ -147,10 +140,7 @@ function checkBookmarkLibrary($b){
     $library = json_decode($content['text']);
     if (!$library){
         writeLogError('checkBookmarkLibrary-parameters', $b);
-        //writeLog('ERROR - checkBookmarkLibrary-debug', $debug);
-         //writeLog('ERROR - checkBookmarkLibrary-res',  $res['content']);
-         $message = "No library in checkBookmarkLibrary for ". $b['library_code'];
-        trigger_error( $message , E_USER_ERROR);
+        return NULL;
     }
     // legacy data does not have ['books'] so move data there
     if (isset($library->books)){
@@ -194,15 +184,12 @@ function checkBookmarkSeries($b){
     if ($b['folder_name'] == 'pages'){
        return NULL;
     }
-    $out = null;
+    $out = NULL;
     $b['scope'] = 'series';
     $content = getLatestContent($b);
-    $response = json_decode($content['text']);
-    if (!$response){
-        writeLogError('checkBookmarkSeries-201-b', $b);
-        trigger_error("Unable to decode content text in checkBookMarkSeries", E_USER_ERROR);
+    if (isset($content['text'])){
+        $out = json_decode($content['text']);
     }
-    $out = $response;
     return $out;
 }
 

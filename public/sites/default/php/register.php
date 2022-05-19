@@ -6,10 +6,11 @@ function registerUser($p){
     $out = array();
     $debug = 'Register User' ."\n";
     if (isset($p['authorizer'])){
-        $sql = "SELECT countries FROM members WHERE uid = '" . $p['authorizer'] . "' LIMIT 1";
-        $debug .= $sql. "\n";
+        $sql = "SELECT scope_countries FROM members WHERE uid = '" . $p['authorizer'] . "' LIMIT 1";
+        writeLogDebug('register-10', $sql);
         $check = sqlArray($sql);
-        if ($check['countries'] == '*' ){
+        writeLogDebug('register-12', $check);
+        if ($check['scope_countries'] == '*' ){
             $sql = "SELECT uid FROM members WHERE username = '". $p['username'] . "' LIMIT 1";
             $debug .= $sql. "\n";
             $content =sqlArray($sql);

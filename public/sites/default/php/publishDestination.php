@@ -11,6 +11,9 @@ myRequireOnce('getBuild.php', 'apk');
 function publishDestination ($p){
 
   if (is_array($p)){
+    if (!isset($p['destination'])){
+      return NULL; // and templates do return null
+    }
     $destination = $p['destination'];
   }
   else{

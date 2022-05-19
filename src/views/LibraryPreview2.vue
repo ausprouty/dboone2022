@@ -200,7 +200,7 @@ export default {
         }
         if (this.$route.params.library_code != 'library') {
           this.back =
-            '/preview/library' +
+            '/preview/library/' +
             this.$route.params.country_code +
             '/' +
             this.$route.params.language_iso
