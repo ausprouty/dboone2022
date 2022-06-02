@@ -9,7 +9,7 @@ myRequireOnce ('writeLog.php');
 
 
 function publishSeriesAndChapters ($p){
-
+    writeLogDebug('publishSeriesAndChapters-12', $p);
     // first prototype the Series Index
     $out = publishSeries ($p);
 
@@ -27,7 +27,16 @@ function publishSeriesAndChapters ($p){
     $text = json_decode($series['text']);
     $chapters = $text->chapters;
     foreach ($chapters as $chapter){
-        if ($chapter->publish){
+        $sql = NULL;
+        if ($p['destination'] == 'staging' && $chapter->prototype){
+             $sql = "SELECT recnum FROM  content
+                WHERE  country_code = '" . $series['country_code'] ."'
+                AND language_iso = '" . $series['language_iso'] ."'
+                AND folder_name = '" . $series['folder_name'] ."'
+                AND filename = '" . $chapter->filename ."'
+                ORDER BY recnum DESC LIMIT 1";
+        }
+        elseif ($chapter->publish){
             $sql = "SELECT recnum FROM  content
                 WHERE  country_code = '" . $series['country_code'] ."'
                 AND language_iso = '" . $series['language_iso'] ."'
@@ -35,6 +44,8 @@ function publishSeriesAndChapters ($p){
                 AND filename = '" . $chapter->filename ."'
                 AND prototype_date IS NOT NULL
                 ORDER BY recnum DESC LIMIT 1";
+        }
+        if ($sql){
             $data = sqlArray($sql);
             if ($data){
                 $p['recnum'] = $data['recnum'];

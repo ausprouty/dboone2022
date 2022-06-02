@@ -13,15 +13,19 @@ function fileWrite($filename, $text, $p){
     for ($i = 1; $i < $count; $i++){
        $filename = str_ireplace ($publishDestination, '', $filename);
     }
-    if ($p['destination'] == 'nojs' || $p['destination'] == 'pdf'){
+    $destination = NULL;
+    if (isset($p['destination'])){
+        $destination = $p['destination'];
+    }
+    if ( $destination== 'nojs' ||  $destination == 'pdf'){
         $bad =  $publishDestination . 'content/';
        $filename= str_ireplace($bad , $publishDestination, $filename);
     }
     else{
-         $message ="filename was $filename and destination is "  . $p['destination'];
+         $message ="filename was $filename and destination is "  .  $destination;
     }
     $filename = dirMake($filename);
-    if ($p['destination'] == 'pdf'){
+    if ( $destination == 'pdf'){
         $output = fileWritePDF($filename, $text);
         return $output;
     }
@@ -35,5 +39,4 @@ function fileWrite($filename, $text, $p){
          writeLogAppend('fileWrite-34', $message);
          writeLogAppend('fileWrite-34', "$text\n\n");
     }
-
 }

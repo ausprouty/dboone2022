@@ -79,7 +79,6 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     $output = str_replace($placeholders, $replace,  $output);
     // insert text
     $output .= $text;
-    writeLogDebug('publishFiles-81', $output);
     // remove dupliate CSS
     $output = publishCSS($output, $p);
 
@@ -95,7 +94,6 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
 
     $output = makePathsRelative($output, $fname);
     writeLogAppend('publishFiles-96', $fname);
-    writeLogDebug('publishFiles-97' , $fname);
     fileWrite($fname, $output, $p);
     return $output;
 }

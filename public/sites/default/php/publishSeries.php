@@ -17,12 +17,21 @@ function publishSeries ($p){
     //
     //find series data
     //
-    $sql = "SELECT * FROM content
-        WHERE  country_code = '". $p['country_code'] ."'
-        AND  language_iso = '". $p['language_iso'] ."'
-        AND folder_name = '" .$p['folder_name'] ."'  AND filename = 'index'
-        AND prototype_date IS NOT NULL
-        ORDER BY recnum DESC LIMIT 1";
+    if ($p['destination'] == 'staging'){
+        $sql = "SELECT * FROM content
+            WHERE  country_code = '". $p['country_code'] ."'
+            AND  language_iso = '". $p['language_iso'] ."'
+            AND folder_name = '" .$p['folder_name'] ."'  AND filename = 'index'
+            ORDER BY recnum DESC LIMIT 1";
+    }
+    else{
+         $sql = "SELECT * FROM content
+            WHERE  country_code = '". $p['country_code'] ."'
+            AND  language_iso = '". $p['language_iso'] ."'
+            AND folder_name = '" .$p['folder_name'] ."'  AND filename = 'index'
+            AND prototype_date IS NOT NULL
+            ORDER BY recnum DESC LIMIT 1";
+    }
    // $debug .= $sql. "\n";
     $data = sqlArray($sql);
     if (!$data){
@@ -33,11 +42,11 @@ function publishSeries ($p){
     //$debug .= $data['text'] . "\n";
     $text = json_decode($data['text']);
     writeLogDebug('publishSeries-30-text', $text);
-     writeLogDebug('publishSeries-31-p', $p);
+    writeLogDebug('publishSeries-31-p', $p);
     if ($text){
         // create Series
         $result = createSeries($p, $data);
-        $p = $result['p'];
+        $p = $result['p']; // this gives us $p['files_json']
         if ($result['text']){
             // find css
             if (isset($p['recnum'])){

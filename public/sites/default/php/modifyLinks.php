@@ -114,12 +114,9 @@ function _modifyPrototypeAndFinalLinks($text, $replace){
     return $text;
 }
 /*  <a href="/sites/mc2/content/M2/eng/tc/tc01.html">
-       for site to
-    <a  href="#" onclick="goToPageAndSetReturn('/content/M2/eng/tc/tc01.html');">
-        for sdcard to
-    <a  href="#" onclick="goToPageAndSetReturn('/folder/content/M2/eng/tc/tc01.html');">
-     for nojs to
-      <a  href="/folder/nojs/M2/eng/tc/tc01.html"
+       to
+    <a  href="#" onclick="goToPageAndSetReturn('../tc/tc01.html');">
+    This must be a relative path
 
     $find = '<a href="/content'
 */
@@ -133,17 +130,10 @@ function _modifyInternalLinks($text, $find, $p){
         $pos_end = strpos($text, '">', $pos_start + $length_find);
         $content_length = $pos_end - $pos_start -  $length_find;
         $link = substr($text, $pos_start + $length_find , $content_length);
+       $relative_link =_modifyLinksMakeRelative($link);
         $link_length=$pos_end-$pos_start + 2; // plus two for the length of the end
         $old = '<a href="/content'. $link .'">';
-        $new = '<a id = "{id}" href="#" onclick="goToPageAndSetReturn(\'/content'. $link. '\', \'#{id}\');">';
-        if ($p['destination'] == 'sdcard'){
-           $link = _makeRelativeLinkSDCard($link, 'content');
-           $new = '<a id = "{id}" href="#" onclick="goToPageAndSetReturn(\''. $link. '\', \'#{id}\');">';
-        }
-        elseif ($p['destination'] == 'nojs'){
-            $link = _makeRelativeLinkSDCard($link, 'nojs');
-            $new = '<a  href="'. $link .'">';
-        }
+        $new = '<a id = "{id}" href="#" onclick="goToPageAndSetReturn(\''. $relative_link. '\', \'#{id}\');">';
         $new = str_replace('{id}', 'Return' . $i , $new );
         $text = substr_replace($text, $new, $pos_start, $link_length);
         $pos_start = $pos_end;
@@ -206,9 +196,15 @@ function _removeReadmoreLinks($text){
     //writeLogError('_removeReadmoreLinks-185', $text);
     return $text;
 }
-
-function   _makeRelativeLinkSDCard($link, $folder){
-    $new ='../../..' . $link;
+/*  '/sites/mc2/content/M2/eng/tc/tc01.html'
+       to
+    '../tc/tc01.html'
+*/
+function   _modifyLinksMakeRelative($link){
+    $parts = explode('/', $link);
+    $filename = pop($parts);
+    $directory = pop($parts);
+    $new = '../' . $directory . '/'. $filename;
     return $new;
 
 }

@@ -14,6 +14,6 @@ function languageSpecificJavascripts($p){
             }
         }
     }
-    //writeLog('languageSpecific', $out);
+
     return $out;
 }
