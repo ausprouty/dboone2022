@@ -32,7 +32,8 @@
           >
           </v-select>
         </div>
-        <h4>Existing Builds</h4>
+        <h4>Existing Builds  </h4>
+        <p>for location check ROOT_APK in .env.api.remote.php</p>
 
         <div v-for="build in builds" :key="build">
           {{ build }}

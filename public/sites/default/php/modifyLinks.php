@@ -24,10 +24,10 @@ function modifyLinks($text, $p){
         }
     }
     // version2 content references are /sites/mc2/content
-     $find = '<a href="/sites/'. SITE_CODE ;  //
-        if (strpos($text, $find) !== false){
-            $text  =  str_replace( $find, '<a href="', $text);
-        }
+    $find = '<a href="/sites/'. SITE_CODE ;  //
+    if (strpos($text, $find) !== false){
+        $text  =  str_replace( $find, '<a href="', $text);
+    }
     // the above should convert all links that are to edit or prototype
     // be changed to '<a href="/content"
     $find = '<a href="/content';
@@ -35,25 +35,24 @@ function modifyLinks($text, $p){
         $text = str_ireplace('" >', '">', $text);
         $text  = _modifyInternalLinks($text, $find, $p);
     }
-     $find = '<a class="readmore"';
+    $find = '<a class="readmore"';
     if (strpos($text, $find) !== false){
         myRequireOnce('removeExternalLinks.php', $p['destination']);
         if (removeExternalLinks($p)){
             $text = _removeReadmoreLinks($text, $p);
         }
     }
-
     $find = '"http';
     if (strpos($text, $find) !== false){
         $text = _modifyExternalLinks($text, $find, $p);
     }
     if ( $p['destination'] == 'nojs' || $p['destination']== 'pdf' ){
         $find = '<a href="javascript:popUp';
-    if (strpos($text, $find) !== false){
-        $text = _modifyPopupLinks($text, $find);
+        if (strpos($text, $find) !== false){
+            $text = _modifyPopupLinks($text, $find);
+        }
     }
 
-    }
    //writeLog('modifyLinks', $debug);
 
     return $text;
@@ -130,16 +129,14 @@ function _modifyInternalLinks($text, $find, $p){
         $pos_end = strpos($text, '">', $pos_start + $length_find);
         $content_length = $pos_end - $pos_start -  $length_find;
         $link = substr($text, $pos_start + $length_find , $content_length);
-       $relative_link =_modifyLinksMakeRelative($link);
+        $relative_link =_modifyLinksMakeRelative($link);
         $link_length=$pos_end-$pos_start + 2; // plus two for the length of the end
         $old = '<a href="/content'. $link .'">';
         $new = '<a id = "{id}" href="#" onclick="goToPageAndSetReturn(\''. $relative_link. '\', \'#{id}\');">';
         $new = str_replace('{id}', 'Return' . $i , $new );
         $text = substr_replace($text, $new, $pos_start, $link_length);
         $pos_start = $pos_end;
-        //writeLog('_modifyInternalLinks' . $i, $debug . $text);
     }
-   // //writeLog('_modifyInternalLinks', $text);
     return $text;
 }
 
@@ -196,14 +193,14 @@ function _removeReadmoreLinks($text){
     //writeLogError('_removeReadmoreLinks-185', $text);
     return $text;
 }
-/*  '/sites/mc2/content/M2/eng/tc/tc01.html'
-       to
-    '../tc/tc01.html'
-*/
-function   _modifyLinksMakeRelative($link){
+// '/sites/mc2/content/M2/eng/tc/tc01.html'
+//      to
+//    '../tc/tc01.html'
+
+function _modifyLinksMakeRelative($link){
     $parts = explode('/', $link);
-    $filename = pop($parts);
-    $directory = pop($parts);
+    $filename = array_pop($parts);
+    $directory = array_pop($parts);
     $new = '../' . $directory . '/'. $filename;
     return $new;
 

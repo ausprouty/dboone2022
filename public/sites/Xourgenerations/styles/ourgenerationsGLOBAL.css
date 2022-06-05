@@ -30,7 +30,7 @@ body {
   margin: 0;
   width: 95%;
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-  font-size: 16px;
+  font-size: 24px;
   line-height: 1.5;
 }
 div.page_content {
@@ -879,6 +879,9 @@ td.generations-table-header-cell {
 }
 
 @media only screen and (max-width: 500px) {
+  body{
+    font-size:18pt;
+  }
   p.footer {
     letter-spacing: 0.1em;
   }
@@ -886,29 +889,29 @@ td.generations-table-header-cell {
     margin-left: -10px;
   }
   h1 {
-    font-size: 24px;
+    font-size: 150%;
   }
   div.lesson-subtitle,
   div.lesson-section {
-    font-size: 24px;
+    font-size: 150%;
     font-weight: 700;
   }
   div.summary-title-big,
   div.summary-title-small {
-    font-size: 18px;
+    font-size: 125%;
   }
   p,
   p.myfriends-gospel-text {
-    font-size: 12pt;
+    font-size: 100%;
   }
   div.book,
   div.chapter-title,
   div.chapter,
   div.card-names,
   div.card-language {
-    font-size: 14px;
+    font-size: 100%;
   }
   div.chapter-description {
-    font-size: 10pt;
+    font-size: 80%;
   }
 }

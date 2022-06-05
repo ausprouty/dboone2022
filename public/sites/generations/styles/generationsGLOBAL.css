@@ -912,3 +912,48 @@ td.generations-table-header-cell {
     font-size: 10pt;
   }
 }
+@media only screen and (max-width: 1600px) {
+  body {
+    font-size: 18pt;
+  }
+
+  p.footer {
+    letter-spacing: 0.1em;
+  }
+
+  li.nobreak {
+    margin-left: -10px;
+  }
+
+  h1 {
+    font-size: 150%;
+  }
+
+  div.lesson-subtitle,
+  div.lesson-section {
+    font-size: 150%;
+    font-weight: 700;
+  }
+
+  div.summary-title-big,
+  div.summary-title-small {
+    font-size: 125%;
+  }
+
+  p,
+  p.myfriends-gospel-text {
+    font-size: 100%;
+  }
+
+  div.book,
+  div.chapter-title,
+  div.chapter,
+  div.card-names,
+  div.card-language {
+    font-size: 100%;
+  }
+
+  div.chapter-description {
+    font-size: 80%;
+  }
+}
