@@ -376,6 +376,11 @@ export default {
     }
     return images
   },
+  async getLanguageOptionsForEditors(params) {
+    params.page = 'getLanguageOptionsForEditors'
+    params.action = 'getLanguageOptionsForEditors'
+    return this.aReturnContent(params)
+  },
   async getLanguagesAvailable(params) {
     params.page = 'getLanguagesAvailable'
     params.action = 'getLanguagesAvailable'

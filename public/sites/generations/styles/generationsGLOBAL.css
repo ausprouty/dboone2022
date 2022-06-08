@@ -722,6 +722,10 @@ textarea {
   box-shadow: inset 8px 8px 16px #cbcbcb, inset -8px -8px 16px #ffffff;
   border: none;
 }
+textarea{
+  border:solid;
+  border-color: #085276;
+}
 
 .summary-big.summary-sunken textarea,
 .summary-small.summary-sunken textarea {

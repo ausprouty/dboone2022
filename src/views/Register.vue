@@ -210,12 +210,10 @@ export default {
       }
     },
     async languageOptions() {
-      var options = [
-        { display: 'Global', code: '|*|' },
-        { display: 'English', code: '|eng|' },
-        { display: 'French', code: '|fra|' },
-        { display: 'Simplifed Chinese', computed: '|cmn|' },
-      ]
+      var params = {}
+      var options = await AuthorService.getLanguageOptionsForEditors(params)
+      var global = { display: 'Global', code: '|*|' }
+      options.push(global)
       this.language_options = options
       return
     },
