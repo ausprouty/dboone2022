@@ -54,7 +54,7 @@ function createBibleDbtArray($p){
         $book_lookup = 'Psalms';
     }
     $book_details= [];
-     writeLogAppend('createBibleDbtArray-53', $book_lookup);
+     //writeLogAppend('createBibleDbtArray-53', $book_lookup);
     $book_details = createBibleDbtArrayNameFromDBM($language_iso,  $book_lookup);
     if (!isset($book_details['testament'])){
           $book_details = createBibleDbtArrayNameFromHL($language_iso,  $book_lookup);
@@ -99,6 +99,7 @@ function createBibleDbtArray($p){
         'collection_code' => $book_details['testament'],
     );
     $out = $dbt_array;
+    writeLogDebug('createBibleDbtArray-102', $out);
     return $out;
 }
 
@@ -113,6 +114,12 @@ function createBibleDbtArrayNameFromDBM($language_iso,  $book_lookup){
     $query = $conn->query($sql);
     $data = $query->fetch_object();
     if (!isset($data->book_id)){
+        $sql="SELECT book_id FROM dbm_bible_book_names
+         WHERE language_iso = 'eng' AND name = '$book_lookup'";
+        $query = $conn->query($sql);
+        $data = $query->fetch_object();
+    }
+    if (!isset($data->book_id)){
         writeLogAppend('ERROR-createBibleDbtArrayNameFromDBM', $sql);
     }
     if (isset($data->book_id)){
@@ -125,6 +132,7 @@ function createBibleDbtArrayNameFromDBM($language_iso,  $book_lookup){
             $book_details['testament']=$data['testament'];
         }
     }
+   //  writeLogDebug('createBibleDbtArrayNameFromDBM-135', $book_details);
     return $book_details;
 }
 

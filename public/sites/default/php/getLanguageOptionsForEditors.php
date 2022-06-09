@@ -20,16 +20,20 @@ function getLanguageOptionsForEditors($p){
       else{
           //writeLog('getLanguagesAvailable-44' , $text->languages );
           foreach ($text->languages as $language){
-            $available [] = array(
+            $l = $language->iso;
+            if (!isset($available[$l])){
+               $available [$l] =  array(
                 'code'=> '|'. $language->iso .'|',
                 'display'=> $language->name,
-            );
+              );
+            }
           }
+          writeLogDebug('getLanguageOptionsForEditorS-31' , $available );
           usort($available, '_sortByCode');
       }
     }
     $out= $available;
-    writeLogDebug('getLanguageOptionsForEditors-32' , $out );
+    writeLogDebug('getLanguageOptionsForEditors-36' , $out );
     return $out;
 }
 

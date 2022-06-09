@@ -254,6 +254,7 @@ export default {
       } else {
         params.bid = this.bookmark.language.bible_nt
       }
+      console.log (params)
       var bible = await BibleService.getBiblePassage(params)
       console.log('this is Bible')
       console.log(bible)

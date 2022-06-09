@@ -2,7 +2,7 @@
 // https://dbt.io/library/volume
 
 
-myRequireOnce ('vendor/dbt/dbt.inc');
+myRequireOnce ('../vendor/dbt/dbt.inc');
 function bibleUpdateDBT($p){
 
     $debug = 'I was in Bible Update';

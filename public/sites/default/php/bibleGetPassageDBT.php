@@ -23,8 +23,17 @@
 */
 
 
-myRequireOnce ('vendor/dbt/dbt.inc');
+
 function bibleGetPassageDBT($p){
+    if (file_exists('./vendor/dbt/dbt.inc')){
+        require_once ('./vendor/dbt/dbt.inc');
+    }
+    else{
+        $message = 'dbt.inc not found';
+        writeLogError('bibleGetPassageDBT-32', $message );
+        trigger_error( $message, E_USER_ERROR);
+
+    }
     $debug = '';
     $dbt = new Dbt (DBT_KEY);
    // todo: this link is not right

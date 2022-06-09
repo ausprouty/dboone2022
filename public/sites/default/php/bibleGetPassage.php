@@ -56,7 +56,7 @@ function bibleGetPassage($p){
         $p['rldir'] = 'rtl';
     }
 
-    //$debug = $data['source']  . "\n";
+    writeLogDebug('bibleGetPassage-59',$data['source']);
     if ($data['source'] == 'bible_gateway'){
         myRequireOnce ('bibleGetPassageBiblegateway.php');
         $p['version_code'] = $data['version_code'];
@@ -66,9 +66,9 @@ function bibleGetPassage($p){
         return $out;
     }
     if ($data['source']  == 'dbt'){
-        myRequireOnce ('bibleGetPassageDBT.php');
+        myRequireOnce ('bibleGetPassageBibleBrain.php');
         $p['damId'] = $data['dam_id'];
-        $out = bibleGetPassageDBT($p);
+        $out = bibleGetPassageBibleBrain($p);
         return $out;
     }
     return $out;
