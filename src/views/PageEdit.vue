@@ -50,14 +50,14 @@
           <div class="form">
             <BaseInput
               v-model="reference"
-              label="Passage to Insert into  [BiblePassage]"
+              label="Passages to Insert into  [BibleBlock]"
               type="text"
               placeholder
               class="field"
             />
           </div>
-          <button class="button green" @click="insertPassage">
-            Insert Passage
+          <button class="button green" @click="insertBibleBlock">
+            Insert Bible Blocks
           </button>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <button class="button green" @click="insertBiblePopups">
@@ -244,35 +244,21 @@ export default {
       await BibleService.biblePopupMaker(params)
       await this.showPage()
     },
-    async insertPassage() {
+    async insertBibleBlock() {
       var params = {}
       params.language_iso = this.$route.params.language_iso
-      params.entry = this.reference
-      params.dbt = await BibleService.getDbtArray(params)
-      if (params.dbt.collection_code == 'OT') {
-        params.bid = this.bookmark.language.bible_ot
-      } else {
-        params.bid = this.bookmark.language.bible_nt
-      }
-      console.log (params)
-      var bible = await BibleService.getBiblePassage(params)
+      params.entries = this.reference
+      params.ot = this.bookmark.language.bible_ot
+      params.nt = this.bookmark.language.bible_nt
+      params.read_more = this.bookmark.language.read_more
+      var bible = await BibleService.getBibleBlockToInsert(params)
       console.log('this is Bible')
       console.log(bible)
       if (typeof bible !== 'undefined') {
-        var bible_block =
-          '<p class ="reference">' +
-          bible.reference +
-          '</p>' +
-          bible.text +
-          '<p class = "bible"><a class="bible-readmore" href="' +
-          bible.link +
-          '">' +
-          this.bookmark.language.read_more +
-          '</a></p>'
         var temp = this.pageText
-        this.pageText = temp.replace('[BiblePassage]', bible_block)
-        this.request_passage = true // for multiple
-        this.reference = ''
+        this.pageText = temp.replace('[BibleBlock]', bible.bible_block)
+        temp = this.pageText
+        this.pageText = temp.replace('[Reference]', bible.reference)
       }
     },
     async revertPage() {

@@ -72,4 +72,27 @@ export default {
     params.action = 'bibleGetPassage'
     return await AuthorService.aReturnContent(params)
   },
+
+  /* expects
+
+      params.language_iso = this.$route.params.language_iso
+      params.entries = this.reference (may be multiple // separated by ;)
+      params.ot = this.bookmark.language.bible_ot
+      params.nt = this.bookmark.language.bible_nt
+      params.read_more
+
+      Returns:
+        bible_block
+        reference
+*/
+  async getBibleBlockToInsert(params) {
+    params.page = 'getBibleBlockToInsert'
+    params.action = 'getBibleBlockToInsert'
+    return await AuthorService.aReturnContent(params)
+  },
+  async bibleBrainGetBooks(params) {
+    params.page = 'bibleBrainGetBooks'
+    params.action = 'bibleBrainGetBooks'
+    return await AuthorService.aReturnContent(params)
+  },
 }

@@ -45,18 +45,12 @@ export const pageMixin = {
         // get page content
         var params = this.$route.params
         var response = ''
-        LogService.consoleLogMessage(
-          'getPageorTemplate looking for page with these parameters'
-        )
-        LogService.consoleLogMessage(params)
         if (which == 'either') {
           params.bookmark = JSON.stringify(this.bookmark)
           response = await AuthorService.getPageOrTemplate(params)
         } else {
           response = await AuthorService.getPage(params)
         }
-        LogService.consoleLogMessage('response from getPage')
-        LogService.consoleLogMessage(response)
         // has this page been prototyped or published?
         if (response.recnum) {
           this.recnum = response.recnum
@@ -64,11 +58,11 @@ export const pageMixin = {
           this.prototype_date = response.prototype_date
         }
         this.pageText = response.text
-
+        console.log(this.pageText)
         // bring up passage if needed
-        if (this.pageText.includes('[BiblePassage]')) {
+        if (this.pageText.includes('[BibleBlock]')) {
           var len = this.bookmark.series.chapters.length
-          console.log('Page includes [BiblePassage]')
+          console.log('Page includes [BibleBlock]')
           for (var i = 0; i < len; i++) {
             if (
               this.bookmark.series.chapters[i].filename ==

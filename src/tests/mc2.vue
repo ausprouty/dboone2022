@@ -30,6 +30,7 @@ export default {
       test: '',
       result: '',
       test_options: [
+        'testBibleBrainGetBooks',
         'testGetBooks',
         'testGetFooters',
         'testGetLanguages',
@@ -85,6 +86,12 @@ export default {
       return params
     },
 
+    async testBibleBrainGetBooks() {
+      var params = this.setupParams()
+      params.fileset = 'AMHENG'
+      var response = await BibleService.bibleBrainGetBooks(params)
+      return response
+    },
     async testBibleABSUpdate() {
       var params = this.setupParams()
       var response = await AuthorService.bibleUpdateABS(params)

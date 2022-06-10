@@ -11,7 +11,7 @@ function bibleGetPassageBibleBrain($p){
 	$verses = $response->data;
     $output = '';
     foreach ($verses as $verse){
-        $output .= '<sup>'. $verse->verse_start .'</sup>';
+        $output .= '<sup class="versenum">'. $verse->verse_start .'</sup>';
         $output .=  $verse->verse_text .' ';
     }
 	return $output;
@@ -58,13 +58,5 @@ function bibleBrainGetBibles($language_iso){
 		}
 	}
 
-	return $output;
-}
-
-function bibleBrainGetBooks($language_iso){
-    $url = 'https://4.dbt.io/api/bibles/books?';
-    $url .= 'v=4&key=';
-    $response =  bibleBrainGet($url);
-	$output = $response;
 	return $output;
 }
