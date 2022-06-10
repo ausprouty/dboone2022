@@ -247,9 +247,9 @@ export default {
     async insertBibleBlock() {
       var params = {}
       params.language_iso = this.$route.params.language_iso
-      params.entries = this.reference
-      params.ot = this.bookmark.language.bible_ot
-      params.nt = this.bookmark.language.bible_nt
+      params.entry = this.reference
+      params.version_ot = this.bookmark.language.bible_ot
+      params.version_nt = this.bookmark.language.bible_nt
       params.read_more = this.bookmark.language.read_more
       var bible = await BibleService.getBibleBlockToInsert(params)
       console.log('this is Bible')
@@ -259,6 +259,7 @@ export default {
         this.pageText = temp.replace('[BibleBlock]', bible.bible_block)
         temp = this.pageText
         this.pageText = temp.replace('[Reference]', bible.reference)
+        this.reference = '';
       }
     },
     async revertPage() {

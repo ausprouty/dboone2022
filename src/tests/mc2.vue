@@ -88,7 +88,7 @@ export default {
 
     async testBibleBrainGetBooks() {
       var params = this.setupParams()
-      params.fileset = 'AMHENG'
+      params.fileset = 'AMHEVG'
       var response = await BibleService.bibleBrainGetBooks(params)
       return response
     },

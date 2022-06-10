@@ -45,18 +45,18 @@ For Website Data:
 
 Output for Acts: where input is https://api.arclight.org/videoPlayerUrl?refId=2_529-Acts7302-0-0
     <button id="RevealButton0" type="button" class="external-movie acts">Watch  Acts 6:1-7 online</button>
-        <div class="collapsed">[acts]-Acts7302-0-0</div>
-        <div id="ShowOptionsFor[acts]-Acts7302-0-0"></div>
+        <div class="collapsed">[acts]-Acts7302-0-0&start=170&end=229</div>
+        <div id="ShowOptionsFor[acts]-Acts7302-0-0&start=170&end=229"></div>
 
 Output for JFilm:  where input is https://api.arclight.org/videoPlayerUrl??refId=1_529-jf6159-30-0
     <button id="RevealButton0" type="button" class="external-movie jfilm">Watch  Acts 6:1-7 online</button>
-        <div class="collapsed">[jfilm]-jf6159-30-0</div>
-        <div id="ShowOptionsFor[jfilm]-jf6159-30-0></div>
+        <div class="collapsed">[jfilm]-jf6159-30-0&start=170&end=229</div>
+        <div id="ShowOptionsFor[jfilm]-jf6159-30-0&start=170&end=229></div>
 
 Output for Lumo [Nerw] : where input is https://api.arclight.org/videoPlayerUrl?refId=6_529-GOMatt2512
     <button id="RevealButton0" type="button" class="external-movie lumo">Watch  Matthew 3:1-17 online</button>
-        <div class="collapsed">[lumo]-GOMatt2512</div>
-        <div id="ShowOptionsFor[lumo]-GOMatt2512"></div>
+        <div class="collapsed">[lumo]-GOMatt2512&start=170&end=229</div>
+        <div id="ShowOptionsFor[lumo]-GOMatt2512&start=170&end=229"></div>
 
  Output for Lumo [Old] : where input is  https://api.arclight.org/videoPlayerUrl?refId=6_529-GOLukeEnglish6030
     <button id="RevealButton0" type="button" class="external-movie lumo">Watch  Matthew 3:1-17 online</button>
@@ -66,6 +66,9 @@ Output for Lumo [Nerw] : where input is https://api.arclight.org/videoPlayerUrl?
  Output for Vimeo : where input is https://vimeo.com/162977296
         <button id="VimeoButton0" type="button" class="external-movie ">Watch  Luke 18:35-43 online</button>
         <div class="collapsed">[vimeo]162977296</div>
+ Output for Youtube : where input is https://youtu.be/P4DwcDv7FiI
+        <button id="VimeoButton0" type="button" class="external-movie ">Watch  Luke 18:35-43 online</button>
+        <div class="collapsed">[youtube]162977296&start=170&end=229</div>
 
 OLD For SD Card:
     <button id="VimeoButton0" type="button" class="external-movie ">Watch  Luke 18:35-43 </button>
@@ -133,6 +136,12 @@ function modifyRevealVideo($text, $bookmark, $p){
         }
         else {
             $new = videoTemplateLink($bookmark);
+            // find start and end times
+            $start_time = modifyVideoRevealFindTime ($old, 7);
+            $debug .=  "start_time is | $start_time |\n";
+            $end_time = modifyVideoRevealFindTime ($old, 9);
+            $debug .=  "end time is | $end_time |\n";
+
             // find type of video and trim url
             if (strpos($url, 'api.arclight.org/videoPlayerUrl?') != FALSE){
                 $new .=  $template_options; // JESUS project videos are available in many languages
@@ -156,14 +165,10 @@ function modifyRevealVideo($text, $bookmark, $p){
                     $dash = strpos($url, '-');
                     $url = substr($url, $dash);
                 }
-                // find start and end times
-                $start_time = modifyVideoRevealFindTime ($old, 7);
-                $debug .=  "start_time is | $start_time |\n";
-                $end_time = modifyVideoRevealFindTime ($old, 9);
-                $debug .=  "end time is | $end_time |\n";
                 if ($start_time || $end_time){
                     $url .= '&start='. $start_time . '&end=' .$end_time;
                 }
+
             }
             elseif (strpos($url, 'https://vimeo.com/') !== FALSE){  //https://vimeo.com/162977296
                 $video_type = 'vimeo';
@@ -172,10 +177,16 @@ function modifyRevealVideo($text, $bookmark, $p){
             elseif (strpos($url, 'https://www.youtube.com/watch?v=') !== FALSE){  //https://www.youtube.com/watch?v=I7ks0udfjOw
                 $video_type = 'youtube';
                 $url = str_ireplace('https://www.youtube.com/watch?v=', '', $url); //I7ks0udfjOw
+                if ($start_time || $end_time){
+                    $url .= '?start='. $start_time . '&end=' .$end_time;
+                }
             }
             elseif (strpos($url, 'https://youtu.be/') !== FALSE){  //https://youtu.be/I7ks0udfjOw?t=732
                 $video_type = 'youtube';
                 $url = str_ireplace('https://youtu.be/', '', $url); //I7ks0udfjOwt=732
+                if ($start_time || $end_time){
+                    $url .= '?start='. $start_time . '&end=' .$end_time;
+                }
             }
             else{
                 $video_type = 'url';

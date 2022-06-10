@@ -1,19 +1,32 @@
 <?php
+/*returns an array:
+    $output['content']= [
+		'reference' =>  $output['passage_name'],
+		'text' => $output['bible'],
+		'link' => $output['link']
+	];
+*/
 
 function bibleGetPassageBibleBrain($p){
-	$dbt = $p['dbt'];
-	writeLogDebug('bibleGetPassageBibleBrain-4', $dbt);
+	$output = [];
+	$output['content']=[];
+	writeLogDebug('bibleGetPassageBibleBrain-4', $p);
+	$fileset = substr($p['damId'], 0,6);
     $url = 'https://4.dbt.io/api/bibles/filesets/';
-    $url .= $dbt->damId .'/'. $dbt->bookId . '/'. $dbt->chapterId .'?';
-    $url .= 'verse_start='. $dbt->verseStart. '&verse_end='.$dbt->verseEnd .'&v=4&key=';
+    $url .=  $fileset .'/'. $p['bookId'] . '/'. $p['chapterId'] .'?';
+    $url .= 'verse_start='. $p['verseStart']. '&verse_end='.$p['verseEnd'] .'&v=4&key=';
 	writeLogDebug('bibleGetPassageBibleBrain-7', $url);
     $response =  bibleBrainGet($url);
 	$verses = $response->data;
-    $output = '';
+    $text = '';
     foreach ($verses as $verse){
-        $output .= '<sup class="versenum">'. $verse->verse_start .'</sup>';
-        $output .=  $verse->verse_text .' ';
+        $text .= '<sup class="versenum">'. $verse->verse_start .'</sup>';
+        $text .=  $verse->verse_text .' ';
     }
+	//https://live.bible.is/bible/AMHEVG/MAT/1
+	$output['content']['link']= 'https://live.bible.is/bible/'. $fileset . '/'.$p['bookId'].'/'.$p['chapterId'];
+	$output['content']['reference'] = $p['entry'];
+	$output['content']['text'] = $text;
 	return $output;
 }
 

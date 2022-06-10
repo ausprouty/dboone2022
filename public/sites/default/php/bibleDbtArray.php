@@ -45,6 +45,7 @@ function createBibleDbtArray($p){
     else{
         $parts = explode(' ', $passage);
     }
+    writeLogDebug ('createBibleDbtArray-48', $parts);
     $book = $parts[0];
     if ($book == 1 || $book == 2 || $book == 3){
         $book .= ' '. $parts[1];
@@ -70,6 +71,7 @@ function createBibleDbtArray($p){
     // pull apart chapter
     $pass = str_replace($book, '', $passage);
     $pass = str_replace(' ' , '', $pass);
+    $pass = str_replace('፡' , ':', $pass); // from Amharic
     $i = strpos($pass, ':');
     if ($i !== FALSE){
         $chapterId = substr($pass, 0, $i);
@@ -85,9 +87,9 @@ function createBibleDbtArray($p){
         }
     }
     else{
-        $chapterId = $p;
-        $verseStart = 1;
-        $verseEnd = 200;
+        $message= "Unable to identify chapter number";
+        writeLogError('createBibleDbtArray-91', $message);
+        trigger_error($message, E_USER_ERROR);
     }
     $dbt_array = array(
         'entry' => $passage,

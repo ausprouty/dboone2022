@@ -25,7 +25,6 @@ myRequireOnce ('sql.php');
 
 function bibleGetPassage($p){
     $out=[];
-    $debug = 'I came into  bibleGetPassage' . "\n";
     // make sure bid is set
     if (!isset($p['bid'])){
         if (isset($p['collection_code'])){
