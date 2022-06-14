@@ -425,8 +425,15 @@ sup,
   vertical-align: baseline;
 }
 sup,
-.versenum {
+.versenum, .chapternum {
   top: -0.5em;
+  vertical-align:middle;
+  color: var(--color-blue-mc2);
+}
+
+.chapternum{
+  font-size: 100%;
+  padding-right:0pt;
 }
 div.lesson {
   margin-bottom: 30px;

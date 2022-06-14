@@ -1,0 +1,20 @@
+<template>
+  <video-js
+    id="vid1"
+    width="600"
+    height="300"
+    class="vjs-default-skin"
+    controls
+  >
+    <source
+      src="https://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8"
+      type="application/x-mpegURL"
+    />
+  </video-js>
+  <script src="video.js"></script>
+  <script src="videojs-http-streaming.min.js"></script>
+  <script>
+    var player = videojs('vid1')
+    player.play()
+  </script>
+</template>

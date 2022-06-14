@@ -13,6 +13,8 @@
      );
  */
 myRequireOnce ('writeLog.php');
+myRequireOnce('bibleChapterVerseCount.php');
+myRequireOnce('bibleExtraChapters.php');
 
 function createBibleDbtArrayFromPassage($p){
     $out = [];
@@ -73,33 +75,38 @@ function createBibleDbtArray($p){
     $pass = str_replace(' ' , '', $pass);
     $pass = str_replace('፡' , ':', $pass); // from Amharic
     $i = strpos($pass, ':');
-    if ($i !== FALSE){
-        $chapterId = substr($pass, 0, $i);
-        $verses = substr($pass, $i+1);
-        $i = strpos ($verses, '-');
-        if ($i !== FALSE){
-            $verseStart = substr($verses, 0, $i);
-            $verseEnd = substr($verses, $i+1);
-        }
-        else{
-            $verseStart = $verses;
-            $verseEnd = $verses;
-        }
-    }
-    else{
+    if ($i == FALSE){
         $message= "Unable to identify chapter number";
         writeLogError('createBibleDbtArray-91', $message);
         trigger_error($message, E_USER_ERROR);
+        return;
+    }
+    $chapterId = substr($pass, 0, $i);
+    $verses = substr($pass, $i+1);
+    $i = strpos ($verses, '-');
+    if ($i !== FALSE){
+        $verseStart = substr($verses, 0, $i);
+        $verseEnd = substr($verses, $i+1);
+    }
+    else{
+        $verseStart = $verses;
+        $verseEnd = $verses;
     }
     $dbt_array = array(
         'entry' => $passage,
         'bookId' => $book_details['book_id'],
+        'bookNumber'=> $book_details['book_number'],
         'bookLookup'=> $book_lookup,
         'chapterId' => $chapterId,
         'verseStart' => $verseStart,
         'verseEnd' => $verseEnd,
+
         'collection_code' => $book_details['testament'],
     );
+    if (strpos($verseEnd, ':')){
+        $dbt_array['extraChapters'] = bibleExtraChapters($dbt_array);
+        $dbt_array['verseEnd'] = bibleChapterVerseCount($dbt_array);
+    }
     $out = $dbt_array;
     writeLogDebug('createBibleDbtArray-102', $out);
     return $out;
@@ -127,11 +134,13 @@ function createBibleDbtArrayNameFromDBM($language_iso,  $book_lookup){
     if (isset($data->book_id)){
         $book_details['book_id'] = $data->book_id;
         $book_id = $book_details['book_id'];
-        $sql="SELECT testament FROM hl_online_bible_book
+        $sql="SELECT bid, testament FROM hl_online_bible_book
           WHERE book_id = '$book_id'";
         $data = sqlBibleArray($sql);
         if (isset($data['testament'])){
             $book_details['testament']=$data['testament'];
+            $book_details['book_number']=$data['bid'];
+
         }
     }
    //  writeLogDebug('createBibleDbtArrayNameFromDBM-135', $book_details);
@@ -147,6 +156,8 @@ function createBibleDbtArrayNameFromHL($language_iso,  $book_lookup){
     if (isset($data['book_id'])){
         $book_details['testament']=$data['testament'];
         $book_details['book_id'] = $data['book_id'];
+        $book_details['book_number']=$data['bid'];
+
     }
     return $book_details;
 }

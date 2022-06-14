@@ -165,7 +165,7 @@ function debugClean($p){
     $query = $conn->query($sql);
     while ($data = $query->fetch_object()){
        // $sql = "UPDATE content SET text = '$new' WHERE renum = $recnum'";
-       $sql = "select recnum FROM new_content WHERE language_iso = '$data->language_iso' AND
+       $sql = "SELECT recnum FROM new_content WHERE language_iso = '$data->language_iso' AND
             country_code =  '$data->country_code' AND folder_name = '$data->folder_name'
             AND  filetype = '$data->filetype' AND filename = '$data->filename'";
         $q = $conn->query($sql);

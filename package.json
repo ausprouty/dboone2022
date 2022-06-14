@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@tinymce/tinymce-vue": "^1.1.2",
+    "@videojs/http-streaming": "^2.14.2",
     "acorn": "^6.4.1",
     "acorn-dynamic-import": "^4.0.0",
     "ajv": "^5.0.0",
@@ -72,6 +73,7 @@
     "prettier": "^2.6.2",
     "sass-loader": "^7.3.1",
     "style-loader": "^0.13.1",
+    "video.js": "^7.19.2",
     "vue-template-compiler": "^2.6.12",
     "webpack-bundle-analyzer": "^3.9.0",
     "webpack-merge": "^5.7.3"

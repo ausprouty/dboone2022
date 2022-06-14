@@ -16,18 +16,31 @@ function bibleGetPassageBibleBrain($p){
     $url .=  $fileset .'/'. $p['bookId'] . '/'. $p['chapterId'] .'?';
     $url .= 'verse_start='. $p['verseStart']. '&verse_end='.$p['verseEnd'] .'&v=4&key=';
 	writeLogDebug('bibleGetPassageBibleBrain-7', $url);
-    $response =  bibleBrainGet($url);
-	$verses = $response->data;
-    $text = '';
-    foreach ($verses as $verse){
-        $text .= '<sup class="versenum">'. $verse->verse_start .'</sup>';
-        $text .=  $verse->verse_text .' ';
-    }
+    $text =  bibleGetPassageBibleBrainText($url);
+	if (isset($p['extraChapters'])){
+		foreach ($p['extraChapters'] as $chapter){
+			$url = 'https://4.dbt.io/api/bibles/filesets/';
+			$url .=  $fileset .'/'. $p['bookId'] . '/'. $chapter['chapterId'] .'?';
+			$url .= 'verse_start='. $chapter['verseStart']. '&verse_end='.$chapter['verseEnd'] .'&v=4&key=';
+			$text .= '<sup class="chapternum">'.  $chapter['chapterId'] . ':</sup>';
+			$text .=  bibleGetPassageBibleBrainText($url);
+		}
+	}
 	//https://live.bible.is/bible/AMHEVG/MAT/1
 	$output['content']['link']= 'https://live.bible.is/bible/'. $fileset . '/'.$p['bookId'].'/'.$p['chapterId'];
 	$output['content']['reference'] = $p['entry'];
 	$output['content']['text'] = $text;
 	return $output;
+}
+function bibleGetPassageBibleBrainText($url){
+    $response =  bibleBrainGet($url);
+	$verses = $response->data;
+    $text = '<p class="bible_text>';
+    foreach ($verses as $verse){
+        $text .= '<sup class="versenum">'. $verse->verse_start .'</sup>';
+        $text .=  $verse->verse_text .' ';
+    }
+	return $text . '</p>';
 }
 
 function bibleBrainGet($url){
