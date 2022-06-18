@@ -30,7 +30,10 @@ export default {
       test: '',
       result: '',
       test_options: [
+        'testBibleBrainGetBibles',
         'testBibleBrainGetBooks',
+        'testbibleBrainGetChapterResources',
+        'testBibleBrainGetVideo',
         'testGetBooks',
         'testGetFooters',
         'testGetLanguages',
@@ -85,11 +88,34 @@ export default {
       params.my_uid = store.state.user.uid
       return params
     },
+    async testBibleBrainGetBibles() {
+      var params = this.setupParams()
+      params.language_code = 'AMH'
+      var response = await BibleService.bibleBrainGetBibles(params)
+      return response
+    },
 
     async testBibleBrainGetBooks() {
       var params = this.setupParams()
       params.fileset = 'AMHEVG'
       var response = await BibleService.bibleBrainGetBooks(params)
+      return response
+    },
+    async testbibleBrainGetChapterResources() {
+      var params = this.setupParams()
+      params.fileset = 'AMHEVG'
+      params.book = 'MAT'
+      params.chapter = 2
+      var response = await BibleService.bibleBrainGetChapterResources(params)
+      return response
+    },
+
+    async testBibleBrainGetVideo() {
+      var params = this.setupParams()
+      params.fileset = 'AMHEVG'
+      params.bookId = 'MRK'
+      params.chapterId = 2
+      var response = await BibleService.bibleBrainGetVideo(params)
       return response
     },
     async testBibleABSUpdate() {

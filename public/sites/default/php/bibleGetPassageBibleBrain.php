@@ -6,6 +6,7 @@
 		'link' => $output['link']
 	];
 */
+myRequireOnce('bibleBrainGet.php');
 
 function bibleGetPassageBibleBrain($p){
 	$output = [];
@@ -14,7 +15,7 @@ function bibleGetPassageBibleBrain($p){
 	$fileset = substr($p['damId'], 0,6);
     $url = 'https://4.dbt.io/api/bibles/filesets/';
     $url .=  $fileset .'/'. $p['bookId'] . '/'. $p['chapterId'] .'?';
-    $url .= 'verse_start='. $p['verseStart']. '&verse_end='.$p['verseEnd'] .'&v=4&key=';
+    $url .= 'verse_start='. $p['verseStart']. '&verse_end='.$p['verseEnd'] .'&';
 	writeLogDebug('bibleGetPassageBibleBrain-7', $url);
     $text =  bibleGetPassageBibleBrainText($url);
 	if (isset($p['extraChapters'])){
@@ -43,27 +44,11 @@ function bibleGetPassageBibleBrainText($url){
 	return $text . '</p>';
 }
 
-function bibleBrainGet($url){
-    $key = '1462b719-42d8-0874-7c50-905063472458';
-    $curl = curl_init();
-	curl_setopt_array($curl, array(
-	  CURLOPT_URL => $url . $key,
-	  CURLOPT_RETURNTRANSFER => true,
-	  CURLOPT_ENCODING => '',
-	  CURLOPT_MAXREDIRS => 10,
-	  CURLOPT_TIMEOUT => 0,
-	  CURLOPT_FOLLOWLOCATION => true,
-	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-	  CURLOPT_CUSTOMREQUEST => 'GET',
-	));
-	$response = json_decode(curl_exec($curl));
-    return $response;
 
-}
 function bibleBrainGetBibles($language_iso){
 	$output = '';
 	$count = 0;
-    $url = 'https://4.dbt.io/api/bibles?language_code=' . $language_iso . '&v=4&key=';
+    $url = 'https://4.dbt.io/api/bibles?language_code=' . $language_iso . '&';
 	$response =  bibleBrainGet($url);
 	$resources = $response->data;
 	$dbp_prod = 'dbp-prod';

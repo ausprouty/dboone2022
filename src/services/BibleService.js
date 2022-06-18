@@ -90,9 +90,25 @@ export default {
     params.action = 'getBibleBlockToInsert'
     return await AuthorService.aReturnContent(params)
   },
+  async bibleBrainGetBibles(params) {
+    params.page = 'bibleBrainGetBibles'
+    params.action = 'bibleBrainGetBibles'
+    return await AuthorService.aReturnContent(params)
+  },
   async bibleBrainGetBooks(params) {
     params.page = 'bibleBrainGetBooks'
     params.action = 'bibleBrainGetBooks'
+    return await AuthorService.aReturnContent(params)
+  },
+  async bibleBrainGetChapterResources(params) {
+    params.page = 'bibleBrainGetChapterResources'
+    params.action = 'bibleBrainGetChapterResources'
+    return await AuthorService.aReturnContent(params)
+  },
+
+  async bibleBrainGetVideo(params) {
+    params.page = 'bibleBrainGetVideo'
+    params.action = 'bibleBrainGetVideo'
     return await AuthorService.aReturnContent(params)
   },
 }

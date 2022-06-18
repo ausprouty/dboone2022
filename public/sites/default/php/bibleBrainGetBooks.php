@@ -1,11 +1,10 @@
 <?php
-myRequireOnce('bibleGetPassageBibleBrain.php');
+myRequireOnce('bibleBrainGet.php');
 
 function bibleBrainGetBooks($p){
     $p['fileset']= 'AMHEVG';
 	$output = '';
     $url = 'https://4.dbt.io/api/bibles/'. $p['fileset'] . '/book?';
-    $url .= 'v=4&key=';
     $response =  bibleBrainGet($url);
     writeLogDebug('bibleBrainGetBooks-9' ,$response);
 	foreach ($response->data as $book){
