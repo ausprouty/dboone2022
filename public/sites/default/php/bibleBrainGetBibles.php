@@ -15,6 +15,7 @@ function bibleBrainGetBibles($p){
     writeLogDebug('bibleBrainGetBibles-15', $url);
     $response =  bibleBrainGet($url);
 	$resources = $response->data;
+    return $resources;
 	$dbp_prod = 'dbp-prod';
 	$dbp_vid ='dbp-vid';
 	foreach ($resources as $resource){

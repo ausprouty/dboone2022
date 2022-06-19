@@ -100,7 +100,6 @@ function createBibleDbtArray($p){
         'chapterId' => $chapterId,
         'verseStart' => $verseStart,
         'verseEnd' => $verseEnd,
-
         'collection_code' => $book_details['testament'],
     );
     if (strpos($verseEnd, ':')){
