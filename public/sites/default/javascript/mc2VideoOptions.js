@@ -42,6 +42,9 @@ function mc2ChangeVideoLanguage(div) {
   if (div.match(/\[acts\]/g)) {
     video_type = 'acts'
   }
+  if (div.match(/\[dbt\]/g)) {
+    video_type = 'dbt'
+  }
   if (div.match(/\[jfilm\]/g)) {
     video_type = 'jfilm'
   }
@@ -55,11 +58,15 @@ function mc2ChangeVideoLanguage(div) {
 }
 
 function mc2CreateIframe(video) {
+  var iframe = ''
   if (video.match(/vimeo/g)) {
-    var iframe = mc2CreateIframeVimeo(video)
+    iframe = mc2CreateIframeVimeo(video)
     return iframe
   } else if (video.match(/youtube/g)) {
-    var iframe = mc2CreateIframeYoutube(video)
+    iframe = mc2CreateIframeYoutube(video)
+    return iframe
+  } else if (video.match(/dbt/g)) {
+    iframe = mc2CreateIframeDbt(video)
     return iframe
   } else {
     return mc2CreateIframeArclight(video)
@@ -87,6 +94,14 @@ function mc2CreateIframeArclight(video) {
     temp2 = iframe
     iframe = temp2 + temp
   }
+  return iframe
+}
+function mc2CreateIframeDbt(video) {
+  var my_video = video.replace('[dbt]', '')
+  var template = `<video id='[hls-example]'  class="video-js vjs-default-skin" width="400" height="300" controls>
+         <source type="application/x-mpegURL" src="https://4.dbt.io/api/bible/filesets/[my_video]&v=4&key=1462b719-42d8-0874-7c50-905063472458">
+    </video> `
+  var iframe = template.replaceAll('[my_video]', my_video)
   return iframe
 }
 function mc2CreateIframeVimeo(video) {
@@ -200,6 +215,9 @@ function mc2FindLanguageCodeForVideo(video) {
     if (languageCode) {
       yourVideo = video.replace('[acts]', languageCode)
     }
+    return yourVideo
+  } else if (video.match(/\[dbt\]/g)) {
+    yourVideo = video
     return yourVideo
   } else if (video.match(/\[jfilm\]/g)) {
     languageCode = mc2GetLanguageCodeForVideo('jfilm')

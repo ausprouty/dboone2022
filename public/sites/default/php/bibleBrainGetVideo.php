@@ -20,7 +20,7 @@ function bibleBrainGetVideo($p){
     $p['language_code']= 'HAE';
     $p['bookId'] ='MRK';
     $p['chapterId'] =2;
-    $p['verseStart']=13;
+    $p['verseStart']=1;
     $p['verseEnd'] = 17;
     $output= [];
     if (!isset($p['fileset'])){

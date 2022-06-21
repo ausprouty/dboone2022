@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>HLS Demo</title>
+        <link rel="stylesheet" href="https://cdn.plyr.io/1.8.2/plyr.css">
+    </head>
+    <body style="width: 40%; height: 40%">
+        <video preload="none" id="player"  controls crossorigin></video>
+
+        <script src="https://cdn.plyr.io/1.8.2/plyr.js"></script>
+        <script src="https://cdn.jsdelivr.net/hls.js/latest/hls.js"></script>
+
+    </body>
+	<script>
+	// https://codepen.io/rick-ahlf/pen/ExNMYBB?editors=1010
+	(function () {
+    var video = document.querySelector('#player');
+
+    if (Hls.isSupported()) {
+        // ALL CONFIG OPTIONS HERE: https://github.com/video-dev/hls.js/blob/master/docs/API.md
+        var config = {
+            autoStartLoad: true,
+            startPosition: 120, // 00:02:30 IN SECONDS
+            debug: false
+        };
+
+        var hls = new Hls(config);
+        hls.loadSource('https://4.dbt.io/api/bible/filesets/HAEBSEP2DV/MRK-2-13-28/playlist.m3u8?v=4&key=1462b719-42d8-0874-7c50-905063472458');
+        hls.attachMedia(video);
+
+        // hls.on(Hls.Events.MEDIA_ATTACHED, function() {
+        hls.on(Hls.Events.MANIFEST_PARSED,function() {
+            video.muted = false;
+            video.play();
+
+            setTimeout(function(){
+                video.pause();
+            }, 5000);
+        });
+    }
+
+    plyr.setup(video);
+})();
+	</script>
+</html>

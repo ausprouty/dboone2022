@@ -2,7 +2,7 @@
 
 function videoTemplateLink($bookmark){
     $template_link = '<button id="revealButton[id]" type="button" class="external-movie">[title_phrase]</button>
-                   <div class="collapsed">[video]</div>';
+    <div class="collapsed">[video]</div>';
     return  $template_link;
 
 }

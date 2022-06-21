@@ -168,7 +168,6 @@ function modifyRevealVideo($text, $bookmark, $p){
                 if ($start_time || $end_time){
                     $url .= '&start='. $start_time . '&end=' .$end_time;
                 }
-
             }
             elseif (strpos($url, 'https://vimeo.com/') !== FALSE){  //https://vimeo.com/162977296
                 $video_type = 'vimeo';
@@ -188,13 +187,21 @@ function modifyRevealVideo($text, $bookmark, $p){
                     $url .= '?start='. $start_time . '&end=' .$end_time;
                 }
             }
+            elseif (strpos($url, 'https://4.dbt.io') !== FALSE){  //https://youtu.be/I7ks0udfjOw?t=732
+                $video_type = 'dbt';
+                $url = str_ireplace('https://4.dbt.io/api/bible/filesets/', '', $url); //I7ks0udfjOwt=732
+                if ($start_time || $end_time){
+                    $url .= '?start='. $start_time . '&end=' .$end_time;
+                }
+                 writeLogDebug ('modifyRevealVideo-196', $url);
+            }
             else{
                 $video_type = 'url';
             }
             // make replacements
             $video = '['. $video_type . ']' . $url; //[lumo]-GOMatt2512
         }
-        $debug .=  "video is | $video |\n";
+        writeLogDebug('modifyRevealVideo-203', $url);
         $new = str_replace('[video]', $video, $new);
         $new = str_replace('[video_type]', $video_type, $new);
         $new = str_replace('[id]', $i, $new);
