@@ -1,8 +1,16 @@
 <?php
 
-function videoTemplateLink($bookmark){
-    $template_link = '<button id="revealButton[id]" type="button" class="external-movie">[title_phrase]</button>
-    <div class="collapsed">[video]</div>';
+function videoTemplateLink($bookmark, $url){
+    if (strpos($url, 'https://4.dbt.io') !== FALSE){
+    $template_link = '<button type="button" class="external-dbt-movie"
+      onclick="dbtVideoPlay(\'#dbtVideo[id]\', \'[play_list]\', \'[start_time]\', \'[duration]\')">[title_phrase]</button>
+        <video preload="none" id="dbtVideo[id]"  controls crossorigin></video>';
+    }
+    else{
+        $template_link = '<button id="revealButton[id]" type="button" class="external-movie">[title_phrase]</button>
+        <div class="collapsed">[video]</div>';
+    }
+    writeLogDebug('videoTemplateLink-14', $template_link);
     return  $template_link;
 
 }

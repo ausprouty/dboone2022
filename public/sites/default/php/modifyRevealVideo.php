@@ -122,7 +122,7 @@ function modifyRevealVideo($text, $bookmark, $p){
                 $text=videoFollowsChangeVideoTitle($previous_title_phrase, $text, $bookmark);
             }
             else{
-                $new = videoTemplateLink($bookmark);
+                $new = videoTemplateLink($bookmark, $url);
                 $filename = $bookmark['page']->filename;
                 $video = '/media/'. $p['country_code'] . '/'. $p['language_iso'] .'/video/'.  $p['folder_name'] .'/'. videoFindForSDCardNewName($filename) ;
                 if ($apk_video_count > 0){
@@ -134,13 +134,14 @@ function modifyRevealVideo($text, $bookmark, $p){
             }
             $previous_title_phrase = $title_phrase;
         }
-        else {
-            $new = videoTemplateLink($bookmark);
+        else { //website or staging
+            $new = videoTemplateLink($bookmark, $url);
             // find start and end times
             $start_time = modifyVideoRevealFindTime ($old, 7);
-            $debug .=  "start_time is | $start_time |\n";
+
             $end_time = modifyVideoRevealFindTime ($old, 9);
-            $debug .=  "end time is | $end_time |\n";
+            $duration = ($end_time -$start_time) * 1000;
+
 
             // find type of video and trim url
             if (strpos($url, 'api.arclight.org/videoPlayerUrl?') != FALSE){
@@ -190,9 +191,6 @@ function modifyRevealVideo($text, $bookmark, $p){
             elseif (strpos($url, 'https://4.dbt.io') !== FALSE){  //https://youtu.be/I7ks0udfjOw?t=732
                 $video_type = 'dbt';
                 $url = str_ireplace('https://4.dbt.io/api/bible/filesets/', '', $url); //I7ks0udfjOwt=732
-                if ($start_time || $end_time){
-                    $url .= '?start='. $start_time . '&end=' .$end_time;
-                }
                  writeLogDebug ('modifyRevealVideo-196', $url);
             }
             else{
@@ -201,12 +199,15 @@ function modifyRevealVideo($text, $bookmark, $p){
             // make replacements
             $video = '['. $video_type . ']' . $url; //[lumo]-GOMatt2512
         }
-        writeLogDebug('modifyRevealVideo-203', $url);
+        writeLogDebug('modifyRevealVideo-203', $new);
         $new = str_replace('[video]', $video, $new);
         $new = str_replace('[video_type]', $video_type, $new);
         $new = str_replace('[id]', $i, $new);
         $new = str_replace('[title_phrase]', $title_phrase, $new);
-        $debug .=  "new is | $new |\n";
+        $new = str_replace('[play_list]', $url, $new);
+        $new = str_replace('[start_time]', $start_time, $new);
+        $new = str_replace('[duration]', $duration, $new);
+        writeLogDebug('modifyRevealVideo-210', $new);
         // replace old
          // from https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long

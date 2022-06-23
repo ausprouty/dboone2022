@@ -84,7 +84,7 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
 
     // append footer
     $footer= 'footer.html';
-    $output .= myGetPrototypeFile($footer, $p['destination']);
+    $output .= myGetPrototypeFile($footer, $p['destination'], $p['language_iso'], );
     // copy all images and styles to the publish directory
     //$response = publishCopyImagesAndStyles($output, $destination);
 

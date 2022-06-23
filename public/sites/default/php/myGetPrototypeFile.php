@@ -1,11 +1,27 @@
 <?php
 
 // look in subdirectory first.  If not there look in site directory
-function myGetPrototypeFile($filename, $subdirectory = null){
+function myGetPrototypeFile($filename, $subdirectory = null, $language_iso = null){
      //define("ROOT_EDIT", '/home/globa544/edit.mc2.online/');
     // define("SITE_CODE", 'mc2');
-    //_appendMyGetPrototypeFile('myGetPrototypeFile', "\n\n$subdirectory/$filename\n");
     $filename =_cleanMyGetPrototypeFile($filename);
+  if ($language_iso){
+        $language_iso = _cleanMyGetPrototypeSubdirectory($language_iso);
+        if (!$subdirectory){
+            $my_prototype = ROOT_EDIT . 'sites/' . SITE_CODE . '/prototype/' . $language_iso .'/'. $filename;
+            if (file_exists($my_prototype) && !is_dir($my_prototype)){
+                return file_get_contents($my_prototype);
+            }
+        }
+        if ($subdirectory){
+            $subdirectory =_cleanMyGetPrototypeSubdirectory($subdirectory);
+            $my_prototype = ROOT_EDIT . 'sites/' . SITE_CODE . '/prototype/' . $subdirectory .'/'. $language_iso .'/'. $filename;
+            if (file_exists($my_prototype) && !is_dir($my_prototype)){
+                return file_get_contents($my_prototype);
+            }
+
+        }
+    }
 
     if ($subdirectory){
         $subdirectory =_cleanMyGetPrototypeSubdirectory($subdirectory);
