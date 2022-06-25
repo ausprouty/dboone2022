@@ -56,7 +56,7 @@ window.onload = function () {
     checkOfflineSeries(series.dataset.json)
   }
 
-  findCollapsible()
+  external-dbt-movie()
   //mc2DecideWhichVideosToShow();
   findSummaries()
   if (localStorage.getItem('mc2Trainer')) {

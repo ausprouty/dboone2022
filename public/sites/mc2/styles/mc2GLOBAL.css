@@ -595,6 +595,7 @@ li.nobreak-final-final {
   font-style: italic;
 }
 .action,
+.external-dbt-movie,
 .external-movie,
 .collapsible {
   color: white;
@@ -627,7 +628,8 @@ li.nobreak-final-final {
   background-position: 8px 8px;
   background-repeat: no-repeat;
 }
-.external-movie {
+.external-movie,
+.external-dbt-movie {
   background: var(--color-blue-mc2) url(../images/css/video.png);
   background-position: 8px 15px;
   background-repeat: no-repeat;

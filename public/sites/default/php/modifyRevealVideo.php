@@ -199,7 +199,6 @@ function modifyRevealVideo($text, $bookmark, $p){
             // make replacements
             $video = '['. $video_type . ']' . $url; //[lumo]-GOMatt2512
         }
-        writeLogDebug('modifyRevealVideo-203', $new);
         $new = str_replace('[video]', $video, $new);
         $new = str_replace('[video_type]', $video_type, $new);
         $new = str_replace('[id]', $i, $new);
@@ -207,7 +206,6 @@ function modifyRevealVideo($text, $bookmark, $p){
         $new = str_replace('[play_list]', $url, $new);
         $new = str_replace('[start_time]', $start_time, $new);
         $new = str_replace('[duration]', $duration, $new);
-        writeLogDebug('modifyRevealVideo-210', $new);
         // replace old
          // from https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
         $length = $pos_end - $pos_start + 6;  // add 6 because last item is 6 long
