@@ -1,0 +1,1 @@
+ffmpeg -user_agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/601.7.8 (KHTML, like Gecko) Version/9.1.3 Safari/537.86.7" -i "https://4.dbt.io/api/bible/filesets/AMHBIBP2DV/JHN-1-1-18/playlist.m3u8?v=4&key=1462b719-42d8-0874-7c50-905063472458" -map p:1 -c copy  "JHN-1-1-18.mp4"
