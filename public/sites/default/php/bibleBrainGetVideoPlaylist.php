@@ -23,8 +23,9 @@ function bibleBrainGetVideoPlaylist($p){
     //https://4.dbt.io/api/bibles/filesets/:filesetid/:bookid/:chapterid?v=4
     $url = 'https://4.dbt.io/api/bibles/filesets/';
     $url .=  $p['fileset'] . '/'.$p['bookId'] . '/'.$p['chapterId'] . '?';
-    writeLogDebug('bibleBrainGetVideo-32', $url);
+
     $response =  bibleBrainGet($url);
+
     if (isset($response->data)){
       $videos =  $response->data;
       foreach ($videos as $video){
