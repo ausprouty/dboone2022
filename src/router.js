@@ -28,6 +28,15 @@ export default new Router({
       },
     },
     {
+      path: '/capacitor/:country_code',
+      name: 'capacitorMaker',
+      component: function () {
+        return import(
+          /* webpackChunkName: "sortCountries" */ './views/CapacitorMaker.vue'
+        )
+      },
+    },
+    {
       path: '/',
       name: 'home',
       component: CountriesPreview,

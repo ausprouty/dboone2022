@@ -86,15 +86,22 @@ export default {
           show: false,
         },
         {
+          value: 'Capacitor',
+          link: 'capacitorMaker',
+          index: 7,
+          show: false,
+        },
+
+        {
           value: 'SD Card',
           link: 'sdcard',
-          index: 6,
+          index: 8,
           show: false,
         },
         {
           value: 'Logout',
           link: 'logout',
-          index: 7,
+          index: 9,
           show: false,
         },
       ],
@@ -120,13 +127,14 @@ export default {
       if (this.$route.params.language_iso && this.called_by !== 'library') {
         this.menu[3].show = true
       }
-      this.menu[8].show = true
+      this.menu[9].show = true
     }
     if (this.administrator) {
       this.menu[4].show = true
       this.menu[5].show = true
       this.menu[6].show = true
       this.menu[7].show = true
+      this.menu[8].show = true
     }
     if (!this.authorized) {
       this.menu[0].show = true

@@ -5,7 +5,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker
     .register('/sw.js')
     .then(function () {
-      console.log('Service worker registered!')
+      console.log('Service worker RegistereD!')
       localStorage.setItem('swWorking', 'TRUE')
     })
     .catch(function (err) {
@@ -28,6 +28,7 @@ function router() {
   localStorage.setItem('lastpage', window.location.href)
 }
 document.addEventListener('DOMContentLoaded', router)
+document.addEventListener('DOMContentLoaded', modifyPage)
 
 function restoreDynamic() {
   if (typeof localStorage.offline != 'undefined' && localStorage.offline) {
@@ -50,13 +51,13 @@ function restoreDynamic() {
   }
 }
 // check to see if this is an index file for a series and get value index.json
-window.onload = function () {
-  var series = document.getElementById('offline-request')
-  if (series !== null) {
-    checkOfflineSeries(series.dataset.json)
-  }
+function modifyPage() {
+  console.log('app modifyPage')
+  //var series = document.getElementById('offline-request')
+  //if (series !== null) {
+  //  checkOfflineSeries(series.dataset.json)
+  // }
   findCollapsible()
-  //mc2DecideWhichVideosToShow();
   findSummaries()
   if (localStorage.getItem('mc2Trainer')) {
     // unhide all trainer notes
@@ -110,6 +111,7 @@ function findSummaries() {
 }
 
 function findCollapsible() {
+  console.log('find Collapsible')
   var coll = document.getElementsByClassName('collapsible')
   var i
   for (i = 0; i < coll.length; i++) {
