@@ -39,11 +39,6 @@ window.onload = function () {
   if (series !== null) {
     checkOfflineSeries(series.dataset.json)
   }
-  var notes_page = document.getElementById('notes_page')
-  if (notes_page !== null) {
-    var notes = notes_page.value
-    showNotes(notes)
-  }
   findCollapsible()
 
   if (localStorage.getItem('mc2Trainer')) {
