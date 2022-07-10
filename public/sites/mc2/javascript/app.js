@@ -1,11 +1,10 @@
 var CACHE_DYNAMIC_NAME = 'content-1'
-var DEFAULT_ENTRY = '/content/index.html'
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
     .register('/sw.js')
     .then(function () {
-      console.log('Service worker RegistereD!')
+      console.log('Service worker registered!')
       localStorage.setItem('swWorking', 'TRUE')
     })
     .catch(function (err) {
@@ -52,11 +51,10 @@ function restoreDynamic() {
 }
 // check to see if this is an index file for a series and get value index.json
 function modifyPage() {
-  console.log('app modifyPage')
-  //var series = document.getElementById('offline-request')
-  //if (series !== null) {
-  //  checkOfflineSeries(series.dataset.json)
-  // }
+  var series = document.getElementById('offline-request')
+  if (series !== null) {
+    checkOfflineSeries(series.dataset.json)
+  }
   findCollapsible()
   findSummaries()
   if (localStorage.getItem('mc2Trainer')) {
@@ -67,11 +65,11 @@ function modifyPage() {
     }
     // unhide all items which are collapsed for students
     elements = document.getElementsByClassName('collapsible')
-    for (var i = 0; i < elements.length; i++) {
+    for (i = 0; i < elements.length; i++) {
       elements[i].className = 'revealed'
     }
     elements = document.getElementsByClassName('collapsed')
-    for (var i = 0; i < elements.length; i++) {
+    for (i = 0; i < elements.length; i++) {
       elements[i].style.display = 'block'
     }
   }
@@ -192,6 +190,116 @@ function hideWhenOffline() {
     }
   }
 }
+function checkOfflineSeries(series) {
+  console.log(series + ' series is being checked')
+  // set ios prompt if needed
+  //https://www.netguru.co/codestories/few-tips-that-will-make-your-pwa-on-ios-feel-like-native
+
+  if (this.needsToSeePrompt()) {
+    localStorage.setItem('lastSeenPrompt', new Date()) // set current time for prompt
+    var myBtn = document.getElementById('offline-request'),
+      myDiv = document.createElement('div')
+    myDiv.setAttribute('class', 'ios-notice-image')
+    myDiv.innerHTML =
+      '<img class = "ios-notice-icon" src="/images/icons/app-icon-144x144.png">'
+    myDiv.innerHTML +=
+      '<p class="ios-notice">' +
+      'Install this app on your phone without going to the Apple Store.' +
+      '</p>'
+    myDiv.innerHTML +=
+      '<img class = "ios-notice-homescreen" src="/images/installOnIOS.png">'
+
+    myBtn.parentNode.replaceChild(myDiv, myBtn)
+    console.log('I am showing prompt')
+    return
+  }
+  if (navigator.onLine) {
+    console.log('I am ONline')
+    var swWorking = localStorage.getItem('swWorking')
+    if ('serviceWorker' in navigator && swWorking == 'TRUE') {
+      console.log('I have a service worker')
+      inLocalStorage('offline', series).then(function (result) {
+        console.log(result + ' is value')
+        var link = ''
+        if (result == '') {
+          console.log(series + ' not offline')
+          link = document.getElementById('offline-request')
+          link.style.visibility = 'visible'
+        } else {
+          link = document.getElementById('offline-ready')
+          link.style.visibility = 'visible'
+        }
+      })
+    } else {
+      console.log('I do NOT have a service worker')
+      var link = document.getElementById('offline-request')
+      link.style.display = 'none'
+      //var link = document.getElementById('offline-already');
+      //link.style.display = 'none';
+    }
+  } else {
+    console.log('I am offline')
+    hideWhenOffline()
+  }
+}
+// this stores series for offline use
+// https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker
+var el = document.getElementById('offline-request')
+if (el) {
+  document
+    .getElementById('offline-request')
+    .addEventListener('click', function (event) {
+      event.preventDefault()
+      console.log('button pressed')
+      var id = this.dataset.json
+      var ajaxPromise = fetch(id)
+        .then(function (response) {
+          //get-series-urls returns a JSON-encoded array of
+          // resource URLs that a given series depends on
+          return response.json()
+        })
+        .then(function (jsonFile) {
+          jsonFile.forEach(function (element) {
+            console.log(element.url)
+            caches.open(CACHE_DYNAMIC_NAME).then(function (cache) {
+              cache.add(element.url)
+            })
+          })
+        })
+        .then(function () {
+          // store that series is available for offline use
+          console.log(id + ' Series ready for offline use')
+          var offline = []
+          var already
+          if (
+            typeof localStorage.offline != 'undefined' &&
+            localStorage.offline
+          ) {
+            offline = JSON.parse(localStorage.offline) //get existing values
+          }
+          offline.forEach(function (array_value) {
+            if (array_value == id) {
+              console.log('stored locally')
+              already = 'Y'
+            }
+          })
+          console.log(already + ' is already')
+          if (already != 'Y') {
+            offline.push(id)
+            console.log(offline)
+          }
+          localStorage.setItem('offline', JSON.stringify(offline)) //put the object back
+          var ready = document.getElementById('offline-ready').innerHTML
+          document.getElementById('offline-request').innerHTML = ready
+          document.getElementById('offline-request').style.background =
+            '#00693E'
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
+    })
+}
+
 
 // get value of variable in array
 // is id in key?
