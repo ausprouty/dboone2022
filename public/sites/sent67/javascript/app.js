@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', router)
 // check to see if this is an index file for a series and get value index.json
 window.onload = function () {
   // restore revealed areas
+  console.log ('app.onload')
   appRevealedRestore()
   var series = document.getElementById('offline-request')
   if (series !== null) {
@@ -191,6 +192,7 @@ function closeScreen() {
   return false
 }
 function findCollapsible() {
+  console.log ('findCollapsible')
   var coll = document.getElementsByClassName('collapsible')
   var i
   for (i = 0; i < coll.length; i++) {

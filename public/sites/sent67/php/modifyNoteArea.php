@@ -16,7 +16,7 @@ to:
 <div class="note-div" >
     <form class = "auto_submit_item">
         Notes: (click outside box to save)<br>
-        <span  onchange= "addNote()"  id ="note1Text" class="textarea" role="textbox" contenteditable></span>
+         <textarea class="textarea resize-ta" onchange= "addNote('[id]')"  id ="[id]" ></textarea>';
     </form>
 </div>
 
@@ -30,7 +30,7 @@ remove for nojs  (if $p['destination] == 'nojs')
     <div class="note-div">
         <form class = "auto_submit_item">
             <p class="note-instruction">[user_instruction]</p>
-            <textarea class="textarea resize-ta" onchange= "addNote()"  id ="[id]" ></textarea>';
+            <textarea class="textarea resize-ta" onchange= "addNote(\'[id]\')"  id ="[id]" ></textarea>';
     if ($p['destination'] == 'nojs' || $p['destination'] == 'pdf'){
        $template ='<div class="note-removed">';
     }
