@@ -32,7 +32,7 @@ function router() {
 document.addEventListener('DOMContentLoaded', router)
 
 // check to see if this is an index file for a series and get value index.json
-window.onload = function () {
+document.addEventListener('DOMContentLoaded', (event) => {
   // restore revealed areas
   console.log ('app.onload')
   appRevealedRestore()
@@ -62,7 +62,7 @@ window.onload = function () {
     console.log('I am offline')
     hideWhenOffline()
   }
-}
+})
 
 // start of Show Install prompt
 // Initialize deferredPrompt for use later to show browser install prompt.

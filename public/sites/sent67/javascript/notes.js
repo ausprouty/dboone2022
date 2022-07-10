@@ -1,4 +1,4 @@
-window.onload = function () {
+document.addEventListener('DOMContentLoaded', (event) => {
   var notes_page = document.getElementById('notes_page')
   if (notes_page !== null) {
     var notes = notes_page.value
@@ -10,7 +10,7 @@ window.onload = function () {
       textarea.style.height = calcHeight(textarea.value) + 'px'
     })
   }
-}
+})
 
 // Dealing with Textarea Height
 function calcHeight(value) {
