@@ -51,7 +51,6 @@ function restoreDynamic() {
 }
 // check to see if this is an index file for a series and get value index.json
 function modifyPage() {
-
   findCollapsible()
   findSummaries()
   if (localStorage.getItem('mc2Trainer')) {

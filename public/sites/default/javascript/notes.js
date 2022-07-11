@@ -1,10 +1,37 @@
-window.onload = function () {
+document.addEventListener('DOMContentLoaded', (event) => {
   var notes_page = document.getElementById('notes_page')
   if (notes_page !== null) {
     var notes = notes_page.value
     console.log(notes)
     showNotes(notes)
+    // from https://css-tricks.com/auto-growing-inputs-textareas/
+    let textarea = document.querySelector('.resize-ta')
+    textarea.addEventListener('keyup', () => {
+      textarea.style.height = calcHeight(textarea.value) + 'px'
+    })
   }
+})
+
+// Dealing with Textarea Height
+function calcHeight(value) {
+  let numberOfLineBreaks = (value.match(/\n/g) || []).length
+  // look for long lines
+  var longLines = 0
+  var extraLines = 0
+  var lineMax = window.innerWidth/8
+  console.log (lineMax)
+  const line = value.split('/\n')
+  var len = line.length
+  for (var i = 0; i < len; i++) {
+    console.log(line[i])
+    if (line[i].length > lineMax) {
+      extraLines = Math.round(line[i].length / lineMax)
+      longLines += extraLines
+    }
+  }
+  // min-height + lines x line-height + padding + border
+  let newHeight = 20 + (numberOfLineBreaks + longLines) * 20 + 12 + 2
+  return newHeight
 }
 
 function showNotes(page) {
@@ -22,17 +49,20 @@ function showNotes(page) {
     notePlace = document.getElementById(notes[i].key)
     if (notePlace) {
       document.getElementById(notes[i].key).value = notes[i].value
+      document.getElementById(notes[i].key).style.height =
+        calcHeight(notes[i].value) + 'px'
     }
   }
-  document.getElementById('sendAction').classList.remove('hidden')
 
   return
 }
 
-function addNote() {
-  console.log('In add_note')
-  document.getElementById('sendAction').classList.remove('hidden') // show link at bottom to send Action
-  console.log('this should show button at bottom')
+function addNote(noteId) {
+  console.log('In add_note for ' + noteId)
+  // resize note
+  var noteIdText = document.getElementById(noteId).value
+  document.getElementById(noteId).style.height = calcHeight(noteIdText) + 'px'
+  // save notes
   var notesPage = document.getElementById('notes_page').value
   console.log('Notes Page' + notesPage)
   // find ids of all textareas
@@ -44,7 +74,7 @@ function addNote() {
     ids.push(txtAreas[i].id)
   }
   for (var i = 0; i < len; i++) {
-    note = document.getElementById(ids[i])
+    var note = document.getElementById(ids[i])
     var entry = new Object()
     entry.key = ids[i]
     entry.value = note.value
