@@ -82,6 +82,11 @@
     <link rel="stylesheet" href="{{ selected.css }}" />
   </head>
   <body id="app" class="container" {{ onload-note-js }} >
-
+    <div id="addToHomeScreen" class="hidden">
+      <div class="close" onclick="closeScreen()">Close<img class="close" src="/sites/mc2/images/standard/close.png"></div>
+      <div id = "addToHomeScreenButton">
+          <img class="addToHomeScreenNotice" src="/sites/mc2/content/{{ language_iso }}/images/standard/add-to-homepage.png" alt="Add to Homepage">
+      </div>
+    </div>
   </body>
 </html>
