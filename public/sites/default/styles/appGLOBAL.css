@@ -350,6 +350,17 @@ a.no_underline {
   color: #333130;
   text-decoration: none;
 }
+/*
+iOS
+*/
+div.ios-notice-image{
+ text-align: center;
+  background-color: yellow;
+  padding: 10px;
+}
+img.ios-notice-icon{
+    width:100px;
+}
 
 /*
 Footer
