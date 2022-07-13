@@ -65,6 +65,7 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
         '{{ selected.css }}',
         '{{ headers }}',
         '{{ onload-note-js }}',
+        '{{ language_iso }}',
         '</html>',
         '</body>');
     $replace = array(
@@ -74,6 +75,7 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
         $selected_css,
         $headers,
         $onload_note_js,
+        $p['language_iso'],
         '',
         '');
     $output = str_replace($placeholders, $replace,  $output);

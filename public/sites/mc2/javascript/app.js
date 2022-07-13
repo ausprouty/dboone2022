@@ -154,32 +154,6 @@ function goToPageAndSetReturn(page) {
   window.location.replace(page)
 }
 
-// get value of variable in array
-// is id in key?
-function inLocalStorage(key, id) {
-  var deferred = $.Deferred()
-  var result = ''
-  console.log('looking offline for local storage')
-  var key_value = localStorage.getItem(key)
-  if (typeof key_value != 'undefined' && key_value) {
-    key_value = JSON.parse(key_value)
-    console.log(key_value)
-    key_value.forEach(function (array_value) {
-      console.log(array_value + '  array value')
-      console.log(id + '  id')
-      if (array_value == id) {
-        console.log('stored locally')
-        result = id
-      }
-    })
-    console.log(result)
-  } else {
-    result = ''
-    console.log('not stored locally')
-  }
-  deferred.resolve(result)
-  return deferred.promise()
-}
 
 // for sharing
 //https://developers.google.com/web/updates/2016/09/navigator-share

@@ -42,17 +42,11 @@
     {{ headers }}
   </head>
   <body id="app" class="container" {{ onload-note-js }} >
-    <div id="addToHomeScreen" class="hidden"><span id="close" onclick="closeScreen()"><img class="close" src="/sites/sent67/images/standard/close.png"></span>
-      <div class="lesson"><img class="lesson-icon" src="/sites/sent67/images/icons/favicon-32x32.png" />
-        <div class="lesson-subtitle">Generations</div>
+    <div id="addToHomeScreen" class="hidden">
+      <div class="close" onclick="closeScreen()">Close<img class="close" src="/sites/mc2/images/standard/close.png"></div>
+      <div id = "addToHomeScreenButton">
+          <img class="addToHomeScreenNotice" src="/sites/sent67/content/U1/{{ language_iso }}/images/standard/add-to-homepage.png" alt="Add to Homepage">
       </div>
-
-      <hr />
-      <p>Installing this app on your homescreen will let you access content without an internet connection.</p>
-      <p>Any notes you take on this app are stored only on your own phone. </p>
-
-      <button class="addToHomeScreen" id="addToHomeScreenButton">Add To Home Screen</button>
-
-      <hr /></div>
+    </div>
   </body>
 </html>

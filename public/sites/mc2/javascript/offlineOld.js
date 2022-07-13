@@ -1,49 +1,34 @@
-
-// Initialize deferredPrompt for use later to show browser install prompt.
-let deferredPrompt
-// from https://web.dev/customize-install/
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent the mini-infobar from appearing on mobile
-  e.preventDefault()
-  // Stash the event so it can be triggered later.
-  deferredPrompt = e
-  // Update UI notify the user they can install the PWA
-  homescreenPromptShow()
-  // Optionally, send analytics event that PWA install promo was shown.
-  console.log(`'beforeinstallprompt' event was fired.`)
-})
-addToHomeScreenButton.addEventListener('click', async () => {
-  // Hide the app provided install promotion
-  homescreenPromptHide()
-  // Show the install prompt
-  deferredPrompt.prompt()
-  // Wait for the user to respond to the prompt
-  const { outcome } = await deferredPrompt.userChoice
-  // Optionally, send analytics event with outcome of user choice
-  console.log(`User response to the install prompt: ${outcome}`)
-  // We've used the prompt, and can't use it again, throw it away
-  deferredPrompt = null
-})
-
-window.addEventListener('appinstalled', (event) => {
-  console.log('👍', 'appinstalled', event)
-  // Clear the deferredPrompt so it can be garbage collected
-  window.deferredPrompt = null
-})
-
-document.addEventListener('DOMContentLoaded', offlineRequestCheck)
-
-function offlineRequestCheck(){
+document.addEventListener('DOMContentLoaded', checkOffline)
+function checkOffline(){
     var series = document.getElementById('offline-request')
-    if (typeof series !== 'undefined') {
-        offlineSeriesCheck(series.dataset.json)
+    if (series !== null) {
+        checkOfflineSeries(series.dataset.json)
     }
 }
-function offlineSeriesCheck(series) {
+
+function checkOfflineSeries(series) {
   console.log(series + ' series is being checked')
   // set ios prompt if needed
   //https://www.netguru.co/codestories/few-tips-that-will-make-your-pwa-on-ios-feel-like-native
 
+  if (this.needsToSeePrompt()) {
+    localStorage.setItem('lastSeenPrompt', new Date()) // set current time for prompt
+    var myBtn = document.getElementById('offline-request'),
+      myDiv = document.createElement('div')
+    myDiv.setAttribute('class', 'ios-notice-image')
+    myDiv.innerHTML =
+      '<img class = "ios-notice-icon" src="/images/icons/app-icon-144x144.png">'
+    myDiv.innerHTML +=
+      '<p class="ios-notice">' +
+      'Install this app on your phone without going to the Apple Store.' +
+      '</p>'
+    myDiv.innerHTML +=
+      '<img class = "ios-notice-homescreen" src="/images/installOnIOS.png">'
+
+    myBtn.parentNode.replaceChild(myDiv, myBtn)
+    console.log('I am showing prompt')
+    return
+  }
   if (navigator.onLine) {
     console.log('I am ONline')
     var swWorking = localStorage.getItem('swWorking')
@@ -70,7 +55,7 @@ function offlineSeriesCheck(series) {
     }
   } else {
     console.log('I am offline')
-    offlineItemsHide()
+    hideWhenOffline()
   }
 }
 function datediff(first, second) {
@@ -78,23 +63,7 @@ function datediff(first, second) {
   //  Round to nearest whole number to deal with DST.
   return Math.round((second - first) / (1000 * 60 * 60 * 24))
 }
-function homescreenPromptHide() {
-  var dlg = document.getElementById('addToHomeScreen')
-  dlg.classList.remove('xhidden')
-  dlg.classList.add('hidden')
-}
-function homescreenPromptShow() {
-  let today = Date.now()
-  var lastPrompt = localStorage.lastSeenPrompt
-  let days = Math.round((today - lastPrompt) / (1000 * 60 * 60 * 24))
-  //if (isNaN(days) || days > SHOW_PROMPT_EVERY_X_DAYS){
-  localStorage.setItem('lastSeenPrompt', today)
-  var dlg = document.getElementById('addToHomeScreen')
-  dlg.classList.remove('hidden')
-  dlg.classList.add('xhidden')
-  //}
-}
-function offlineItemsHide() {
+function hideWhenOffline() {
   // get rid of all readmore comments
   var readmore = document.getElementsByClassName('readmore')
   if (readmore.length > 0) {
@@ -128,7 +97,6 @@ function offlineItemsHide() {
   }
 }
 function needsToSeePrompt() {
-  return true
   if (navigator.standalone) {
     return false
   }
@@ -138,8 +106,6 @@ function needsToSeePrompt() {
   let isApple = ['iPhone', 'iPad', 'iPod'].includes(navigator.platform)
   return (isNaN(days) || days > 14) && isApple
 }
-
-
 // this stores series for offline use
 // https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker
 var el = document.getElementById('offline-request')

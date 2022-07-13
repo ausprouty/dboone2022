@@ -213,8 +213,8 @@ img.close {
 }
 #addToHomeScreen {
   background: yellow;
-  width:80%;
-  max-width: 550px;
+  width:70%;
+  max-width: 300px;
   border-radius: 15px;
   padding: 20px;
   position: fixed;
