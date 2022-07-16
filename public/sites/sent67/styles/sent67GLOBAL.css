@@ -709,7 +709,11 @@ table {
   margin-left: 3px;
   margin-right: 3px;
 }
-
+#addToHomeScreen,
+#addToHomeScreenButton,
+.close{
+  background-color: darkgrey;
+}
 /*for small screen */
 @media only screen and (max-width: 500px) {
   p.footer {

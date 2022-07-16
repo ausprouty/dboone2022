@@ -85,6 +85,7 @@ function createSeries($p, $data){
         $footer
     );
     $this_template = str_replace($placeholders, $replace, $this_template);
+    writeLogDebug('createSeries-88', $this_template );
     //
     // get chapter template
     //
@@ -105,7 +106,6 @@ function createSeries($p, $data){
     $chapters_text = '';
     if (isset($text->chapters)){
         foreach ($text->chapters as $chapter){
-            writeLogAppend('createSeries-108', $chapter);
             $status = false;
             if ($p['destination'] == 'website'){
                 $status = $chapter->publish;
@@ -117,10 +117,8 @@ function createSeries($p, $data){
             }
             //_write_series_log($p, $chapter);
             if ($status  == true ){ // we only want to process those with this as true
-                writeLogAppend('createSeries-120', $chapter);
                 $filename = $json_dir . $chapter->filename . '.html';
                 $filename = str_ireplace('/sites/myfriends', '', $filename);
-                //writeLogAppend('createSeries-125-filename', $filename ."\n");
                 $p['files_json'] .= '{"url":"'. $filename. '"},' ."\n";
                 $image = null;
                 if (isset($chapter->image)){
@@ -157,6 +155,6 @@ function createSeries($p, $data){
     }
     $out['text'] = str_replace('[[chapters]]', $chapters_text, $this_template);
     $out['p'] = $p;
-    //writeLog('creatSeries', $debug);
+    writeLogDebug('creatSeries-161', $out);
     return $out;
 }

@@ -69,9 +69,6 @@ function modifyPage() {
       elements[i].style.display = 'block'
     }
   }
-  if (!navigator.onLine) {
-    hideWhenOffline()
-  }
 }
 
 function findSummaries() {

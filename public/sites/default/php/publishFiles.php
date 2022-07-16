@@ -93,9 +93,9 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     $output = modifyImages($output, $p);
     // make sure  all files are copied to destination directory
     publishFilesInPage($output, $p);
-
+    writeLogAppend('publishFiles-96', $output);
     $output = makePathsRelative($output, $fname);
-    writeLogAppend('publishFiles-96', $fname);
+    writeLogAppend('publishFiles-98', $output);
     fileWrite($fname, $output, $p);
     return $output;
 }

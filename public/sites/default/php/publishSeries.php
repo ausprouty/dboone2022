@@ -41,13 +41,14 @@ function publishSeries ($p){
     }
     //$debug .= $data['text'] . "\n";
     $text = json_decode($data['text']);
-    writeLogDebug('publishSeries-30-text', $text);
-    writeLogDebug('publishSeries-31-p', $p);
+
     if ($text){
         // create Series
         $result = createSeries($p, $data);
+
         $p = $result['p']; // this gives us $p['files_json']
         if ($result['text']){
+            writeLogAppend('pubAlishSeries-48', $result['text']);
             // find css
             if (isset($p['recnum'])){
                 $b['recnum'] = $p['recnum'];
@@ -61,6 +62,7 @@ function publishSeries ($p){
             $dir = dirCreate('series', $p['destination'],  $p, $folders = null);
             $fname = $dir . 'index.html';
             $result['text'] .= '<!--- Created by publishSeries-->' . "\n";
+            writeLogDebugAppend('publishSeries-65', $result['text']);
             publishFiles( $p['destination'], $p, $fname, $result['text'],  STANDARD_CSS, $selected_css);
             $time = time();
             if ($p['destination'] == 'staging'){

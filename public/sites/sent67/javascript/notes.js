@@ -1,14 +1,16 @@
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
   var notes_page = document.getElementById('notes_page')
   if (notes_page !== null) {
     var notes = notes_page.value
-    console.log(notes)
     showNotes(notes)
     // from https://css-tricks.com/auto-growing-inputs-textareas/
-    let textarea = document.querySelector('.resize-ta')
-    textarea.addEventListener('keyup', () => {
-      textarea.style.height = calcHeight(textarea.value) + 'px'
-    })
+    var coll = document.getElementsByClassName('resize-ta')
+    var i
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener('keyup', function () {
+        this.style.height = calcHeight(this.value) + 'px'
+      })
+    }
   }
 })
 
@@ -18,12 +20,10 @@ function calcHeight(value) {
   // look for long lines
   var longLines = 0
   var extraLines = 0
-  var lineMax = window.innerWidth/8
-  console.log (lineMax)
+  var lineMax = window.innerWidth / 8
   const line = value.split('/\n')
   var len = line.length
   for (var i = 0; i < len; i++) {
-    console.log(line[i])
     if (line[i].length > lineMax) {
       extraLines = Math.round(line[i].length / lineMax)
       longLines += extraLines
@@ -35,7 +35,6 @@ function calcHeight(value) {
 }
 
 function showNotes(page) {
-  console.log('this will show notes for ' + page)
   var response = localStorage.getItem(page)
   if (!response) {
     return
@@ -44,7 +43,6 @@ function showNotes(page) {
   var len = notes.length
   var notePlace = null
   for (var i = 0; i < len; i++) {
-    console.log(notes[i].key)
     // sometimes people change the number of notes on a page after we publish
     notePlace = document.getElementById(notes[i].key)
     if (notePlace) {
@@ -58,13 +56,11 @@ function showNotes(page) {
 }
 
 function addNote(noteId) {
-  console.log('In add_note for ' + noteId)
   // resize note
   var noteIdText = document.getElementById(noteId).value
   document.getElementById(noteId).style.height = calcHeight(noteIdText) + 'px'
   // save notes
   var notesPage = document.getElementById('notes_page').value
-  console.log('Notes Page' + notesPage)
   // find ids of all textareas
   var txtAreas = document.getElementsByTagName('textarea')
   var len = txtAreas.length

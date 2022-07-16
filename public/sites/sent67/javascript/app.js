@@ -1,5 +1,4 @@
 var CACHE_DYNAMIC_NAME = 'content-1'
-var SHOW_PROMPT_EVERY_X_DAYS = 14
 var DEFAULT_ENTRY = '/content/index.html'
 
 if ('serviceWorker' in navigator) {
@@ -34,7 +33,7 @@ document.addEventListener('DOMContentLoaded', router)
 // check to see if this is an index file for a series and get value index.json
 document.addEventListener('DOMContentLoaded', (event) => {
   // restore revealed areas
-  console.log ('app.onload')
+  console.log('app.onload')
   appRevealedRestore()
   findCollapsible()
 
@@ -54,16 +53,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
       elements[i].style.display = 'block'
     }
   }
-  if (!navigator.onLine) {
-    console.log('I am offline')
-    hideWhenOffline()
-  }
 })
 
-
-
 function findCollapsible() {
-  console.log ('findCollapsible')
+  console.log('findCollapsible')
   var coll = document.getElementsByClassName('collapsible')
   var i
   for (i = 0; i < coll.length; i++) {
@@ -88,7 +81,6 @@ function findCollapsible() {
 function appRevealSummary(id) {
   var windowLocation = appRevealWindowLocation()
   var button = document.getElementById('Summary' + id)
-
   var content = button.nextElementSibling
   if (content.style.display === 'block') {
     // we save this in case we need to goToPageAndSetReturn;
@@ -119,7 +111,6 @@ function appRevealSummaryAdd(windowLocation, id) {
   current = id
   appRevealSummarySave(windowLocation, current)
 }
-
 function appRevealSummaryClose(windowLocation, id) {
   if (!document.getElementById('Summary' + id)) {
     return
@@ -245,7 +236,6 @@ function restoreDynamic() {
     })
   }
 }
-
 
 // for sharing
 //https://developers.google.com/web/updates/2016/09/navigator-share
