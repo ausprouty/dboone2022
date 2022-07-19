@@ -62,7 +62,7 @@ function publishSeries ($p){
             $dir = dirCreate('series', $p['destination'],  $p, $folders = null);
             $fname = $dir . 'index.html';
             $result['text'] .= '<!--- Created by publishSeries-->' . "\n";
-            writeLogDebugAppend('publishSeries-65', $result['text']);
+            writeLogAppend('publishSeries-65', $result['text']);
             publishFiles( $p['destination'], $p, $fname, $result['text'],  STANDARD_CSS, $selected_css);
             $time = time();
             if ($p['destination'] == 'staging'){

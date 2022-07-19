@@ -38,18 +38,25 @@ function dirCreate($scope, $destination,  $p, $folders = null){
             break;
     }
     switch ($scope){
-        case ('country'):
+        case 'country':
             $dir.=  $p['country_code'] .'/';
             break;
-        case('language'):
+        case 'language':
             $dir.= $p['country_code']  .'/'. $p['language_iso'] .'/';
             break;
-        case('library'):
+        case 'library':
             $dir.= $p['country_code']  .'/'.$p['language_iso'] .'/'.$p['library_code'].'/';
             break;
-        case ('series'):
+        case 'series':
             $dir.= $p['country_code']  .'/'.$p['language_iso'] .'/'.$p['folder_name'].'/';
             break;
+        case 'json_series':
+            $dir= '/sites/'. SITE_CODE .'/'. $p['country_code']  .'/'.$p['language_iso'] .'/'.$p['folder_name'].'/';
+            break;
+        case 'default':
+
+
+
     }
     $dir .= $folders;
     $dir = dirMake($dir);

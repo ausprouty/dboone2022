@@ -93,9 +93,11 @@ function publishFiles( $destination , $p, $fname, $text, $standard_css, $selecte
     $output = modifyImages($output, $p);
     // make sure  all files are copied to destination directory
     publishFilesInPage($output, $p);
-    writeLogAppend('publishFiles-96', $output);
-    $output = makePathsRelative($output, $fname);
-    writeLogAppend('publishFiles-98', $output);
+    // do not make relative for websites (debugging  download serirs)
+    if ($destination != 'staging' && $destination != 'website'){
+      $output = makePathsRelative($output, $fname);
+    }
+
     fileWrite($fname, $output, $p);
     return $output;
 }

@@ -14,6 +14,7 @@ function version2Text($text){
      $text = str_ireplace('"/content/ZZ/styles/cardGLOBAL.css"', '"/sites/default/styles/cardGLOBAL.css"',$text);
     $text = str_ireplace('"/content/ZZ/styles/sent67GLOBAL.css"','"/sites/sent67/styles/sent67GLOBAL.css"',$text);
     $text = str_ireplace('"/content/', '"/sites/sent67/content/', $text);
+     $text = str_ireplace('/sites/sent67/sites/sent67/', '/sites/sent67/', $text);
 
    return $text;
 }

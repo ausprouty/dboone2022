@@ -22,7 +22,7 @@ function createSeries($p, $data){
     }
     $bookmark  = bookmark($b);
     $selected_css = isset($bookmark['book']->style) ? $bookmark['book']->style :STANDARD_CSS ;
-    $json_dir =   $bookmark['language']->folder .'/'.$p['folder_name'] .'/'; // for files.json
+
     // replace placeholders in template
     // Note: Current  is unique in that only has one book in the series.
     if ($data['folder_name'] == 'current' || $data['folder_name'] == 'youth-basics'){
@@ -57,7 +57,8 @@ function createSeries($p, $data){
     $ribbon = isset($bookmark['library']->format->back_button) ? $bookmark['library']->format->back_button->image : DEFAULT_BACK_RIBBON;
     $debug= "ribbon is $ribbon\n";
     $language_dir = '/content/'. $data['country_code'] .'/'. $data['language_iso'] .'/'. $data['folder_name'] .'/';
-    $json = $language_dir . 'files.json';
+    $json_series_dir = dirCreate('json_series', $p['destination'],  $p, $folders = null);
+    $json = $json_series_dir . 'files.json';
     $p['files_json'] = '[{"url":"'.  $json .'"},' ."\n"; // rest to be filled in with chapters
     // dealing with legacy data
     if (isset($bookmark['book']->image->image)){
@@ -117,8 +118,13 @@ function createSeries($p, $data){
             }
             //_write_series_log($p, $chapter);
             if ($status  == true ){ // we only want to process those with this as true
-                $filename = $json_dir . $chapter->filename . '.html';
-                $filename = str_ireplace('/sites/myfriends', '', $filename);
+                $filename = $language_dir . $chapter->filename . '.html';
+                /* we need to replace
+                /sites/sent67/content/U1/eng/hope/hope01.html
+                with
+                /content/U1/eng/hope/hope01.html
+                */
+                $filename = str_ireplace('/sites/'. SITE_CODE, '', $filename);
                 $p['files_json'] .= '{"url":"'. $filename. '"},' ."\n";
                 $image = null;
                 if (isset($chapter->image)){

@@ -9,10 +9,8 @@ myRequireOnce ('writeLog.php');
 
 
 function publishSeriesAndChapters ($p){
-    writeLogDebug('publishSeriesAndChapters-12', $p);
     // first prototype the Series Index
     $out = publishSeries ($p);
-
     if (!isset($out['files_json'])){
         $message= 'No files_json returned from Publish Series';
         writeLogError('publishSeriesAndChapters-17', $message);
@@ -79,7 +77,6 @@ function publishSeriesAndChapters ($p){
 
         }
     }
-
     //
     // Create files.json with list of files to download of offline use.
     //list of html files is created in createSeries near line 125
@@ -91,8 +88,11 @@ function publishSeriesAndChapters ($p){
         $files_json.= '{"url":"'. $json .'"},' ."\n";
     }
     $files_json = substr($files_json, 0, -2) . "\n" . ']' . "\n" ;
-    $filename =  $series_dir . 'files.json';
-
+    // json file needs to be in sites/mc2/content/M2/eng/multiply1
+    $json_series_dir = dirCreate('json_series', $p['destination'],  $p, $folders = null);
+    $filename =  $json_series_dir . 'files.json';
+    writeLogDebug('pubishSeriesAndChapters-94', $filename);
+    writeLogDebug('pubishSeriesAndChapters-95', $files_json);
     fileWrite($filename, $files_json, $p);
     return true;
 }
