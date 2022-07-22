@@ -1,4 +1,5 @@
 var CACHE_DYNAMIC_NAME = 'content-1'
+
 // Initialize deferredPrompt for use later to show browser install prompt.
 let deferredPrompt
 // from https://web.dev/customize-install/

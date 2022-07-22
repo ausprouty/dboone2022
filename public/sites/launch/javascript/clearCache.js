@@ -28,7 +28,7 @@ function clearCaches() {
         });
     });
   });
-  location.href="https://persue-prototype.sent67.com/content/U1/eng/index.html";
+  location.href="https://pursue-prototype.sent67.com/content/U1/eng/index.html";
 }
 
 function clearLocalStorage() {
