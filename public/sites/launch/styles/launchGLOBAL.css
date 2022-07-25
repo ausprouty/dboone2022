@@ -1,19 +1,19 @@
 :root {
-  --color-black-sent67: black;
-  --color-blue-sent67: #00749a;
-  --color-yellow-sent67: #f6b623;
-  --color-back-sent67ground-sent67: #f2ede6;
-  --color-version-sent67: #164c7f;
-  --color-back-sent67: black;
-  --color-up-sent67: black;
-  --color-forward-sent67: black;
-  --color-trainer-sent67: orange;
-  --color-reveal-sent67: grey;
-  --color-bible-link-sent67: orange;
+  --color-black-launch: black;
+  --color-blue-launch: #00749a;
+  --color-yellow-launch: #f6b623;
+  --color-back-launchground-launch: #f2ede6;
+  --color-version-launch: #164c7f;
+  --color-back-launch: black;
+  --color-up-launch: black;
+  --color-forward-launch: black;
+  --color-trainer-launch: orange;
+  --color-reveal-launch: grey;
+  --color-bible-link-launch: orange;
 }
 
 #offline-ready {
-  color: var(--color-up-sent67);
+  color: var(--color-up-launch);
 }
 html {
   -webkit-text-size-adjust: 100%;
@@ -35,10 +35,10 @@ div.login-note {
 }
 
 .bible-link {
-  color: var(--color-bible-link-sent67);
+  color: var(--color-bible-link-launch);
 }
 .dbs-instruction {
-  color: var(--color-blue-sent67);
+  color: var(--color-blue-launch);
   font-style: italic;
 }
 .badge {
@@ -58,7 +58,7 @@ div.login-note {
   color: #fff;
 }
 .cache-series {
-  background-color: var(--color-up-sent67);
+  background-color: var(--color-up-launch);
 }
 .for-enrichment {
   background-color: #e6ecf2;
@@ -77,14 +77,14 @@ h6 {
   display: flex;
   margin-left: 10px;
   margin-right: 10px;
-  color: var(--color-blue-sent67);
+  color: var(--color-blue-launch);
   align-items: center;
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 h1 {
   font-size: 30px;
   font-weight: 700;
-  color: var(--color-blue-sent67);
+  color: var(--color-blue-launch);
   display: inline;
 }
 h2 {
@@ -117,10 +117,10 @@ small {
   font-size: 80%;
 }
 .error {
-  border: 1px solid var(--color-blue-sent67);
+  border: 1px solid var(--color-blue-launch);
 }
 .errorMessage {
-  color: var(--color-yellow-sent67);
+  color: var(--color-yellow-launch);
 }
 .eyebrow {
   font-size: 20px;
@@ -188,7 +188,7 @@ button:-moz-focusring,
 }
 button {
   margin-bottom: 20px;
-  background-color: var(--color-blue-sent67);
+  background-color: var(--color-blue-launch);
   color: white;
   font-weight: bold;
   border-radius: 6px;
@@ -196,7 +196,7 @@ button {
   padding: 0 40px;
 }
 .button.red {
-  background-color: var(--color-blue-sent67);
+  background-color: var(--color-blue-launch);
   height: 48px;
 }
 .button.grey {
@@ -205,7 +205,7 @@ button {
 }
 div.bible_container,
 div.bible {
-  background-color: var(--color-back-sent67ground-sent67);
+  background-color: var(--color-back-launchground-launch);
   padding-left: 10px;
   line-height: 25px;
   margin-left: 0px;
@@ -328,7 +328,7 @@ label,
 }
 p.version {
   text-align: center;
-  color: var(--color-version-sent67);
+  color: var(--color-version-launch);
   font-size: 10pt;
 }
 p.rtl {
@@ -362,6 +362,9 @@ p.bible {
   text-align: left;
   font-weight: 600;
 }
+.lesson-introduction {
+  color:var(--color-blue-launch);
+}
 .triangle {
   text-align: left;
 }
@@ -371,7 +374,7 @@ p.bible {
 }
 a {
   background: transparent;
-  color: var(--color-blue-sent67);
+  color: var(--color-blue-launch);
 }
 a:.summary-shown,
 a:active,
@@ -379,8 +382,8 @@ a:hover {
   outline: 0;
 }
 a.bible-readmore {
-  background-color: var(--color-blue-sent67);
-  border-color: var(--color-blue-sent67);
+  background-color: var(--color-blue-launch);
+  border-color: var(--color-blue-launch);
   border: 1px;
   color: #fff;
   height: auto;
@@ -392,7 +395,7 @@ a.bible-readmore {
 
 sup,
 .versenum {
-  color: var(--color-blue-sent67);
+  color: var(--color-blue-launch);
   font-size: 75%;
   line-height: 0;
   padding-right: 2px;
@@ -420,7 +423,7 @@ div.lesson.rtl {
 div.lesson-subtitle,
 div.lesson-section {
   bottom: 0;
-  color: var(--color-black-sent67);
+  color: var(--color-black-launch);
   font-size: 30px;
   line-height: 30px;
   margin-left: 45px;
@@ -429,7 +432,7 @@ div.lesson-section {
 div.myfriends-lesson-subtitle-rtl,
 div.lesson-subtitle.rtl {
   bottom: 0;
-  color: var(--color-black-sent67);
+  color: var(--color-black-launch);
   font-size: 30px;
   line-height: 30px;
   margin-right: 65px;
@@ -461,14 +464,14 @@ img.lesson-rtl-icon {
   width: 30px;
 }
 li.ltr {
-  color: var(--color-blue-sent67);
+  color: var(--color-blue-launch);
 }
 p {
   text-align: left;
 }
 p.reference {
   padding-top: 20px;
-  color: var(--color-blue-sent67);
+  color: var(--color-blue-launch);
   font-size: 20px;
   padding-bottom: 20px;
 }
@@ -567,7 +570,7 @@ li.nobreak {
   margin-top: 12px;
 }
 .popup {
-  color: var(--color-blue-sent67);
+  color: var(--color-blue-launch);
   font-style: italic;
 }
 .action,
@@ -585,27 +588,27 @@ li.nobreak {
   text-align: left;
   outline: none;
   font-size: 15px;
-  background: var(--color-blue-sent67) url('../images/css/reveal.png');
+  background: var(--color-blue-launch) url('../images/css/reveal.png');
   background-position: 8px 8px;
   background-repeat: no-repeat;
 }
 .action {
-  background: var(--color-blue-sent67) url'../images/css/action.png');
+  background: var(--color-blue-launch) url'../images/css/action.png');
   background-position: 8px 8px;
   background-repeat: no-repeat;
 }
 .collapsible.bible {
-  background: var(--color-blue-sent67) url('../images/css/bible.png');
+  background: var(--color-blue-launch) url('../images/css/bible.png');
   background-position: 8px 8px;
   background-repeat: no-repeat;
 }
 .external-movie {
-  background: var(--color-blue-sent67) url('../images/css/video.png');
+  background: var(--color-blue-launch) url('../images/css/video.png');
   background-position: 8px 15px;
   background-repeat: no-repeat;
 }
 .external-audio {
-  background: var(--color-blue-sent67) url('../images/css/audio.png');
+  background: var(--color-blue-launch) url('../images/css/audio.png');
   background-position: 8px 15px;
   background-repeat: no-repeat;
 }
@@ -700,7 +703,7 @@ table {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: var(--color-version-sent67);
+  background-color: var(--color-version-launch);
   color: white;
 }
 
@@ -760,7 +763,7 @@ table {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: var(--color-blue-sent67);
+  background-color: var(--color-blue-launch);
   color: white;
 }
 .alert {
@@ -775,5 +778,5 @@ table {
 /* added for editing site */
 
 .menu-card {
-  background-color: var(--color-blue-sent67);
+  background-color: var(--color-blue-launch);
 }

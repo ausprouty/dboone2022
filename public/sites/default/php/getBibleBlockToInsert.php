@@ -36,9 +36,9 @@ function getBibleBlockToInsert($p){
             '[ReadMore]'
         );
         $good= array(
-            $response['content']['reference'],
-            $response['content']['text'],
-            $response['content']['link'],
+            $response['reference'],
+            $response['text'],
+            $response['link'],
             $p['read_more']
         );
         $block .= str_replace($replace, $good, $template);
