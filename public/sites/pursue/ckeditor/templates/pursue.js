@@ -1,5 +1,5 @@
 CKEDITOR.addTemplates('default', {
-  imagesPath: CKEDITOR.getUrl('/templates/images/sent67/'),
+  imagesPath: CKEDITOR.getUrl('/sites/pursue/ckeditor/templates/images/'),
   templates: [
     {
       title: 'Note Area',
@@ -57,21 +57,21 @@ CKEDITOR.addTemplates('default', {
       image: 'back.png',
       description: 'Image and Title',
       html:
-        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/default/images/back.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="back"\x3eLOOKING BACK\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
+        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/launch/images/default/back.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="back"\x3eLOOKING BACK\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
     },
     {
       title: 'Looking Up',
       image: 'up.png',
       description: 'Image and Title',
       html:
-        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/default/images/up.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="up"\x3eLOOKING UP\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
+        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/launch/images/default/up.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="up"\x3eLOOKING UP\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
     },
     {
       title: 'Looking Forward',
       image: 'forward.png',
       description: 'Image and Title',
       html:
-        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/default/images/forward.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="forward"\x3eLOOKING FORWARD\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
+        '\x3cdiv class\x3d"lesson"\x3e\x3cimg class\x3d"lesson-icon" src\x3d"/sites/launch/images/default/forward.png" /\x3e\x3cdiv class\x3d"lesson-subtitle"\x3e\x3cspan class="forward"\x3eLOOKING FORWARD\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e',
     },
     {
       title: 'Javascript Block',

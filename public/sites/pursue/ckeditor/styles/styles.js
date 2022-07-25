@@ -15,7 +15,7 @@
 //
 // For more information refer to: https://ckeditor.com/docs/ckeditor4/latest/guide/dev_styles.html#style-rules
 
-window.CKEDITOR.stylesSet.add('sent67', [
+window.CKEDITOR.stylesSet.add('pursue', [
   {
     name: 'enrichment',
     element: 'span',
