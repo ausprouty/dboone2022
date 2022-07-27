@@ -1,5 +1,5 @@
 <?php
-// make directory if not found. No directory can have words .html or .json
+// make directory if not found. No directory can have words '.bat','.html', '.json', '.mp3', '.mp4', '.wav')
 myRequireOnce('writeLog.php');
 function dirMake($filename){
 	$dir = '';
@@ -9,6 +9,11 @@ function dirMake($filename){
 	}
 	if (strpos($filename, '..') !== FALSE){
 		$filename = str_ireplace ('..', '', $filename);
+	}
+	if (strpos($filename, ROOT_EDIT) === FALSE &&
+		strpos($filename, ROOT_STAGING) === FALSE &&
+		strpos($filename, ROOT_WEBSITE) === FALSE){
+		$filename = ROOT_EDIT.  $filename;
 	}
     $file_types = array('.bat','.html', '.json', '.mp3', '.mp4', '.wav');
 	$parts = explode('/', $filename);
@@ -21,6 +26,7 @@ function dirMake($filename){
 		}
 		if ($ok){
 			$dir .= $part . '/';
+			//writeLogAppend('dirMake-24', $dir);
 			if (!file_exists($dir)){
 				mkdir ($dir);
 			}

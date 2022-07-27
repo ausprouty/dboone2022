@@ -24,7 +24,7 @@ function createDirectory($dir){
              $path .= $part .'/';
         }
         if (!file_exists($path)){
-            writeLogAppend('writeLog-25', $path);
+            writeLogAppend('createDirectory-27', $path);
             mkdir($path);
         }
     }

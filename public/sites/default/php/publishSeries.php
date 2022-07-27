@@ -48,7 +48,7 @@ function publishSeries ($p){
 
         $p = $result['p']; // this gives us $p['files_json']
         if ($result['text']){
-            writeLogAppend('pubAlishSeries-48', $result['text']);
+            writeLogAppend('publishSeries-48', $result['text']);
             // find css
             if (isset($p['recnum'])){
                 $b['recnum'] = $p['recnum'];
@@ -89,7 +89,8 @@ function publishSeries ($p){
         }
     }
     else{
-        $debug .= 'No text found for the above query '.  "\n";
+        $message ='No text found for '.  $query ."\n";
+        writeLogAppend('ERROR- publishSeries-93', $message);
 
     }
     return $p;

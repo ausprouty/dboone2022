@@ -161,6 +161,6 @@ function createSeries($p, $data){
     }
     $out['text'] = str_replace('[[chapters]]', $chapters_text, $this_template);
     $out['p'] = $p;
-    writeLogDebug('creatSeries-161', $out);
+    writeLogDebug('createSeries-161', $out);
     return $out;
 }
