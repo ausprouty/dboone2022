@@ -37,6 +37,12 @@ div.login-note {
 .bible-link {
   color: var(--color-bible-link-launch);
 }
+.bible-book-error {
+  color: purple;
+}
+.bible-text-error {
+  color: green;
+}
 .dbs-instruction {
   color: var(--color-blue-launch);
   font-style: italic;

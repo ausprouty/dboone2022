@@ -76,21 +76,23 @@ function createBibleDbtArray($p){
     $pass = str_replace('፡' , ':', $pass); // from Amharic
     $i = strpos($pass, ':');
     if ($i == FALSE){
-        $message= "Unable to identify chapter number";
-        writeLogError('createBibleDbtArray-91', $message);
-        trigger_error($message, E_USER_ERROR);
-        return;
-    }
-    $chapterId = substr($pass, 0, $i);
-    $verses = substr($pass, $i+1);
-    $i = strpos ($verses, '-');
-    if ($i !== FALSE){
-        $verseStart = substr($verses, 0, $i);
-        $verseEnd = substr($verses, $i+1);
+        // this is the whole chapter
+        $chapterId = trim($pass);
+        $verseStart = 1;
+        $verseEnd = 999;
     }
     else{
-        $verseStart = $verses;
-        $verseEnd = $verses;
+        $chapterId = substr($pass, 0, $i);
+        $verses = substr($pass, $i+1);
+        $i = strpos ($verses, '-');
+        if ($i !== FALSE){
+            $verseStart = substr($verses, 0, $i);
+            $verseEnd = substr($verses, $i+1);
+        }
+        else{
+            $verseStart = $verses;
+            $verseEnd = $verses;
+        }
     }
     $dbt_array = array(
         'entry' => $passage,

@@ -8,8 +8,7 @@ myRequireOnce ('writeLog.php');
 /* This routine changes bible-link into bible-popup
 
    Input is : <span class="bible-link">Matthew 5:14</span>
-   Output is: <a href="javascript:popUp('pop#')">Matthew 5:14</a>
-			<div class="popup invisible" id="pop#">You are the light of the world. A town built on a hill cannot be hidden.</div>
+Output: see 3 templates in code
 */
 
 function biblePopupMaker($p){
@@ -29,7 +28,12 @@ function biblePopupMaker($p){
     $nt = $bookmark->language->bible_nt;
     $template = '<a href="javascript:popUp(\'pop[id]\')">[reference]</a>
     <div class="popup" id="pop[id]">[text]</div>';
+    $template_book_not_found='<span class="bible-book-error">[reference]</span>';
+    $template_text_not_found='<span class="bible-text-error">[reference]</span>';
     $text = $p['text'];
+    // clean text from error spans added by this routine in the previous pass
+    $text = str_ireplace('"bible-book-error"', '"bible-link"', $text);
+    $text = str_ireplace('"bible-text-error"', '"bible-link"', $text);
     $highest_existing = biblePopupFindExisting ($text);
     $count = substr_count($text, '"bible-link"');
     $pos_end = 0;
@@ -47,44 +51,44 @@ function biblePopupMaker($p){
             $p['entry'] = html_entity_decode($reference);
             $message = $p['entry'] . "  $reference ";
             $p['passage'] =$p['entry'];
+            $id = $i + $highest_existing;
             $dbt = createBibleDbtArray($p);
             if (!$dbt){
                 writeLogAppend('ERROR-biblePopupMaker-55' , $p);
+                $popup = str_replace('[reference]', $reference, $template_book_not_found);
             }
             if ($dbt){
                 $dbt['version_ot'] = $ot;
                 $dbt['version_nt'] = $nt;
-                writeLogDebug('biblePopupMaker-62-dbt-'.$count , $dbt);
                 $bible = bibleGetPassage($dbt);
-                writeLogDebug('biblePopupMaker-65-bible'.$count , $bible);
                 if (!isset($bible['text'])){
                     writeLogAppend('ERROR-biblePopupMaker-63' , $dbt);
-                   return $text;
+                    $popup = str_replace('[reference]', $reference, $template_text_not_found);
                 }
-                $bible_text = $bible['text'];
-                // remove any headers
-                if (strpos ($bible_text, '<h3>') !== FALSE){
-                    $bible_text = _removeH3($bible_text);
-                }
-                $id = $i + $highest_existing;
-                $old = array(
-                    '[id]',
-                    '[reference]',
-                    '[text]',
-                );
-                $new = array(
-                    $id,
-                    $reference,
-                    $bible_text,
-                );
-                $popup = str_replace($old, $new, $template);
-                // replace only first occurance: https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
-                $pos = strpos($text,$span);
-                if ($pos !== false) {
-                    $text = substr_replace($text,$popup,$pos,strlen($span));
+                else{
+                    $bible_text = $bible['text'];
+                    // remove any headers
+                    if (strpos ($bible_text, '<h3>') !== FALSE){
+                        $bible_text = _removeH3($bible_text);
+                    }
+                    $old = array(
+                        '[id]',
+                        '[reference]',
+                        '[text]',
+                    );
+                    $new = array(
+                        $id,
+                        $reference,
+                        $bible_text,
+                    );
+                    $popup = str_replace($old, $new, $template);
                 }
             }
-           // $text = str_replace($span, $popup, $text, &$count = 1); // you only want to replace things once
+            // replace only first occurance: https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
+            $pos = strpos($text,$span);
+            if ($pos !== false) {
+                $text = substr_replace($text,$popup,$pos,strlen($span));
+            }
         }
     }
    // writeLog ('popup74-'. $i . '-'. time(), $text);
